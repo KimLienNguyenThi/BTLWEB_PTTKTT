@@ -1,4 +1,4 @@
-/********** Template CSS **********/
+﻿/********** Template CSS **********/
 :root {
     --primary: #FE5D37;
     --light: #FFF5F3;
@@ -500,4 +500,10 @@ h6,
     margin-right: 0;
     padding-right: 0;
     border-right: none;
+}
+
+/*Tự thêm vào*/
+.row-ttdg-pm:hover {
+    background-color: #f0f0f0; /* Màu nền khi hover */
+    cursor: pointer; /* Biến con trỏ thành bàn tay khi hover */
 }

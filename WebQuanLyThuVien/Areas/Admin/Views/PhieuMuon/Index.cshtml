@@ -1,4 +1,5 @@
-﻿
+﻿@model List<WebQuanLyThuVien.Models.DocGia>
+
 @{
     ViewBag.Title = "Phiếu Mượn";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -9,58 +10,117 @@
 <section class="content">
     <div class="container-fluid pt-4">
         <div class="row">
-                <div class="col-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="text-center">Tạo Phiếu Mượn</h3>
-                        </div>
-                        <div class="col-12">
-                            <form>
-                                <div class="form-group">
-                                    <label for="name">Tên độc giả:</label>
-                                    <input type="text" class="form-control" id="name" name="name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="book">Sách mượn:</label>
-                                    <input type="text" class="form-control" id="book" name="book">
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col">
-                                        <label for="return_date">Ngày mượn:</label>
-                                        <input type="date" class="form-control" id="return_date" name="return_date">
-                                    </div>
-                                    <div class="form-group col">
-                                        <label for="return_date">Ngày trả:</label>
-                                        <input type="date" class="form-control" id="return_date" name="return_date">
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Mượn sách</button>
-                            </form>
-                        </div>
 
-                    </div>
-                </div>
+            <!-- Tạo phiếu mượn -->
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
+                        <h3 class="text-center">Tạo Phiếu Mượn</h3>
+                    </div>
+                    <div class="col-12">
+                        <form>
+                            <!--Mã thẻ-->
+                            <div class="form-group">
+                                <label for="name">Mã thẻ:</label>
+                                <input type="text" class="form-control" id="selectedMaThe" name="selectedMaThe" readonly>
+                                <!--Thêm readonly sẽ không cho phép sửa-->
+                            </div>
+
+                            <!--Tên độc giả-->
+                            <div class="form-group">
+                                <label for="name">Tên độc giả:</label>
+                                <input type="text" class="form-control" id="selectedName" name="selectedName">
+                            </div>
+
+                            <!--Số điện thoại-->
+                            <div class="form-group">
+                                <label for="book">Số điện thoại:</label>
+                                <input type="text" class="form-control" id="selectedSDT" name="selectedSDT">
+                            </div>
+
+                            <div class="form-row">
+                                <!--Ngày mượn-->
+                                <div class="form-group col">
+                                    <label for="return_date">Ngày mượn:</label>
+                                    <input type="date" class="form-control" id="return_date" name="return_date">
+                                </div>
+
+                                <!--Ngày trả-->
+                                <div class="form-group col">
+                                    <label for="return_date">Ngày trả:</label>
+                                    <input type="date" class="form-control" id="return_date" name="return_date">
+                                </div>
+                            </div>
+
+                            <!--Button mượn sách-->
+                            <button type="submit" class="btn btn-primary">Mượn sách</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thông tin độc giả -->
+            <div class="col-6" style="height: 80vh;">
+                <div class="card" style="height: 100%;">
+                    <div class="card-header">
                         <h3 class="text-center">Thông Tin Độc Giả</h3>
                     </div>
-                    <div class="card-body">
-                        <table class="table table-bordered table-hover mx-auto">
+                    <div class="card-body text-center" style="overflow-y: auto;">
+                        <table class="table table-hover"  >
                             <thead>
                                 <tr>
-                                    <th></th>
+                                    <th>Mã</th>
+                                    <th>Họ tên</th>
+                                    <th>SDT</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="row-clickable">
+                                        <td>@item.MaDG</td>
+                                        <td>@item.HoTenDG</td>
+                                        <td>@item.SDT</td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </section>
+
+@section scripts
+{
+    <script>
+        // Lấy danh sách các hàng trong bảng thông tin độc giả
+        var rows = document.querySelectorAll(".row-clickable");
+
+        // Gán sự kiện nhấp cho từng hàng
+        rows.forEach(function (row) {
+            row.addEventListener("click", function () {
+                // Lấy thông tin tên từ cột Họ tên của hàng
+                var name = row.querySelector("td:nth-child(2)").textContent;
+                var sdt = row.querySelector("td:nth-child(3)").textContent;
+                // Hiển thị thông tin tên vào input tên độc giả trong form
+                document.getElementById("selectedName").value = name;
+                document.getElementById("selectedSDT").value = sdt;
+            });
+        });
+
+
+        // Lấy trường ngày mượn
+        var returnDateField = document.getElementById("return_date");
+        // Lấy ngày hiện tại
+        var currentDate = new Date();
+
+        // Định dạng ngày hiện tại thành chuỗi YYYY-MM-DD
+        var currentDateString = currentDate.toISOString().slice(0, 10);
+        // Đặt giá trị mặc định cho trường ngày mượn thành ngày hiện tại
+        returnDateField.value = currentDateString;
+
+    </script>
+}
 

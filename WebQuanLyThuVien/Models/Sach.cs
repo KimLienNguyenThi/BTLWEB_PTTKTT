@@ -38,6 +38,5 @@ namespace WebQuanLyThuVien.Models
         public virtual ICollection<CHITIETPN> CHITIETPNs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPT> ChiTietPTs { get; set; }
-        public virtual KhoSachThanhLy KhoSachThanhLy { get; set; }
     }
 }
