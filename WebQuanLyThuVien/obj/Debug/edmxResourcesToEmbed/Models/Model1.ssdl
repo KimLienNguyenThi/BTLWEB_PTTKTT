@@ -166,6 +166,15 @@
     <Property Name="MaNV" Type="int" />
     <Property Name="MaDG" Type="int" />
   </EntityType>
+  <EntityType Name="TT_SACH">
+    <Key>
+      <PropertyRef Name="MA_TT_SACH" />
+    </Key>
+    <Property Name="MA_TT_SACH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="URL_IMAGE" Type="text" />
+    <Property Name="MOTA" Type="ntext" />
+    <Property Name="MASACH" Type="int" />
+  </EntityType>
   <Association Name="FK__ChiTietPM__MaSac__6383C8BA">
     <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
     <End Role="ChiTietPM" Type="Self.ChiTietPM" Multiplicity="*" />
@@ -406,6 +415,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__TT_SACH__MASACH__7D439ABD">
+    <End Role="Sach" Type="Self.Sach" Multiplicity="0..1" />
+    <End Role="TT_SACH" Type="Self.TT_SACH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sach">
+        <PropertyRef Name="MaSach" />
+      </Principal>
+      <Dependent Role="TT_SACH">
+        <PropertyRef Name="MASACH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="QuanLyThuVienModelStoreContainer">
     <EntitySet Name="ChiTietPM" EntityType="Self.ChiTietPM" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CHITIETPN" EntityType="Self.CHITIETPN" Schema="dbo" store:Type="Tables" />
@@ -424,6 +445,7 @@
     <EntitySet Name="PhieuTra" EntityType="Self.PhieuTra" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TheDocGia" EntityType="Self.TheDocGia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TT_SACH" EntityType="Self.TT_SACH" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__ChiTietPM__MaSac__6383C8BA" Association="Self.FK__ChiTietPM__MaSac__6383C8BA">
       <End Role="Sach" EntitySet="Sach" />
       <End Role="ChiTietPM" EntitySet="ChiTietPM" />
@@ -503,6 +525,10 @@
     <AssociationSet Name="FK__TheDocGia__MaNV__4D94879B" Association="Self.FK__TheDocGia__MaNV__4D94879B">
       <End Role="NhanVien" EntitySet="NhanVien" />
       <End Role="TheDocGia" EntitySet="TheDocGia" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TT_SACH__MASACH__7D439ABD" Association="Self.FK__TT_SACH__MASACH__7D439ABD">
+      <End Role="Sach" EntitySet="Sach" />
+      <End Role="TT_SACH" EntitySet="TT_SACH" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

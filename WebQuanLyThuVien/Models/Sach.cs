@@ -20,6 +20,7 @@ namespace WebQuanLyThuVien.Models
             this.ChiTietPMs = new HashSet<ChiTietPM>();
             this.CHITIETPNs = new HashSet<CHITIETPN>();
             this.ChiTietPTs = new HashSet<ChiTietPT>();
+            this.TT_SACH = new HashSet<TT_SACH>();
         }
     
         public int MaSach { get; set; }
@@ -38,5 +39,7 @@ namespace WebQuanLyThuVien.Models
         public virtual ICollection<CHITIETPN> CHITIETPNs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPT> ChiTietPTs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TT_SACH> TT_SACH { get; set; }
     }
 }

@@ -189,6 +189,7 @@
     <NavigationProperty Name="ChiTietPMs" Relationship="Self.FK__ChiTietPM__MaSac__6383C8BA" FromRole="Sach" ToRole="ChiTietPM" />
     <NavigationProperty Name="CHITIETPNs" Relationship="Self.FK__CHITIETPN__MaPN__59FA5E80" FromRole="Sach" ToRole="CHITIETPN" />
     <NavigationProperty Name="ChiTietPTs" Relationship="Self.FK__ChiTietPT__MaPT__6A30C649" FromRole="Sach" ToRole="ChiTietPT" />
+    <NavigationProperty Name="TT_SACH" Relationship="QuanLyThuVienModel.FK__TT_SACH__MASACH__7D439ABD" FromRole="Sach" ToRole="TT_SACH" />
   </EntityType>
   <EntityType Name="TheDocGia">
     <Key>
@@ -544,5 +545,32 @@
       <End Role="TheDocGia" EntitySet="TheDocGias" />
       <End Role="PhieuTra" EntitySet="PhieuTras" />
     </AssociationSet>
+    <EntitySet Name="TT_SACH" EntityType="QuanLyThuVienModel.TT_SACH" />
+    <AssociationSet Name="FK__TT_SACH__MASACH__7D439ABD" Association="QuanLyThuVienModel.FK__TT_SACH__MASACH__7D439ABD">
+      <End Role="Sach" EntitySet="Saches" />
+      <End Role="TT_SACH" EntitySet="TT_SACH" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="TT_SACH">
+    <Key>
+      <PropertyRef Name="MA_TT_SACH" />
+    </Key>
+    <Property Name="MA_TT_SACH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="URL_IMAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MOTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MASACH" Type="Int32" />
+    <NavigationProperty Name="Sach" Relationship="QuanLyThuVienModel.FK__TT_SACH__MASACH__7D439ABD" FromRole="TT_SACH" ToRole="Sach" />
+  </EntityType>
+  <Association Name="FK__TT_SACH__MASACH__7D439ABD">
+    <End Type="QuanLyThuVienModel.Sach" Role="Sach" Multiplicity="0..1" />
+    <End Type="QuanLyThuVienModel.TT_SACH" Role="TT_SACH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sach">
+        <PropertyRef Name="MaSach" />
+      </Principal>
+      <Dependent Role="TT_SACH">
+        <PropertyRef Name="MASACH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

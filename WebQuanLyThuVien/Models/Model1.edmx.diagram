@@ -42,6 +42,8 @@
         <AssociationConnector Association="QuanLyThuVienModel.FK__TheDocGia__MaNV__4D94879B" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuMuon__MaThe__5FB337D6" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaThe__6754599E" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.TT_SACH" Width="1.5" PointX="8.25" PointY="2.125" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__TT_SACH__MASACH__7D439ABD" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

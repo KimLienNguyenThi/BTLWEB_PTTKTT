@@ -180,5 +180,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TT_SACH">
+      <EntityTypeMapping TypeName="QuanLyThuVienModel.TT_SACH">
+        <MappingFragment StoreEntitySet="TT_SACH">
+          <ScalarProperty Name="MASACH" ColumnName="MASACH" />
+          <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+          <ScalarProperty Name="URL_IMAGE" ColumnName="URL_IMAGE" />
+          <ScalarProperty Name="MA_TT_SACH" ColumnName="MA_TT_SACH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

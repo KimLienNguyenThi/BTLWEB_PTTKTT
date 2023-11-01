@@ -1,4 +1,5 @@
-﻿@model List<WebQuanLyThuVien.Models.DocGia>
+﻿
+@*@model List<WebQuanLyThuVien.Areas.Admin.Data.DTO_TTinDocGia_PM>*@
 
 @{
     ViewBag.Title = "Phiếu Mượn";
@@ -53,34 +54,93 @@
                             </div>
 
                             <!--Button mượn sách-->
-                            <button type="submit" class="btn btn-primary">Mượn sách</button>
+                            <button type="submit" class="btn btn-primary">Tạo phiếu mượn</button>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <!-- Thông tin độc giả -->
+            @*Thông tin độc giả và Sách
+        <div class="col-6" style="height: 80vh;">
+            <div class="card" style="height: 100%;">
+                <div class="card-header">
+                    <h3 class="text-center">Thông Tin Độc Giả</h3>
+                </div>
+                <div class="card-body text-center" style="overflow-y: auto;">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mã thẻ</th>
+                                <th>Họ tên</th>
+                                <th>SDT</th>
+                                <th>Địa chỉ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="row-clickable">
+                                    <td>@item.MaThe</td>
+                                    <td>@item.HoTenDG</td>
+                                    <td>@item.SDT</td>
+                                    <td>@item.DiaChi</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>*@
+
+            <!-- Nút chọn Sách hoặc Thông tin độc giả -->
             <div class="col-6" style="height: 80vh;">
                 <div class="card" style="height: 100%;">
                     <div class="card-header">
-                        <h3 class="text-center">Thông Tin Độc Giả</h3>
+                        <button id="showBooksButton" class="btn btn-primary">Thông tin độc giả</button>
+                        <button id="showReadersButton" class="btn btn-primary">Thông tin sách</button>
                     </div>
-                    <div class="card-body text-center" style="overflow-y: auto;">
-                        <table class="table table-hover"  >
+                    <div class="card-body text-center" id="thongTinDocGiaTable" style="overflow-y: auto;">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Mã</th>
                                     <th>Họ tên</th>
                                     <th>SDT</th>
+                                    <th>Địa chỉ</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
+                                @foreach (var item in ViewData["DocGia"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_DocGia_TheDocGia>)
                                 {
                                     <tr class="row-clickable">
-                                        <td>@item.MaDG</td>
+                                        <td>@item.MaThe</td>
                                         <td>@item.HoTenDG</td>
                                         <td>@item.SDT</td>
+                                        <td>@item.DiaChi</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card-body text-center" id="thongTinSachTable" style="overflow-y: auto;">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên sách</th>
+                                    <th>Tác giả</th>
+                                    <th>Số lượng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewData["Sach"] as List<WebQuanLyThuVien.Models.Sach>)
+                                {
+                                    <tr class="">
+                                        <td>@item.MaSach</td>
+                                        <td>@item.TenSach</td>
+                                        <td>@item.TacGia</td>
+                                        <td>@item.SoLuongHIENTAI</td>
                                     </tr>
                                 }
                             </tbody>
@@ -95,17 +155,52 @@
 @section scripts
 {
     <script>
+
+        // Lấy các phần tử DOM của bảng Sách và bảng Thông tin độc giả
+        var thongTinDocGiaTable = document.getElementById("thongTinDocGiaTable");
+        var thongTinSachTable = document.getElementById("thongTinSachTable");
+
+        // Lấy các nút chọn
+        var showBooksButton = document.getElementById("showBooksButton");
+        var showReadersButton = document.getElementById("showReadersButton");
+
+        // Gán sự kiện mặc định cho nút "Hiển thị Thông tin độc giả" khi trang được tải
+        thongTinDocGiaTable.style.display = "block";
+        thongTinSachTable.style.display = "none";
+
+        // Gán sự kiện click cho nút "Hiển thị Sách"
+        showBooksButton.addEventListener("click", function () {
+            // Ẩn bảng Thông tin độc giả
+            thongTinSachTable.style.display = "none";
+            // Hiển thị bảng Sách
+            thongTinDocGiaTable.style.display = "block";
+        });
+
+        // Gán sự kiện click cho nút "Hiển thị Thông tin độc giả"
+        showReadersButton.addEventListener("click", function () {
+            // Ẩn bảng Sách
+            thongTinDocGiaTable.style.display = "none";
+            // Hiển thị bảng Thông tin độc giả
+            thongTinSachTable.style.display = "block";
+        });
+
+
+
         // Lấy danh sách các hàng trong bảng thông tin độc giả
         var rows = document.querySelectorAll(".row-clickable");
 
         // Gán sự kiện nhấp cho từng hàng
         rows.forEach(function (row) {
             row.addEventListener("click", function () {
+
                 // Lấy thông tin tên từ cột Họ tên của hàng
-                var name = row.querySelector("td:nth-child(2)").textContent;
+                var maThe = row.querySelector("td:nth-child(1)").textContent;
+                var hoTen = row.querySelector("td:nth-child(2)").textContent;
                 var sdt = row.querySelector("td:nth-child(3)").textContent;
+
                 // Hiển thị thông tin tên vào input tên độc giả trong form
-                document.getElementById("selectedName").value = name;
+                document.getElementById("selectedMaThe").value = maThe;
+                document.getElementById("selectedName").value = hoTen;
                 document.getElementById("selectedSDT").value = sdt;
             });
         });

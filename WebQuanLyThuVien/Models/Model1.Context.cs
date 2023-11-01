@@ -42,5 +42,6 @@ namespace WebQuanLyThuVien.Models
         public virtual DbSet<PhieuTra> PhieuTras { get; set; }
         public virtual DbSet<Sach> Saches { get; set; }
         public virtual DbSet<TheDocGia> TheDocGias { get; set; }
+        public virtual DbSet<TT_SACH> TT_SACH { get; set; }
     }
 }
