@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using WebQuanLyThuVien.Areas.Admin.Data;
 using WebQuanLyThuVien.Interfaces;
 using WebQuanLyThuVien.Models;
 
@@ -35,6 +36,11 @@ namespace WebQuanLyThuVien.Repository
         {
             return _repository.GetById(EmployeeID);
 
+        }
+
+        public DTO_NhanVien_LoginNV Login(string username, string password)
+        {
+            return (DTO_NhanVien_LoginNV)_repository.Login(username, password);
         }
 
         public int Insert(NhanVien employee)

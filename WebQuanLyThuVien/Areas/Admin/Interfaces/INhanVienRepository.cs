@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WebQuanLyThuVien.Areas.Admin.Data;
 using WebQuanLyThuVien.Models;
 
 namespace WebQuanLyThuVien.Interfaces
@@ -12,6 +13,8 @@ namespace WebQuanLyThuVien.Interfaces
         int Delete(int obj);
 
         NhanVien GetBySDT(string sdt);
+        DTO_NhanVien_LoginNV Login(string username, string password);
+
     }
 }
 

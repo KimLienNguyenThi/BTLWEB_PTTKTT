@@ -5,7 +5,23 @@
             <img src="~/Content/Clients/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-            <a href="#" class="d-block">Thành Luân</a>
+            <a href="#" class="d-block">
+                @{
+                    var user = HttpContext.Current.Session["user"].ToString();
+                }
+                @user
+            </a>
+            <a class="d-block">
+                @{
+                    var chucvu = HttpContext.Current.Session["chucvu"].ToString();
+                }
+                @chucvu
+            </a>
+        </div>
+        <div class="image">
+            <a  href="~/admin/account/logout">
+                <i class="nav-icon fas fa-sign-out-alt pt-2" style="color: lightslategrey; font-size: 20px;"></i>
+            </a>
         </div>
     </div>
 

@@ -94,6 +94,11 @@ namespace WebQuanLyThuVien.Repository
             return Entities.Find(id);
         }
 
+        public virtual T Login(object username, object password)
+        {
+            return Entities.Find(username, password);
+        }
+
         // Phương thức Insert thực hiện việc thêm một đối tượng T mới vào cơ sở dữ liệu.
         public virtual int Insert(T entity)
         {

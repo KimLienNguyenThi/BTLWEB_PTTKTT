@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WebQuanLyThuVien.Areas.Admin.Data;
 using WebQuanLyThuVien.Models;
 
 namespace WebQuanLyThuVien.Interfaces.Services
@@ -18,5 +19,7 @@ namespace WebQuanLyThuVien.Interfaces.Services
 
         // ví dụ 1 phương thức đặc thù
         NhanVien GetBySDT(string sdt);
+
+        DTO_NhanVien_LoginNV Login(string username, string password);
     }
 }

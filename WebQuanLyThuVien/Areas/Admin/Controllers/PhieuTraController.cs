@@ -11,7 +11,12 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
         // GET: Admin/PhieuTra
         public ActionResult Index()
         {
-            return View();
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "Account");
+            else
+            {
+                return View();
+            }
         }
     }
 }

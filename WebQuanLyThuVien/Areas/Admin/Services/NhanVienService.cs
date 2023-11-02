@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using WebQuanLyThuVien.Areas.Admin.Data;
 using WebQuanLyThuVien.Interfaces;
 using WebQuanLyThuVien.Interfaces.Services;
 using WebQuanLyThuVien.Models;
@@ -51,6 +53,31 @@ namespace WebQuanLyThuVien.Services
             return data;
         }
 
+        public DTO_NhanVien_LoginNV Login(string username, string password)
+        {
+            var nhanVien =
+                (from nv in unitOfWork.Context.NhanViens
+                 join lg in unitOfWork.Context.LOGIN_NV
+                    on nv.MaNV equals lg.MANV
+                 where lg.USERNAME_NV == username && lg.PASSWORD_NV == password
+                 select new DTO_NhanVien_LoginNV
+                 {
+                     MaNV = nv.MaNV,
+                     HoTenNV = nv.HoTenNV,
+                     SDT = nv.SDT,
+                     ChucVu = nv.ChucVu,
+                     DiaChi = nv.DiaChi
+                 }).FirstOrDefault();
+
+            //if (nhanVien == null)
+            //{
+            //    return new DTO_NhanVien_LoginNV(); // Trả về một DTO rỗng
+            //    // throw new Exception("Thông tin đăng nhập không hợp lệ");
+            //}
+
+            return nhanVien;
+        }
+
         public NhanVien GetBySDT(string sdt)
         {
             var data = _nhanVienRepository.GetBySDT(sdt);
@@ -68,9 +95,9 @@ namespace WebQuanLyThuVien.Services
         }
 
         public void Update(NhanVien nhanvien)
-        { 
+        {
             // check xem nếu thành công hình như sẽ > 0 trả return thông báo cho UI người dùng
-            var isSuccess =  _nhanVienRepository.Update(nhanvien);
+            var isSuccess = _nhanVienRepository.Update(nhanvien);
         }
     }
 }

@@ -15,8 +15,13 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
-            var items = _nhanVienService.GetAll();
-            return View(items);
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "Account");
+            else
+            {
+                var items = _nhanVienService.GetAll();
+                return View(items);
+            }
         }
     }
 }
