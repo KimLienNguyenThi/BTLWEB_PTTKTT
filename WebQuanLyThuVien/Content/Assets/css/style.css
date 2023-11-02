@@ -507,10 +507,3 @@ h6,
     background-color: #f0f0f0; /* Màu nền khi hover */
     cursor: pointer; /* Biến con trỏ thành bàn tay khi hover */
 }
-
-td.book-title {
-    max-width: 200px; /* Chiều rộng tối đa của ô cột */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
