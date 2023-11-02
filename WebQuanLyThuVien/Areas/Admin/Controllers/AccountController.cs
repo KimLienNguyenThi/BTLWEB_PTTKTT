@@ -36,6 +36,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 //Session["user"] = login.HoTenNV +" ("+ login.ChucVu+")";
                 Session["user"] = login.HoTenNV;
                 Session["chucvu"] = login.ChucVu;
+                Session["manv"] = login.MaNV;
 
                 return RedirectToAction("Index", "Home");
             }
