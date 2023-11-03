@@ -177,10 +177,13 @@
     <Compile Include="Areas\Admin\Controllers\PhieuTraController.cs" />
     <Compile Include="Areas\Admin\Data\DAO.cs" />
     <Compile Include="Areas\Admin\Data\DTO.cs" />
+    <Compile Include="Areas\Admin\Data\PhieuMuon_DTO.cs" />
     <Compile Include="Areas\Admin\Interfaces\IDocGiaRepository.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IDocGiaService.cs" />
+    <Compile Include="Areas\Admin\Interfaces\Services\IPhieuMuonService.cs" />
     <Compile Include="Areas\Admin\Repository\DocGiaRepository.cs" />
     <Compile Include="Areas\Admin\Services\DocGiaService.cs" />
+    <Compile Include="Areas\Admin\Services\PhieuMuonService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
