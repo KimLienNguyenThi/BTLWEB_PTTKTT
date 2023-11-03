@@ -1,4 +1,5 @@
-﻿
+﻿@*@model List<WebQuanLyThuVien.Areas.Admin.Data.DTO_TTinDocGia_PM>*@
+
 @{
     ViewBag.Title = "Phiếu Mượn";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -9,51 +10,293 @@
 <section class="content">
     <div class="container-fluid pt-4">
         <div class="row">
-                <div class="col-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="text-center">Tạo Phiếu Mượn</h3>
+
+            <!-- Sách và Thông tin độc giả -->
+            <div class="col-6" style="height: 80vh;">
+                <div class="card" style="height: 100%;">
+                    <div class="card-header">
+                        <div class="form-row">
+                            <h3 class="text-center col text-blue text-bold"> Phiếu Mượn </h3>
+                            <button type="submit" class="btn btn-primary col">Tạo phiếu mượn</button>
                         </div>
-                        <div class="col-12">
-                            <form>
-                                <div class="form-group">
+                    </div>
+                    <div class="card-body" style="overflow-y: auto;">
+                        <form>
+                            <div class="form-row">
+                                <!--Mã thẻ-->
+                                <div class="form-group col">
+                                    <label for="name">Mã thẻ độc giả:</label>
+                                    <input type="text" class="form-control" id="selectedMaThe" name="selectedMaThe" readonly>
+                                    <!--Thêm readonly sẽ không cho phép sửa-->
+                                </div>
+
+                                <!--Mã nhân viên-->
+                                <div class="form-group col">
+                                    <label for="selectedMaNhanVien">Mã nhân viên:</label>
+                                    <input type="text" class="form-control" id="selectedMaNhanVien" name="selectedMaNhanVien" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <!--Tên độc giả-->
+                                <div class="form-group col">
                                     <label for="name">Tên độc giả:</label>
-                                    <input type="text" class="form-control" id="name" name="name">
+                                    <input type="text" class="form-control" id="selectedName" name="selectedName" readonly>
                                 </div>
-                                <div class="form-group">
-                                    <label for="book">Sách mượn:</label>
-                                    <input type="text" class="form-control" id="book" name="book">
+
+                                <!-- Số điện thoại-->
+                                <div class="form-group col">
+                                    <label for="book">Số điện thoại:</label>
+                                    <input type="text" class="form-control" id="selectedSDT" name="selectedSDT" readonly>
                                 </div>
-                                <div class="form-group">
+                            </div>
+
+                            <div class="form-row">
+                                <!--Ngày mượn-->
+                                <div class="form-group col">
+                                    <label for="return_date">Ngày mượn:</label>
+                                    <input type="date" class="form-control" id="return_date" name="return_date" readonly>
+                                </div>
+
+                                <!--Ngày trả-->
+                                <div class="form-group col">
                                     <label for="return_date">Ngày trả:</label>
                                     <input type="date" class="form-control" id="return_date" name="return_date">
                                 </div>
-                                <button type="submit" class="btn btn-primary">Mượn sách</button>
-                            </form>
-                        </div>
+                            </div>
+
+                            <!--Danh sách sách mượn-->
+                            <div class="text-center">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã</th>
+                                            <th>Tên sách</th>
+                                            <th>S/Lượng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @*@foreach (var item in ViewData["Sach"] as List<WebQuanLyThuVien.Models.Sach>)
+                                            {
+                                                <tr class="">
+                                                    <td>@item.MaSach</td>
+                                                    <td>@item.TenSach</td>
+                                                    <td>@item.SoLuongHIENTAI</td>
+                                                </tr>
+                                            }*@
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            <div class="col-4">
+            </div>
+
+            <!-- Sách và Thông tin độc giả -->
+            <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="text-center">Thông Tin Độc Giả</h3>
+                        <button id="thongTinDocGiaButton" class="btn btn-primary">Thông tin độc giả</button>
+                        <button id="thongTinSachButton" class="btn btn-primary">Thông tin sách</button>
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm pt-2"
+                                 style="width: 150px">
+                                <input type="text"
+                                       name="table_search"
+                                       class="form-control float-right"
+                                       placeholder="Search" />
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <table class="table table-bordered table-hover mx-auto">
+
+                    <!--Body table độc giả-->
+                    <div class="card-body table-responsive p-0"
+                         style="height: 71.2vh" id="thongTinDocGiaTable">
+                        <table class="table table-head-fixed table-hover  table-bordered">
                             <thead>
                                 <tr>
-                                    <th></th>
+                                    <th>Mã</th>
+                                    <th>Họ tên</th>
+                                    <th>SDT</th>
+                                    <th>Địa chỉ</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach (var item in ViewData["DocGia"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_DocGia_TheDocGia>)
+                                {
+                                    <tr class="docgia-row">
+                                        <td>@item.MaThe</td>
+                                        <td>@item.HoTenDG</td>
+                                        <td>@item.SDT</td>
+                                        <td>@item.DiaChi</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--Body table thông tin sách-->
+                    <div class="card-body table-responsive p-0"
+                         style="height: 71.2vh" id="thongTinSachTable">
+                        <table class="table table-head-fixed table-hover table-bordered">
+                            <!--text-nowrap-->
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên sách</th>
+                                    <th>S/Lượng</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewData["Sach"] as List<WebQuanLyThuVien.Models.Sach>)
+                                {
+                                    <tr class="sach-row" aria-expanded="false" data-widget="expandable-table">
+                                        <td>@item.MaSach</td>
+                                        <td>@item.TenSach</td>
+                                        <td>@item.SoLuongHIENTAI</td>
+                                    </tr>
+                                    <tr class="expandable-body text-center">
+                                        <td colspan="4" >
+                                            <div class="row sach-details">
+                                                <div class="col-5">
+                                                    <input type="number" class="form-control" id="inputSoluong" name="inputSoluong" placeholder="Nhập số lượng sách mượn" min="1" max="@item.SoLuongHIENTAI" step="1">
+                                                </div>
+                                                <div class="col-3">
+                                                    <button type="button" id="themSachButton" class="btn btn-primary btn-block">Thêm sách</button>
+                                                </div>
+                                                <div class="col-4">
+                                                    <button type="button" id="xctButton" class="btn btn-info btn-block">Xem chi tiết</button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-
         </div>
     </div>
 </section>
+
+@section scripts
+{
+    <script>
+        //----------------------------------------------------------
+
+
+        // Lấy các phần tử của bảng
+        var thongTinDocGiaTable = document.getElementById("thongTinDocGiaTable");
+        var thongTinSachTable = document.getElementById("thongTinSachTable");
+
+        // Gán sự kiện mặc định cho nút "Hiển thị Thông tin độc giả" khi trang được tải
+        thongTinDocGiaTable.style.display = "block";
+        thongTinSachTable.style.display = "none";
+
+        // Lấy các nút chọn
+        var thongTinSachButton = document.getElementById("thongTinSachButton");
+        var thongTinDocGiaButton = document.getElementById("thongTinDocGiaButton");
+
+        // Sự kiện click cho nút "Hiển thị Sách"
+        thongTinSachButton.addEventListener("click", function () {
+            // Ẩn bảng Thông tin độc giả
+            thongTinDocGiaTable.style.display = "none";
+            // Hiển thị bảng Sách
+            thongTinSachTable.style.display = "block";
+        });
+
+        // Sự kiện click cho nút "Hiển thị Thông tin độc giả"
+        thongTinDocGiaButton.addEventListener("click", function () {
+            // Ẩn bảng Sách
+            thongTinSachTable.style.display = "none";
+            // Hiển thị bảng Thông tin độc giả
+            thongTinDocGiaTable.style.display = "block";
+        });
+
+
+        //----------------------------------------------------------
+
+
+        // Lấy danh sách các hàng trong bảng thông tin độc giả
+        var docGiaRows = document.querySelectorAll(".docgia-row");
+        // Gán sự kiện nhấp cho từng hàng
+        docGiaRows.forEach(function (row) {
+            row.addEventListener("click", function () {
+
+                // Lấy thông tin tên từ cột Họ tên của hàng
+                var maThe = row.querySelector("td:nth-child(1)").textContent;
+                var hoTen = row.querySelector("td:nth-child(2)").textContent;
+                var sdt = row.querySelector("td:nth-child(3)").textContent;
+
+                // Hiển thị thông tin tên vào input tên độc giả trong form
+                document.getElementById("selectedMaThe").value = maThe;
+                document.getElementById("selectedName").value = hoTen;
+                document.getElementById("selectedSDT").value = sdt;
+            });
+        });
+
+
+        //----------------------------------------------------------
+
+
+        // Lấy ngày hiện tại
+        var currentDate = new Date();
+
+        // Định dạng ngày hiện tại thành chuỗi YYYY-MM-DD
+        var formatCurrentDate = currentDate.toISOString().slice(0, 10);
+
+        // Đặt giá trị mặc định cho trường ngày mượn thành ngày hiện tại
+        document.getElementById("return_date").value = formatCurrentDate;
+
+        // Set mã nhân viên
+        var manv = @HttpContext.Current.Session["manv"]
+        document.getElementById("selectedMaNhanVien").value = manv;
+
+
+        //----------------------------------------------------------
+
+
+        // Lấy danh sách các hàng của table sách
+        var sachRows = document.querySelectorAll(".sach-row");
+
+        // Lấy các nút chọn
+        var themSachButton = document.getElementById("themSachButton");
+        var xctButton = document.getElementById("xctButton");
+
+        // Bắt sự kiện click cho từng hàng sách
+        sachRows.forEach(function (row) {
+            row.addEventListener("click", function () {
+                // Ẩn tất cả các hàng chi tiết sách trước
+                var bookDetailsRows = document.querySelectorAll(".sach-details");
+
+                bookDetailsRows.forEach(function (detailsRow) {
+                    detailsRow.style.display = "none";
+                });
+
+                // Hiển thị hàng chi tiết sách tương ứng nếu nó tồn tại
+                var bookDetailsRow = row.querySelector(".sach-details");
+                if (bookDetailsRow) {
+                    bookDetailsRow.style.display = "table-row";
+                }
+            });
+        });
+
+
+        //----------------------------------------------------------
+
+
+
+
+
+    </script>
+}
 

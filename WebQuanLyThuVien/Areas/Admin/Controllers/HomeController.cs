@@ -4,18 +4,24 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebQuanLyThuVien.Models;
+using WebQuanLyThuVien.Services;
 
 namespace WebQuanLyThuVien.Areas.Admin.Controllers
 {
     public class HomeController : Controller
     {
-        QuanLyThuVienEntities db = new QuanLyThuVienEntities();
+        NhanVienService _nhanVienService = new NhanVienService();
 
         // GET: Admin/Home
         public ActionResult Index()
         {
-            var items = db.NhanViens.ToList();
-            return View(items);
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "Account");
+            else
+            {
+                var items = _nhanVienService.GetAll();
+                return View(items);
+            }
         }
     }
 }

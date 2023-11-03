@@ -32,6 +32,7 @@ namespace WebQuanLyThuVien.Models
         public virtual DbSet<DocGia> DocGias { get; set; }
         public virtual DbSet<DonViTL> DonViTLs { get; set; }
         public virtual DbSet<KhoSachThanhLy> KhoSachThanhLies { get; set; }
+        public virtual DbSet<LOGIN_DG> LOGIN_DG { get; set; }
         public virtual DbSet<LOGIN_NV> LOGIN_NV { get; set; }
         public virtual DbSet<NhaCungCap> NhaCungCaps { get; set; }
         public virtual DbSet<NhanVien> NhanViens { get; set; }
@@ -41,5 +42,6 @@ namespace WebQuanLyThuVien.Models
         public virtual DbSet<PhieuTra> PhieuTras { get; set; }
         public virtual DbSet<Sach> Saches { get; set; }
         public virtual DbSet<TheDocGia> TheDocGias { get; set; }
+        public virtual DbSet<TT_SACH> TT_SACH { get; set; }
     }
 }

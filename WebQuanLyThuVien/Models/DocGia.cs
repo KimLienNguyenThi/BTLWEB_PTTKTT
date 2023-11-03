@@ -17,6 +17,7 @@ namespace WebQuanLyThuVien.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DocGia()
         {
+            this.LOGIN_DG = new HashSet<LOGIN_DG>();
             this.TheDocGias = new HashSet<TheDocGia>();
         }
     
@@ -27,6 +28,8 @@ namespace WebQuanLyThuVien.Models
         public string SDT { get; set; }
         public string DiaChi { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LOGIN_DG> LOGIN_DG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TheDocGia> TheDocGias { get; set; }
     }

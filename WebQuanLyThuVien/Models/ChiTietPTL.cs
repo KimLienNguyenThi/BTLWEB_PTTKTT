@@ -14,7 +14,7 @@ namespace WebQuanLyThuVien.Models
     
     public partial class ChiTietPTL
     {
-        public int MaSach { get; set; }
+        public int MaSachkho { get; set; }
         public Nullable<int> Soluongtl { get; set; }
         public int MaPTL { get; set; }
     

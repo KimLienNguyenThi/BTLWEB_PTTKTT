@@ -31,7 +31,7 @@
     <EntitySetMapping Name="ChiTietPTLs">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.ChiTietPTL">
         <MappingFragment StoreEntitySet="ChiTietPTL">
-          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+          <ScalarProperty Name="MaSachkho" ColumnName="MaSachkho" />
           <ScalarProperty Name="Soluongtl" ColumnName="Soluongtl" />
           <ScalarProperty Name="MaPTL" ColumnName="MaPTL" />
         </MappingFragment>
@@ -62,15 +62,19 @@
     <EntitySetMapping Name="KhoSachThanhLies">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.KhoSachThanhLy">
         <MappingFragment StoreEntitySet="KhoSachThanhLy">
-          <ScalarProperty Name="TenSachtl" ColumnName="TenSachtl" />
-          <ScalarProperty Name="TheLoaitl" ColumnName="TheLoaitl" />
-          <ScalarProperty Name="TacGiatl" ColumnName="TacGiatl" />
-          <ScalarProperty Name="NgonNgutl" ColumnName="NgonNgutl" />
-          <ScalarProperty Name="NXBtl" ColumnName="NXBtl" />
-          <ScalarProperty Name="NamXBtl" ColumnName="NamXBtl" />
-          <ScalarProperty Name="GiaSachtl" ColumnName="GiaSachtl" />
-          <ScalarProperty Name="SoLuongthanhly" ColumnName="SoLuongthanhly" />
-          <ScalarProperty Name="masach" ColumnName="masach" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="masachkho" ColumnName="masachkho" />
+          <ScalarProperty Name="soluongkhotl" ColumnName="soluongkhotl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOGIN_DG">
+      <EntityTypeMapping TypeName="QuanLyThuVienModel.LOGIN_DG">
+        <MappingFragment StoreEntitySet="LOGIN_DG">
+          <ScalarProperty Name="USERNAME_DG" ColumnName="USERNAME_DG" />
+          <ScalarProperty Name="PASSWORD_DG" ColumnName="PASSWORD_DG" />
+          <ScalarProperty Name="HoTen_DG" ColumnName="HoTen_DG" />
+          <ScalarProperty Name="MaDG" ColumnName="MaDG" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -173,6 +177,16 @@
           <ScalarProperty Name="TienThe" ColumnName="TienThe" />
           <ScalarProperty Name="MaNV" ColumnName="MaNV" />
           <ScalarProperty Name="MaDG" ColumnName="MaDG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TT_SACH">
+      <EntityTypeMapping TypeName="QuanLyThuVienModel.TT_SACH">
+        <MappingFragment StoreEntitySet="TT_SACH">
+          <ScalarProperty Name="MASACH" ColumnName="MASACH" />
+          <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+          <ScalarProperty Name="URL_IMAGE" ColumnName="URL_IMAGE" />
+          <ScalarProperty Name="MA_TT_SACH" ColumnName="MA_TT_SACH" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
