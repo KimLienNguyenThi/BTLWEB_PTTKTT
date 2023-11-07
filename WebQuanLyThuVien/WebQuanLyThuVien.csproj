@@ -178,6 +178,7 @@
     <Compile Include="Areas\Admin\Data\DAO.cs" />
     <Compile Include="Areas\Admin\Data\DTO.cs" />
     <Compile Include="Areas\Admin\Data\PhieuMuon_DTO.cs" />
+    <Compile Include="Areas\Admin\Data\SachDTOcs.cs" />
     <Compile Include="Areas\Admin\Interfaces\IDocGiaRepository.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IDocGiaService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IPhieuMuonService.cs" />
