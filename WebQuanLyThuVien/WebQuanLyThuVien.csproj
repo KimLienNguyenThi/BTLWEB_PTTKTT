@@ -180,9 +180,11 @@
     <Compile Include="Areas\Admin\Data\PhieuMuon_DTO.cs" />
     <Compile Include="Areas\Admin\Interfaces\IDocGiaRepository.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IDocGiaService.cs" />
+    <Compile Include="Areas\Admin\Interfaces\Services\IPhieuMuonCTPhieuMuonService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IPhieuMuonService.cs" />
     <Compile Include="Areas\Admin\Repository\DocGiaRepository.cs" />
     <Compile Include="Areas\Admin\Services\DocGiaService.cs" />
+    <Compile Include="Areas\Admin\Services\PhieuMuonCTPhieuMuonService.cs" />
     <Compile Include="Areas\Admin\Services\PhieuMuonService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

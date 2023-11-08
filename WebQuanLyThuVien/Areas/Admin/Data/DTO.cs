@@ -36,4 +36,24 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         }
     }
 
+    public class DTO_Sach_Muon
+    {
+        public int MaSach { get; set; }
+        public string TenSach { get; set; }
+        public int SoLuong { get; set; }
+    }
+
+    public class DTO_Tao_Phieu_Muon
+    {
+        public int MaNhanVien { get; set; }
+        public int MaTheDocGia { get; set; }
+        public DateTime NgayMuon { get; set; }
+        public DateTime NgayTra { get; set; }
+        public List<DTO_Sach_Muon> listSachMuon { get; set; }
+
+        public DTO_Tao_Phieu_Muon()
+        {
+            listSachMuon = new List<DTO_Sach_Muon>();
+        }
+    }
 }
