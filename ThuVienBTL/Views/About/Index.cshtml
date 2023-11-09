@@ -6,57 +6,14 @@
     ViewBag.active = 2;
 }
 
-@*<div class="container mt-3">
-    <h2>Bảng thông tin sách</h2>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Mã sách</th>
-                <th>Tên sách</th>
-                <th>Thể loại</th>
-                <th>Tác giả</th>
-                <th>Ngôn ngữ</th>
-                <th>Nhà xuất bản</th>
-                <th>Năm xuất bản</th>
-                <th>Giá sách</th>
-                <th>Số lượng</th>
-            </tr>
-        </thead>
-
-        @foreach (var item in Model)
-        {
-            <tbody>
-                <tr>
-                    <td>@item.MaSach</td>
-                    <td>@item.TenSach</td>
-                    <td>@item.TheLoai</td>
-                    <td>@item.TacGia</td>
-                    <td>@item.NgonNgu</td>
-                    <td>@item.NXB</td>
-                    <td>@item.NamXB</td>
-                    <td>@item.GiaSach</td>
-                    <td>@item.SoLuongHIENTAI</td>
-                    <td>
-                        @Html.ActionLink("Sửa", "SuaThongTinSach", new { maSach = item.MaSach })
-                        @Html.ActionLink("Xoá", "XoaThongTinSach", new { maSach = item.MaSach })
-                    </td>
-                </tr>
-            </tbody>
-        }
-    </table>
-    <a href="~/About/ThemSachMoi"><h4>Thêm sách mới</h4></a>
-</div>*@
-
-
 <!-- Page Header End -->
 <div class="container-xxl py-5 page-header position-relative mb-5">
     <div class="container py-5">
-        <h1 class="display-2 text-white animated slideInDown mb-4">About Us</h1>
+        <h1 class="display-2 text-white animated slideInDown mb-4">Giới thiệu</h1>
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                <li class="breadcrumb-item text-white active" aria-current="page">About Us</li>
+                <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">Giới thiệu</li>
             </ol>
         </nav>
     </div>
@@ -67,34 +24,20 @@
     <div class="container">
         <div class="row g-5 align-items-center">
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                <h1 class="mb-4">Learn More About Our Work And Our Cultural Activities</h1>
-                <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                <p class="mb-4">Stet no et lorem dolor et diam, amet duo ut dolore vero eos. No stet est diam rebum amet diam ipsum. Clita clita labore, dolor duo nonumy clita sit at, sed sit sanctus dolor eos, ipsum labore duo duo sit no sea diam. Et dolor et kasd ea. Eirmod diam at dolor est vero nonumy magna.</p>
-                <div class="row g-4 align-items-center">
-                    <div class="col-sm-6">
-                        <a class="btn btn-primary rounded-pill py-3 px-5" href="">Read More</a>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="d-flex align-items-center">
-                            <img class="rounded-circle flex-shrink-0" src="~/Assets/img/user.jpg" alt="" style="width: 45px; height: 45px;">
-                            <div class="ms-3">
-                                <h6 class="text-primary mb-1">Jhon Doe</h6>
-                                <small>CEO & Founder</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h1 class="mb-4">Tổng quan</h1>
+                <p>Thư viện ABC là một thư viện công cộng tại trung tâm Thành phố Thủ Đức. Thư viện hiện trực thuộc Sở Văn hóa và Thể thao Thành phố Thủ Đức.Với tổng diện tích diện tích rộng hơn 850 m², trưng bày hơn 100.000 bản sách quốc văn, ngoại văn cùng với những mặt hàng văn phòng phẩm, văn hóa phẩm, dụng cụ học tập,… Điểm nổi bật của Thư viện ABC là được đầu tư cơ sở vật chất quầy kệ, hàng hóa cho nhiều khu vực trưng bày hàng hóa, đáp ứng tốt nhu cầu của nhiều đối tượng độc giả</p>
+                <p class="mb-4">Thư viện được coi là “kho vàng” của nền văn hóa dân tộc, là một bộ phận không thể thiếu trong văn hóa học đường. Thư viện bổ sung và cập nhật những kiến thức mới, những phương pháp giảng dạy tiên tiến làm cho việc học tập và giảng dạy thêm sinh động và hấp dẫn. Thư viện là trung tâm thông tin ở nhiều dạng khác nhau, tạo điều kiện cho người sử dụng tiếp cận nhanh chóng đến tri thức. Đúng vậy, đọc sách là cách học tốt nhất và không có cách giải trí nào rẻ hơn đọc sách, cũng không có sự thú vị nào bền lâu hơn việc đọc sách. Đọc sách ngoài tác dụng giải trí lành mạnh còn giúp mỗi chúng ta hoàn thiện nhân cách của chính mình. Sách giáo dục cho mỗi chúng ta biết yêu thương, quý trọng, đoàn kết với mọi người, biết nói lời hay, làm việc tốt. Và sách chính là cơ hội để chúng ta mở rộng tầm nhìn với thế giới.</p>
             </div>
             <div class="col-lg-6 about-img wow fadeInUp" data-wow-delay="0.5s">
                 <div class="row">
                     <div class="col-12 text-center">
-                        <img class="img-fluid w-75 rounded-circle bg-light p-3" src="~/Assets/img/about-1.jpg" alt="">
+                        <img class="img-fluid w-75 rounded-circle bg-light p-3" src="~/img_web/TV1.jpg" alt="">
                     </div>
                     <div class="col-6 text-start" style="margin-top: -150px;">
-                        <img class="img-fluid w-100 rounded-circle bg-light p-3" src="~/Assets/img/about-2.jpg" alt="">
+                        <img class="img-fluid w-100 rounded-circle bg-light p-3" src="~/img_web/TV2.jpg" alt="">
                     </div>
                     <div class="col-6 text-end" style="margin-top: -150px;">
-                        <img class="img-fluid w-100 rounded-circle bg-light p-3" src="~/Assets/img/about-3.jpg" alt="">
+                        <img class="img-fluid w-100 rounded-circle bg-light p-3" src="~/img_web/TV3.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -109,17 +52,15 @@
             <div class="row g-0">
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100 rounded" src="~/Assets/img/call-to-action.jpg" style="object-fit: cover;">
+                        <img class="position-absolute w-100 h-100 rounded" src="~/img_web/VT2.jpg" style="object-fit: cover;">
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                     <div class="h-100 d-flex flex-column justify-content-center p-5">
-                        <h1 class="mb-4">Become A Teacher</h1>
+                        <h1 class="mb-4">Vị Trí</h1>
                         <p class="mb-4">
-                            Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos.
-                            Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet
+                            Thư viện ABC Thành phố Thủ Đức có địa chỉ tại số 381 Võ Văn Ngân, Linh Chiểu, Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam. Nằm cạnh tuyến đường Xa lộ Hà Nội là tuyến đường huyết mạch của thành phố Hồ Chí Minh. Đây là một trong những con đường đi qua nhiều tỉnh nhất của thành phố, nối nhịp cuộc sống của những nơi mà nó đi qua.
                         </p>
-                        <a class="btn btn-primary py-3 px-5" href="">Get Started Now<i class="fa fa-arrow-right ms-2"></i></a>
                     </div>
                 </div>
             </div>
@@ -131,10 +72,9 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h1 class="mb-3">Popular Teachers</h1>
+            <h1 class="mb-3">Ban Quản lý Thư Viện ABC</h1>
             <p>
-                Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit
-                eirmod sit. Ipsum diam justo sed rebum vero dolor duo.
+                Đội ngũ quản lý có nhiều kinh nghiệm về chuyên môn cũng trong lĩnh vực quản lý
             </p>
         </div>
         <div class="row g-4">

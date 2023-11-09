@@ -221,6 +221,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Database1.mdf" />
+    <Content Include="App_Data\Database1_log.ldf">
+      <DependentUpon>Database1.mdf</DependentUpon>
+    </Content>
     <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\img\BiXanhVaBongTim.jpg" />
@@ -348,6 +352,11 @@
     <Content Include="Assets\lib\waypoints\waypoints.min.js" />
     <Content Include="Assets\lib\wow\wow.js" />
     <Content Include="Assets\lib\wow\wow.min.js" />
+    <Content Include="img_web\TV1.jpg" />
+    <Content Include="img_web\TV2.jpg" />
+    <Content Include="img_web\TV3.jpg" />
+    <Content Include="img_web\VT1.jpg" />
+    <Content Include="img_web\VT2.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -478,16 +487,12 @@
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Classes\Index.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
-    <Content Include="Views\About\ThemSachMoi.cshtml" />
-    <Content Include="Views\About\SuaThongTinSach.cshtml" />
-    <Content Include="Views\About\XoaThongTinSach.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\DangKy.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\Classes\DanhSachSach.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />

@@ -52,50 +52,62 @@
                 <div class="navbar-nav mx-auto">
                     @if (ViewBag.active == 1)
                     {
-                        <a href="~/home" class="nav-item nav-link active">Home</a>
+                        <a href="~/home" class="nav-item nav-link active">Trang chủ</a>
                     }
                     else
                     {
-                        <a href="~/home" class="nav-item nav-link ">Home</a>
+                        <a href="~/home" class="nav-item nav-link ">Trang chủ</a>
                     }
 
                     @if (ViewBag.active == 2)
                     {
-                        <a href="~/about" class="nav-item nav-link active">About Us</a>
+                        <a href="~/about" class="nav-item nav-link active">Giới thiệu</a>
                     }
                     else
                     {
-                        <a href="~/about" class="nav-item nav-link">About Us</a>
+                        <a href="~/about" class="nav-item nav-link">Giới thiệu</a>
                     }
 
                     @if (ViewBag.active == 3)
                     {
-                        <a href="~/classes" class="nav-item nav-link active">Classes</a>
+                        <a href="~/classes" class="nav-item nav-link active">Sách</a>
                     }
                     else
                     {
-                        <a href="~/classes" class="nav-item nav-link">Classes</a>
+                        <a href="~/classes" class="nav-item nav-link">Sách</a>
                     }
 
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Thể loại</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                            <a href="facility.html" class="dropdown-item">School Facilities</a>
-                            <a href="team.html" class="dropdown-item">Popular Teachers</a>
-                            <a href="call-to-action.html" class="dropdown-item">Become A Teachers</a>
-                            <a href="appointment.html" class="dropdown-item">Make Appointment</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="404.html" class="dropdown-item">404 Error</a>
+                            <a href="facility.html" class="dropdown-item">Truyện ngắn</a>
+                            <a href="team.html" class="dropdown-item">Tiểu thuyết</a>
+                            <a href="call-to-action.html" class="dropdown-item">Ngôn tình</a>
+                            <a href="appointment.html" class="dropdown-item">Sách giáo khoa</a>
+                            <a href="testimonial.html" class="dropdown-item">Sách tham khảo</a>
+                            <a href="testimonial.html" class="dropdown-item">Văn học</a>
+                            <a href="testimonial.html" class="dropdown-item">Sách ngoại ngữ</a>
+                            <a href="testimonial.html" class="dropdown-item">Sách kỹ năng sống</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Ngôn ngữ</a>
+                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+                            <a href="facility.html" class="dropdown-item">Tiếng Anh</a>
+                            <a href="team.html" class="dropdown-item">Tiếng Việt</a>
+                            <a href="call-to-action.html" class="dropdown-item">Tiếng Hàn</a>
+                            <a href="appointment.html" class="dropdown-item">Tiếng Trung</a>
+                            <a href="testimonial.html" class="dropdown-item">Tiếng Pháp</a>
                         </div>
                     </div>
 
                     @if (ViewBag.active == 5)
                     {
-                        <a href="~/contact" class="nav-item nav-link active">Contact Us</a>
+                        <a href="~/contact" class="nav-item nav-link active">Liên hệ</a>
                     }
                     else
                     {
-                        <a href="~/contact" class="nav-item nav-link">Contact Us</a>
+                        <a href="~/contact" class="nav-item nav-link">Liên hệ</a>
                     }
                 </div>
 
@@ -131,9 +143,9 @@
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
                         <h3 class="text-white mb-4">Get In Touch</h3>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>381 Võ Văn Ngân, Linh Chiểu, Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam</p>
+                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>0767163999</p>
+                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>ThuvienABC@gmail.com</p>
                         <div class="d-flex pt-2">
                             <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
@@ -143,41 +155,38 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h3 class="text-white mb-4">Quick Links</h3>
-                        <a class="btn btn-link text-white-50" href="">About Us</a>
-                        <a class="btn btn-link text-white-50" href="">Contact Us</a>
-                        <a class="btn btn-link text-white-50" href="">Our Services</a>
-                        <a class="btn btn-link text-white-50" href="">Privacy Policy</a>
-                        <a class="btn btn-link text-white-50" href="">Terms & Condition</a>
+                        <a class="btn btn-link text-white-50" href="">Trang chủ</a>
+                        <a class="btn btn-link text-white-50" href="">Giới thiệu</a>
+                        <a class="btn btn-link text-white-50" href="">Liên hệ</a>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h3 class="text-white mb-4">Photo Gallery</h3>
                         <div class="row g-2 pt-2">
-                            <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1" src="~/Assets/img/classes-1.jpg" alt="">
+                                <div class="col-4">
+                                    <img class="img-fluid rounded bg-light p-1" src="~/img_web/Tho_bay_mau.jpg" alt="">
+                                </div>
+                                <div class="col-4">
+                                    <img class="img-fluid rounded bg-light p-1" src="~/img_web/OngGiaVaBienCa.jpg" alt="">
+                                </div>
+                                <div class="col-4">
+                                    <img class="img-fluid rounded bg-light p-1" src="~/img_web/ConChimXanhBiecBayVe.jpg" alt="">
+                                </div>
+                                <div class="col-4">
+                                    <img class="img-fluid rounded bg-light p-1" src="~/img_web/ThanDongDatViet2_TNSP.jpg" alt="">
+                                </div>
+                                <div class="col-4">
+                                    <img class="img-fluid rounded bg-light p-1" src="~/img_web/CanhNgo.jpg" alt="">
+                                </div>
+                                <div class="col-4">
+                                    <img class="img-fluid rounded bg-light p-1" src="~/img_web/MuaHeKhongTen.jpg" alt="">
+                                </div>
                             </div>
-                            <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1" src="~/Assets/img/classes-2.jpg" alt="">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1" src="~/Assets/img/classes-3.jpg" alt="">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1" src="~/Assets/img/classes-4.jpg" alt="">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1" src="~/Assets/img/classes-5.jpg" alt="">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1" src="~/Assets/img/classes-6.jpg" alt="">
-                            </div>
-                        </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <h3 class="text-white mb-4">Newsletter</h3>
-                        <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                        <h3 class="text-white mb-4">Sign up</h3>
                         <div class="position-relative mx-auto" style="max-width: 400px;">
                             <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Đăng nhập</button>
                         </div>
                     </div>
                 </div>
