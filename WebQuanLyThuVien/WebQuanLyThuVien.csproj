@@ -175,7 +175,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieuMuonController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieuTraController.cs" />
-    <Compile Include="Areas\Admin\Data\DAO.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuanLyMuonController.cs" />
     <Compile Include="Areas\Admin\Data\DTO.cs" />
     <Compile Include="Areas\Admin\Data\PhieuMuon_DTO.cs" />
     <Compile Include="Areas\Admin\Interfaces\IDocGiaRepository.cs" />
@@ -2518,6 +2518,7 @@
     <Content Include="Content\Assets\Login\vendor\bootstrap\css\bootstrap.css.map" />
     <Content Include="Content\Assets\Login\vendor\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyMuon\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

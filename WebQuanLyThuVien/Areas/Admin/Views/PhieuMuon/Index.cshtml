@@ -208,6 +208,28 @@
     </div>
 </section>
 
+<!-- Modal error-->
+<div class="modal fade" id="ModalError" tabindex="-1" role="dialog" aria-labelledby="ModalError" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center bg-danger">
+                <span class="" id="contentModalError"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal success-->
+<div class="modal fade" id="ModalSuccess" tabindex="-1" role="dialog" aria-labelledby="ModalSuccess" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center bg-green">
+                <span class="" id="contentModalSuccess"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts
 {
     <script>
@@ -309,7 +331,8 @@
                     var soLuongMuon =parseInt(this.parentElement.previousElementSibling.querySelector("#inputSoluong").value);
 
                     if (isNaN(soLuongMuon) || soLuongMuon > soLuongHienTai || soLuongMuon <= 0) {
-                        alert("Hãy nhập đúng số lượng sách mượn!");
+                        document.getElementById("contentModalError").innerHTML = "Hãy nhập đúng số lượng sách mượn!";
+                        $("#ModalError").modal("show");
                         console.log('số lượng sách mượn: ', soLuongMuon);
                     } else {
                         // Gửi yêu cầu POST để thêm sách mượn
@@ -487,10 +510,12 @@
 
             // Gửi yêu cầu POST để thêm sách mượn
             if (!maTheDocGia || !maNhanVien || !NgayMuon) {
-                alert("Thông tin độc giả không được để trống!");
+                document.getElementById("contentModalError").innerHTML = "Thông tin độc giả không được để trống!";
+                $("#ModalError").modal("show");
             } else {
                 if (isNaN(soThang)) {
-                    alert("Hãy chọn hạn trả!");
+                    document.getElementById("contentModalError").innerHTML = "Hãy chọn hạn trả!";
+                    $("#ModalError").modal("show");
                 } else {
 
                     var ngayMuon = new Date(formatCurrentDate); // Tạo đối tượng Date từ chuỗi
@@ -512,11 +537,14 @@
                             },
                             success: function (data) {
                                 if (data.success) {
-                                    alert("Thêm phiếu mượn thành công!");
+                                    document.getElementById("contentModalSuccess").innerHTML = "Thêm phiếu mượn thành công!";
+
+                                    $("#ModalSuccess").modal("show");
                                     lamMoiButton.click();
                                     console.log('Tạo phiếu mượn: ', data);
                                 } else {
-                                    alert("Hãy thêm sách muốn mượn!");
+                                    document.getElementById("contentModalError").innerHTML = "Hãy thêm sách muốn mượn!";
+                                    $("#ModalError").modal("show");
                                     console.log('Tạo phiếu mượn: ', data);
                                 }
                             }
@@ -525,6 +553,7 @@
                 }
             }
         });
+
 
 
     </script>

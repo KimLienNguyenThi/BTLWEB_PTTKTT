@@ -10,5 +10,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Interfaces.Services
     public interface IPhieuMuonCTPhieuMuonService
     {
         void Insert(DTO_Tao_Phieu_Muon obj);
+
+        List<DTO_Sach_Muon> Get_CTPM_ByID(int id);
     }
 }
