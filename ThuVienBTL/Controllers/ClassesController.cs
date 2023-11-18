@@ -20,13 +20,6 @@ namespace ThuVienBTL.Controllers
         // GET: Classess    
         public ActionResult Index()
         {
-            // Kiem tra quyen su dung
-            var user = SessionConfig.GetUser();
-            if(user == null)
-            {
-                return RedirectToAction("Index", "User");
-            }
-
             List<Sach> ListSach = db.Saches.ToList();
 
             return View(ListSach);
@@ -40,5 +33,29 @@ namespace ThuVienBTL.Controllers
             return View(ListSach);
         }
 
+        [HttpPost]
+        public ActionResult SearchSach(string search)
+        {
+            if (string.IsNullOrEmpty(search))
+            {
+                return View("Index");
+            }
+            else
+            {
+                try
+                {
+                    List<Sach> sachLoc = db.Saches.Where(item => item.TenSach.Contains(search)
+                    || item.TheLoai.Contains(search) || item.TacGia.Contains(search) || item.NgonNgu.Contains(search)
+                    || item.NXB.Contains(search)).ToList();
+
+                    return View(sachLoc);
+                    //return Json(sachLoc);
+                }
+                catch
+                {
+                    return View("Index");
+                }
+            }
+        }
     }
 }

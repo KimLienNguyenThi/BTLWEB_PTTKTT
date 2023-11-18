@@ -13,6 +13,9 @@ namespace ThuVienBTL.Controllers
 {
     public class UserController : Controller
     {
+
+        QuanLyThuVienEntities db = new QuanLyThuVienEntities();
+
         // GET: User
         public ActionResult Index()
         {
@@ -30,6 +33,9 @@ namespace ThuVienBTL.Controllers
             {
                 SessionConfig.SetUser(user);
                 Session["sharedData"] = user.MaDG;
+
+                TempData["user_name"] = user.USERNAME_DG;
+                TempData["user_password"] = user.PASSWORD_DG;
 
                 return RedirectToAction("Index", "Home");
             }
@@ -75,20 +81,43 @@ namespace ThuVienBTL.Controllers
 
         public ActionResult Profile()
         {
-           QuanLyThuVienEntities db = new QuanLyThuVienEntities();
-
            int maDG = (int)Session["sharedData"];
            DocGia dg = db.DocGias.Find(maDG);
 
            return View(dg);
         }
 
-        [HttpPost]
-        public ActionResult Profile(int madg)
+        public ActionResult UpdatePassWord()
         {
-
-
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePassWord(string uname, string pswd, string new_pswd, string new_pswd_check)
+        {
+            var user_name = TempData["user_name"];
+            var user_password = TempData["user_password"];
+
+            if (uname.Equals(user_name) && user_password.Equals(user_password))
+            {
+                if(new_pswd.Equals(new_pswd_check))
+                { 
+                    var lg = db.LOGIN_DG.Find(user_name);
+                    lg.PASSWORD_DG = new_pswd;
+                    db.SaveChanges();
+                    return RedirectToAction("Logout");
+                }
+                else
+                {
+                    ViewBag.error = "*Thông tin lỗi!";
+                    return View();
+                }
+            }
+            else
+            {
+                ViewBag.error = "*Sai tên đăng nhập!";
+                return View();
+            }
         }
     }
 }

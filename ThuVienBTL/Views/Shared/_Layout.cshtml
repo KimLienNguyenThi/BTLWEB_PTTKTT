@@ -77,29 +77,15 @@
                         <a href="~/classes" class="nav-item nav-link">Sách</a>
                     }
 
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Thể loại</a>
-                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                            <a href="facility.html" class="dropdown-item">Truyện ngắn</a>
-                            <a href="team.html" class="dropdown-item">Tiểu thuyết</a>
-                            <a href="call-to-action.html" class="dropdown-item">Ngôn tình</a>
-                            <a href="appointment.html" class="dropdown-item">Sách giáo khoa</a>
-                            <a href="testimonial.html" class="dropdown-item">Sách tham khảo</a>
-                            <a href="testimonial.html" class="dropdown-item">Văn học</a>
-                            <a href="testimonial.html" class="dropdown-item">Sách ngoại ngữ</a>
-                            <a href="testimonial.html" class="dropdown-item">Sách kỹ năng sống</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Ngôn ngữ</a>
-                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                            <a href="facility.html" class="dropdown-item">Tiếng Anh</a>
-                            <a href="team.html" class="dropdown-item">Tiếng Việt</a>
-                            <a href="call-to-action.html" class="dropdown-item">Tiếng Hàn</a>
-                            <a href="appointment.html" class="dropdown-item">Tiếng Trung</a>
-                            <a href="testimonial.html" class="dropdown-item">Tiếng Pháp</a>
-                        </div>
-                    </div>
+                    @if (ViewBag.active == 4)
+                    {
+                        <a href="~/thuesach" class="nav-item nav-link active">Thuê sách</a>
+                    }
+                    else
+                    {
+                        <a href="~/thuesach" class="nav-item nav-link">Thuê sách</a>
+                    }
+
 
                     @if (ViewBag.active == 5)
                     {
@@ -162,25 +148,25 @@
                     <div class="col-lg-3 col-md-6">
                         <h3 class="text-white mb-4">Photo Gallery</h3>
                         <div class="row g-2 pt-2">
-                                <div class="col-4">
-                                    <img class="img-fluid rounded bg-light p-1" src="~/img_web/Tho_bay_mau.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid rounded bg-light p-1" src="~/img_web/OngGiaVaBienCa.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid rounded bg-light p-1" src="~/img_web/ConChimXanhBiecBayVe.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid rounded bg-light p-1" src="~/img_web/ThanDongDatViet2_TNSP.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid rounded bg-light p-1" src="~/img_web/CanhNgo.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid rounded bg-light p-1" src="~/img_web/MuaHeKhongTen.jpg" alt="">
-                                </div>
+                            <div class="col-4">
+                                <img class="img-fluid rounded bg-light p-1" src="~/img_web/Tho_bay_mau.jpg" alt="">
                             </div>
+                            <div class="col-4">
+                                <img class="img-fluid rounded bg-light p-1" src="~/img_web/OngGiaVaBienCa.jpg" alt="">
+                            </div>
+                            <div class="col-4">
+                                <img class="img-fluid rounded bg-light p-1" src="~/img_web/ConChimXanhBiecBayVe.jpg" alt="">
+                            </div>
+                            <div class="col-4">
+                                <img class="img-fluid rounded bg-light p-1" src="~/img_web/ThanDongDatViet2_TNSP.jpg" alt="">
+                            </div>
+                            <div class="col-4">
+                                <img class="img-fluid rounded bg-light p-1" src="~/img_web/CanhNgo.jpg" alt="">
+                            </div>
+                            <div class="col-4">
+                                <img class="img-fluid rounded bg-light p-1" src="~/img_web/MuaHeKhongTen.jpg" alt="">
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h3 class="text-white mb-4">Sign up</h3>
@@ -219,6 +205,7 @@
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/Assets/lib/wow/wow.min.js"></script>
     <script src="~/Assets/lib/easing/easing.min.js"></script>

@@ -141,6 +141,7 @@
     <Compile Include="Controllers\ClassesController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ThueSachController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -491,6 +492,11 @@
     <Content Include="Views\User\DangKy.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\Classes\DanhSachSach.cshtml" />
+    <Content Include="Views\ThueSach\Index.cshtml" />
+    <Content Include="Views\ThueSach\LocYeuCau.cshtml" />
+    <Content Include="Views\ThueSach\SearchSach.cshtml" />
+    <Content Include="Views\User\UpdatePassWord.cshtml" />
+    <Content Include="Views\Classes\SearchSach.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />
