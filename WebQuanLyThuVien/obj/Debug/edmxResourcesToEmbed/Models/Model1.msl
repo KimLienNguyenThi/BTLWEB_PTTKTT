@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="QuanLyThuVienModelStoreContainer" CdmEntityContainer="QuanLyThuVienEntities">
+  <EntityContainerMapping CdmEntityContainer="QuanLyThuVienEntities" StorageEntityContainer="QuanLyThuVienModelStoreContainer">
     <EntitySetMapping Name="ChiTietPMs">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.ChiTietPM">
         <MappingFragment StoreEntitySet="ChiTietPM">
@@ -22,6 +22,8 @@
     <EntitySetMapping Name="ChiTietPTs">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.ChiTietPT">
         <MappingFragment StoreEntitySet="ChiTietPT">
+          <ScalarProperty Name="Soluongloi" ColumnName="Soluongloi" />
+          <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Soluongtra" ColumnName="Soluongtra" />
           <ScalarProperty Name="MaSach" ColumnName="MaSach" />
           <ScalarProperty Name="MaPT" ColumnName="MaPT" />

@@ -26,12 +26,15 @@
     <Key>
       <PropertyRef Name="MaSach" />
       <PropertyRef Name="MaPT" />
+      <PropertyRef Name="id" />
     </Key>
     <Property Name="Soluongtra" Type="Int32" />
     <Property Name="MaSach" Type="Int32" Nullable="false" />
     <Property Name="MaPT" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Sach" Relationship="Self.FK__ChiTietPT__MaPT__6A30C649" FromRole="ChiTietPT" ToRole="Sach" />
     <NavigationProperty Name="PhieuTra" Relationship="Self.FK__ChiTietPT__MaPT__6B24EA82" FromRole="ChiTietPT" ToRole="PhieuTra" />
+    <Property Name="Soluongloi" Type="Int32" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
   </EntityType>
   <EntityType Name="ChiTietPTL">
     <Key>
@@ -573,4 +576,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <ComplexType Name="ComplexType1">
+    <Property Type="String" Name="Soluongloi" Nullable="false" />
+  </ComplexType>
 </Schema>

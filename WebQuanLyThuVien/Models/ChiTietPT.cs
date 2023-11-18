@@ -17,6 +17,8 @@ namespace WebQuanLyThuVien.Models
         public Nullable<int> Soluongtra { get; set; }
         public int MaSach { get; set; }
         public int MaPT { get; set; }
+        public int Soluongloi { get; set; }
+        public int id { get; set; }
     
         public virtual Sach Sach { get; set; }
         public virtual PhieuTra PhieuTra { get; set; }
