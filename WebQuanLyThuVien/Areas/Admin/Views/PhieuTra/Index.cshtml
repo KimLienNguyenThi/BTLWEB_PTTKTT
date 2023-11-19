@@ -123,7 +123,7 @@
                         <div class="card-tools">
 
                             <div class="input-group input-group-sm pt-2" style="width: 150px">
-                                <input type="text" name="table_search" class="form-control float-right" id="searchInput" placeholder="Search" />
+                                <input type="text"  name="table_search" class="form-control float-right" id="searchInput" placeholder="Search" />
                                 @* <input type="text" id="searchInput" class="form-control" placeholder="Search" />*@
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default" id="searchButton">
@@ -377,8 +377,9 @@
                             render += '<td >' + item.MaSach + '</td>';
                             render += '<td >' + item.TenSach + '</td>';
                             render += '<td >' + item.SoLuongMuon + '</td>';
-                            render += '<td >  <input  class="soLuongTra" type="number" value="0" style="width: 60%"/>  </td>';
-                            render += '<td >  <input class="loi" type="number" value="0" style="width: 70%"/>  </td>';
+                            render += '<td>  <input class="soLuongTra" min="0" type="number" value="0" style="width: 60%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';
+                            render += '<td>  <input class="loi" min="0" type="number" value="0" style="width: 70%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';
+                          //  render += '<td >  <input class="loi" type="number" min="0" value="0" style="width: 70%"/>  </td>';
                             render += '</tr>';
                         });
 
@@ -395,8 +396,6 @@
                 })
 
             }
-
-
 
 
             var ListSachTra = [];
@@ -436,69 +435,67 @@
             }
 
 
+        function Save() {
+            var dataPost = createSachTraPostData();
 
-            function Save() {
+            // Kiểm tra xem tất cả các hàng có số lượng bằng 0 không
+            var allRowsZero = dataPost.ListSachTra.every(function (item) {
+                return parseFloat(item.SoLuongTra) === 0 && parseFloat(item.SoLuongLoi) === 0;
+            });
 
-                    var dataPost = createSachTraPostData();
-
-                    for (var i = 0; i < dataPost.ListSachTra.length; i++) {
-                        var item = dataPost.ListSachTra[i];
-
-                        var soLuongMuon = parseFloat(item.SoLuongMuon);
-                        var soLuongTra = parseFloat(item.SoLuongTra);
-                        var soLuongLoi = parseFloat(item.SoLuongLoi);
-
-                        if (isNaN(soLuongMuon) || soLuongMuon < soLuongTra + soLuongLoi || soLuongTra < 0 || isNaN(soLuongTra) || soLuongTra + soLuongLoi == 0) {
-                        document.getElementById("contentModalError").innerHTML = "Hãy nhập đúng số lượng sách muốn trả!";
-                        $("#ModalError").modal("show");
-                        console.log('số lượng sách tra: ', soLuongTra);
-                        return; // Exit the function if validation fails
-                        }
-
-                        if (isNaN(soLuongMuon) || soLuongMuon < soLuongTra + soLuongLoi || soLuongLoi < 0 || isNaN(soLuongLoi) || soLuongTra + soLuongLoi== 0) {
-                        document.getElementById("contentModalError").innerHTML = "Hãy nhập đúng số lượng sách lỗi!";
-                        $("#ModalError").modal("show");
-                        console.log('số lượng sách loi: ', soLuongLoi);
-                        return; // Exit the function if validation fails
-                         }
-                     }
-
-
-                    // Send data to the controller using AJAX POST
-                    $.ajax({
-                        type: "POST",
-                        url: "/Admin/PhieuTra/TaoPhieuTra",
-                        data: JSON.stringify(dataPost),
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        /*success: function (response) {
-                            console.log("response", response);
-                            if (response.success) {
-                                alert(response.message);
-                                // Optionally, you can redirect to another page or perform other actions after a successful save.
-                            } else {
-                                alert(response.message + "\n" + response.error);
-                            }
-                        },
-                        error: function () {
-                            alert("Error sending request to the server.");
-                        }*/
-                         success: function (response) {
-                             if (response.success) {
-                                document.getElementById("contentModalSuccess").innerHTML = "Thêm phiếu trả thành công!";
-
-                                $("#ModalSuccess").modal("show");
-                                lamMoiButton.click();
-                                 console.log('Tạo phiếu tra: ', response);
-                            } else {
-                                document.getElementById("contentModalError").innerHTML = "Hãy thêm slg sách muốn tra!";
-                                $("#ModalError").modal("show");
-                                 console.log('Tạo phiếu tra: ', response);
-                            }
-                        }
-                    });
-
+            if (allRowsZero) {
+                document.getElementById("contentModalError").innerHTML = "Hãy nhập số lượng sách muốn trả!";
+                $("#ModalError").modal("show");
+                return;
             }
+
+            for (var i = 0; i < dataPost.ListSachTra.length; i++) {
+                var item = dataPost.ListSachTra[i];
+
+                var soLuongTra = parseFloat(item.SoLuongTra);
+                var soLuongLoi = parseFloat(item.SoLuongLoi);
+
+                // Kiểm tra xem có biến số lượng nào bé hơn 0 không
+                if (soLuongTra < 0 || soLuongLoi < 0) {
+                    document.getElementById("contentModalError").innerHTML = "Số lượng sách trả và số lượng sách lỗi không được bé hơn 0!";
+                    $("#ModalError").modal("show");
+                    return;
+                }
+
+                var soLuongMuon = parseFloat(item.SoLuongMuon);
+
+                // Kiểm tra xem số lượng mượn có lớn hơn số lượng trả và số lượng lỗi không
+                if (isNaN(soLuongMuon) || soLuongMuon < soLuongTra + soLuongLoi) {
+                    document.getElementById("contentModalError").innerHTML = "Hãy nhập đúng số lượng sách muốn trả!";
+                    $("#ModalError").modal("show");
+                    return;
+                }
+            }
+
+            // Gửi dữ liệu đến controller bằng phương thức AJAX POST
+            $.ajax({
+                type: "POST",
+                url: "/Admin/PhieuTra/TaoPhieuTra",
+                data: JSON.stringify(dataPost),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.success) {
+                        document.getElementById("contentModalSuccess").innerHTML = "Thêm phiếu trả thành công!";
+                        $("#ModalSuccess").modal("show");
+                        lamMoiButton.click();
+                        console.log('Tạo phiếu trả: ', response);
+                    } else {
+                        document.getElementById("contentModalError").innerHTML = "Hãy thêm số lượng sách muốn trả!";
+                        $("#ModalError").modal("show");
+                        console.log('Tạo phiếu trả: ', response);
+                    }
+                },
+                error: function () {
+                    alert("Lỗi khi gửi yêu cầu đến máy chủ.");
+                }
+            });
+        }
 
 
 

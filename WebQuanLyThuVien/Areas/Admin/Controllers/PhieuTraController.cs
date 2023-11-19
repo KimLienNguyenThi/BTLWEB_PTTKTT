@@ -103,9 +103,13 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 try
                 {
                     var success = _phieuTraCTPhieuTraService.Insert(data);
+                if (success)
                     // Trả về phản hồi thành công
                     return Json(new { success = true, message = "Tạo phiếu trả thành công." });
-                }
+                return Json(new { success = false, message = "Tạo phiếu trả thất bại." });
+            }
+            
+            
                 catch (Exception ex)
                 {
                     // Xử lý các ngoại lệ một cách thích hợp

@@ -20,6 +20,10 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
     
         public bool Insert(DTO_Tao_Phieu_Tra x)
         {
+            if(x.ListSachTra.Any(sach => sach.SoLuongLoi > 0 || sach.SoLuongTra > 0) == false)
+            {
+                return false;
+            }
             try
             {
                 var phieuMuon = unitOfWork.Context.PhieuMuons.FirstOrDefault(p => p.MaPM == x.MaPhieuMuon);
@@ -38,7 +42,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                     NgayTra = x.NgayTra,
                     MaThe = phieuMuon.MaThe,
                     MaNV = x.MaNhanVien,
-                    
+                    MaPM = x.MaPhieuMuon,
                 };
 
                 // Thêm PhieuTra vào Context
@@ -47,6 +51,10 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                 // Duyệt qua danh sách sách trả và tạo đối tượng ChiTietPT cho mỗi cuốn sách
                 foreach (var sachtra in x.ListSachTra)
                 {
+                    if(sachtra.SoLuongTra ==0 && sachtra.SoLuongLoi ==0 )
+                    {
+                        continue;
+                    }
                     var newChiTietPT = new ChiTietPT
                     {
                         MaPT = newPhieuTra.MaPT,
