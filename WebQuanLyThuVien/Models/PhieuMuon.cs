@@ -18,6 +18,7 @@ namespace WebQuanLyThuVien.Models
         public PhieuMuon()
         {
             this.ChiTietPMs = new HashSet<ChiTietPM>();
+            this.PhieuTras = new HashSet<PhieuTra>();
         }
     
         public int MaPM { get; set; }
@@ -30,5 +31,7 @@ namespace WebQuanLyThuVien.Models
         public virtual ICollection<ChiTietPM> ChiTietPMs { get; set; }
         public virtual NhanVien NhanVien { get; set; }
         public virtual TheDocGia TheDocGia { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhieuTra> PhieuTras { get; set; }
     }
 }

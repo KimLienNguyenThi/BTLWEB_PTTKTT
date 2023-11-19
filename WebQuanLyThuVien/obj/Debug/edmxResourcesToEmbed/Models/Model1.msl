@@ -23,7 +23,6 @@
       <EntityTypeMapping TypeName="QuanLyThuVienModel.ChiTietPT">
         <MappingFragment StoreEntitySet="ChiTietPT">
           <ScalarProperty Name="Soluongloi" ColumnName="Soluongloi" />
-          <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Soluongtra" ColumnName="Soluongtra" />
           <ScalarProperty Name="MaSach" ColumnName="MaSach" />
           <ScalarProperty Name="MaPT" ColumnName="MaPT" />
@@ -64,7 +63,6 @@
     <EntitySetMapping Name="KhoSachThanhLies">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.KhoSachThanhLy">
         <MappingFragment StoreEntitySet="KhoSachThanhLy">
-          <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="masachkho" ColumnName="masachkho" />
           <ScalarProperty Name="soluongkhotl" ColumnName="soluongkhotl" />
         </MappingFragment>
@@ -147,6 +145,7 @@
     <EntitySetMapping Name="PhieuTras">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.PhieuTra">
         <MappingFragment StoreEntitySet="PhieuTra">
+          <ScalarProperty Name="MaPM" ColumnName="MaPM" />
           <ScalarProperty Name="MaPT" ColumnName="MaPT" />
           <ScalarProperty Name="NgayTra" ColumnName="NgayTra" />
           <ScalarProperty Name="MaNV" ColumnName="MaNV" />

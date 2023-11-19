@@ -4,46 +4,47 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7ae20d92a9a745eeb9beea09ff89850c" Name="Diagram1">
-        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPM" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.CHITIETPN" Width="1.5" PointX="8.25" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPT" Width="1.5" PointX="8.25" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPTL" Width="1.5" PointX="8.25" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.DocGia" Width="1.5" PointX="3.75" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.DonViTL" Width="1.5" PointX="3.75" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.KhoSachThanhLy" Width="1.5" PointX="6" PointY="18.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.LOGIN_DG" Width="1.5" PointX="6" PointY="21" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.LOGIN_NV" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.NhanVien" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuMuon" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuNhapSach" Width="1.5" PointX="3" PointY="12.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuThanhLy" Width="1.5" PointX="6" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuTra" Width="1.5" PointX="6" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.Sach" Width="1.5" PointX="6" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.TheDocGia" Width="1.5" PointX="6" PointY="13.5" IsExpanded="true" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPM__MaSac__6383C8BA" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPM__Soluo__628FA481" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__CHITIETPN__MaPN__59063A47" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__CHITIETPN__MaPN__59FA5E80" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaPT__6A30C649" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaPT__6B24EA82" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaPTL__74AE54BC" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaSac__73BA3083" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__LOGIN_DG__MaDG__778AC167" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__TheDocGia__MaDG__4E88ABD4" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuThanh__MaDV__70DDC3D8" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__LOGIN_NV__MANV__7A672E12" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuNhap__MaNCC__5441852A" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuMuon__MaNV__5EBF139D" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuNhapS__MaNV__534D60F1" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuThanh__MaNV__6FE99F9F" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaNV__66603565" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__TheDocGia__MaNV__4D94879B" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuMuon__MaThe__5FB337D6" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaThe__6754599E" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.TT_SACH" Width="1.5" PointX="8.25" PointY="2.125" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__TT_SACH__MASACH__7D439ABD" />
+      <Diagram DiagramId="c9aa709e90094e158c8bfe6426501e37" Name="Diagram1">
+        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPM" Width="1.5" PointX="8.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.CHITIETPN" Width="1.5" PointX="8.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPT" Width="1.5" PointX="13.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPTL" Width="1.5" PointX="5.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.DocGia" Width="1.5" PointX="3.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.DonViTL" Width="1.5" PointX="0.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.KhoSachThanhLy" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.LOGIN_DG" Width="1.5" PointX="6" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.LOGIN_NV" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.NhanVien" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuMuon" Width="1.5" PointX="6" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuNhapSach" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuThanhLy" Width="1.5" PointX="3" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuTra" Width="1.5" PointX="11.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.Sach" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.TheDocGia" Width="1.5" PointX="6" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.TT_SACH" Width="1.5" PointX="8.25" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPM__MaSac__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPM__Soluo__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__CHITIETPN__MaPN__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__CHITIETPN__MaPN__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaPT__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaSac__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaPTL__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaSac__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__LOGIN_DG__MaDG__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__TheDocGia__MaDG__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuThanh__MaDV__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__LOGIN_NV__MANV__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuNhap__MaNCC__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuMuon__MaNV__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuNhapS__MaNV__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuThanh__MaNV__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaNV__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__TheDocGia__MaNV__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuMuon__MaThe__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaNV__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaThe__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__TT_SACH__MASACH__6C190EBB" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -14,13 +14,12 @@ namespace WebQuanLyThuVien.Models
     
     public partial class ChiTietPT
     {
-        public Nullable<int> Soluongtra { get; set; }
-        public int MaSach { get; set; }
         public int MaPT { get; set; }
-        public int Soluongloi { get; set; }
-        public int id { get; set; }
+        public int MaSach { get; set; }
+        public Nullable<int> Soluongtra { get; set; }
+        public Nullable<int> Soluongloi { get; set; }
     
-        public virtual Sach Sach { get; set; }
         public virtual PhieuTra PhieuTra { get; set; }
+        public virtual Sach Sach { get; set; }
     }
 }
