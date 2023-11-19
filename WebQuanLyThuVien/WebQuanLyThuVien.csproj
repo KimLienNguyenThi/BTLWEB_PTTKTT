@@ -173,6 +173,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KhoSachController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieuMuonController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieuTraController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyMuonController.cs" />
@@ -263,6 +264,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sach.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TheDocGia.cs">
@@ -2446,13 +2450,6 @@
     <Content Include="Content\Assets\scss\bootstrap\scss\_utilities.scss" />
     <Content Include="Content\Assets\scss\bootstrap\scss\_variables.scss" />
     <Content Include="Areas\Admin\Views\PhieuMuon\Index.cshtml" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\PhieuTra\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutLogin.cshtml" />
@@ -2519,6 +2516,14 @@
     <Content Include="Content\Assets\Login\vendor\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyMuon\Index.cshtml" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\Admin\Views\KhoSach\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
