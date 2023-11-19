@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping CdmEntityContainer="QuanLyThuVienEntities" StorageEntityContainer="QuanLyThuVienModelStoreContainer">
+  <EntityContainerMapping StorageEntityContainer="QuanLyThuVienModelStoreContainer" CdmEntityContainer="QuanLyThuVienEntities">
     <EntitySetMapping Name="ChiTietPMs">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.ChiTietPM">
         <MappingFragment StoreEntitySet="ChiTietPM">
@@ -22,19 +22,19 @@
     <EntitySetMapping Name="ChiTietPTs">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.ChiTietPT">
         <MappingFragment StoreEntitySet="ChiTietPT">
-          <ScalarProperty Name="Soluongloi" ColumnName="Soluongloi" />
-          <ScalarProperty Name="Soluongtra" ColumnName="Soluongtra" />
-          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
           <ScalarProperty Name="MaPT" ColumnName="MaPT" />
+          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+          <ScalarProperty Name="Soluongtra" ColumnName="Soluongtra" />
+          <ScalarProperty Name="Soluongloi" ColumnName="Soluongloi" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ChiTietPTLs">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.ChiTietPTL">
         <MappingFragment StoreEntitySet="ChiTietPTL">
+          <ScalarProperty Name="MaPTL" ColumnName="MaPTL" />
           <ScalarProperty Name="MaSachkho" ColumnName="MaSachkho" />
           <ScalarProperty Name="Soluongtl" ColumnName="Soluongtl" />
-          <ScalarProperty Name="MaPTL" ColumnName="MaPTL" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -145,11 +145,11 @@
     <EntitySetMapping Name="PhieuTras">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.PhieuTra">
         <MappingFragment StoreEntitySet="PhieuTra">
-          <ScalarProperty Name="MaPM" ColumnName="MaPM" />
           <ScalarProperty Name="MaPT" ColumnName="MaPT" />
           <ScalarProperty Name="NgayTra" ColumnName="NgayTra" />
           <ScalarProperty Name="MaNV" ColumnName="MaNV" />
           <ScalarProperty Name="MaThe" ColumnName="MaThe" />
+          <ScalarProperty Name="MaPM" ColumnName="MaPM" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -184,10 +184,10 @@
     <EntitySetMapping Name="TT_SACH">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.TT_SACH">
         <MappingFragment StoreEntitySet="TT_SACH">
-          <ScalarProperty Name="MASACH" ColumnName="MASACH" />
-          <ScalarProperty Name="MOTA" ColumnName="MOTA" />
-          <ScalarProperty Name="URL_IMAGE" ColumnName="URL_IMAGE" />
           <ScalarProperty Name="MA_TT_SACH" ColumnName="MA_TT_SACH" />
+          <ScalarProperty Name="URL_IMAGE" ColumnName="URL_IMAGE" />
+          <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+          <ScalarProperty Name="MASACH" ColumnName="MASACH" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
