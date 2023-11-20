@@ -292,6 +292,9 @@
         sachRows.forEach(function (row) {
             row.addEventListener("click", function () {
 
+                // set la
+                document.getElementById("inputSoluong").value = '';
+
                 // Ẩn tất cả các hàng chi tiết sách trước
                 var bookDetailsRows = document.querySelectorAll(".sach-details");
 
