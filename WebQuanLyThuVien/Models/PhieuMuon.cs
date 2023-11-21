@@ -26,6 +26,7 @@ namespace WebQuanLyThuVien.Models
         public Nullable<System.DateTime> HanTra { get; set; }
         public Nullable<int> MaThe { get; set; }
         public Nullable<int> MaNV { get; set; }
+        public Nullable<bool> Tinhtrang { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPM> ChiTietPMs { get; set; }

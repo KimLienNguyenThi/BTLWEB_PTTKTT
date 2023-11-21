@@ -29,8 +29,8 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                var docGia = _docGiaService.GetAllDocGia_PhieuTra();
-                ViewData["DocGia"] = docGia;
+             /*   var docGia = _docGiaService.GetAllDocGia_PhieuTra();
+                ViewData["DocGia"] = docGia;*/
                 var phieuMuon = _phieuMuonService.GetPhieuMuonsChuaTraSach();
                 ViewData["PhieuMuon"] = phieuMuon;
                 //   ViewData["SachMuon"] = new List<WebQuanLyThuVien.Areas.Admin.Data.SachMuonDTO>();
@@ -44,8 +44,8 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                var docGia = _docGiaService.GetAllDocGia_PhieuTra();
-                ViewData["DocGia"] = docGia;
+             /*   var docGia = _docGiaService.GetAllDocGia_PhieuTra();
+                ViewData["DocGia"] = docGia;*/
 
                 IEnumerable<PhieuMuon_DTO> phieuMuon;
                 if (!string.IsNullOrEmpty(keyword))
@@ -87,13 +87,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
             }
         }
        
-        [HttpPost]
-        public ActionResult LamMoiDanhSachSachMuon()
-        {
-            Session["ListSachTra"] = null;
-            return Json(new { success = true });
-        }
-
+   
         
         
             [HttpPost]
@@ -104,9 +98,13 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 {
                     var success = _phieuTraCTPhieuTraService.Insert(data);
                 if (success)
-                    // Trả về phản hồi thành công
+                {  // Trả về phản hồi thành công
+                   // var phieuMuon = _phieuMuonService.GetPhieuMuonsChuaTraSach();
                     return Json(new { success = true, message = "Tạo phiếu trả thành công." });
+                   
+                }
                 return Json(new { success = false, message = "Tạo phiếu trả thất bại." });
+
             }
             
             

@@ -211,7 +211,6 @@
     <Compile Include="Areas\Admin\Controllers\PhieuMuonController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieuTraController.cs" />
     <Compile Include="Areas\Admin\Data\ApiResponse.cs" />
-    <Compile Include="Areas\Admin\Data\DAO.cs" />
     <Compile Include="Areas\Admin\Data\DTO.cs" />
     <Compile Include="Areas\Admin\Data\PhieuMuon_DTO.cs" />
     <Compile Include="Areas\Admin\Data\SachDTOcs.cs" />

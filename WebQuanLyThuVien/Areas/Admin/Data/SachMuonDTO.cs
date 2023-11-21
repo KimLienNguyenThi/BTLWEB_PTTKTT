@@ -13,4 +13,10 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public int? SoLuongMuon { get; set; }
 
     }
+
+    public class SachDaTraDTO
+    {
+        public int MaSach { get; set; }
+        public int? SoLuongDaTra { get; set; }
+    }
 }

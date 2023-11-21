@@ -119,6 +119,7 @@
           <ScalarProperty Name="HanTra" ColumnName="HanTra" />
           <ScalarProperty Name="MaThe" ColumnName="MaThe" />
           <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+          <ScalarProperty Name="Tinhtrang" ColumnName="Tinhtrang" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

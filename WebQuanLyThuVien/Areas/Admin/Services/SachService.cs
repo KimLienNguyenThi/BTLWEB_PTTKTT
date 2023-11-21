@@ -43,11 +43,7 @@ namespace WebQuanLyThuVien.Services
         {
                 var listSACH =
                     (from SACH in unitOfWork.Context.Saches
-                    /* join DocGia in unitOfWork.Context.DocGias
-                        on PhieuMuon.MaThe equals DocGia.MaDG
-                     join NhanVien in unitOfWork.Context.NhanViens
-                     on PhieuMuon.MaNV equals NhanVien.MaNV*/
-                     // where TheDocGia.NgayHH >= DateTime.Now
+                
                      select new SachDTOcs
                      {
                          MaSach = SACH.MaSach,

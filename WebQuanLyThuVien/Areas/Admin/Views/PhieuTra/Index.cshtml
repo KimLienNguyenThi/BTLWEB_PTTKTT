@@ -22,7 +22,7 @@
                                 @* <button type="submit" class="btn btn-primary taoPhieuTra" id="taoPhieuTra">Tạo phiếu trả</button>*@
                             </div>
                             <div class="col-2">
-                                <button type="button" class="btn btn-warning lamMoiSach" id="lamMoiButton">Làm mới</button>
+                                <button type="button" class="btn btn-warning lamMoiSach"  onclick="lamMoi()">Làm mới</button>
                             </div>
 
                         </div>
@@ -163,7 +163,7 @@
                         </table>
                     </div>
                     <!--Body table thông tin dg-->
-                    <div class="card-body table-responsive p-0" style="height: 71.2vh" id="thongTinDocGiaTable">
+                    @*<div class="card-body table-responsive p-0" style="height: 71.2vh" id="thongTinDocGiaTable">
                         <table class="table table-head-fixed table-hover  table-bordered">
                             <thead>
                                 <tr>
@@ -185,7 +185,7 @@
                                 }
                             </tbody>
                         </table>
-                    </div>
+                    </div>*@
 
                 </div>
             </div>
@@ -221,32 +221,32 @@
 
             // Lấy các phần tử DOM của bảng pm và bảng Thông tin độc giả
             var thongTinPhieuMuonTable = document.getElementById("thongTinPhieuMuonTable");
-            var thongTinDocGiaTable = document.getElementById("thongTinDocGiaTable");
+           // var thongTinDocGiaTable = document.getElementById("thongTinDocGiaTable");
 
-            // Gán sự kiện mặc định cho nút "Hiển thị Thông tin pm" khi trang được tải
-            thongTinDocGiaTable.style.display = "none";
+           // Gán sự kiện mặc định cho nút "Hiển thị Thông tin pm" khi trang được tải
+           // thongTinDocGiaTable.style.display = "none";
             thongTinPhieuMuonTable.style.display = "block";
 
             // Lấy các nút chọn
             var thongTinPheuMuonButton = document.getElementById("thongTinPheuMuonButton");
-            var thongTinDocGiaButton = document.getElementById("thongTinDocGiaButton");
+           // var thongTinDocGiaButton = document.getElementById("thongTinDocGiaButton");
 
 
-            // Sự kiện click cho nút "Hiển thị dg"
-            thongTinDocGiaButton.addEventListener("click", function () {
-                // Ẩn bảng Thông tin pm
-                thongTinPhieuMuonTable.style.display = "none";
-                // Hiển thị bảng dg
-                thongTinDocGiaTable.style.display = "block";
-            });
+            //// Sự kiện click cho nút "Hiển thị dg"
+            //thongTinDocGiaButton.addEventListener("click", function () {
+            //    // Ẩn bảng Thông tin pm
+            //    thongTinPhieuMuonTable.style.display = "none";
+            //    // Hiển thị bảng dg
+            //    thongTinDocGiaTable.style.display = "block";
+            //});
 
-            // Sự kiện click cho nút "Hiển thị pm"
-            thongTinPhieuMuonButton.addEventListener("click", function () {
-                // Hiển thị bảng pm
-                thongTinPhieuMuonTable.style.display = "block";
-                // Ẩn bảng Thông tin độc giả
-                thongTinDocGiaTable.style.display = "none";
-            });
+            //// Sự kiện click cho nút "Hiển thị pm"
+            //thongTinPhieuMuonButton.addEventListener("click", function () {
+            //    // Hiển thị bảng pm
+            //    thongTinPhieuMuonTable.style.display = "block";
+            //    // Ẩn bảng Thông tin độc giả
+            //    thongTinDocGiaTable.style.display = "none";
+            //});
 
 
             //=====================  Lấy dữ liệu khi search =====================
@@ -356,7 +356,89 @@
                var manv = @HttpContext.Current.Session["manv"]
                 document.getElementById("selectedMaNhanVien").value = manv;
 
+//===================== Hàm Làm mới danh sách sách mượn =====================
 
+
+        function lamMoi() {
+            document.getElementById("selectedMaThe").value = "";
+            document.getElementById("selectedName").value = "";
+            document.getElementById("selectedSDT").value = "";
+            document.getElementById("return_datemuon").value = "";
+            document.getElementById("return_datehan").value = "";
+
+            // Cập nhật danh sách sách mượn trong view
+            var tableBody = $("#tableBody");
+
+        /*    // Xóa nội dung bảng
+            tableBody.empty();*/
+
+            // Làm mới trang
+            location.href = '@Url.Action("Index","PhieuTra")';
+
+        }
+
+
+
+        @*
+            function lamMoi() {
+                document.getElementById("selectedMaThe").value = "";
+                document.getElementById("selectedName").value = "";
+                document.getElementById("selectedSDT").value = "";
+                document.getElementById("return_datemuon").value = "";
+                document.getElementById("return_datehan").value = "";
+
+                // Cập nhật danh sách sách mượn trong view
+                var tableBody = $("#tableBody");
+
+                // Gọi Index của PhieuTra Controller bằng Ajax
+                $.ajax({
+                    url: '@Url.Action("Index", "PhieuTra")',
+                    type: 'GET',
+                    success: function (result) {
+                        // Xử lý kết quả trả về nếu cần
+                        // Ví dụ: Cập nhật nội dung bảng
+                        tablepm.html(result);
+                    },
+                    error: function (error) {
+                        // Xử lý lỗi nếu có
+                        console.log(error);
+                    }
+                });
+            } *@
+
+        //function loadPhieuMuons() {
+        // //   $('#hdfMaPM').val(maPM);
+
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "/Admin/PhieuTra/Index",
+        //        dataType: 'json',
+        //        success: function (res) {
+        //            var render = "";
+        //            $.each(res.Result, function (i, item) {
+        //                render += '<tr class="phieumuon-row" aria-expanded="false" data-widget="expandable-table">';
+        //                render += '<td  class="selectMaPm">' + item.MaPM + '</td>';
+        //                render += '<td >' + item.MaThe + '</td>';
+        //                render += '<td >' + item.HoTenDG + '</td>';
+        //                render += '<td >' + item.SDT + '</td>';
+        //                render += '<td  class="date">' + item.NgayMuon + '</td>';
+        //                render += '<td  class="date">' + item.HanTra + '</td>';
+        //                render += '</tr>';
+        //            });
+
+
+        //            let tablepm = document.getElementById("tablepm");
+        //            tablepm.innerHTML = render;
+        //        },
+        //        error: function (status) {
+
+        //            // show aler cảnh báo nếu lôi
+        //            alert("Không tìm thấy data");
+        //            //alone.notify('Cannot load data of Sach Muon', 'danger');
+        //        }
+        //    })
+
+        //}
 
            // Hàm ajax này sẽ gọi trong controller PhieuTra / GetSachMuon
             // Trả về json và render ra tbody và gán vào element có ID tableBody
@@ -471,30 +553,33 @@
                     return;
                 }
             }
+            var confirmed = confirm("Bạn có chắc muốn tạo phiếu mượn không?");
+            if (confirmed) {
+                // Gửi dữ liệu đến controller bằng phương thức AJAX POST
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/PhieuTra/TaoPhieuTra",
+                    data: JSON.stringify(dataPost),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            document.getElementById("contentModalSuccess").innerHTML = "Thêm phiếu trả thành công!";
+                            $("#ModalSuccess").modal("show");
+                            lamMoi();
 
-            // Gửi dữ liệu đến controller bằng phương thức AJAX POST
-            $.ajax({
-                type: "POST",
-                url: "/Admin/PhieuTra/TaoPhieuTra",
-                data: JSON.stringify(dataPost),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    if (response.success) {
-                        document.getElementById("contentModalSuccess").innerHTML = "Thêm phiếu trả thành công!";
-                        $("#ModalSuccess").modal("show");
-                        lamMoiButton.click();
-                        console.log('Tạo phiếu trả: ', response);
-                    } else {
-                        document.getElementById("contentModalError").innerHTML = "Hãy thêm số lượng sách muốn trả!";
-                        $("#ModalError").modal("show");
-                        console.log('Tạo phiếu trả: ', response);
+                            console.log('Tạo phiếu trả: ', response);
+                        } else {
+                            document.getElementById("contentModalError").innerHTML = "Hãy thêm số lượng sách muốn trả!";
+                            $("#ModalError").modal("show");
+                            console.log('Tạo phiếu trả: ', response);
+                        }
+                    },
+                    error: function () {
+                        alert("Lỗi khi gửi yêu cầu đến máy chủ.");
                     }
-                },
-                error: function () {
-                    alert("Lỗi khi gửi yêu cầu đến máy chủ.");
-                }
-            });
+                });
+            }
         }
 
 

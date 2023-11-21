@@ -57,7 +57,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                      NgayMuon = PhieuMuon.NgayMuon,
                      HanTra = PhieuMuon.HanTra,
                      MaNV = NhanVien.MaNV,
-                    // HoTenNV = NhanVien.HoTenNV,
+                     // HoTenNV = NhanVien.HoTenNV,
                      MaThe = DocGia.MaDG,
                      HoTenDG = DocGia.HoTenDG,
                      SDT = DocGia.SDT
@@ -67,26 +67,18 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
         }
 
 
-      
+
         public IEnumerable<PhieuMuon_DTO> GetPhieuMuonsChuaTraSach()
         {
             var distinctPhieuMuonNotInPhieuTra =
                 (from PhieuMuon in unitOfWork.Context.PhieuMuons
                  join DocGia in unitOfWork.Context.DocGias
                     on PhieuMuon.MaThe equals DocGia.MaDG
+                
                  join CHITIETPM in unitOfWork.Context.ChiTietPMs
                  on PhieuMuon.MaPM equals CHITIETPM.MaPM
-                 where !(
-                         from CHITIETPT in unitOfWork.Context.ChiTietPTs
-                         join PHIEUTRA in unitOfWork.Context.PhieuTras
-                            on CHITIETPT.MaPT equals PHIEUTRA.MaPT
-                         join DocGia in unitOfWork.Context.DocGias
-                          on PHIEUTRA.MaThe equals DocGia.MaDG
-                         where PhieuMuon.MaThe == PHIEUTRA.MaThe
-                          && CHITIETPM.Soluongmuon == CHITIETPT.Soluongtra+ CHITIETPT.Soluongloi
-                          && CHITIETPM.MaSach == CHITIETPT.MaSach
-                         select 1
-                      ).Any()
+                 where  PhieuMuon.Tinhtrang == false 
+                        
                  select new PhieuMuon_DTO
                  {
                      MaPM = PhieuMuon.MaPM,
@@ -95,6 +87,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                      SDT = DocGia.SDT,
                      NgayMuon = PhieuMuon.NgayMuon,
                      HanTra = PhieuMuon.HanTra
+
                  }
                 ).Distinct().ToList();
 
@@ -103,7 +96,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
         public IEnumerable<PhieuMuon_DTO> SearchPhieuMuon(string searchTerm)
         {
-           
             var distinctPhieuMuonNotInPhieuTra =
                 (from PhieuMuon in unitOfWork.Context.PhieuMuons
                  join DocGia in unitOfWork.Context.DocGias
@@ -111,16 +103,21 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                  join CHITIETPM in unitOfWork.Context.ChiTietPMs
                  on PhieuMuon.MaPM equals CHITIETPM.MaPM
                  where !(
-                         from CHITIETPT in unitOfWork.Context.ChiTietPTs
-                         join PHIEUTRA in unitOfWork.Context.PhieuTras
-                            on CHITIETPT.MaPT equals PHIEUTRA.MaPT
-                         join DocGia in unitOfWork.Context.DocGias
-                          on PHIEUTRA.MaThe equals DocGia.MaDG
-                         where PhieuMuon.MaThe == PHIEUTRA.MaThe
-                          && CHITIETPM.Soluongmuon == CHITIETPT.Soluongtra
-                          && CHITIETPM.MaSach == CHITIETPT.MaSach
-                         select 1
-                      ).Any()  && (DocGia.HoTenDG.Contains(searchTerm)
+                         from chiTietPhieuTraSub in unitOfWork.Context.ChiTietPTs
+                         join phieuTraSub in unitOfWork.Context.PhieuTras
+                            on chiTietPhieuTraSub.MaPT equals phieuTraSub.MaPT
+
+                         join PhieuMuonSub in unitOfWork.Context.PhieuMuons
+                            on phieuTraSub.MaPM equals PhieuMuonSub.MaPM
+
+                         join CHITIETPMSub in unitOfWork.Context.ChiTietPMs
+                           on PhieuMuonSub.MaPM equals CHITIETPMSub.MaPM
+
+                         where PhieuMuonSub.MaThe == phieuTraSub.MaThe
+                          && CHITIETPMSub.Soluongmuon == chiTietPhieuTraSub.Soluongtra + chiTietPhieuTraSub.Soluongloi
+                          && CHITIETPMSub.MaSach == chiTietPhieuTraSub.MaSach
+                         select PhieuMuonSub.MaPM
+                      ).ToList().Contains(PhieuMuon.MaPM) && (DocGia.HoTenDG.Contains(searchTerm)
             || DocGia.SDT.Contains(searchTerm))
                  select new PhieuMuon_DTO
                  {
@@ -136,40 +133,64 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
             return distinctPhieuMuonNotInPhieuTra;
         }
 
-
         public IEnumerable<SachMuonDTO> getSachMuon(int MaPm)
         {
-            var SoLuongSachMuon =
-                (from PhieuMuon in unitOfWork.Context.PhieuMuons
-                 join CHITIETPM in unitOfWork.Context.ChiTietPMs
-                 on PhieuMuon.MaPM equals CHITIETPM.MaPM
-                 join Sach in unitOfWork.Context.Saches
-                    on CHITIETPM.MaSach equals Sach.MaSach
-                 where !(
-                         from CHITIETPT in unitOfWork.Context.ChiTietPTs
-                         join PHIEUTRA in unitOfWork.Context.PhieuTras
-                            on CHITIETPT.MaPT equals PHIEUTRA.MaPT
-                         join Sach in unitOfWork.Context.Saches
-                on CHITIETPT.MaSach equals Sach.MaSach
-                         where PhieuMuon.MaThe == PHIEUTRA.MaThe
-                          && CHITIETPM.MaSach == CHITIETPT.MaSach
-                        /*   PhieuMuon.MaPM == PHIEUTRA.MaPM*/
-                         select 1
-                      ).Any() && PhieuMuon.MaPM == MaPm
-                 select new SachMuonDTO
-                 {
-                     MaSach = CHITIETPM.MaSach, 
-                     TenSach = Sach.TenSach,
-                     SoLuongMuon = CHITIETPM.Soluongmuon
+            // Lấy danh sách sách đã trả
+            var listSachTra = (
+                from phieuTra in unitOfWork.Context.PhieuTras
+                join chiTietPT in unitOfWork.Context.ChiTietPTs on phieuTra.MaPT equals chiTietPT.MaPT
+                where phieuTra.MaPM == MaPm
+                group chiTietPT by chiTietPT.MaSach into g
+                select new SachDaTraDTO
+                {
+                    MaSach = g.Key,
+                    SoLuongDaTra = g.Sum(a => a.Soluongtra + a.Soluongloi)
+                }
+            ).ToList();
 
-                 }
-                ).ToList();
+            // Lấy danh sách sách mượn
+            var sachMuonList = (
+                from chiTietPM in unitOfWork.Context.ChiTietPMs
+                join sach in unitOfWork.Context.Saches on chiTietPM.MaSach equals sach.MaSach
+                where chiTietPM.MaPM == MaPm
+                select new SachMuonDTO
+                {
+                    MaSach = sach.MaSach,
+                    TenSach = sach.TenSach,
+                    SoLuongMuon = chiTietPM.Soluongmuon
+                })
+                .AsEnumerable()
+                .Select(x =>
+                {
+                    // Tìm kiếm thông tin sách đã trả tương ứng
+                    var sachDaTra = listSachTra.FirstOrDefault(s => s.MaSach == x.MaSach);
 
-            return SoLuongSachMuon;
+                    // Nếu không tìm thấy, sử dụng giá trị mặc định là 0
+                    int soLuongDaTra = sachDaTra?.SoLuongDaTra ?? 0;
+
+                    // Tính toán số lượng còn lại của sách mượn
+                    int? soLuongMuonConLaiNullable = x.SoLuongMuon - soLuongDaTra;
+
+                    // Chuyển đổi kiểu dữ liệu từ int? sang int
+                    int soLuongMuonConLai = soLuongMuonConLaiNullable ?? 0;
+
+
+                    // Tạo đối tượng SachMuonDTO mới
+                    return new SachMuonDTO
+                    {
+                        MaSach = x.MaSach,
+                        TenSach = x.TenSach,
+                        SoLuongMuon = soLuongMuonConLai
+                    };
+                })
+                .Where(x => x.SoLuongMuon > 0)
+                .ToList();
+
+            // Trả về danh sách sách mượn còn lại
+            return sachMuonList;
         }
 
-       
-
+      
         public void Insert(PhieuMuon obj)
         {
             throw new NotImplementedException();
@@ -180,6 +201,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
             throw new NotImplementedException();
         }
 
-        
+
     }
 }
