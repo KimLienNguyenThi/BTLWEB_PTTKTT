@@ -17,7 +17,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
     public class PhieuTraController : Controller
     {
         // GET: Admin/PhieuTra
-        DocGiaService _docGiaService = new DocGiaService();
         PhieuMuonService _phieuMuonService = new PhieuMuonService();
 
         PhieuMuonService _sachMuonService = new PhieuMuonService();
@@ -29,48 +28,28 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-             /*   var docGia = _docGiaService.GetAllDocGia_PhieuTra();
-                ViewData["DocGia"] = docGia;*/
                 var phieuMuon = _phieuMuonService.GetPhieuMuonsChuaTraSach();
                 ViewData["PhieuMuon"] = phieuMuon;
-                //   ViewData["SachMuon"] = new List<WebQuanLyThuVien.Areas.Admin.Data.SachMuonDTO>();
                 return View();
             }
         }
-
-        public ActionResult Search(string keyword)
+     
+        [HttpGet]
+        public JsonResult phieuMuon(string keyword)
         {
-            if (Session["user"] == null)
-                return RedirectToAction("Login", "Account");
-            else
+            if (keyword == "")
             {
-             /*   var docGia = _docGiaService.GetAllDocGia_PhieuTra();
-                ViewData["DocGia"] = docGia;*/
-
-                IEnumerable<PhieuMuon_DTO> phieuMuon;
-                if (!string.IsNullOrEmpty(keyword))
-                {
-                    // Sử dụng hàm SearchPhieuMuon từ service để tìm kiếm
-                    phieuMuon = _phieuMuonService.SearchPhieuMuon(keyword);
-                }
-                else
-                {
-                    // Nếu không có từ khóa, hiển thị tất cả phiếu mượn
-                    phieuMuon = _phieuMuonService.GetPhieuMuonsChuaTraSach();
-                }
-
-                ViewData["PhieuMuon"] = phieuMuon;
-                //  ViewData["SachMuon"] = new List<WebQuanLyThuVien.Areas.Admin.Data.SachMuonDTO>();
-                return View("Index");
+                var phieuMuon = _phieuMuonService.GetPhieuMuonsChuaTraSach();
+                return Json(new ApiOkResponse(phieuMuon.ToList()), JsonRequestBehavior.AllowGet);
             }
+            else 
+            {
+                var phieuMuon = _phieuMuonService.SearchPhieuMuon(keyword);
+                return Json(new ApiOkResponse(phieuMuon.ToList()), JsonRequestBehavior.AllowGet);
+            } 
+                
         }
 
-
-        /// <summary>
-        ///  Hàm này dùng cho ajax gọi
-        /// </summary>
-        /// <param name="maPM"></param>
-        /// <returns></returns>
 
         [HttpGet]
         public JsonResult GetSachMuon(int maPM)
@@ -88,40 +67,31 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
         }
        
    
-        
-        
-            [HttpPost]
-            public ActionResult TaoPhieuTra(DTO_Tao_Phieu_Tra data)
+        [HttpPost]
+        public ActionResult TaoPhieuTra(DTO_Tao_Phieu_Tra data)
+        {
+            try
             {
-
-                try
-                {
-                    var success = _phieuTraCTPhieuTraService.Insert(data);
-                if (success)
-                {  // Trả về phản hồi thành công
+                 var success = _phieuTraCTPhieuTraService.Insert(data);
+                 if (success)
+                 { // Trả về phản hồi thành công
                    // var phieuMuon = _phieuMuonService.GetPhieuMuonsChuaTraSach();
-                    return Json(new { success = true, message = "Tạo phiếu trả thành công." });
-                   
-                }
-                return Json(new { success = false, message = "Tạo phiếu trả thất bại." });
-
+                     return Json(new { success = true, message = "Tạo phiếu trả thành công." });
+                  }
+                  return Json(new { success = false, message = "Tạo phiếu trả thất bại." });
             }
-            
-            
-                catch (Exception ex)
-                {
-                    // Xử lý các ngoại lệ một cách thích hợp
-                    return Json(new { success = false, message = "Lỗi xử lý yêu cầu.", error = ex.Message });
-                }
-
-
-
+            catch (Exception ex)
+            {
+                  // Xử lý các ngoại lệ một cách thích hợp
+                  return Json(new { success = false, message = "Lỗi xử lý yêu cầu.", error = ex.Message });
             }
 
         }
 
+     }
 
 
 
-    }
+
+ }
 

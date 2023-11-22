@@ -22,7 +22,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
         public PhieuMuonService()
         {
-            //_docGiaRepository = new DocGiaRepository(unitOfWork);
 
 
         }
@@ -50,14 +49,12 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                     on PhieuMuon.MaThe equals DocGia.MaDG
                  join NhanVien in unitOfWork.Context.NhanViens
                  on PhieuMuon.MaNV equals NhanVien.MaNV
-                 // where TheDocGia.NgayHH >= DateTime.Now
                  select new PhieuMuon_DTO
                  {
                      MaPM = PhieuMuon.MaPM,
                      NgayMuon = PhieuMuon.NgayMuon,
                      HanTra = PhieuMuon.HanTra,
                      MaNV = NhanVien.MaNV,
-                     // HoTenNV = NhanVien.HoTenNV,
                      MaThe = DocGia.MaDG,
                      HoTenDG = DocGia.HoTenDG,
                      SDT = DocGia.SDT
@@ -97,27 +94,14 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
         public IEnumerable<PhieuMuon_DTO> SearchPhieuMuon(string searchTerm)
         {
             var distinctPhieuMuonNotInPhieuTra =
-                (from PhieuMuon in unitOfWork.Context.PhieuMuons
-                 join DocGia in unitOfWork.Context.DocGias
-                    on PhieuMuon.MaThe equals DocGia.MaDG
-                 join CHITIETPM in unitOfWork.Context.ChiTietPMs
-                 on PhieuMuon.MaPM equals CHITIETPM.MaPM
-                 where !(
-                         from chiTietPhieuTraSub in unitOfWork.Context.ChiTietPTs
-                         join phieuTraSub in unitOfWork.Context.PhieuTras
-                            on chiTietPhieuTraSub.MaPT equals phieuTraSub.MaPT
+              ( from PhieuMuon in unitOfWork.Context.PhieuMuons
+               join DocGia in unitOfWork.Context.DocGias
+                  on PhieuMuon.MaThe equals DocGia.MaDG
 
-                         join PhieuMuonSub in unitOfWork.Context.PhieuMuons
-                            on phieuTraSub.MaPM equals PhieuMuonSub.MaPM
-
-                         join CHITIETPMSub in unitOfWork.Context.ChiTietPMs
-                           on PhieuMuonSub.MaPM equals CHITIETPMSub.MaPM
-
-                         where PhieuMuonSub.MaThe == phieuTraSub.MaThe
-                          && CHITIETPMSub.Soluongmuon == chiTietPhieuTraSub.Soluongtra + chiTietPhieuTraSub.Soluongloi
-                          && CHITIETPMSub.MaSach == chiTietPhieuTraSub.MaSach
-                         select PhieuMuonSub.MaPM
-                      ).ToList().Contains(PhieuMuon.MaPM) && (DocGia.HoTenDG.Contains(searchTerm)
+               join CHITIETPM in unitOfWork.Context.ChiTietPMs
+               on PhieuMuon.MaPM equals CHITIETPM.MaPM
+               where PhieuMuon.Tinhtrang == false
+                       && (DocGia.HoTenDG.Contains(searchTerm)
             || DocGia.SDT.Contains(searchTerm))
                  select new PhieuMuon_DTO
                  {

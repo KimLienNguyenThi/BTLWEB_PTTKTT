@@ -22,7 +22,7 @@
                                 @* <button type="submit" class="btn btn-primary taoPhieuTra" id="taoPhieuTra">Tạo phiếu trả</button>*@
                             </div>
                             <div class="col-2">
-                                <button type="button" class="btn btn-warning lamMoiSach"  onclick="lamMoi()">Làm mới</button>
+                                <button type="button" class="btn btn-warning lamMoiSach" onclick="lamMoi()">Làm mới</button>
                             </div>
 
                         </div>
@@ -91,16 +91,6 @@
 
                                     </thead>
                                     <tbody id="tableBody">
-                                        @* @foreach (var item in ViewData["SachMuon"] as List<WebQuanLyThuVien.Areas.Admin.Data.SachMuonDTO>)
-                                            {
-                                                <tr class="sach-row" aria-expanded="false" data-widget="expandable-table">
-                                                    <td>@item.MaSach</td>
-                                                    <td>@item.TenSach</td>
-                                                    <td>@item.SoLuongMuon</td>
-                                                </tr>
-
-                                            }*@
-
                                     </tbody>
                                 </table>
                             </div>
@@ -123,7 +113,7 @@
                         <div class="card-tools">
 
                             <div class="input-group input-group-sm pt-2" style="width: 150px">
-                                <input type="text"  name="table_search" class="form-control float-right" id="searchInput" placeholder="Search" />
+                                <input type="text" name="table_search" class="form-control float-right" id="searchInput" placeholder="Search" />
                                 @* <input type="text" id="searchInput" class="form-control" placeholder="Search" />*@
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default" id="searchButton">
@@ -146,46 +136,10 @@
                                     <th>Hạn trả</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach (var item in ViewData["PhieuMuon"] as List<WebQuanLyThuVien.Areas.Admin.Data.PhieuMuon_DTO>)
-                                {
-                                    <tr class="phieuMuonRow">
-                                        <td class="selectMaPm">@item.MaPM</td>
-                                        <td>@item.MaThe</td>
-                                        <td>@item.HoTenDG</td>
-                                        <td>@item.SDT</td>
-                                        <td class="date">@item.NgayMuon</td>
-                                        <td class="date">@item.HanTra</td>
-
-                                    </tr>
-                                }
+                            <tbody id="tablephieuMuon">
                             </tbody>
                         </table>
                     </div>
-                    <!--Body table thông tin dg-->
-                    @*<div class="card-body table-responsive p-0" style="height: 71.2vh" id="thongTinDocGiaTable">
-                        <table class="table table-head-fixed table-hover  table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Mã</th>
-                                    <th>Họ tên</th>
-                                    <th>SDT</th>
-                                    <th>Địa chỉ</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in ViewData["DocGia"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_DocGia_TheDocGia>)
-                                {
-                                    <tr class="row-clickable">
-                                        <td>@item.MaThe</td>
-                                        <td>@item.HoTenDG</td>
-                                        <td>@item.SDT</td>
-                                        <td>@item.DiaChi</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>*@
 
                 </div>
             </div>
@@ -221,32 +175,12 @@
 
             // Lấy các phần tử DOM của bảng pm và bảng Thông tin độc giả
             var thongTinPhieuMuonTable = document.getElementById("thongTinPhieuMuonTable");
-           // var thongTinDocGiaTable = document.getElementById("thongTinDocGiaTable");
 
            // Gán sự kiện mặc định cho nút "Hiển thị Thông tin pm" khi trang được tải
-           // thongTinDocGiaTable.style.display = "none";
             thongTinPhieuMuonTable.style.display = "block";
 
             // Lấy các nút chọn
             var thongTinPheuMuonButton = document.getElementById("thongTinPheuMuonButton");
-           // var thongTinDocGiaButton = document.getElementById("thongTinDocGiaButton");
-
-
-            //// Sự kiện click cho nút "Hiển thị dg"
-            //thongTinDocGiaButton.addEventListener("click", function () {
-            //    // Ẩn bảng Thông tin pm
-            //    thongTinPhieuMuonTable.style.display = "none";
-            //    // Hiển thị bảng dg
-            //    thongTinDocGiaTable.style.display = "block";
-            //});
-
-            //// Sự kiện click cho nút "Hiển thị pm"
-            //thongTinPhieuMuonButton.addEventListener("click", function () {
-            //    // Hiển thị bảng pm
-            //    thongTinPhieuMuonTable.style.display = "block";
-            //    // Ẩn bảng Thông tin độc giả
-            //    thongTinDocGiaTable.style.display = "none";
-            //});
 
 
             //=====================  Lấy dữ liệu khi search =====================
@@ -257,7 +191,7 @@
             searchButton.addEventListener("click", function () {
                 const keyword = searchInput.value.trim(); // Lấy từ khóa từ ô tìm kiếm
                 // Gửi yêu cầu tìm kiếm đến Controller
-                window.location.href = `/Admin/PhieuTra/Search?keyword=${keyword}`;
+                loadPhieuMuons(keyword);
             });
 
 
@@ -265,7 +199,7 @@
             searchInput.addEventListener("keyup", function (event) {
                 if (event.key === "Enter") {
                     const keyword = searchInput.value.trim();
-                    window.location.href = `/Admin/PhieuTra/Search?keyword=${keyword}`;
+                    loadPhieuMuons(keyword);
                 }
             });
 
@@ -273,76 +207,8 @@
             // Hàm thực hiện tìm kiếm
             function performSearch() {
                 const keyword = searchInput.value.trim(); // Lấy từ khóa từ ô tìm kiếm
-                // Gửi yêu cầu tìm kiếm đến Controller
-                window.location.href = `/Admin/PhieuTra/Search?keyword=${keyword}`;
+                loadPhieuMuons(keyword);
             }
-
-
-
-            // Lấy tất cả các phần tử có lớp "date"
-            const dateElements = document.querySelectorAll('.date');
-            dateElements.forEach(element => {
-                // Lấy ngày, tháng và năm từ văn bản hiện tại
-                const originalDateText = element.textContent;
-                const parts = originalDateText.split('/'); // Tách ngày, tháng và năm
-
-                // Tạo đối tượng Date từ các phần tử đã tách
-                const day = parseInt(parts[0], 10);
-                const month = parseInt(parts[1], 10);
-                const year = parseInt(parts[2], 10);
-                const formattedDate = `${day}/${month}/${year}`;
-
-                // Hiển thị ngày tháng năm đã định dạng
-                element.textContent = formattedDate;
-            });
-
-
-            //=====================  Lấy dữ liệu khi click vào hàng trong table tt pm  =====================
-
-        // Lấy danh sách các hàng trong bảng thông tin pm
-            var pmrows = document.querySelectorAll(".phieuMuonRow");
-
-            pmrows.forEach(function (row)
-            {
-                row.addEventListener("click", function () {
-                    var maThe = row.querySelector("td:nth-child(2)").textContent;
-                    var hoTen = row.querySelector("td:nth-child(3)").textContent;
-                    var sdt = row.querySelector("td:nth-child(4)").textContent;
-                    var ngaymuonText = row.querySelector("td:nth-child(5)").textContent;
-                    var hantraText = row.querySelector("td:nth-child(6)").textContent;
-
-
-                    // Chuyển đổi ngày và giờ từ văn bản thành đối tượng Date
-                    var ngaymuon = new Date(ngaymuonText);
-                    var hantra = new Date(hantraText);
-
-                    // Điều chỉnh ngày và hạn trả để tránh sự sai khác về múi giờ
-                    ngaymuon.setHours(ngaymuon.getHours() + 12); // Điều chỉnh lại thời gian (+1 giờ)
-                    hantra.setHours(hantra.getHours() + 12); // Điều chỉnh lại thời gian (+1 giờ)
-
-
-                    // Lấy ngày và tháng của ngày mượn và hạn trả
-                    var ngaymuonFormatted = ngaymuon.toISOString().substring(0, 10);
-                    var hantraFormatted = hantra.toISOString().substring(0, 10);
-
-                    // Hiển thị thông tin ngày mượn và hạn trả vào các ô nhập dạng ngày trong form
-                    document.getElementById("selectedMaThe").value = maThe;
-                    document.getElementById("selectedName").value = hoTen;
-                    document.getElementById("selectedSDT").value = sdt;
-                    document.getElementById("return_datemuon").value = ngaymuonFormatted;
-                    document.getElementById("return_datehan").value = hantraFormatted;
-
-
-                    var mapm = parseInt(row.querySelector("td:nth-child(1)").textContent);
-                    // Truyền mã phiếu mượn vào hàm sách mượn ở controller
-                    // window.location.href = "/Admin/PhieuMuon/GetSachMuon?maPM=" + maPM;
-                    loadSachMuons(mapm);
-
-
-
-                });
-            });
-
 
             // Lấy ngày hiện tại
             var currentDate = new Date();
@@ -353,96 +219,92 @@
             // Đặt giá trị mặc định cho trường ngày trả thành ngày hiện tại
             document.getElementById("return_datetra").value = formatCurrentDate;
 
-               var manv = @HttpContext.Current.Session["manv"]
-                document.getElementById("selectedMaNhanVien").value = manv;
-
-//===================== Hàm Làm mới danh sách sách mượn =====================
-
-
-        function lamMoi() {
-            document.getElementById("selectedMaThe").value = "";
-            document.getElementById("selectedName").value = "";
-            document.getElementById("selectedSDT").value = "";
-            document.getElementById("return_datemuon").value = "";
-            document.getElementById("return_datehan").value = "";
-
-            // Cập nhật danh sách sách mượn trong view
-            var tableBody = $("#tableBody");
-
-        /*    // Xóa nội dung bảng
-            tableBody.empty();*/
-
-            // Làm mới trang
-            location.href = '@Url.Action("Index","PhieuTra")';
-
-        }
+            var manv = @HttpContext.Current.Session["manv"]
+            document.getElementById("selectedMaNhanVien").value = manv;
 
 
 
-        @*
-            function lamMoi() {
+            //load lân đầu
+             loadPhieuMuons("");
+
+             // Hàm ajax này sẽ gọi trong controller PhieuTra / GetSachMuon
+            // Trả về json và render ra tbody và gán vào element có ID tableBody
+            // Ajax có công dụng gọi ngầm, sẽ không bị reload lại page, cần lấy data chỗ nào thì sẽ render lại chỗ đó.
+    //===================== Hàm Làm mới danh sách sách mượn =====================
+            function lamMoi()
+            {
                 document.getElementById("selectedMaThe").value = "";
                 document.getElementById("selectedName").value = "";
                 document.getElementById("selectedSDT").value = "";
                 document.getElementById("return_datemuon").value = "";
                 document.getElementById("return_datehan").value = "";
 
-                // Cập nhật danh sách sách mượn trong view
-                var tableBody = $("#tableBody");
+                let tableBody = document.getElementById("tableBody");
+                tableBody.innerHTML = "";
+                loadPhieuMuons('');
+            }
 
-                // Gọi Index của PhieuTra Controller bằng Ajax
+    //===================== Hàm show phieu muon chua tra sach =====================
+
+            function loadPhieuMuons(keyword) {
+
+                function formatDate(dateString) {
+                    // Kiểm tra xem chuỗi ngày có trống không hoặc là null không
+                    if (!dateString)
+                    {
+                        return ''; // Trả về chuỗi trống nếu ngày không được cung cấp
+                    }
+
+                    try
+                    {
+                        // Trích xuất giá trị ticks từ chuỗi ngày
+                        var ticks = parseInt(dateString.match(/\d+/)[0]);
+
+                        // Chuyển đổi ticks thành đối tượng Date của JavaScript
+                        var date = new Date(ticks);
+
+                        // Định dạng ngày thành MM/dd/YYYY
+                        var formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+                            date.getDate().toString().padStart(2, '0') + '/' +
+                            date.getFullYear();
+
+                        return formattedDate;
+                    } catch (error) {
+                        // Xử lý lỗi chuyển đổi ngày
+                        console.error('Lỗi chuyển đổi ngày:', error.message);
+                        return 'Ngày không hợp lệ';
+                    }
+                }
+
                 $.ajax({
-                    url: '@Url.Action("Index", "PhieuTra")',
-                    type: 'GET',
-                    success: function (result) {
-                        // Xử lý kết quả trả về nếu cần
-                        // Ví dụ: Cập nhật nội dung bảng
-                        tablepm.html(result);
+                    type: "GET",
+                    url: "/Admin/PhieuTra/phieuMuon?keyword=" + keyword,
+                    dataType: 'json',
+                    success: function (res) {
+                        var render = "";
+                        $.each(res.Result, function (i, item) {
+                            render += '<tr class="phieuMuonRow" aria-expanded="false" data-widget="expandable-table">';
+                            render += '<td  class="selectMaPm">' + item.MaPM + '</td>';
+                            render += '<td >' + item.MaThe + '</td>';
+                            render += '<td >' + item.HoTenDG + '</td>';
+                            render += '<td >' + item.SDT + '</td>';
+                            render += '<td  class="date">' + formatDate(item.NgayMuon) + '</td>';
+                            render += '<td  class="date">' + formatDate(item.HanTra) + '</td>';
+                            render += '</tr>';
+                        });
+
+                        let tablephieuMuon = document.getElementById("tablephieuMuon");
+                        tablephieuMuon.innerHTML = render;
+                        selectSachMuon();
                     },
-                    error: function (error) {
-                        // Xử lý lỗi nếu có
-                        console.log(error);
+                    error: function (status) {
+                        // show aler cảnh báo nếu lôi
+                        alert("Không tìm thấy data");
                     }
                 });
-            } *@
+            }
 
-        //function loadPhieuMuons() {
-        // //   $('#hdfMaPM').val(maPM);
-
-        //    $.ajax({
-        //        type: "GET",
-        //        url: "/Admin/PhieuTra/Index",
-        //        dataType: 'json',
-        //        success: function (res) {
-        //            var render = "";
-        //            $.each(res.Result, function (i, item) {
-        //                render += '<tr class="phieumuon-row" aria-expanded="false" data-widget="expandable-table">';
-        //                render += '<td  class="selectMaPm">' + item.MaPM + '</td>';
-        //                render += '<td >' + item.MaThe + '</td>';
-        //                render += '<td >' + item.HoTenDG + '</td>';
-        //                render += '<td >' + item.SDT + '</td>';
-        //                render += '<td  class="date">' + item.NgayMuon + '</td>';
-        //                render += '<td  class="date">' + item.HanTra + '</td>';
-        //                render += '</tr>';
-        //            });
-
-
-        //            let tablepm = document.getElementById("tablepm");
-        //            tablepm.innerHTML = render;
-        //        },
-        //        error: function (status) {
-
-        //            // show aler cảnh báo nếu lôi
-        //            alert("Không tìm thấy data");
-        //            //alone.notify('Cannot load data of Sach Muon', 'danger');
-        //        }
-        //    })
-
-        //}
-
-           // Hàm ajax này sẽ gọi trong controller PhieuTra / GetSachMuon
-            // Trả về json và render ra tbody và gán vào element có ID tableBody
-            // Ajax có công dụng gọi ngầm, sẽ không bị reload lại page, cần lấy data chỗ nào thì sẽ render lại chỗ đó.
+    //===================== Hàm show sach muon =====================
 
             function loadSachMuons(maPM)
             {
@@ -461,10 +323,8 @@
                             render += '<td >' + item.SoLuongMuon + '</td>';
                             render += '<td>  <input class="soLuongTra" min="0" type="number" value="0" style="width: 60%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';
                             render += '<td>  <input class="loi" min="0" type="number" value="0" style="width: 70%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';
-                          //  render += '<td >  <input class="loi" type="number" min="0" value="0" style="width: 70%"/>  </td>';
                             render += '</tr>';
                         });
-
 
                         let tableBody = document.getElementById("tableBody");
                         tableBody.innerHTML = render;
@@ -479,108 +339,153 @@
 
             }
 
+    //=====================  Lấy dữ liệu khi click vào pm muốn thực hiện thao tác trả sách =====================
+
+           function selectSachMuon() {
+            // Lấy danh sách các hàng trong bảng thông tin pm
+               var pmrows = document.querySelectorAll(".phieuMuonRow");
+
+               pmrows.forEach(function (row) {
+                   row.addEventListener("click", function () {
+                        var maThe = row.querySelector("td:nth-child(2)").textContent;
+                        var hoTen = row.querySelector("td:nth-child(3)").textContent;
+                        var sdt = row.querySelector("td:nth-child(4)").textContent;
+                        var ngaymuonText = row.querySelector("td:nth-child(5)").textContent;
+                        var hantraText = row.querySelector("td:nth-child(6)").textContent;
+
+
+                        // Chuyển đổi ngày và giờ từ văn bản thành đối tượng Date
+                        var ngaymuon = new Date(ngaymuonText);
+                        var hantra = new Date(hantraText);
+
+                        // Điều chỉnh ngày và hạn trả để tránh sự sai khác về múi giờ
+                        ngaymuon.setHours(ngaymuon.getHours() + 12); // Điều chỉnh lại thời gian (+1 giờ)
+                        hantra.setHours(hantra.getHours() + 12); // Điều chỉnh lại thời gian (+1 giờ)
+
+
+                        // Lấy ngày và tháng của ngày mượn và hạn trả
+                        var ngaymuonFormatted = ngaymuon.toISOString().substring(0, 10);
+                        var hantraFormatted = hantra.toISOString().substring(0, 10);
+
+                        // Hiển thị thông tin ngày mượn và hạn trả vào các ô nhập dạng ngày trong form
+                        document.getElementById("selectedMaThe").value = maThe;
+                        document.getElementById("selectedName").value = hoTen;
+                        document.getElementById("selectedSDT").value = sdt;
+                        document.getElementById("return_datemuon").value = ngaymuonFormatted;
+                        document.getElementById("return_datehan").value = hantraFormatted;
+
+
+                        var mapm = parseInt(row.querySelector("td:nth-child(1)").textContent);
+                        loadSachMuons(mapm);
+
+                    });
+                });
+            }
+
 
             var ListSachTra = [];
 
-            function createSachTraPostData() {
-                var sachValues = [];
+            function createSachTraPostData()
+            {
+                 var sachValues = [];
 
-                // Lấy các ô nhập liệu từ bảng
-                var sachRows = document.querySelectorAll(".sach-row");
+                 // Lấy các ô nhập liệu từ bảng
+                 var sachRows = document.querySelectorAll(".sach-row");
 
-                sachRows.forEach(function (row) {
-                    // Lấy các ô nhập liệu từ hàng (sử dụng lớp hoặc ID thích hợp)
-                    var maSach = row.querySelector('td:nth-child(1)').textContent;
-                    var tenSach = row.querySelector('td:nth-child(2)').textContent;
-                    var soLuongMuon = row.querySelector('td:nth-child(3)').textContent;
-                    var soLuongTra = row.querySelector('input.soLuongTra').value;
-                    var soluongLoi = row.querySelector('input.loi').value
+                 sachRows.forEach(function (row) {
+                 // Lấy các ô nhập liệu từ hàng (sử dụng lớp hoặc ID thích hợp)
+                 var maSach = row.querySelector('td:nth-child(1)').textContent;
+                 var tenSach = row.querySelector('td:nth-child(2)').textContent;
+                 var soLuongMuon = row.querySelector('td:nth-child(3)').textContent;
+                 var soLuongTra = row.querySelector('input.soLuongTra').value;
+                 var soluongLoi = row.querySelector('input.loi').value
 
-                    // Thêm giá trị từ các ô nhập liệu vào mảng
-                    sachValues.push({
-                        MaSach: maSach,
-                        TenSach: tenSach,
-                        SoLuongMuon: soLuongMuon,
-                        SoLuongTra: soLuongTra,
-                        SoLuongLoi: soluongLoi
-                    });
-                });
+                 // Thêm giá trị từ các ô nhập liệu vào mảng
+                      sachValues.push({
+                           MaSach: maSach,
+                           TenSach: tenSach,
+                           SoLuongMuon: soLuongMuon,
+                           SoLuongTra: soLuongTra,
+                           SoLuongLoi: soluongLoi
+                            });
+                      });
 
-                var data = {
-                    MaNhanVien: @HttpContext.Current.Session["manv"],
-                    MaPhieuMuon: $('#hdfMaPM').val(),
-                    MaThe: document.getElementById("selectedMaThe").value,
-                    NgayTra: document.getElementById("return_datetra").value,
-                    ListSachTra: sachValues,
-                }
-                return data;
-            }
-
-
-        function Save() {
-            var dataPost = createSachTraPostData();
-
-            // Kiểm tra xem tất cả các hàng có số lượng bằng 0 không
-            var allRowsZero = dataPost.ListSachTra.every(function (item) {
-                return parseFloat(item.SoLuongTra) === 0 && parseFloat(item.SoLuongLoi) === 0;
-            });
-
-            if (allRowsZero) {
-                document.getElementById("contentModalError").innerHTML = "Hãy nhập số lượng sách muốn trả!";
-                $("#ModalError").modal("show");
-                return;
-            }
-
-            for (var i = 0; i < dataPost.ListSachTra.length; i++) {
-                var item = dataPost.ListSachTra[i];
-
-                var soLuongTra = parseFloat(item.SoLuongTra);
-                var soLuongLoi = parseFloat(item.SoLuongLoi);
-
-                // Kiểm tra xem có biến số lượng nào bé hơn 0 không
-                if (soLuongTra < 0 || soLuongLoi < 0) {
-                    document.getElementById("contentModalError").innerHTML = "Số lượng sách trả và số lượng sách lỗi không được bé hơn 0!";
-                    $("#ModalError").modal("show");
-                    return;
-                }
-
-                var soLuongMuon = parseFloat(item.SoLuongMuon);
-
-                // Kiểm tra xem số lượng mượn có lớn hơn số lượng trả và số lượng lỗi không
-                if (isNaN(soLuongMuon) || soLuongMuon < soLuongTra + soLuongLoi) {
-                    document.getElementById("contentModalError").innerHTML = "Hãy nhập đúng số lượng sách muốn trả!";
-                    $("#ModalError").modal("show");
-                    return;
-                }
-            }
-            var confirmed = confirm("Bạn có chắc muốn tạo phiếu mượn không?");
-            if (confirmed) {
-                // Gửi dữ liệu đến controller bằng phương thức AJAX POST
-                $.ajax({
-                    type: "POST",
-                    url: "/Admin/PhieuTra/TaoPhieuTra",
-                    data: JSON.stringify(dataPost),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        if (response.success) {
-                            document.getElementById("contentModalSuccess").innerHTML = "Thêm phiếu trả thành công!";
-                            $("#ModalSuccess").modal("show");
-                            lamMoi();
-
-                            console.log('Tạo phiếu trả: ', response);
-                        } else {
-                            document.getElementById("contentModalError").innerHTML = "Hãy thêm số lượng sách muốn trả!";
-                            $("#ModalError").modal("show");
-                            console.log('Tạo phiếu trả: ', response);
+                      var data = {
+                            MaNhanVien: @HttpContext.Current.Session["manv"],
+                            MaPhieuMuon: $('#hdfMaPM').val(),
+                            MaThe: document.getElementById("selectedMaThe").value,
+                            NgayTra: document.getElementById("return_datetra").value,
+                            ListSachTra: sachValues,
                         }
-                    },
-                    error: function () {
-                        alert("Lỗi khi gửi yêu cầu đến máy chủ.");
-                    }
+                 return data;
+             }
+
+
+            function Save() {
+                var dataPost = createSachTraPostData();
+
+                // Kiểm tra xem tất cả các hàng có số lượng bằng 0 không
+                var allRowsZero = dataPost.ListSachTra.every(function (item) {
+                    return parseFloat(item.SoLuongTra) === 0 && parseFloat(item.SoLuongLoi) === 0;
                 });
+
+                if (allRowsZero) {
+                    document.getElementById("contentModalError").innerHTML = "Hãy nhập số lượng sách muốn trả!";
+                    $("#ModalError").modal("show");
+                    return;
+                }
+
+                for (var i = 0; i < dataPost.ListSachTra.length; i++) {
+                    var item = dataPost.ListSachTra[i];
+
+                    var soLuongTra = parseFloat(item.SoLuongTra);
+                    var soLuongLoi = parseFloat(item.SoLuongLoi);
+
+                    // Kiểm tra xem có biến số lượng nào bé hơn 0 không
+                    if (soLuongTra < 0 || soLuongLoi < 0) {
+                        document.getElementById("contentModalError").innerHTML = "Số lượng sách trả và số lượng sách lỗi không được bé hơn 0!";
+                        $("#ModalError").modal("show");
+                        return;
+                    }
+
+                    var soLuongMuon = parseFloat(item.SoLuongMuon);
+
+                    // Kiểm tra xem số lượng mượn có lớn hơn số lượng trả và số lượng lỗi không
+                    if (isNaN(soLuongMuon) || soLuongMuon < soLuongTra + soLuongLoi) {
+                        document.getElementById("contentModalError").innerHTML = "Hãy nhập đúng số lượng sách muốn trả!";
+                        $("#ModalError").modal("show");
+                        return;
+                    }
+                }
+
+                var confirmed = confirm("Bạn có chắc muốn tạo phiếu trả không?");
+                if (confirmed) {
+                    // Gửi dữ liệu đến controller bằng phương thức AJAX POST
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/PhieuTra/TaoPhieuTra",
+                        data: JSON.stringify(dataPost),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            if (response.success) {
+                                document.getElementById("contentModalSuccess").innerHTML = "Thêm phiếu trả thành công!";
+                                $("#ModalSuccess").modal("show");
+                                lamMoi();
+
+                                console.log('Tạo phiếu trả: ', response);
+                            } else {
+                                document.getElementById("contentModalError").innerHTML = "Hãy thêm số lượng sách muốn trả!";
+                                $("#ModalError").modal("show");
+                                console.log('Tạo phiếu trả: ', response);
+                            }
+                        },
+                        error: function () {
+                            alert("Lỗi khi gửi yêu cầu đến máy chủ.");
+                        }
+                    });
+                }
             }
-        }
 
 
 
