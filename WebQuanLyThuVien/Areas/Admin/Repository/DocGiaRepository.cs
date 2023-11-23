@@ -10,7 +10,7 @@ using WebQuanLyThuVien.Repository;
 
 namespace WebQuanLyThuVien.Areas.Admin.Repository
 {
-    public class DocGiaRepository : GenericRepository<DocGia>,IDocGiaRepository
+    public class DocGiaRepository : GenericRepository<DocGia>, IDocGiaRepository
     {
         private GenericRepository<DocGia> _repository = null;
 
@@ -32,6 +32,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Repository
         {
             return (IEnumerable<DTO_DocGia_TheDocGia>)_repository.Table.ToList();
         }
+
         public IEnumerable<DTO_DocGia_TheDocGia> GetAllDocGia_PhieuTra()
         {
             return (IEnumerable<DTO_DocGia_TheDocGia>)_repository.Table.ToList();

@@ -11,16 +11,16 @@ using static WebQuanLyThuVien.Areas.Admin.Services.PhieuTraCTPhieuTraService;
 
 namespace WebQuanLyThuVien.Areas.Admin.Services
 {
-    public class PhieuTraCTPhieuTraService: IPhieuTraCTPhieuTraService
+    public class PhieuTraCTPhieuTraService : IPhieuTraCTPhieuTraService
     {
-      
+
         private UnitOfWork<QuanLyThuVienEntities> unitOfWork = new UnitOfWork<QuanLyThuVienEntities>();
 
 
-    
+
         public bool Insert(DTO_Tao_Phieu_Tra x)
         {
-            if(x.ListSachTra.Any(sach => sach.SoLuongLoi > 0 || sach.SoLuongTra > 0) == false)
+            if (x.ListSachTra.Any(sach => sach.SoLuongLoi > 0 || sach.SoLuongTra > 0) == false)
             {
                 return false;
             }
@@ -28,9 +28,9 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
             {
                 var phieuMuon = unitOfWork.Context.PhieuMuons.FirstOrDefault(p => p.MaPM == x.MaPhieuMuon);
 
-                if(phieuMuon == null)
+                if (phieuMuon == null)
                 {
-                   return false;
+                    return false;
                 }
 
 
@@ -51,7 +51,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                 // Duyệt qua danh sách sách trả và tạo đối tượng ChiTietPT cho mỗi cuốn sách
                 foreach (var sachtra in x.ListSachTra)
                 {
-                    if(sachtra.SoLuongTra ==0 && sachtra.SoLuongLoi ==0 )
+                    if (sachtra.SoLuongTra == 0 && sachtra.SoLuongLoi == 0)
                     {
                         continue;
                     }
@@ -62,13 +62,13 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                         Soluongtra = sachtra.SoLuongTra,
                         Soluongloi = sachtra.SoLuongLoi,
                     };
-                    
+
                     // Thêm ChiTietPT vào Context
-                   var a = unitOfWork.Context.ChiTietPTs.Add(newChiTietPT);
+                    var a = unitOfWork.Context.ChiTietPTs.Add(newChiTietPT);
                 }
 
                 // Lưu thay đổi vào cơ sở dữ liệu khi mọi thứ đã thành công
-                 unitOfWork.Commit();
+                unitOfWork.Commit();
 
                 unitOfWork.Save();
 
@@ -88,5 +88,5 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
         }
     }
 
-    
+
 }

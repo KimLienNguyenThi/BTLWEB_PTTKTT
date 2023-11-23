@@ -71,11 +71,11 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                 (from PhieuMuon in unitOfWork.Context.PhieuMuons
                  join DocGia in unitOfWork.Context.DocGias
                     on PhieuMuon.MaThe equals DocGia.MaDG
-                
+
                  join CHITIETPM in unitOfWork.Context.ChiTietPMs
                  on PhieuMuon.MaPM equals CHITIETPM.MaPM
-                 where  PhieuMuon.Tinhtrang == false 
-                        
+                 where PhieuMuon.Tinhtrang == false
+
                  select new PhieuMuon_DTO
                  {
                      MaPM = PhieuMuon.MaPM,
@@ -94,7 +94,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
         public IEnumerable<PhieuMuon_DTO> SearchPhieuMuon(string searchTerm)
         {
             var distinctPhieuMuonNotInPhieuTra =
-              ( from PhieuMuon in unitOfWork.Context.PhieuMuons
+              (from PhieuMuon in unitOfWork.Context.PhieuMuons
                join DocGia in unitOfWork.Context.DocGias
                   on PhieuMuon.MaThe equals DocGia.MaDG
 
@@ -103,15 +103,15 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                where PhieuMuon.Tinhtrang == false
                        && (DocGia.HoTenDG.Contains(searchTerm)
             || DocGia.SDT.Contains(searchTerm))
-                 select new PhieuMuon_DTO
-                 {
-                     MaPM = PhieuMuon.MaPM,
-                     MaThe = DocGia.MaDG,
-                     HoTenDG = DocGia.HoTenDG,
-                     SDT = DocGia.SDT,
-                     NgayMuon = PhieuMuon.NgayMuon,
-                     HanTra = PhieuMuon.HanTra
-                 }
+               select new PhieuMuon_DTO
+               {
+                   MaPM = PhieuMuon.MaPM,
+                   MaThe = DocGia.MaDG,
+                   HoTenDG = DocGia.HoTenDG,
+                   SDT = DocGia.SDT,
+                   NgayMuon = PhieuMuon.NgayMuon,
+                   HanTra = PhieuMuon.HanTra
+               }
                 ).Distinct().ToList();
 
             return distinctPhieuMuonNotInPhieuTra;
@@ -174,7 +174,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
             return sachMuonList;
         }
 
-      
+
         public void Insert(PhieuMuon obj)
         {
             throw new NotImplementedException();

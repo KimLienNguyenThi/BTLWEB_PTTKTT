@@ -20,6 +20,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Interfaces.Services
         // ví dụ 1 phương thức đặc thù
         DocGia GetBySDT(string sdt);
         IEnumerable<DTO_DocGia_TheDocGia> GetAllDocGia_TheDocGia();
-        IEnumerable<DTO_DocGia_TheDocGia> GetAllDocGia_PhieuTra();
+
     }
 }

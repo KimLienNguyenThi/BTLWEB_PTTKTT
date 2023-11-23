@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,7 +19,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
         PhieuMuonService _phieuMuonService = new PhieuMuonService();
 
         PhieuMuonService _sachMuonService = new PhieuMuonService();
-        PhieuTraCTPhieuTraService _phieuTraCTPhieuTraService =  new PhieuTraCTPhieuTraService();
+        PhieuTraCTPhieuTraService _phieuTraCTPhieuTraService = new PhieuTraCTPhieuTraService();
         // GET: Admin/PhieuMuon
         public ActionResult Index()
         {
@@ -33,7 +32,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 return View();
             }
         }
-     
+
         [HttpGet]
         public JsonResult phieuMuon(string keyword)
         {
@@ -42,12 +41,12 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 var phieuMuon = _phieuMuonService.GetPhieuMuonsChuaTraSach();
                 return Json(new ApiOkResponse(phieuMuon.ToList()), JsonRequestBehavior.AllowGet);
             }
-            else 
+            else
             {
                 var phieuMuon = _phieuMuonService.SearchPhieuMuon(keyword);
                 return Json(new ApiOkResponse(phieuMuon.ToList()), JsonRequestBehavior.AllowGet);
-            } 
-                
+            }
+
         }
 
 
@@ -65,33 +64,33 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 return Json(new ApiNotFoundResponse(""), JsonRequestBehavior.AllowGet);
             }
         }
-       
-   
+
+
         [HttpPost]
         public ActionResult TaoPhieuTra(DTO_Tao_Phieu_Tra data)
         {
             try
             {
-                 var success = _phieuTraCTPhieuTraService.Insert(data);
-                 if (success)
-                 { // Trả về phản hồi thành công
-                   // var phieuMuon = _phieuMuonService.GetPhieuMuonsChuaTraSach();
-                     return Json(new { success = true, message = "Tạo phiếu trả thành công." });
-                  }
-                  return Json(new { success = false, message = "Tạo phiếu trả thất bại." });
+                var success = _phieuTraCTPhieuTraService.Insert(data);
+                if (success)
+                { // Trả về phản hồi thành công
+                  // var phieuMuon = _phieuMuonService.GetPhieuMuonsChuaTraSach();
+                    return Json(new { success = true, message = "Tạo phiếu trả thành công." });
+                }
+                return Json(new { success = false, message = "Tạo phiếu trả thất bại." });
             }
             catch (Exception ex)
             {
-                  // Xử lý các ngoại lệ một cách thích hợp
-                  return Json(new { success = false, message = "Lỗi xử lý yêu cầu.", error = ex.Message });
+                // Xử lý các ngoại lệ một cách thích hợp
+                return Json(new { success = false, message = "Lỗi xử lý yêu cầu.", error = ex.Message });
             }
 
         }
 
-     }
+    }
 
 
 
 
- }
+}
 

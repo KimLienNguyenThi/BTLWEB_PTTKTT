@@ -9,11 +9,10 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
     {
         public int MaSach { get; set; }
         public string TenSach { get; set; }
-        
+
         public int? SoLuongMuon { get; set; }
 
     }
-
     public class SachDaTraDTO
     {
         public int MaSach { get; set; }

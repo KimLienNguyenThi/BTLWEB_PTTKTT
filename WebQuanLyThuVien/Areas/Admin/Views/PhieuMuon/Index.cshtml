@@ -1,4 +1,4 @@
-﻿
+﻿@*@model List<WebQuanLyThuVien.Areas.Admin.Data.DTO_TTinDocGia_PM>*@
 @{
     ViewBag.Title = "Phiếu Mượn";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -15,8 +15,15 @@
                 <div class="card" style="height: 100%;">
                     <div class="card-header">
                         <div class="form-row">
-                            <h3 class="text-center col text-blue text-bold"> Phiếu Mượn </h3>
-                            <button type="submit" class="btn btn-primary col">Tạo phiếu mượn</button>
+                            <div class="col-6">
+                                <h3 class="text-center text-blue text-bold"> Phiếu Mượn </h3>
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary taoPhieuMuon" id="taoPhieuMuon" onclick="taoPhieuMuon()">Tạo phiếu mượn</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-warning lamMoiSach" id="lamMoiButton" onclick="lamMoi()">Làm mới</button>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body" style="overflow-y: auto;">
@@ -25,14 +32,14 @@
                                 <!--Mã thẻ-->
                                 <div class="form-group col">
                                     <label for="name">Mã thẻ độc giả:</label>
-                                    <input type="text" class="form-control" id="selectedMaThe" name="selectedMaThe" readonly>
+                                    <input type="text" class="form-control" id="MaThe" name="MaThe" readonly>
                                     <!--Thêm readonly sẽ không cho phép sửa-->
                                 </div>
 
                                 <!--Mã nhân viên-->
                                 <div class="form-group col">
-                                    <label for="selectedMaNhanVien">Mã nhân viên:</label>
-                                    <input type="text" class="form-control" id="selectedMaNhanVien" name="selectedMaNhanVien" readonly>
+                                    <label for="MaNhanVien">Mã nhân viên:</label>
+                                    <input type="text" class="form-control" id="MaNhanVien" name="MaNhanVien" readonly>
                                 </div>
                             </div>
 
@@ -40,27 +47,35 @@
                                 <!--Tên độc giả-->
                                 <div class="form-group col">
                                     <label for="name">Tên độc giả:</label>
-                                    <input type="text" class="form-control" id="selectedName" name="selectedName" readonly>
+                                    <input type="text" class="form-control" id="Name" name="Name" readonly>
                                 </div>
 
                                 <!-- Số điện thoại-->
                                 <div class="form-group col">
                                     <label for="book">Số điện thoại:</label>
-                                    <input type="text" class="form-control" id="selectedSDT" name="selectedSDT" readonly>
+                                    <input type="text" class="form-control" id="SDT" name="SDT" readonly>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <!--Ngày mượn-->
                                 <div class="form-group col">
-                                    <label for="return_date">Ngày mượn:</label>
-                                    <input type="date" class="form-control" id="return_date" name="return_date" readonly>
+                                    <label for="NgayMuon">Ngày mượn:</label>
+                                    <input type="date" class="form-control" id="NgayMuon" name="NgayMuon" readonly>
                                 </div>
 
                                 <!--Ngày trả-->
                                 <div class="form-group col">
-                                    <label for="return_date">Ngày trả:</label>
-                                    <input type="date" class="form-control" id="return_date" name="return_date">
+                                    <label for="HanTra">Hạn trả:</label>
+                                    <select class="form-control" id="HanTra" name="HanTra">
+                                        <option>-- Chọn hạn trả --</option>
+                                        <option value="1">1 tháng</option>
+                                        <option value="2">2 tháng</option>
+                                        <option value="3">3 tháng</option>
+                                        <option value="4">4 tháng</option>
+                                        <option value="5">5 tháng</option>
+                                        <option value="6">6 tháng</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -72,17 +87,22 @@
                                             <th>Mã</th>
                                             <th>Tên sách</th>
                                             <th>S/Lượng</th>
+                                            <th>Thao tác</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @*@foreach (var item in ViewData["Sach"] as List<WebQuanLyThuVien.Models.Sach>)
-                                            {
-                                                <tr class="">
-                                                    <td>@item.MaSach</td>
-                                                    <td>@item.TenSach</td>
-                                                    <td>@item.SoLuongHIENTAI</td>
-                                                </tr>
-                                            }*@
+                                    <tbody id="danhSachSachMuon">
+                                        @foreach (var item in ViewData["ListSachMuon"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Muon> ?? new List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Muon>())
+                                        {
+                                            <tr class="sachmuon-row" data-ma-sach="@item.MaSach">
+                                                <td>@item.MaSach</td>
+                                                <td>@item.TenSach</td>
+                                                <td>@item.SoLuong</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger xoaSachMuon" id="xoaSachMuon">Xóa</button>
+                                                </td>
+
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -95,8 +115,9 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        <button id="thongTinDocGiaButton" class="btn btn-primary">Thông tin độc giả</button>
-                        <button id="thongTinSachButton" class="btn btn-primary">Thông tin sách</button>
+                        <button
+                            id="thongTinDocGiaButton" class="btn btn-primary" onclick="changeTableShow(thongTinDocGiaTable, thongTinSachTable)">Thông tin độc giả</button>
+                        <button id="thongTinSachButton" class="btn btn-primary" onclick="changeTableShow(thongTinSachTable, thongTinDocGiaTable)">Thông tin sách</button>
                         <div class="card-tools">
                             <div class="input-group input-group-sm pt-2"
                                  style="width: 150px">
@@ -117,7 +138,7 @@
                     <!--Body table độc giả-->
                     <div class="card-body table-responsive p-0"
                          style="height: 71.2vh" id="thongTinDocGiaTable">
-                        <table class="table table-head-fixed table-hover  table-bordered">
+                        <table class="table table-head-fixed table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>Mã</th>
@@ -159,19 +180,20 @@
                                     <tr class="sach-row" aria-expanded="false" data-widget="expandable-table">
                                         <td>@item.MaSach</td>
                                         <td>@item.TenSach</td>
-                                        <td>@item.SoLuongHIENTAI</td>
+                                        <td class="soLuongSach" data-ma-sach="@item.MaSach">@item.SoLuongHIENTAI</td>
+
                                     </tr>
                                     <tr class="expandable-body text-center">
-                                        <td colspan="4" >
+                                        <td colspan="4">
                                             <div class="row sach-details">
                                                 <div class="col-5">
                                                     <input type="number" class="form-control" id="inputSoluong" name="inputSoluong" placeholder="Nhập số lượng sách mượn" min="1" max="@item.SoLuongHIENTAI" step="1">
                                                 </div>
                                                 <div class="col-3">
-                                                    <button type="button" id="themSachButton" class="btn btn-primary btn-block">Thêm sách</button>
+                                                    <button type="button" class="btn btn-primary btn-block themSachButton">Thêm sách</button>
                                                 </div>
                                                 <div class="col-4">
-                                                    <button type="button" id="xctButton" class="btn btn-info btn-block">Xem chi tiết</button>
+                                                    <button type="button" class="btn btn-info btn-block xemChiTietButton">Xem chi tiết</button>
                                                 </div>
                                             </div>
                                         </td>
@@ -187,47 +209,66 @@
     </div>
 </section>
 
+<!-- Modal error-->
+<div class="modal fade" id="ModalError" tabindex="-1" role="dialog" aria-labelledby="ModalError" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center bg-danger">
+                <span class="" id="contentModalError"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal success-->
+<div class="modal fade" id="ModalSuccess" tabindex="-1" role="dialog" aria-labelledby="ModalSuccess" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center bg-green">
+                <span class="" id="contentModalSuccess"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts
 {
     <script>
-        //----------------------------------------------------------
 
+
+        //=====================  Set dữ liệu mặc định  =====================
+
+        // Lấy ngày hiện tại
+        var currentDate = new Date();
+
+        // Định dạng ngày hiện tại thành chuỗi YYYY-MM-DD
+        var formatCurrentDate = currentDate.toISOString().slice(0, 10);
+
+        // Set ngày mượn là ngày hiện tại
+        document.getElementById("NgayMuon").value = formatCurrentDate;
+
+        // Set mã nhân viên
+        var manv = @HttpContext.Current.Session["manv"]
+            document.getElementById("MaNhanVien").value = manv;
+
+        function changeTableShow(tableToShow, tableToHide) {
+            tableToShow.style.display = "block";
+            tableToHide.style.display = "none";
+        }
 
         // Lấy các phần tử của bảng
         var thongTinDocGiaTable = document.getElementById("thongTinDocGiaTable");
         var thongTinSachTable = document.getElementById("thongTinSachTable");
 
-        // Gán sự kiện mặc định cho nút "Hiển thị Thông tin độc giả" khi trang được tải
-        thongTinDocGiaTable.style.display = "block";
-        thongTinSachTable.style.display = "none";
-
-        // Lấy các nút chọn
-        var thongTinSachButton = document.getElementById("thongTinSachButton");
-        var thongTinDocGiaButton = document.getElementById("thongTinDocGiaButton");
-
-        // Sự kiện click cho nút "Hiển thị Sách"
-        thongTinSachButton.addEventListener("click", function () {
-            // Ẩn bảng Thông tin độc giả
-            thongTinDocGiaTable.style.display = "none";
-            // Hiển thị bảng Sách
-            thongTinSachTable.style.display = "block";
-        });
-
-        // Sự kiện click cho nút "Hiển thị Thông tin độc giả"
-        thongTinDocGiaButton.addEventListener("click", function () {
-            // Ẩn bảng Sách
-            thongTinSachTable.style.display = "none";
-            // Hiển thị bảng Thông tin độc giả
-            thongTinDocGiaTable.style.display = "block";
-        });
+        // Mặc định chọn nút "Thông tin độc giả"
+        changeTableShow(thongTinDocGiaTable, thongTinSachTable);
 
 
-        //----------------------------------------------------------
 
-
-        // Lấy danh sách các hàng trong bảng thông tin độc giả
+        //=====================  Lấy dữ liệu khi click vào hàng trong table tt độc giả  =====================
         var docGiaRows = document.querySelectorAll(".docgia-row");
-        // Gán sự kiện nhấp cho từng hàng
+
+        // Xử lý sự kiện nhấp cho từng hàng
         docGiaRows.forEach(function (row) {
             row.addEventListener("click", function () {
 
@@ -237,43 +278,23 @@
                 var sdt = row.querySelector("td:nth-child(3)").textContent;
 
                 // Hiển thị thông tin tên vào input tên độc giả trong form
-                document.getElementById("selectedMaThe").value = maThe;
-                document.getElementById("selectedName").value = hoTen;
-                document.getElementById("selectedSDT").value = sdt;
+                document.getElementById("MaThe").value = maThe;
+                document.getElementById("Name").value = hoTen;
+                document.getElementById("SDT").value = sdt;
             });
         });
 
 
-        //----------------------------------------------------------
-
-
-        // Lấy ngày hiện tại
-        var currentDate = new Date();
-
-        // Định dạng ngày hiện tại thành chuỗi YYYY-MM-DD
-        var formatCurrentDate = currentDate.toISOString().slice(0, 10);
-
-        // Đặt giá trị mặc định cho trường ngày mượn thành ngày hiện tại
-        document.getElementById("return_date").value = formatCurrentDate;
-
-        // Set mã nhân viên
-        var manv = @HttpContext.Current.Session["manv"]
-        document.getElementById("selectedMaNhanVien").value = manv;
-
-
-        //----------------------------------------------------------
-
-
-        // Lấy danh sách các hàng của table sách
+        //=====================  Xử lý click vào hàng trong table Thông Tin Sách  =====================
         var sachRows = document.querySelectorAll(".sach-row");
 
-        // Lấy các nút chọn
-        var themSachButton = document.getElementById("themSachButton");
-        var xctButton = document.getElementById("xctButton");
-
-        // Bắt sự kiện click cho từng hàng sách
+        // Xử lý sự kiện nhấp cho từng hàng
         sachRows.forEach(function (row) {
             row.addEventListener("click", function () {
+
+                // set la
+                document.getElementById("inputSoluong").value = '';
+
                 // Ẩn tất cả các hàng chi tiết sách trước
                 var bookDetailsRows = document.querySelectorAll(".sach-details");
 
@@ -290,12 +311,215 @@
         });
 
 
-        //----------------------------------------------------------
+        //=====================  Button Thêm sách  =====================
+        var themSachButton = document.querySelectorAll(".themSachButton");
+
+        //Xử lý sự kiện nhấp cho từng hàng
+        themSachButton.forEach(function (button) {
+            button.addEventListener("click", function () {
+
+                var trPhiaTren = $(this).closest("tr").prev();
+                if (trPhiaTren.length > 0) {
+                    var maSach = trPhiaTren.find("td:nth-child(1)").text();
+                    var tenSach = trPhiaTren.find("td:nth-child(2)").text();
+
+                    // Lấy số lượng hiện tại của sách
+                    var soLuongHienTai = parseInt($(this).closest("tr").prev().find("td:nth-child(3)").text());
+
+                    var soLuongMuon =parseInt(this.parentElement.previousElementSibling.querySelector("#inputSoluong").value);
+
+                    if (isNaN(soLuongMuon) || soLuongMuon > soLuongHienTai || soLuongMuon <= 0) {
+                        document.getElementById("contentModalError").innerHTML = "Hãy nhập đúng số lượng sách mượn!";
+                        $("#ModalError").modal("show");
+                        console.log('số lượng sách mượn: ', soLuongMuon);
+                    } else {
+                        // Gửi yêu cầu POST để thêm sách mượn
+                        $.ajax({
+                            url: '@Url.Action("ThemSachMuon", "PhieuMuon")',
+                            type: 'POST',
+                            data: {
+                                MaSach: maSach,
+                                TenSach: tenSach,
+                                SoLuong: soLuongMuon
+                            },
+                            success: function (data) {
+                                if (data) {
+
+                                    // Cập nhật danh sách sách mượn trong view
+                                    var danhSachSachMuon = $("#danhSachSachMuon");
+
+                                    // Xóa nội dung bảng
+                                    danhSachSachMuon.empty();
+
+                                    $.each(data, function (index, item) {
+                                        var newRow = $(` <tr class="sachmuon-row" data-ma-sach="${item.MaSach}">
+                                            <td>${item.MaSach}</td>
+                                            <td>${item.TenSach}</td>
+                                            <td>${item.SoLuong}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger xoaSachMuon">Xóa</button>
+                                            </td>
+                                        </tr> `);
+
+                                        danhSachSachMuon.append(newRow);
+                                    });
+
+                                    // Gọi hàm suKienXoaSach để cập nhật sự kiện xóa cho các hàng sách mượn
+                                    suKienXoaSach();
+
+                                    // Cập nhật lại số lượng hiện tại của sách
+                                    var soLuongMoi = soLuongHienTai - soLuongMuon;
+                                    trPhiaTren.find("td:nth-child(3)").text(soLuongMoi);
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    console.log('Không tìm thấy hàng trên');
+                }
+            });
+        });
 
 
+        //===================== Hàm Làm mới danh sách sách mượn =====================
+        function lamMoiPhieuMuon() {
+            $.ajax({
+                url: '@Url.Action("LamMoiDanhSachSachMuon", "PhieuMuon")',
+                type: 'POST',
+                success: function (data) {
+                    if (data.success) {
+                        // Cập nhật giao diện
+                        var danhSachSachMuon = document.getElementById("danhSachSachMuon");
+                        danhSachSachMuon.innerHTML = "";
+
+                        document.getElementById("MaThe").value = "";
+                        document.getElementById("Name").value = "";
+                        document.getElementById("SDT").value = "";
+                        document.getElementById("HanTra").value = "-- Chọn hạn trả --";
+                    }
+                }
+            });
+        }
+
+        function lamMoi() {
+            lamMoiPhieuMuon();
+
+            // Làm mới trang
+            location.reload();
+        }
 
 
+        //=====================  Xử lý khi load lại trang  =====================
+        document.addEventListener("DOMContentLoaded", function () {
+            lamMoiPhieuMuon();
+        });
+
+
+        //===================== Xử lý Xóa sách mượn =====================
+        function suKienXoaSach() {
+            // Lấy danh sách các hàng trong bảng
+            var danhSachSachMuonRows = document.querySelectorAll(".sachmuon-row");
+
+            // Gán sự kiện click cho nút xóa trên từng hàng
+            danhSachSachMuonRows.forEach(function (row) {
+                row.querySelector(".xoaSachMuon").addEventListener("click", function () {
+                    var maSach = row.querySelector("td:nth-child(1)").textContent;
+                    var soLuong = row.querySelector("td:nth-child(3)").textContent;
+
+                    var isDeleting = confirm("Bạn có chắc chắn muốn xóa sách ra khỏi danh sách mượn!");
+                    if (isDeleting) {
+                        xoaSachMuon(maSach, soLuong);
+                    }
+                });
+            });
+        }
+
+        // Hàm xóa 1 sách trong danh sách sách mượn
+        function xoaSachMuon(maSach, soLuong) {
+            // Gửi yêu cầu AJAX đến controller để xóa sách
+            $.ajax({
+                url: '@Url.Action("XoaSachMuon", "PhieuMuon")',
+                type: 'POST',
+                data: { MaSach: maSach },
+                success: function (result) {
+                    if (result.success) {
+                        // Xóa hàng chứa sách đã xóa khỏi bảng
+                        var rowToDelete = $(`tr[data-ma-sach="${maSach}"]`);
+                        rowToDelete.remove();
+
+                        // Cập nhật lại số lượng hiện tại của sách
+                        //var soLuongDaXoa = result.soLuongMuon;
+
+                        // Tìm và cập nhật ô số lượng sách tương ứng
+                        var soLuongSach = $(`.soLuongSach[data-ma-sach="${maSach}"]`);
+                        var soLuongHienTai = soLuongSach.text();
+                        var soLuongMoi = parseInt(soLuongHienTai) + parseInt(soLuong);
+
+                        // Cập nhật lại số lượng hiện tại
+                        soLuongSach.text(soLuongMoi);
+                    } else {
+                        console.log('Xóa sách không thành công');
+                    }
+                }
+            });
+        }
+
+
+        //===================== Hàm tạo phiếu mượn =====================
+        function taoPhieuMuon() {
+            var maTheDocGia = document.getElementById("MaThe").value;
+            var maNhanVien = document.getElementById("MaNhanVien").value;
+            var NgayMuon = document.getElementById("NgayMuon").value;
+            var soThang = parseInt(document.getElementById("HanTra").value);
+
+            // Gửi yêu cầu POST để thêm sách mượn
+            if (!maTheDocGia || !maNhanVien || !NgayMuon) {
+                document.getElementById("contentModalError").innerHTML = "Thông tin độc giả không được để trống!";
+                $("#ModalError").modal("show");
+            } else {
+                if (isNaN(soThang)) {
+                    document.getElementById("contentModalError").innerHTML = "Hãy chọn hạn trả!";
+                    $("#ModalError").modal("show");
+                } else {
+
+                    var ngayMuon = new Date(formatCurrentDate); // Tạo đối tượng Date từ chuỗi
+                    var ngayTra = new Date(ngayMuon); // Tạo một bản sao của ngayMuon
+
+                    ngayTra.setMonth(ngayTra.getMonth() + soThang);
+                    var formatNgayTra = ngayTra.toISOString().slice(0, 10);// Định dạng ngày trả
+
+                    var confirmed = confirm("Bạn có chắc muốn tạo phiếu mượn không?");
+                    if (confirmed) {
+                        $.ajax({
+                            url: '@Url.Action("TaoPhieuMuon", "PhieuMuon")',
+                            type: 'POST',
+                            data: {
+                                MaNhanVien: maNhanVien,
+                                MaThe: maTheDocGia,
+                                NgayMuon: NgayMuon,
+                                NgayTra: formatNgayTra,
+                            },
+                            success: function (data) {
+                                if (data.success) {
+
+                                    lamMoiPhieuMuon();
+
+                                    document.getElementById("contentModalSuccess").innerHTML = "Thêm phiếu mượn thành công!";
+                                    $("#ModalSuccess").modal("show");
+
+                                    console.log('Tạo phiếu mượn: ', data);
+                                } else {
+
+                                    document.getElementById("contentModalError").innerHTML = "Hãy thêm sách muốn mượn!";
+                                    $("#ModalError").modal("show");
+                                    console.log('Tạo phiếu mượn: ', data);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        }
 
     </script>
 }
-

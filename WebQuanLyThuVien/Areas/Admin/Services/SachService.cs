@@ -38,27 +38,26 @@ namespace WebQuanLyThuVien.Services
         {
             return _sachRepository.GetById(id);
         }
-
         public IEnumerable<SachDTOcs> GetSACH()
         {
-                var listSACH =
-                    (from SACH in unitOfWork.Context.Saches
-                
-                     select new SachDTOcs
-                     {
-                         MaSach = SACH.MaSach,
-                         TenSach  = SACH.TenSach,
-                         TacGia = SACH.TacGia,
-                         /*  TheLoai = SACH.TheLoai,
-                           NgonNgu= SACH.NgonNgu,
-                           NXB  = SACH.NXB,
-                           NamXB = SACH.NamXB,
-                           GiaSach = SACH.GiaSach, */
-                         SoLuongHIENTAI = SACH.SoLuongHIENTAI
-                     }
-                     ).ToList();
-                return listSACH;
-            
+            var listSACH =
+                (from SACH in unitOfWork.Context.Saches
+
+                 select new SachDTOcs
+                 {
+                     MaSach = SACH.MaSach,
+                     TenSach = SACH.TenSach,
+                     TacGia = SACH.TacGia,
+                     /*  TheLoai = SACH.TheLoai,
+                       NgonNgu= SACH.NgonNgu,
+                       NXB  = SACH.NXB,
+                       NamXB = SACH.NamXB,
+                       GiaSach = SACH.GiaSach, */
+                     SoLuongHIENTAI = SACH.SoLuongHIENTAI
+                 }
+                 ).ToList();
+            return listSACH;
+
         }
 
         public void Insert(Sach obj)

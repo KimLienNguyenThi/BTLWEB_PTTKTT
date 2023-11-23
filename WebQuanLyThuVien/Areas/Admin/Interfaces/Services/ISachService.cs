@@ -17,7 +17,7 @@ namespace WebQuanLyThuVien.Interfaces.Services
         string Delete(int obj);
 
         // ví dụ 1 phương thức đặc thù
-        IEnumerable<SachDTOcs> GetSACH();
 
+        IEnumerable<SachDTOcs> GetSACH();
     }
 }
