@@ -52,7 +52,6 @@
                                             <th>Ngày mượn</th>
                                             <th>Hạn trả</th>
                                             <th>Mã NV</th>
-                                            <th>Nhân viên</th>
                                             <th>Xử lý</th>
                                         </tr>
                                     </thead>
@@ -66,7 +65,6 @@
                                                 <td>@string.Format("{0:dd-MM-yyyy}", item.NgayMuon)</td>
                                                 <td>@string.Format("{0:dd-MM-yyyy}", item.HanTra)</td>
                                                 <td>@item.MaNV</td>
-                                                <td>@item.HoTenNV</td>
                                                 <td>
                                                     @if (item.HanTra < DateTime.Now)
                                                     {

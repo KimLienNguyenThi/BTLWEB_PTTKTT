@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebQuanLyThuVien.Areas.Admin.Data;
 using WebQuanLyThuVien.Models;
 
 namespace WebQuanLyThuVien.Interfaces.Services
@@ -16,7 +17,7 @@ namespace WebQuanLyThuVien.Interfaces.Services
         string Delete(int obj);
 
         // ví dụ 1 phương thức đặc thù
-        
 
+        IEnumerable<SachDTOcs> GetSACH();
     }
 }

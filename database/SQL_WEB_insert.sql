@@ -159,11 +159,13 @@ insert into DonViTL ( TenDV, DiaChiDV, SDTDV) values (N'Sách Xưa',N'Quận 10,
 insert into DonViTL ( TenDV, DiaChiDV, SDTDV) values (N'Bá Tân Sách',N'Quận 3, Thành phố Hồ Chí Minh', '0962936310');
 
 -- Them Phieu muon
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 1,'2023-7-20', '2023-8-20', 2);
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 2,'2023-8-10', '2023-9-10', 2);
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra,  MaNV) values (6, '2023-9-7', '2023-9-14', 2);
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 4,'2023-9-19', '2023-9-26', 2);
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra,  MaNV) values (3, '2023-10-16', '2023-11-16',2);
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 1,'2023-07-20', '2023-8-20', 2);
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 2,'2023-08-10', '2023-9-10', 2);
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 6,'2023-09-07', '2023-9-14', 2);
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 4,'2023-09-19', '2023-9-26', 2);
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 3,'2023-10-16', '2023-11-16',2);
+
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 1,'2023-07-20', '2023-8-20', 2);
 
 -- Them chi tiet phieu muon
 insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 1, 2, 4);
@@ -483,3 +485,22 @@ Với ngoại hình nhỏ gọn và vô cùng xinh xắn, bạn cũng có thể 
 “Mỗi một việc mà bạn đang cố gắng làm, chắc chắn sẽ đơm hoa kết trái vào những ngày tháng sau này” - Hi vọng đây sẽ là cuốn sách “kim chỉ nam” giúp bạn ngày một hoàn thiện bản thân,
 mạnh mẽ trưởng thành, làm một phiên bản chính mình hoàn hảo nhất.',40);
 
+
+--THEM phieu dki muon sach
+insert into DkiMuonSach (USERNAME_DG, NgayDKMuon, NgayHen) values('0981724637','2023-7-25','2023-7-30');
+insert into DkiMuonSach (USERNAME_DG, NgayDKMuon, NgayHen) values('0466155193','2023-10-25','2023-11-05');
+insert into DkiMuonSach (USERNAME_DG, NgayDKMuon, NgayHen) values('0596965300','2023-09-17','2023-09-25');
+insert into DkiMuonSach (USERNAME_DG, NgayDKMuon, NgayHen) values('0305728822','2023-05-12','2023-05-15');
+
+-- Them chi tiet dki
+insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 1, 2, 2);
+insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 1, 17, 1);
+insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 1, 6, 1);
+
+insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 2, 15, 1);
+insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 2, 10, 1);
+
+insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 3, 10, 2);
+insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 3, 11, 1);
+
+insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 4, 15, 2);

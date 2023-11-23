@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebQuanLyThuVien.Areas.Admin.Data;
 using WebQuanLyThuVien.Interfaces;
 using WebQuanLyThuVien.Interfaces.Services;
 using WebQuanLyThuVien.Models;
@@ -36,6 +37,27 @@ namespace WebQuanLyThuVien.Services
         public Sach GetById(int id)
         {
             return _sachRepository.GetById(id);
+        }
+        public IEnumerable<SachDTOcs> GetSACH()
+        {
+            var listSACH =
+                (from SACH in unitOfWork.Context.Saches
+
+                 select new SachDTOcs
+                 {
+                     MaSach = SACH.MaSach,
+                     TenSach = SACH.TenSach,
+                     TacGia = SACH.TacGia,
+                     /*  TheLoai = SACH.TheLoai,
+                       NgonNgu= SACH.NgonNgu,
+                       NXB  = SACH.NXB,
+                       NamXB = SACH.NamXB,
+                       GiaSach = SACH.GiaSach, */
+                     SoLuongHIENTAI = SACH.SoLuongHIENTAI
+                 }
+                 ).ToList();
+            return listSACH;
+
         }
 
         public void Insert(Sach obj)

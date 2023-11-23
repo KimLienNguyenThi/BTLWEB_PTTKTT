@@ -50,8 +50,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -177,16 +179,21 @@
     <Compile Include="Areas\Admin\Controllers\PhieuMuonController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieuTraController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyMuonController.cs" />
+    <Compile Include="Areas\Admin\Data\ApiResponse.cs" />
     <Compile Include="Areas\Admin\Data\DTO.cs" />
     <Compile Include="Areas\Admin\Data\PhieuMuon_DTO.cs" />
+    <Compile Include="Areas\Admin\Data\SachDTOcs.cs" />
+    <Compile Include="Areas\Admin\Data\SachMuonDTO.cs" />
     <Compile Include="Areas\Admin\Interfaces\IDocGiaRepository.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IDocGiaService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IPhieuMuonCTPhieuMuonService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IPhieuMuonService.cs" />
+    <Compile Include="Areas\Admin\Interfaces\Services\IPhieuTraCTPhieuTraService.cs" />
     <Compile Include="Areas\Admin\Repository\DocGiaRepository.cs" />
     <Compile Include="Areas\Admin\Services\DocGiaService.cs" />
     <Compile Include="Areas\Admin\Services\PhieuMuonCTPhieuMuonService.cs" />
     <Compile Include="Areas\Admin\Services\PhieuMuonService.cs" />
+    <Compile Include="Areas\Admin\Services\PhieuTraCTPhieuTraService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -264,9 +271,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sach.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TheDocGia.cs">
@@ -2516,6 +2520,7 @@
     <Content Include="Content\Assets\Login\vendor\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyMuon\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\KhoSach\Index.cshtml" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -2523,7 +2528,6 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\KhoSach\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2588,6 +2592,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

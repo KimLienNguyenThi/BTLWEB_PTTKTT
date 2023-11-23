@@ -52,6 +52,23 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                  ).ToList();
             return listDocGia_TheDocGia;
         }
+        public IEnumerable<DTO_DocGia_TheDocGia> GetAllDocGia_PhieuTra()
+        {
+            var listDocGia_TheDocGia =
+                (from DocGia in unitOfWork.Context.DocGias
+                 join TheDocGia in unitOfWork.Context.TheDocGias
+                    on DocGia.MaDG equals TheDocGia.MaDG
+                 //  where TheDocGia.NgayHH >= DateTime.Now
+                 select new DTO_DocGia_TheDocGia
+                 {
+                     MaThe = TheDocGia.MaThe,
+                     HoTenDG = DocGia.HoTenDG,
+                     SDT = DocGia.SDT,
+                     DiaChi = DocGia.DiaChi,
+                 }
+                 ).ToList();
+            return listDocGia_TheDocGia;
+        }
 
         public DocGia GetById(int id)
         {

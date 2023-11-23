@@ -19,6 +19,8 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public String HoTenNV { get; set; }
         public int MaThe { get; set; }
         public String HoTenDG { get; set; }
+        public String SDT { get; set; }
+        public bool Tinhtrang { get; set; }
     }
 
 }

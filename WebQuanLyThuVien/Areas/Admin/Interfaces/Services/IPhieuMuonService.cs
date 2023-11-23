@@ -18,6 +18,8 @@ namespace WebQuanLyThuVien.Areas.Admin.Interfaces.Services
 
         IEnumerable<PhieuMuon_DTO> GetPhieuMuonsDocGia();
 
-
+        IEnumerable<PhieuMuon_DTO> SearchPhieuMuon(String searchTerm);
+        IEnumerable<PhieuMuon_DTO> GetPhieuMuonsChuaTraSach();
+        IEnumerable<SachMuonDTO> getSachMuon(int mapm);
     }
 }

@@ -33,6 +33,11 @@ namespace WebQuanLyThuVien.Areas.Admin.Repository
             return (IEnumerable<DTO_DocGia_TheDocGia>)_repository.Table.ToList();
         }
 
+        public IEnumerable<DTO_DocGia_TheDocGia> GetAllDocGia_PhieuTra()
+        {
+            return (IEnumerable<DTO_DocGia_TheDocGia>)_repository.Table.ToList();
+        }
+
         public int Delete(int obj)
         {
             throw new NotImplementedException();

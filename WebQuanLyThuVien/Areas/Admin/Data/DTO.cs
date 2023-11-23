@@ -56,4 +56,25 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
             listSachMuon = new List<DTO_Sach_Muon>();
         }
     }
+    public class DTO_Sach_Tra
+    {
+        public int MaSach { get; set; }
+        public string TenSach { get; set; }
+
+        public int SoLuongMuon { get; set; }
+        public int SoLuongTra { get; set; }
+        public int SoLuongLoi { get; set; }
+    }
+
+    public class DTO_Tao_Phieu_Tra
+    {
+        public int MaNhanVien { get; set; }
+        public int MaTheDocGia { get; set; }
+        public DateTime NgayMuon { get; set; }
+        public DateTime HanTra { get; set; }
+        public DateTime NgayTra { get; set; }
+        public List<DTO_Sach_Tra> ListSachTra { get; set; }
+        public int MaPhieuMuon { get; set; }
+    }
+
 }
