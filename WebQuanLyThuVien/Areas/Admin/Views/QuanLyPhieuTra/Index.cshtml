@@ -1,0 +1,370 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Hiển thị danh sách NhanViens -->
+<section class="content">
+    <div class="container-fluid pt-4">
+        <div class="row">
+            <!-- Sách và Thông tin độc giả -->
+            <div class="col-12" style="height: 80vh;">
+                <div class="card" style="height: 100%;">
+                    <div class="card-header">
+                        <div class="form-row">
+
+                            <div class="col-6">
+                                <h3 class="text-center text-blue text-bold">Quản Lý Phiếu Trả </h3>
+                            </div>
+
+                            <div class="card-tools col-3">
+                                <div class="input-group input-group-sm pt-1">
+                                    <input type="text"
+                                           name="table_search"
+                                           class="form-control float-right"
+                                           placeholder="Search" />
+
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <button type="button" class="btn btn-warning lamMoiSach" id="lamMoiButton">Làm mới</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card-body table-responsive p-0">
+                        <form>
+                            <!--Danh sách phieu trả-->
+                            <div class="text-center">
+                                <table class="table table-hover table-head-fixed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã PM</th>
+                                            <th>SEE ALL</th>
+                                            <th>Mã PT</th>
+                                            <th>Ngày trả</th>
+                                            <th>Mã Thẻ</th>
+                                            <th>Độc giả</th>
+                                            <th>SDT</th>
+                                            <th>Mã NV</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="danhSachPhieuTra">
+                                        @foreach (var item in ViewData["PhieuTra"] as List<WebQuanLyThuVien.Areas.Admin.Data.PhieuTra_GroupMaPM_DTO>)
+                                        {
+                                            var isFirst = true;
+                                            foreach (var dataPhieuTra in item.DataPhieuTras)
+                                            {
+                                                <tr class="qly_phieutra_row" data-ma-the="@dataPhieuTra.MaPT">
+                                                    @if (isFirst)
+                                                    {
+                                                        isFirst = false;
+                                                        <td rowspan="@item.CountRow">@item.MaPM</td>
+                                                        <td id="'see_all' + @dataPhieuTra.MaPM" rowspan="@item.CountRow">
+                                                            <!-- Thêm nút "Xem tất cả" -->
+                                                            <button type="button" class="btn btn-info btn-sm" onclick="handleSeeAllClick(@item.MaPM,@dataPhieuTra.MaThe)">See All</button>
+                                                        </td>
+                                                    }
+
+
+                                                    <td onclick="getCTPT(@dataPhieuTra.MaPT,@dataPhieuTra.MaThe )">@dataPhieuTra.MaPT</td>
+                                                    <td>@string.Format("{0:dd-MM-yyyy}", dataPhieuTra.NgayTra)</td>
+
+                                                    <td>@dataPhieuTra.MaThe</td>
+                                                    <td>@dataPhieuTra.HoTenDG</td>
+                                                    <td>@dataPhieuTra.SDT</td>
+                                                    <td>@dataPhieuTra.MaNV</td>
+
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="ModaldanhSachSachTra" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 text-blue" style="font-weight: bold;" id="">Chi tiết phiếu trả</h4>
+            </div>
+
+            <!-- Body -->
+            <form class="modal-body p-4">
+                <div class="form-row">
+                    <!--Mã phiếu mượn-->
+                    <!--<div class="form-group col">
+                        <label>Mã phiếu mượn:</label>
+                        <input class="form-control" id="maPhieutraModal" readonly>
+                    </div>-->
+                    <!--Mã phiếu TRẢ-->
+                    <div class="form-group col">
+                        <label>Mã phiếu trả:</label>
+                        <input class="form-control" id="maPhieutraModal" readonly>
+                    </div>
+                    <!--Mã thẻ-->
+                    <div class="form-group col">
+                        <label>Mã thẻ độc giả:</label>
+                        <input class="form-control" id="maTheModal" readonly>
+                    </div>
+                </div>
+
+                <!--Danh sách sách mượn-->
+                <div class="text-center">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+
+                                <th>Mã sách</th>
+                                <th>Tên sách</th>
+                                <th>S/Lượng trả</th>
+                                <th>S/Lượng Lỗi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="danhSachSachTra">
+                            @*@foreach (var item in ViewData["CTPhieuTra"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Tra> ?? new List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Tra>())
+                            {
+                                <tr class="sachmuon-row" data-ma-sach="@item">
+
+                                    <td>@item.MaSach</td>
+                                    <td>@item.TenSach</td>
+                                    <td>@item.SoLuongTra</td>
+                                    <td>@item.SoLuongLoi</td>
+                                </tr>
+                            }*@
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Đóng </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal select all pt by pm  -->
+<div class="modal fade bd-example-modal-lg" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 text-blue" style="font-weight: bold;" id="">Chi tiết phiếu trả</h4>
+            </div>
+
+            <!-- Body -->
+            <form class="modal-body p-4">
+                <div class="form-row">
+                    @*Mã phiếu mượn*@
+                    <div class="form-group col">
+                        <label>Mã phiếu mượn:</label>
+                        <input class="form-control" id="maPhieuMuonModal" readonly>
+                    </div>
+
+                    <!--Mã thẻ-->
+                    <div class="form-group col">
+                        <label>Mã thẻ độc giả:</label>
+                        <input class="form-control" id="maTheModal2" readonly>
+                    </div>
+                </div>
+
+                <!--Danh sách sách mượn-->
+                <div class="text-center">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mã PT</th>
+                                <th>Mã sách</th>
+                                <th>Tên sách</th>
+                                <th>S/Lượng trả</th>
+                                <th>S/Lượng Lỗi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="danhSachSachTrabyPM">
+                            @*@foreach (var item in ViewData["CTPhieuTra"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Tra> ?? new List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Tra>())
+                            {
+                                <tr class="sachmuon-row" data-ma-sach="@item.">
+                                    <td>@item.MaPT</td>
+                                    <td>@item.MaSach</td>
+                                    <td>@item.TenSach</td>
+                                    <td>@item.SoLuongTra</td>
+                                    <td>@item.SoLuongLoi</td>
+                                </tr>
+                            }*@
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Đóng </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+
+        //=====================  Xử lý sự kiện khi click vào 1 hàng  trong table  =====================
+
+        // Lấy danh sách các hàng của table
+        var quanLyPhieuTraRows = document.querySelectorAll(".qly_phieutra_row");
+
+        // Bắt sự kiện click cho từng hàng sách
+        //quanLyPhieuTraRows.forEach(function (row) {
+        //     row.addEventListener("click", function (e) {
+        //        // Lấy thông tin
+        //        var maPhieuTra = row.querySelector("td:nth-child(3)").textContent;
+        //        var maTheDocGia = row.querySelector("td:nth-child(5)").textContent;
+
+        //        // Điền modal với dữ liệu
+        //         document.getElementById("maPhieutraModal").value = maPhieuTra;
+        //        document.getElementById("maTheModal").value = maTheDocGia;
+
+        //         var maPt = parseInt(maPhieuTra);
+        //         /*var maPM = parseInt(maPhieuMuon);*/
+        //         getCTPT(maPt);
+        //    });
+        //});
+
+                 // Bắt sự kiện khi click vào nút "See All"
+        //$(document).on('click', '.see-all-btn', function () {
+        //    // Lấy mã PM từ thuộc tính data-ma-pm của hàng chứa nút
+        //    // Lấy thông tin
+        //    var maPhieuMuon = row.querySelector("td:nth-child(1)").textContent;
+        //    var maTheDocGia = row.querySelector("td:nth-child(5)").textContent;
+
+        //    // Điền modal với dữ liệu
+        //    document.getElementById("maPhieuMuonModal").value = maPhieuMuon;
+        //    document.getElementById("maTheModal").value = maTheDocGia;
+        //    var maPM = parseInt(maPhieuMuon);
+        //    // Gọi hàm để xử lý sự kiện "See All" với mã PM
+        //    handleSeeAllClick(maPM);
+        //});
+
+        // Hàm xử lý sự kiện "See All" với mã PM
+        function getCTPT(id, matheDocGia) {
+                     $.ajax({
+                         url: '@Url.Action("ChiTietPhieuTra", "QuanLyPhieuTra")',
+                         type: 'POST',
+                         data: {
+                             id: id,
+                         },
+                         success: function (data) {
+                             if (data.success) {
+                                 // Xử lý dữ liệu JSON trả về
+                                 var ctptData = data.data;
+                                 // Cập nhật danh sách sách mượn trong view
+                                 var danhSachSachTra = $("#danhSachSachTra");
+
+                                 danhSachSachTra.empty(); // Xóa nội dung bảng
+
+                                 $.each(ctptData, function (index, item) {
+                                     var newRow = $(` <tr class="sachtra-row" data-ma-sach="${item.MaSach}">
+                                    <td>${item.MaSach}</td>
+                                    <td>${item.TenSach}</td>
+                                    <td>${item.SoLuongTra}</td>
+                                     <td>${item.SoLuongLoi}</td>
+                                </tr> `);
+
+                                     danhSachSachTra.append(newRow);
+                                 });
+
+                                 // Mở modal
+                                 $("#ModaldanhSachSachTra").modal("show");
+
+                                 document.getElementById("maPhieutraModal").value = id;
+                                 document.getElementById("maTheModal").value = matheDocGia;
+                             } else {
+                                 console.error("Không thành công trong việc nhận dữ liệu từ server.");
+                             }
+                         }
+                     });
+                 }
+        // Hàm xử lý sự kiện "See All" với mã PM
+        function handleSeeAllClick(maPM, mathedocgia) {
+            //event.preventDefault();
+            //event.stopPropagation();
+              $.ajax({
+                    url: '@Url.Action("ChiTietptByPM", "QuanLyPhieuTra")',
+                    type: 'POST',
+                    data: {
+                        maPM: maPM,
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            // Xử lý dữ liệu JSON trả về
+                            var ctptData = data.data;
+                            // Cập nhật danh sách sách mượn trong view
+                            var danhSachSachTrabyPM = $("#danhSachSachTrabyPM");
+
+                            danhSachSachTrabyPM.empty(); // Xóa nội dung bảng
+                        
+                            $.each(ctptData, function (index, item) {
+                                var newRow = $(` <tr class="sachtra-row" data-ma-sach="${item.MaSach}">
+                                 <td>${item.MaPT}</td>
+                                <td>${item.MaSach}</td>
+                                    <td>${item.TenSach}</td>
+                                    <td>${item.SoLuongTra}</td>
+                                     <td>${item.SoLuongLoi}</td>
+                                </tr> `);
+
+                                danhSachSachTrabyPM.append(newRow);
+                            });
+
+                            // Mở modal
+                            $("#exampleModalScrollable").modal("show");
+
+                            //        // Điền modal với dữ liệu
+                            document.getElementById("maPhieuMuonModal").value = maPM;
+                            document.getElementById("maTheModal2").value = mathedocgia;
+
+                        } else {
+                            console.error("Không thành công trong việc nhận dữ liệu từ server.");
+                         
+                        }
+                    }
+              });
+
+        }
+
+
+        // Format date
+        function formatDate(dateString) {
+            var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+            var formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
+            return formattedDate;
+        }
+
+    </script>
+}
+
+
+
+
