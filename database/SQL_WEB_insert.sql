@@ -43,9 +43,9 @@ insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0727180418','07271
 
 
 --THEM LOGIN NV
-insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, HoTen_NV, MaNV) values('0767163999','0767163999', N'Võ Gia Huy',1);
-insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, HoTen_NV, MaNV) values('0319267184','0319267184',N'Nguyễn Thị Kim Liên',2);
-insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, HoTen_NV, MaNV) values('0231525416','0231525416',N'Nguyễn Thành Luân',3);
+insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, MaNV) values('0767163999','0767163999',1);
+insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, MaNV) values('0319267184','0319267184',2);
+insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, MaNV) values('0231525416','0231525416',3);
 
 -- THEM NHACUNGCAP
 insert into NhaCungCap ( TenNCC, DiaChiNCC, sdtNCC) values (N'Nhà Xuất Bản Kim Đồng',N'Hồ gươm, Hà Nội', '0243942633');

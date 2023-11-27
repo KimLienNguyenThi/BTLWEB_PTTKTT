@@ -58,6 +58,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
     }
     public class DTO_Sach_Tra
     {
+        public int MaPT { get; set; }
         public int MaSach { get; set; }
         public string TenSach { get; set; }
 

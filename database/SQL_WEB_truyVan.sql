@@ -67,13 +67,18 @@ GROUP BY
 	--********************************
 
 	--*******
-	SELECT * FROM PhieuMuon WHERE MaPM = 4;
-	SELECT * FROM ChiTietPM WHERE MaPM = 1;
+	SELECT * FROM Phieutra WHERE MaPm = 1;
+	SELECT * FROM ChiTietPt WHERE MaPt in(3,4,7);
 
 	SELECT * FROM PhieuTra WHERE MaPt = 6;
 	SELECT * FROM ChiTietPT WHERE MAPt IN (3,4)
 	--******
-		
+
+	SELECT * FROM Phieutra  pt
+
+	WHERE pt.MaPT = 1
+
+		;
 SELECT * FROM PHIEUMUON
 SELECT * FROM CHITIETPM 
 SELECT * FROM PHIEUTRA 
@@ -111,51 +116,49 @@ LEFT JOIN chitietpm ctpm ON Pt.mapm = ctpm.mapm AND ctpt.masach = ctpm.masach
 GROUP BY Pt.mapm, ctpt.masach) as a
 GROUP BY a.mapm;
 
---***********************
- ALTER TRIGGER UpdateTinhTrangPhieuMuon
-ON chitietpt
-for INSERT
-AS
-BEGIN
-    UPDATE PM
-    SET Tinhtrang = N'ĐÃ TRẢ'
-    FROM PhieuMuon PM
-    JOIN (
-        SELECT PM.mapm, count(pm.mapm) as loaisach
-        FROM PhieuMuon PM 
-        JOIN chitietpm ctpm ON PM.mapm  = ctpm.mapm 
-        WHERE PM.Tinhtrang = N'CHƯA TRẢ'
-        GROUP BY Pm.mapm
-        INTERSECT
-        SELECT mapm, count(mapm) as soluongls 
-        FROM (
-            SELECT PM.mapm , ctpm.masach, Soluongmuon
-            FROM PhieuMuon PM 
-            JOIN chitietpm ctpm ON PM.mapm  = ctpm.mapm 
-            WHERE PM.Tinhtrang = N'CHƯA TRẢ'
-            INTERSECT
-            SELECT Pt.mapm,  ctpt.masach, SUM(ISNULL(ctpt.Soluongtra, 0) + ISNULL(ctpt.Soluongloi, 0)) AS soluongtra
-            FROM phieutra Pt
-            JOIN chitietpt ctpt ON Pt.mapt = ctpt.mapt
-            LEFT JOIN chitietpm ctpm ON Pt.mapm = ctpm.mapm AND ctpt.masach = ctpm.masach
-            GROUP BY Pt.mapm, ctpt.masach
-        ) AS a
-        GROUP BY a.mapm
-    ) AS CountResult ON PM.mapm = CountResult.mapm
-   -- WHERE CountResult.loaisach = CountResult.soluongls;
-END;
 
---+************************
+SELECT PHIEUTRA.MAPT, PHIEUTRA.NGAYTRA, MAPM, MATHE, HOTENDG, DOCGIA.SDT , NHANVIEN.MANV--, HOTENNV
+FROM PHIEUTRA 
+	--JOIN CHITIETPT ON PHIEUTRA.MAPT = CHITIETPT.MAPT 
+	JOIN DOCGIA ON DOCGIA.MADG = PHIEUTRA.MATHE 
+	JOIN NHANVIEN ON NHANVIEN.MANV = PHIEUTRA.MANV
+
+
+select mapm, GROUP_CONCAT(PT.MAPT ORDER BY PT.MAPT) AS AllMAPT,  PHIEUTRA.NGAYTRA,  MATHE, HOTENDG, DOCGIA.SDT,NHANVIEN.MANV
+FROM PHIEUTRA 
+	JOIN DOCGIA ON DOCGIA.MADG = PHIEUTRA.MATHE 
+	JOIN NHANVIEN ON NHANVIEN.MANV = PHIEUTRA.MANV
+group by mapm, mapt, PHIEUTRA.NGAYTRA,  MATHE, HOTENDG, DOCGIA.SDT,NHANVIEN.MANV
+order by MaPM asc
 
 
 
 
-
-
-
-
-
-
+SELECT 
+    PM.MaPM, 
+    STUFF((
+        SELECT ',' + CONVERT(NVARCHAR, PT.MAPT)
+        FROM PHIEUTRA PT
+        WHERE PM.MaPM = PT.MaPM
+        ORDER BY PT.MAPT
+        FOR XML PATH('')), 1, 1, '') AS AllMAPT, 
+    PT.NGAYTRA, 
+    PM.MATHE, 
+    DG.HOTENDG, 
+    DG.SDT, 
+    NV.MANV
+FROM 
+    PHIEUMUON PM
+JOIN 
+    PHIEUTRA PT ON PM.MaPM = PT.MaPM
+JOIN 
+    DOCGIA DG ON DG.MADG = PM.MATHE 
+JOIN 
+    NHANVIEN NV ON NV.MANV = PT.MANV
+GROUP BY 
+    PM.MaPM, PT.NGAYTRA, PM.MATHE, DG.HOTENDG, DG.SDT, NV.MANV
+ORDER BY 
+    PM.MaPM ASC;
 
 
 
