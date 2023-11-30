@@ -10,6 +10,11 @@ SELECT * FROM KHOSACHTHANHLY
 SELECT * FROM PhieuThanhLy
 SELECT * FROM ChiTietPTL
 
+select chitietpn.masach,tensach, giasach from chitietpm join chitietpn 
+on chitietpm.masach = chitietpn.masach  
+join sach on chitietpm.masach = sach.masach  
+group by chitietpn.masach,tensach, giasach
+order by giasach desc
 SELECT
     PM.MaPM,
     PM.MaThe,
@@ -79,20 +84,37 @@ GROUP BY
 	WHERE pt.MaPT = 1
 
 		;
-SELECT * FROM PHIEUMUON
-SELECT * FROM CHITIETPM 
-SELECT * FROM PHIEUTRA 
-SELECT * FROM CHITIETPT 
-		insert into PhieuMuon ( MaThe, NgayMuon, HanTra,  MaNV) values (6, '2023-11-18', '2023-12-16',2);
+select * from chitietpn --where masach =2 ;
+SELECT * FROM PHIEUMUON-- where mapm = 1;
+SELECT * FROM CHITIETPM --- where mapm = 1;
+SELECT * FROM PHIEUTRA --where mapm = 1;
+SELECT * FROM CHITIETPT --where mapt = 3;
+SELECT * FROM KHOSACHTHANHLY
+select * from chitietpn where masach = 2;
+SELECT * FROM PhieuThanhLy
+SELECT * FROM ChiTietPTL
+
+-- Them Phieu thanh ly
+insert into PhieuThanhLy (MaDV, NgayTL,  MaNV) values (2, '2023-11-25',  3);
+
+-- Them Chi tiet phieu thanh ly 
+insert into ChiTietPTL (MaPTL, MaSachkho, Soluongtl) values (2, 2, 1);
+
+
+
+		insert into PhieuNhapSach ( NgayNhap,  MaNV, MaNCC) values ( '2023-10-30',  3,  2);
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(6, 10, 100000,20)
 
 -- Them chi tiet phieu muon
-insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 10, 10, 2);
+		insert into PhieuMuon ( MaThe, NgayMuon, HanTra,  MaNV) values (6, '2023-11-18', '2023-12-16',2);
+		update chitietpt set soluongloi = 1 where mapt =8
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 8, 10, 2);
 insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 13, 4, 1);
 
- insert into phieutra(ngaytra,manv,mathe,mapm) values ('2023-11-21',2,3,7)
+ insert into phieutra(ngaytra,manv,mathe,mapm) values ('2023-11-21',2,6,8)
   insert into phieutra(ngaytra,manv,mathe,mapm) values ('2023-11-22',2,1,1)
 
- insert into ChiTietPT(MaPT, MaSach, Soluongtra, Soluongloi) values(9,17,0,1)
+ insert into ChiTietPT(MaPT, MaSach, Soluongtra, Soluongloi) values(8,10,0,2)
   insert into ChiTietPT(MaPT, MaSach, Soluongtra, Soluongloi) values(9,20,1,0)
   --insert into ChiTietPT(MaPT, MaSach, Soluongtra, Soluongloi) values(6,4,1,0)
 

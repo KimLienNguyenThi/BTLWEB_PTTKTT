@@ -60,66 +60,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
         private List<PhieuTra_GroupMaPM_DTO> listPhieutra_All;
         public List<DTO_Sach_Tra> Get_ChiTietPT_ByMaPM(int maPM)
         {
-            //Lấy danh sách PhieuTra có cùng MaPM
-            //var phieuTras = listPhieutra_All
-            //    .Where(pt => pt.MaPM == maPM)
-            //    .SelectMany(pt => pt.DataPhieuTras)
-            //    .ToList();
-
-            // Tạo danh sách để lưu kết quả
-            //List<DTO_Sach_Tra> listDTO_Sach_Tra = new List<DTO_Sach_Tra>();
-
-            //var data = (
-            //            from ChiTietPT in unitOfWork.Context.ChiTietPTs
-                         
-            //             join Sach in unitOfWork.Context.Saches
-            //                 on ChiTietPT.MaSach equals Sach.MaSach
-            //            join ChiTietPM in unitOfWork.Context.ChiTietPMs
-            //                on PhieuTra.MaPM equals ChiTietPM.MaPM
-            //            where ChiTietPT.map
-            //            select new DTO_Sach_Tra
-            //            {
-            //                MaPT = PhieuTra.MaPT,
-            //                MaSach = Sach.MaSach,
-            //                TenSach = Sach.TenSach,
-            //                SoLuongMuon = ChiTietPM.Soluongmuon.Value,
-            //                SoLuongTra = ChiTietPT.Soluongtra.Value,
-            //                SoLuongLoi = ChiTietPT.Soluongloi.Value,
-            //            }).ToList();
-
-            //foreach (var phieuTra in phieuTras)
-            //{
-            //    // Lấy danh sách ChiTietPT có cùng MaPT
-            //    var chiTietPTs = unitOfWork.Context.ChiTietPTs
-            //        .Where(ctpt => ctpt.MaPT == phieuTra.MaPT)
-            //        .ToList();
-
-            //    foreach (var ctpt in chiTietPTs)
-            //    {
-            //        // Lấy tên sách tương ứng
-            //        var tenSach = unitOfWork.Context.Saches.Find(ctpt.MaSach)?.TenSach;
-
-            //        // Tạo đối tượng DTO_Sach_Tra và thêm vào danh sách
-            //        var new_DTO_Sach_Tra = new DTO_Sach_Tra
-            //        {
-            //            MaSach = ctpt.MaSach,
-            //            SoLuongTra = (int)ctpt.Soluongtra,
-            //            SoLuongLoi = (int)ctpt.Soluongloi,
-            //            TenSach = tenSach,
-
-            //        };
-
-            //        listDTO_Sach_Tra.Add(new_DTO_Sach_Tra);
-            //    }
-            //}
-
-           // return listDTO_Sach_Tra;
-
-
-
-
-
-
+           
             var listPhieutra_All =
                 (from ChiTietPT in unitOfWork.Context.ChiTietPTs
                  join Sach in unitOfWork.Context.Saches
@@ -177,5 +118,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
             return listDTO_Sach_Tra;
         }
+        
+
     }
 }

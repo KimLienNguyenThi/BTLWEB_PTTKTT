@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
 using WebQuanLyThuVien.Models;
 
@@ -65,6 +66,8 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public int SoLuongMuon { get; set; }
         public int SoLuongTra { get; set; }
         public int SoLuongLoi { get; set; }
+        public decimal PhuThu { get; set; }
+
     }
 
     public class DTO_Tao_Phieu_Tra
@@ -74,8 +77,12 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public DateTime NgayMuon { get; set; }
         public DateTime HanTra { get; set; }
         public DateTime NgayTra { get; set; }
+
         public List<DTO_Sach_Tra> ListSachTra { get; set; }
         public int MaPhieuMuon { get; set; }
+
+        public decimal PhuThu { get; set; } // Sử dụng decimal cho giá trị tiền tệ
     }
+  
 
 }

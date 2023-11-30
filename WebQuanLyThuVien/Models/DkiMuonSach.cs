@@ -12,20 +12,22 @@ namespace WebQuanLyThuVien.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class LOGIN_DG
+    public partial class DkiMuonSach
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LOGIN_DG()
+        public DkiMuonSach()
         {
-            this.DkiMuonSaches = new HashSet<DkiMuonSach>();
+            this.ChiTietDks = new HashSet<ChiTietDk>();
         }
     
+        public int MaDK { get; set; }
         public string USERNAME_DG { get; set; }
-        public string PASSWORD_DG { get; set; }
-        public Nullable<int> MaDG { get; set; }
+        public Nullable<System.DateTime> NgayDKMuon { get; set; }
+        public Nullable<System.DateTime> NgayHen { get; set; }
+        public Nullable<bool> Tinhtrang { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DkiMuonSach> DkiMuonSaches { get; set; }
-        public virtual DocGia DocGia { get; set; }
+        public virtual ICollection<ChiTietDk> ChiTietDks { get; set; }
+        public virtual LOGIN_DG LOGIN_DG { get; set; }
     }
 }

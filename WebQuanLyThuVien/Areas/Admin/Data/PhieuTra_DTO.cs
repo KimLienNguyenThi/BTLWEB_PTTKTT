@@ -23,7 +23,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public int MaThe { get; set; }
         public String HoTenDG { get; set; } 
         public String SDT { get; set; }
-        
+
     }
 
     public class PhieuTra_GroupMaPM_DTO

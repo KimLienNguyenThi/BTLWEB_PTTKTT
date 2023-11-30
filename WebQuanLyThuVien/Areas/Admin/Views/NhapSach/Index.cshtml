@@ -1,0 +1,476 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Hiển thị danh sách NhanViens -->
+<section class="content">
+    <div class="container-fluid pt-4">
+        <div class="row">
+
+            <!-- Tạo phiếu nhập sách -->
+            <div class="col-6" style="height: 80vh;">
+                <div class="card" style="height: 100%;">
+                    <div class="card-header">
+                        <div class="form-row">
+                            <div class="col-6">
+                                <h3 class="text-center text-blue text-bold"> Nhập Sách </h3>
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary taoPhieuNhap" id="taoPhieuNhap" onclick="">Tạo phiếu nhập</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-warning lamMoiSach" id="lamMoiButton" onclick="">Làm mới</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="overflow-y: auto;">
+                        <form>
+
+                            <div class="form-row">
+                                <!--Mã nhà cung cấp-->
+                                <div class="form-group col">
+                                    <label for="name">Mã NCC:</label>
+                                    <input type="text" class="form-control" id="MaNCC" name="MaNCC" readonly>
+                                </div>
+
+                                <!--Mã nhân viên-->
+                                <div class="form-group col">
+                                    <label for="MaNhanVien">Mã NV:</label>
+                                    <input type="text" class="form-control" id="MaNhanVien" name="MaNhanVien" readonly>
+                                </div>
+
+                                <!--Ngày nhập sách-->
+                                <div class="form-group col">
+                                    <label for="NgayNhap">Ngày nhập:</label>
+                                    <input type="date" class="form-control" id="NgayNhap" name="NgayNhap" readonly>
+                                </div>
+
+                                <!--SDT nhà cc-->
+                                <div class="form-group col">
+                                    <label for="SDT">Số điện thoại:</label>
+                                    <input type="text" class="form-control" id="SDT" name="SDT" readonly>
+                                </div>
+                            </div>
+
+                            <!--Tên nhà cung cấp-->
+                            <div class="form-row">
+                                <div class="form-group col">
+                                    <label for="TenNCC">Tên nhà cung cấp:</label>
+                                    <input type="text" class="form-control" id="TenNCC" name="TenNCC" readonly>
+                                </div>
+
+                            </div>
+
+                            <!-- Địa chỉ-->
+                            <div class="form-row">
+                                <div class="form-group col">
+                                    <label for="book">Địa chỉ:</label>
+                                    <input type="text" class="form-control" id="DiaChi" name="DiaChi" readonly>
+                                </div>
+
+                            </div>
+
+                            @*<div class="form-row">
+                                </div>*@
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sách và Thông tin nhà cung cấp -->
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+
+                        <!--btn thông tin nhà cung cấp-->
+                        <button id="thongTinNCCButton" class="btn btn-primary" onclick="changeTableShow(thongTinNCCTable, thongTinSachTable)">
+                            Thông tin NCC
+                        </button>
+
+                        <!--btn thông tin sách-->
+                        <button id="thongTinSachButton" class="btn btn-primary" onclick="changeTableShow(thongTinSachTable, thongTinNCCTable)">
+                            Thông tin sách
+                        </button>
+
+                        <!--btn thêm nhà cung cấp-->
+                        <button id="themNCCButton" class="btn btn-secondary" onclick="btnShowModalThemNCC()">
+                            Thêm NCC
+                        </button>
+
+                        <!--Form search-->
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm pt-2"
+                                 style="width: 150px">
+                                <input type="text"
+                                       name="table_search"
+                                       class="form-control float-right"
+                                       placeholder="Search" />
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--Body table ncc-->
+                    <div class="card-body table-responsive p-0"
+                         style="height: 71.2vh" id="thongTinNCCTable">
+                        <table class="table table-head-fixed table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên nhà cung cấp</th>
+                                    <th>SDT</th>
+                                    <th>Địa chỉ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="danhSachNCC">
+                                @foreach (var item in ViewData["Ncc"] as List<WebQuanLyThuVien.Models.NhaCungCap>)
+                                {
+                                    <tr class="ncc-row" aria-expanded="false" data-widget="expandable-table" data-ma-sach="@item.MaNCC">
+                                        <td>@item.MaNCC</td>
+                                        <td>@item.TenNCC</td>
+                                        <td>@item.sdtNCC</td>
+                                        <td>@item.DiaChiNCC</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--Body table sách-->
+                    <div class="card-body table-responsive p-0"
+                         style="height: 71.2vh" id="thongTinSachTable">
+                        <table class="table table-head-fixed table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên sách</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewData["Sach"] as List<WebQuanLyThuVien.Models.Sach>)
+                                {
+                                    <tr class="sach-row" aria-expanded="false" data-widget="expandable-table">
+                                        <td>@item.MaSach</td>
+                                        <td>@item.TenSach</td>
+                                        @*<td class="soLuongSach" data-ma-sach="@item.MaSach">@item.SoLuongHIENTAI</td>*@
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal hiển thị chi tiết sách -->
+<div class="modal fade bd-example-modal-lg" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 text-blue" style="font-weight: bold;" id="">Chi Tiết Sách</h4>
+            </div>
+
+            <!-- Body -->
+            <form class="modal-body p-4">
+                <div class="form-row">
+                    <!--Mã sách-->
+                    <div class="form-group col">
+                        <label>Mã sách:</label>
+                        <input class="form-control" id="maSachModal" readonly>
+                    </div>
+
+                    <!--Số lượng hiện tại-->
+                    <div class="form-group col">
+                        <label>S/Lượng hiện tại:</label>
+                        <input class="form-control" id="soLuongHienTaiModal" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <!--Tên sách-->
+                    <div class="form-group col">
+                        <label>Tên sách:</label>
+                        <input class="form-control" id="tenSachModal" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <!--Thể loại-->
+                    <div class="form-group col">
+                        <label>Thể loại:</label>
+                        <input class="form-control" id="theLoaiModal" readonly>
+                    </div>
+
+                    <!--ngôn ngữ-->
+                    <div class="form-group col">
+                        <label>Mã thẻ độc giả:</label>
+                        <input class="form-control" id="ngonNguModal" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <!--Tác giả-->
+                    <div class="form-group col">
+                        <label>Tác giả:</label>
+                        <input class="form-control" id="tacGiaModal" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <!--Nhà xuất bản-->
+                    <div class="form-group col">
+                        <label>Nhà xuất bản:</label>
+                        <input class="form-control" id="nhaXuatBanModal" readonly>
+                    </div>
+
+                    <!--Năm xuất bản-->
+                    <div class="form-group col">
+                        <label>Năm xuất bản:</label>
+                        <input class="form-control" id="namXuatBanModal" readonly>
+                    </div>
+                </div>
+
+            </form>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Đóng </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Thêm nhà cung cấp-->
+<div class="modal fade" id="ThemNccModal" tabindex="-1" role="dialog" aria-labelledby="ThemNccModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-primary col-8" style="font-weight:bold;">Thêm Nhà Cung Cấp</h4>
+                <div class="col-3">
+                    <button type="button" class="btn btn-warning lamMoiSach" id="lamMoiButtonModal" onclick="">Làm mới</button>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label class="col-form-label">Tên nhà cung cấp:</label>
+                        <input type="text" class="form-control" id="TenNccModal">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Số điện thoại:</label>
+                        <input type="text" class="form-control" id="SdtNccModal">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Địa chỉ:</label>
+                        <input type="text" class="form-control" id="DiaChiNccModal">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" onclick="btnThemNCC()">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal error-->
+<div class="modal fade" id="ModalError" tabindex="-1" role="dialog" aria-labelledby="ModalError" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center bg-danger">
+                <span class="" id="contentModalError"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal success-->
+<div class="modal fade" id="ModalSuccess" tabindex="-1" role="dialog" aria-labelledby="ModalSuccess" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center bg-green">
+                <span class="" id="contentModalSuccess"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+
+        //=====================  Set dữ liệu mặc định  =====================
+        // Lấy ngày hiện tại
+        var currentDate = new Date();
+
+        // Định dạng ngày hiện tại thành chuỗi YYYY-MM-DD
+        var formatCurrentDate = currentDate.toISOString().slice(0, 10);
+
+        // Set ngày mượn là ngày hiện tại
+        document.getElementById("NgayNhap").value = formatCurrentDate;
+
+        // Set mã nhân viên
+        var manv = @HttpContext.Current.Session["manv"]
+        document.getElementById("MaNhanVien").value = manv;
+
+        function changeTableShow(tableToShow, tableToHide) {
+            tableToShow.style.display = "block";
+            tableToHide.style.display = "none";
+        }
+
+        // Lấy các phần tử của bảng
+        var thongTinNCCTable = document.getElementById("thongTinNCCTable");
+        var thongTinSachTable = document.getElementById("thongTinSachTable");
+
+        // Mặc định chọn nút "Thông tin độc giả"
+        changeTableShow(thongTinNCCTable, thongTinSachTable);
+
+
+        //=====================  Lấy dữ liệu khi click vào hàng trong table tt nhà cung cấp  =====================
+        var nhaCungCapRows = document.querySelectorAll(".ncc-row");
+
+        // Xử lý sự kiện nhấp cho từng hàng
+        nhaCungCapRows.forEach(function (row) {
+            row.addEventListener("click", function () {
+
+                // Lấy thông tin tên từ cột Họ tên của hàng
+                var maNCC = row.querySelector("td:nth-child(1)").textContent;
+                var tenNCC = row.querySelector("td:nth-child(2)").textContent;
+                var sdt = row.querySelector("td:nth-child(3)").textContent;
+                var diaChi = row.querySelector("td:nth-child(3)").textContent;
+
+                // Hiển thị thông tin tên vào input tên độc giả trong form
+                document.getElementById("MaNCC").value = maNCC;
+                document.getElementById("TenNCC").value = tenNCC;
+                document.getElementById("SDT").value = sdt;
+                document.getElementById("DiaChi").value = diaChi;
+            });
+        });
+
+
+        //=====================  Thêm nhà cung cấp  =====================
+        function btnShowModalThemNCC()
+        {
+            $("#ThemNccModal").modal("show");
+        }
+
+        function btnThemNCC() {
+            var tenNcc = document.getElementById("TenNccModal").value;
+            var sdtNcc = document.getElementById("SdtNccModal").value;
+            var diaChiNcc = document.getElementById("DiaChiNccModal").value;
+
+            if (!tenNcc || !sdtNcc || !diaChiNcc) {
+                 document.getElementById("contentModalError").innerHTML = "Thông tin nhà cung cấp không được để trống!";
+                 $("#ModalError").modal("show");
+            } else {
+                var phoneRegex = /^\d{10,11}$/;
+                if (!phoneRegex.test(sdtNcc)) {
+                    document.getElementById("contentModalError").innerHTML = "Hãy nhập đúng định dạng số điện thoại!";
+                    $("#ModalError").modal("show");
+                } else {
+                    var confirmed = confirm("Bạn có chắc muốn thêm nhà cung cấp không?");
+                    if (confirmed) {
+                        $.ajax({
+                            url: '@Url.Action("ThemNhaCungCap", "NhapSach")',
+                            type: 'POST',
+                            data: {
+                                tenNcc: tenNcc,
+                                sdtNcc: sdtNcc,
+                                diaChiNcc: diaChiNcc,
+                            },
+                            success: function (response) {
+                                if (response.success) {
+
+                                    document.getElementById("TenNccModal").value = "";
+                                    document.getElementById("SdtNccModal").value = "";
+                                    document.getElementById("DiaChiNccModal").value = "";
+
+                                    document.getElementById("contentModalSuccess").innerHTML = "Thêm nhà cung cấp thành công";
+                                    $("#ModalSuccess").modal("show");
+                                    console.log("ncc: ", data)
+                                } else {
+                                    document.getElementById("contentModalError").innerHTML = "Lỗi khi thêm, Hãy thử lại!";
+                                    $("#ModalError").modal("show");
+                                    console.log("ncc: ", data)
+                                }
+                            },
+                            error: function () {
+                                alert("Lỗi khi gửi yêu cầu đến máy chủ.");
+                            }
+                                });
+                    }
+                }
+            }
+        }
+
+
+        //=====================  Xử lý sự kiện khi click vào 1 hàng  trong table  =====================
+
+        // Lấy danh sách các hàng của table
+        var sachRows = document.querySelectorAll(".sach-row");
+
+        // Bắt sự kiện click cho từng hàng sách
+        sachRows.forEach(function (row) {
+             row.addEventListener("click", function () {
+                 // Lấy thông tin
+                 var maS = row.querySelector("td:nth-child(1)").textContent;
+
+                 // Điền modal với dữ liệu
+                 document.getElementById("maSachModal").value = maS;
+                 $("#exampleModalScrollable").modal("show");
+
+                 var maSach = parseInt(maS);
+
+                 $.ajax({
+                     url: '@Url.Action("ChiTietSach", "NhapSach")',
+                     type: 'POST',
+                     data: {
+                         id: maSach,
+                     },
+                     success: function (data) {
+                        if (data.success) {
+                            // Xử lý dữ liệu JSON trả về
+                            var sachData = data;
+
+                            consonl.log("sach: ", sachData)
+
+                            // Mở modal
+                            $("#exampleModalScrollable").modal("show");
+                        } else {
+                            console.error("Không thành công trong việc nhận dữ liệu từ server.");
+                        }
+                     },
+                     error: function (xhr, status, error) {
+                         console.error("Error occurred:", error);
+                         console.log("Server response:", xhr.responseText);
+
+                         // Handle the error or show an appropriate message to the user
+                     }
+                 });
+
+            });
+        });
+
+
+    </script>
+
+}
