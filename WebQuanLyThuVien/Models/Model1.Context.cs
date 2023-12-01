@@ -25,10 +25,12 @@ namespace WebQuanLyThuVien.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ChiTietDk> ChiTietDks { get; set; }
         public virtual DbSet<ChiTietPM> ChiTietPMs { get; set; }
         public virtual DbSet<CHITIETPN> CHITIETPNs { get; set; }
         public virtual DbSet<ChiTietPT> ChiTietPTs { get; set; }
         public virtual DbSet<ChiTietPTL> ChiTietPTLs { get; set; }
+        public virtual DbSet<DkiMuonSach> DkiMuonSaches { get; set; }
         public virtual DbSet<DocGia> DocGias { get; set; }
         public virtual DbSet<DonViTL> DonViTLs { get; set; }
         public virtual DbSet<KhoSachThanhLy> KhoSachThanhLies { get; set; }

@@ -41,11 +41,10 @@ insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0317809370','03178
 insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0638103599','0638103599',9);
 insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0727180418','0727180418',10);
 
-
 --THEM LOGIN NV
-insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, HoTen_NV, MaNV) values('0767163999','0767163999', N'Võ Gia Huy',1);
-insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, HoTen_NV, MaNV) values('0319267184','0319267184',N'Nguyễn Thị Kim Liên',2);
-insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, HoTen_NV, MaNV) values('0231525416','0231525416',N'Nguyễn Thành Luân',3);
+insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, MaNV) values('0767163999','0767163999',1);
+insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, MaNV) values('0319267184','0319267184',2);
+insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, MaNV) values('0231525416','0231525416',3);
 
 -- THEM NHACUNGCAP
 insert into NhaCungCap ( TenNCC, DiaChiNCC, sdtNCC) values (N'Nhà Xuất Bản Kim Đồng',N'Hồ gươm, Hà Nội', '0243942633');
@@ -53,53 +52,50 @@ insert into NhaCungCap ( TenNCC, DiaChiNCC, sdtNCC) values (N'CÔNG TY CỔ PH�
 insert into NhaCungCap ( TenNCC, DiaChiNCC, sdtNCC) values (N'CÔNG TY SÁCH DÂN TRÍ',N'Quận Phú Nhuận, Thành phố Hồ Chí Minh', '0862751674');
 insert into NhaCungCap ( TenNCC, DiaChiNCC, sdtNCC) values (N'Nhà sách Nhã Nam',N'Đống Đa, Hà Nội', '02462593451');
 
-
-
 -- Them Sach
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Thỏ Bảy Màu Và Những Người Nghĩ Nó Là Bạn',N'Truyện thiếu nhi',N'HUỲNH THÁI NGỌC',N'Tiếng việt',N'Dân Trí', 2023, '84150', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Thần Đồng Đất Việt 2 - Trí Nhớ Siêu Phàm',N'Truyện thiếu nhi',N'Nhiều Tác Giả',N'Tiếng việt',N'NXB Đại Học Sư Phạm', 2023, '85000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Mùa Hè Không Tên',N'Tiểu thuyết',N'Nguyễn Nhật Ánh',N'Tiếng việt',N'NXB Trẻ', 2023, '64000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Đất Rừng Phương Nam',N'Văn học',N'Đoàn Giỏi',N'Tiếng việt',N'Kim Đồng', 2023, '56200', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Ông Già Và Biển Cả',N'Văn học',N'Lê Huy Bắc dịch',N'Tiếng việt',N'NXB Văn học', 2022, '33600', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Destination B1 Grammar And Vocabulary with Answer Key',N'Sách ngoại ngữ',N'Malcome Mann, Steve Taylore-Knowles',N'Tiếng anh', N'Hồng Đức', 2023, '99100', 0); 
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Giáo Trình Chuẩn HSK 1 ',N'Sách ngoại ngữ',N'Khương Lệ Bình',N'Tiếng trung',N'NXB Tổng Hợp TPHCM', 2022, '80800', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'450 Nouveaux Exercices - Vocabulaire Niveau débutant',N'Sách ngoại ngữ',N'Thierry Gallier',N'Tiếng pháp',N'NXB Tổng Hợp TPHCM',2011, '42000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Sinh Học 11 (Chân Trời Sáng Tạo)',N'Sách giáo khoa',N'Nhiều Tác Giả',N'Tiếng việt',N'Giáo Dục Việt Nam', 2023, '27000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Tiếng anh Lớp 3 - Family And Friends (National Edition) - Workbook (2023)',N'Sách giáo khoa',N'Trần Cao Bội Ngọc', N'Tiếng anh',N'Giáo Dục Việt Nam', 2023, '86000', 0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB,  SOLUONGHIENTAI) values (N'Thỏ Bảy Màu Và Những Người Nghĩ Nó Là Bạn',N'Truyện thiếu nhi',N'HUỲNH THÁI NGỌC',N'Tiếng việt',N'Dân Trí', 2023,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB,  SOLUONGHIENTAI) values (N'Thần Đồng Đất Việt 2 - Trí Nhớ Siêu Phàm',N'Truyện thiếu nhi',N'Nhiều Tác Giả',N'Tiếng việt',N'NXB Đại Học Sư Phạm', 2023, 0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB,  SOLUONGHIENTAI) values (N'Mùa Hè Không Tên',N'Tiểu thuyết',N'Nguyễn Nhật Ánh',N'Tiếng việt',N'NXB Trẻ', 2023, 0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB,  SOLUONGHIENTAI) values (N'Đất Rừng Phương Nam',N'Văn học',N'Đoàn Giỏi',N'Tiếng việt',N'Kim Đồng', 2023,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB,  SOLUONGHIENTAI) values (N'Ông Già Và Biển Cả',N'Văn học',N'Lê Huy Bắc dịch',N'Tiếng việt',N'NXB Văn học', 2022, 0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB,  SOLUONGHIENTAI) values (N'Destination B1 Grammar And Vocabulary with Answer Key',N'Sách ngoại ngữ',N'Malcome Mann, Steve Taylore-Knowles',N'Tiếng anh', N'Hồng Đức', 2023, 0); 
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB,  SOLUONGHIENTAI) values (N'Giáo Trình Chuẩn HSK 1 ',N'Sách ngoại ngữ',N'Khương Lệ Bình',N'Tiếng trung',N'NXB Tổng Hợp TPHCM', 2022,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB,  SOLUONGHIENTAI) values (N'450 Nouveaux Exercices - Vocabulaire Niveau débutant',N'Sách ngoại ngữ',N'Thierry Gallier',N'Tiếng pháp',N'NXB Tổng Hợp TPHCM',2011,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB,  SOLUONGHIENTAI) values (N'Sinh Học 11 (Chân Trời Sáng Tạo)',N'Sách giáo khoa',N'Nhiều Tác Giả',N'Tiếng việt',N'Giáo Dục Việt Nam', 2023, 0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB,  SOLUONGHIENTAI) values (N'Tiếng anh Lớp 3 - Family And Friends (National Edition) - Workbook (2023)',N'Sách giáo khoa',N'Trần Cao Bội Ngọc', N'Tiếng anh',N'Giáo Dục Việt Nam', 2023,  0);
 
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Toán 4 - Tập 1 (Chân Trời Sáng Tạo)',N'Sách giáo khoa',N'Nhiều Tác Giả',N'Tiếng việt',N'Giáo Dục Việt Nam', 2023, '40000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Công Nghệ 8 (Chân Trời Sáng Tạo)',N'Sách giáo khoa',N'Nhiều Tác Giả',N'Tiếng việt',N'Giáo Dục Việt Nam', 2023, '35000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Thay Đổi Cuộc Sống Với Nhân Số Học',N'Kỹ năng sống',N'Lê Đỗ Quỳnh Hương',N'Tiếng việt',N'NXB Tổng Hợp TPHCM', 2020, '76000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Đứa Trẻ Hiểu Chuyện Thường Không Có Kẹo Ăn',N'Kỹ năng sống',N'Nguyên Anh',N'Tiếng việt',N'Văn học', 2022, '84000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Cây Cam Ngọt Của Tôi',N'Tiểu thuyết',N'José Mauro de Vasconcelos',N'Tiếng việt',N'NXB Hội Nhà Văn', 2020, '100600', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Nhà Giả Kim',N'Tiểu thuyết',N'Paulo Coelho',N'Tiếng việt',N'NXB Hội Nhà Văn', 2020, '63200', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Cho Tôi Xin Một Vé Đi Tuổi Thơ',N'Tiểu thuyết',N'Nguyễn Nhật Ánh',N'Tiếng việt',N'	NXB Trẻ', 2023, '81000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Tam Quốc Diễn Nghĩa',N'Văn học',N'La Quán Trung',N'Tiếng việt',N'NXB Văn học', 2020, '75500', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Nobita Và Vùng Đất Lý Tưởng Trên Bầu Trời',N'Truyện thiếu nhi',N'Fujiko F Fujio',N'Tiếng việt',N'Kim Đồng',2020, '33250', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Con Chim Xanh Biếc Bay Về',N'Tiểu thuyết',N'Nguyễn Nhật Ánh',N'Tiếng việt',N'	NXB Trẻ', 2021, '20000', 0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Toán 4 - Tập 1 (Chân Trời Sáng Tạo)',N'Sách giáo khoa',N'Nhiều Tác Giả',N'Tiếng việt',N'Giáo Dục Việt Nam', 2023,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Công Nghệ 8 (Chân Trời Sáng Tạo)',N'Sách giáo khoa',N'Nhiều Tác Giả',N'Tiếng việt',N'Giáo Dục Việt Nam', 2023,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Thay Đổi Cuộc Sống Với Nhân Số Học',N'Kỹ năng sống',N'Lê Đỗ Quỳnh Hương',N'Tiếng việt',N'NXB Tổng Hợp TPHCM', 2020, 0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Đứa Trẻ Hiểu Chuyện Thường Không Có Kẹo Ăn',N'Kỹ năng sống',N'Nguyên Anh',N'Tiếng việt',N'Văn học', 2022,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Cây Cam Ngọt Của Tôi',N'Tiểu thuyết',N'José Mauro de Vasconcelos',N'Tiếng việt',N'NXB Hội Nhà Văn', 2020,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Nhà Giả Kim',N'Tiểu thuyết',N'Paulo Coelho',N'Tiếng việt',N'NXB Hội Nhà Văn', 2020,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Cho Tôi Xin Một Vé Đi Tuổi Thơ',N'Tiểu thuyết',N'Nguyễn Nhật Ánh',N'Tiếng việt',N'	NXB Trẻ', 2023,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Tam Quốc Diễn Nghĩa',N'Văn học',N'La Quán Trung',N'Tiếng việt',N'NXB Văn học', 2020, 0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Nobita Và Vùng Đất Lý Tưởng Trên Bầu Trời',N'Truyện thiếu nhi',N'Fujiko F Fujio',N'Tiếng việt',N'Kim Đồng',2020,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Con Chim Xanh Biếc Bay Về',N'Tiểu thuyết',N'Nguyễn Nhật Ánh',N'Tiếng việt',N'	NXB Trẻ', 2021,  0);
 
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Cảnh Ngộ',N'Tiểu thuyết',N'Minato Kanae',N'Tiếng việt',N'NXB Hà Nội', 2020, '101000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Thiếu Nữ (Shoujo)',N'Tiểu thuyết',N'Minato Kanae',N'Tiếng việt',N'Hà Nội', 2022, '102000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Bi Xanh Và Bông Tím',N'Truyện thiếu nhi',N'Tần Văn Quân',N'Tiếng việt',N'NXB Lao Động', 2018, '76000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Truyện Tranh Việt Nam - Sọ Dừa',N'Truyện thiếu nhi',N'Vũ Thị Hồng',N'Tiếng việt',N'Hà Nội', 2020, '15000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Thương',N'Văn học',N'	Nhiều Tác Giả',N'Tiếng việt',N'NXB Phụ Nữ Việt Nam', 2021, '63500', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Chuyện Kể Rằng Có Nàng Và Tôi',N'Văn học',N'Nhiều Tác Giả',N'Tiếng việt',N'	NXB Phụ Nữ Việt Nam', 2022, '61200', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Dear, Darling ',N'Ngôn tình',N'Hiên',N'Tiếng việt',N'Phụ Nữ Việt Nam', 2022, '74800', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Tổng Ôn Ngữ Pháp Tiếng anh (Tái Bản 2023)',N'Sách tham khảo',N'Trang Anh',N'Tiếng việt',N'NXB Hồng Đức', 2023, '189000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Dám Nghĩ Lại',N'Kỹ năng sống',N'Adam Grant',N'Tiếng việt',N'Dân Trí',2023, '99000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Truyện Tranh Trạng Quỷnh - Tập 402: Ông Tôm Bà Tép',N'Truyện thiếu nhi',N'Kim Khánh',N'Tiếng việt',N'NXB Kim Đồng',2020, '20000', 0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Cảnh Ngộ',N'Tiểu thuyết',N'Minato Kanae',N'Tiếng việt',N'NXB Hà Nội', 2020,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Thiếu Nữ (Shoujo)',N'Tiểu thuyết',N'Minato Kanae',N'Tiếng việt',N'Hà Nội', 2022,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Bi Xanh Và Bông Tím',N'Truyện thiếu nhi',N'Tần Văn Quân',N'Tiếng việt',N'NXB Lao Động', 2018,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Truyện Tranh Việt Nam - Sọ Dừa',N'Truyện thiếu nhi',N'Vũ Thị Hồng',N'Tiếng việt',N'Hà Nội', 2020,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Thương',N'Văn học',N'	Nhiều Tác Giả',N'Tiếng việt',N'NXB Phụ Nữ Việt Nam', 2021,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Chuyện Kể Rằng Có Nàng Và Tôi',N'Văn học',N'Nhiều Tác Giả',N'Tiếng việt',N'	NXB Phụ Nữ Việt Nam', 2022,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Dear, Darling ',N'Ngôn tình',N'Hiên',N'Tiếng việt',N'Phụ Nữ Việt Nam', 2022,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Tổng Ôn Ngữ Pháp Tiếng anh (Tái Bản 2023)',N'Sách tham khảo',N'Trang Anh',N'Tiếng việt',N'NXB Hồng Đức', 2023,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Dám Nghĩ Lại',N'Kỹ năng sống',N'Adam Grant',N'Tiếng việt',N'Dân Trí',2023,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Truyện Tranh Trạng Quỷnh - Tập 402: Ông Tôm Bà Tép',N'Truyện thiếu nhi',N'Kim Khánh',N'Tiếng việt',N'NXB Kim Đồng',2020,0);
 
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'199 Mấy Hồi Ấy Làm Gì?',N'Truyện thiếu nhi',N'Trang Neko, X Lan',N'Tiếng việt',N'NXB Kim Đồng', 2020, '89000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Đám Trẻ Ở Đại Dương Đen',N'Truyện ngắn',N'Châu Sa Đáy Mắt',N'Tiếng việt',N'Thế Giới', 2023, '69800', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'90% Trẻ Thông Minh Nhờ Cách Trò Chuyện Đúng Đắn Của Cha Mẹ (Tái Bản 2019)',N'Kỹ năng sống',N'Urako Kanamori',N'Tiếng việt',N'	NXB Kim Đồng', 2019, '35000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Hài Hước Một Chút Thế Giới Sẽ Khác Đi (Tái Bản 2021)',N'Kỹ năng sống',N'Lưu Chấn Hồng',N'Tiếng việt',N'NXB Thanh Niên', 2021, '78900', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Mỗi Lần Vấp Ngã Là Một Lần Trưởng Thành',N'Kỹ năng sống',N'Liêu Trí Phong',N'Tiếng việt',N'NXB Thanh Niên', 2019, '96000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Tiếng anh 1 - Global Success - Sách Bài Tập (2023)',N'Sách giáo khoa',N'Nhiều Tác Giả',N'Tiếng việt',N'NXB Giáo Dục Việt Nam', 2022, '30000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Lịch Sử Và Địa Lí 6 (Kết Nối Tri Thức) (2023)',N'Sách giáo khoa',N'Nhiều Tác Giả',N'Tiếng việt',N'Giáo Dục Việt Nam', 2023, '32000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Chưa Kịp Lớn Đã Trưởng Thành (Tái Bản 2023)',N'Tiểu thuyết',N'Tớ Là Mây',N'Tiếng việt',N'Dân Trí', 2023, '63000', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'999 Lá Thư Gửi Cho Chính Mình - Những Lá Thư Ấn Tượng Nhất',N'Truyện ngắn',N'Miêu Công Tử',N'Tiếng việt',N'Thanh Niên',2023, '79800', 0);
-insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, GiaSach, SOLUONGHIENTAI) values (N'Cùng Bạn Trưởng Thành',N'Truyện ngắn',N'Ying Shu',N'Tiếng trung',N'Dân Trí',2022, '72000', 0);
-
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'199 Mấy Hồi Ấy Làm Gì?',N'Truyện thiếu nhi',N'Trang Neko, X Lan',N'Tiếng việt',N'NXB Kim Đồng', 2020,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Đám Trẻ Ở Đại Dương Đen',N'Truyện ngắn',N'Châu Sa Đáy Mắt',N'Tiếng việt',N'Thế Giới', 2023, 0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'90% Trẻ Thông Minh Nhờ Cách Trò Chuyện Đúng Đắn Của Cha Mẹ (Tái Bản 2019)',N'Kỹ năng sống',N'Urako Kanamori',N'Tiếng việt',N'	NXB Kim Đồng', 2019,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Hài Hước Một Chút Thế Giới Sẽ Khác Đi (Tái Bản 2021)',N'Kỹ năng sống',N'Lưu Chấn Hồng',N'Tiếng việt',N'NXB Thanh Niên', 2021,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Mỗi Lần Vấp Ngã Là Một Lần Trưởng Thành',N'Kỹ năng sống',N'Liêu Trí Phong',N'Tiếng việt',N'NXB Thanh Niên', 2019,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Tiếng anh 1 - Global Success - Sách Bài Tập (2023)',N'Sách giáo khoa',N'Nhiều Tác Giả',N'Tiếng việt',N'NXB Giáo Dục Việt Nam', 2022,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Lịch Sử Và Địa Lí 6 (Kết Nối Tri Thức) (2023)',N'Sách giáo khoa',N'Nhiều Tác Giả',N'Tiếng việt',N'Giáo Dục Việt Nam', 2023,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Chưa Kịp Lớn Đã Trưởng Thành (Tái Bản 2023)',N'Tiểu thuyết',N'Tớ Là Mây',N'Tiếng việt',N'Dân Trí', 2023,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'999 Lá Thư Gửi Cho Chính Mình - Những Lá Thư Ấn Tượng Nhất',N'Truyện ngắn',N'Miêu Công Tử',N'Tiếng việt',N'Thanh Niên',2023,  0);
+insert into Sach ( TenSach, TheLoai, TacGia, NgonNgu, NXB, NamXB, SOLUONGHIENTAI) values (N'Cùng Bạn Trưởng Thành',N'Truyện ngắn',N'Ying Shu',N'Tiếng trung',N'Dân Trí',2022,  0);
 
 --Them Phieu nhap sach 
 insert into PhieuNhapSach ( NgayNhap,  MaNV, MaNCC) values ( '2023-1-15',  3,  1);
@@ -109,50 +105,50 @@ insert into PhieuNhapSach ( NgayNhap,  MaNV, MaNCC) values ( '2023-10-15',  3,  
 insert into PhieuNhapSach ( NgayNhap,  MaNV, MaNCC) values ( '2023-10-30',  3,  2);
 
 --THEM CHITIET PN
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(1,1,20)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(1,2,20)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(1,3,17)
-INSERT INTO CHITIETPN (MaPN, MaSACH, SoLuongNHAP) VALUES(1,4,35)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(1,5,10)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(1,6,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(1, 1, 100000,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(1, 2, 70000,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(1, 3, 50000,17)
+INSERT INTO CHITIETPN (MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(1, 4, 20000,35)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(1, 5, 56000,10)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(1, 6, 96000,20)
 
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(2,7,15)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(2,8,5)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(2,9,25)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(2,10,20)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(2,11,10)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(2,12,22)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(2,13,18)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(2, 7, 70000,15)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(2, 8, 96000,5)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(2, 9, 53000,25)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(2, 10, 60000,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(2, 11, 55000,10)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(2, 12, 120000,22)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(2, 13, 86000,18)
 
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(3,14,12)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(3,15,20)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(3,16,30)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(3,17,23)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(3,18,25)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(3,19,15)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(3,20,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(3, 14, 45000,12)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(3, 15, 67000,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(3, 16, 51000,30)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(3, 17, 135000,23)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(3, 18, 36000,25)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(3, 19, 99000,15)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(3, 20, 23000,20)
 
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(4,21,12)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(4,22,15)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(4,23,20)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(4,24,23)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(4,25,25)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(4,26,35)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(4,27,10)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(4,28,25)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(4,29,15)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(4,30,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(4, 21, 120000,12)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(4, 22, 66000,15)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(4, 23, 45000,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(4, 24, 32000,23)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(4, 25, 48000,25)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(4, 26, 32000,35)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(4, 27, 55000,10)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(4, 28, 90000,25)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(4, 29, 35000,15)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(4, 30, 45000,20)
 
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(5,31,20)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(5,32,35)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(5,33,25)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(5,34,16)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(5,35,30)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(5,36,15)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(5,37,20)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(5,38,25)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(5,39,15)
-INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(5,40,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(5, 31, 110000,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(5, 32, 96000,35)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(5, 33, 47000,25)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(5, 34, 63000,16)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(5, 35, 85000,30)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(5, 36, 123000,15)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(5, 37, 99000,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(5, 38, 39000,25)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(5, 39, 55000,15)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(5, 40, 20000,20)
 
 -- Them don vi thanh ly 
 insert into DonViTL ( TenDV, DiaChiDV, SDTDV) values (N'Sách Xưa',N'Quận 10, Thành phố Hồ Chí Minh', '0903663733');
@@ -164,7 +160,6 @@ insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 2,'2023-08-10', 
 insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 6,'2023-09-07', '2023-9-14', 2);
 insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 4,'2023-09-19', '2023-9-26', 2);
 insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 3,'2023-10-16', '2023-11-16',2);
-
 insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 1,'2023-07-20', '2023-8-20', 2);
 
 -- Them chi tiet phieu muon
@@ -184,6 +179,8 @@ insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 4, 15, 1);
 insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 4, 19, 1);
 
 insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 5, 13, 1);
+
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 6, 15, 2);
 
 
 -- Them Phieu tra 
@@ -206,14 +203,6 @@ insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi) values ( 4, 2, 1,1);
 
 --THEM KHO SACH THANH LY
 
-
---UPDATE KhoSachThanhLy
---SET soluongkhotl = 5
---WHERE masachkho=2;
-
---INSERT INTO KhoSachThanhLy(MASACHKHO,soluongkhotl) VALUES (15,4);
---INSERT INTO KhoSachThanhLy(MASACHKHO,soluongkhotl) VALUES (16,5);
-
 -- Them Phieu thanh ly
 insert into PhieuThanhLy (MaDV, NgayTL,  MaNV) values (1, '2023-10-25',  3);
 
@@ -227,6 +216,15 @@ insert into ChiTietPTL (MaPTL, MaSachkho, Soluongtl) values (1 ,6, 1);
 
 --SELECT * FROM PhieuNhapSach;
 --SELECT * FROM CHITIETPN WHERE MAPN = 4;
+
+--select *  from phieumuon
+--select *  from phieutra
+
+--insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 1,'2023-07-20', '2023-8-20', 2);
+--insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 9, 1, 4);
+--insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (9, 1, '2023-9-14', 2);
+--insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi) values ( 7, 1, 2,2);
+
 
 
 
@@ -504,3 +502,4 @@ insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 3, 10, 2);
 insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 3, 11, 1);
 
 insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 4, 15, 2);
+

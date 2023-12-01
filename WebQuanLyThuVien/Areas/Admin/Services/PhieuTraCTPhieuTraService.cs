@@ -61,6 +61,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                         MaSach = sachtra.MaSach,
                         Soluongtra = sachtra.SoLuongTra,
                         Soluongloi = sachtra.SoLuongLoi,
+                        PhuThu = sachtra.PhuThu,
                     };
 
                     // Thêm ChiTietPT vào Context

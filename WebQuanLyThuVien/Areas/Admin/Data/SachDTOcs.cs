@@ -17,8 +17,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public string NgonNgu { get; set; }
         public string NXB { get; set; }
         public int? NamXB { get; set; }
-        public int? GiaSach { get; set; }
+        //public int? GiaSach { get; set; }
         public int? SoLuongHIENTAI { get; set; }
-
     }
 }

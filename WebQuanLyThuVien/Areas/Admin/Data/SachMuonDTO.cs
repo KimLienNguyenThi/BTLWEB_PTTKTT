@@ -11,6 +11,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public string TenSach { get; set; }
 
         public int? SoLuongMuon { get; set; }
+        public decimal giasach { get; set; }
 
     }
     public class SachDaTraDTO

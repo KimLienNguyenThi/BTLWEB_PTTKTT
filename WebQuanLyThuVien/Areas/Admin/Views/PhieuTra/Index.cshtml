@@ -87,6 +87,8 @@
                                             <th style="width: 15%">SL Mượn</th>
                                             <th style="width: 15%">SL Trả</th>
                                             <th style="width: 20%"> Lỗi  </th>
+                                            <th style="width: 20%"> Phụ Thu  </th>
+
                                         </tr>
 
                                     </thead>
@@ -321,8 +323,11 @@
                             render += '<td >' + item.MaSach + '</td>';
                             render += '<td >' + item.TenSach + '</td>';
                             render += '<td >' + item.SoLuongMuon + '</td>';
-                            render += '<td>  <input class="soLuongTra" min="0" type="number" value="0" style="width: 60%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';
-                            render += '<td>  <input class="loi" min="0" type="number" value="0" style="width: 70%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';
+                        /*    render += '<td>  <input class="soLuongTra" min="0" type="number" value="0" style="width: 60%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';*/
+                            render += '<td>  <input id="phuThuSoLuongTra'+ item.MaSach + '" onchange="PhuThu(' + item.MaSach + ',' + item.giasach + ');" class="tra" min="0" type="number" value="0" style="width: 70%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';
+                            render += '<td>  <input id="phuThuSoLuongLoi' + item.MaSach + '" onchange="PhuThu(' + item.MaSach + ',' + item.giasach + ');" class="loi" min="0" type="number" value="0" style="width: 70%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';
+                            render += '<td id="phuThu' + item.MaSach + '" class="phuThu">' + '0' + '</td>';
+
                             render += '</tr>';
                         });
 
@@ -397,8 +402,9 @@
                  var maSach = row.querySelector('td:nth-child(1)').textContent;
                  var tenSach = row.querySelector('td:nth-child(2)').textContent;
                  var soLuongMuon = row.querySelector('td:nth-child(3)').textContent;
-                 var soLuongTra = row.querySelector('input.soLuongTra').value;
-                 var soluongLoi = row.querySelector('input.loi').value
+                 var soLuongTra = row.querySelector('input.tra').value;
+                 var soluongLoi = row.querySelector('input.loi').value;
+                     var PhuThu = row.querySelector('td:nth-child(6)').textContent;
 
                  // Thêm giá trị từ các ô nhập liệu vào mảng
                       sachValues.push({
@@ -406,9 +412,11 @@
                            TenSach: tenSach,
                            SoLuongMuon: soLuongMuon,
                            SoLuongTra: soLuongTra,
-                           SoLuongLoi: soluongLoi
+                          SoLuongLoi: soluongLoi,
+                          PhuThu: PhuThu,
                             });
                       });
+
 
                       var data = {
                             MaNhanVien: @HttpContext.Current.Session["manv"],
@@ -448,6 +456,7 @@
                         return;
                     }
 
+
                     var soLuongMuon = parseFloat(item.SoLuongMuon);
 
                     // Kiểm tra xem số lượng mượn có lớn hơn số lượng trả và số lượng lỗi không
@@ -455,6 +464,10 @@
                         document.getElementById("contentModalError").innerHTML = "Hãy nhập đúng số lượng sách muốn trả!";
                         $("#ModalError").modal("show");
                         return;
+                    }
+                    else
+                    {
+
                     }
                 }
 
@@ -487,7 +500,25 @@
                 }
             }
 
+            function PhuThu(maSach, giasach) {
+                var NgayTra = document.getElementById("return_datetra").value;
+                var HanTra = document.getElementById("return_datehan").value;
+                var Soluongloi = document.getElementById('phuThuSoLuongLoi' + maSach).value;
+                var Soluongtra = document.getElementById('phuThuSoLuongTra' + maSach).value;
+                let soNgayChenhLech = Math.max(0, (new Date(NgayTra) - new Date(HanTra)) / (1000 * 60 * 60 * 24));
+                if (Soluongtra > 0 || Soluongloi > 0) {
+                    if (soNgayChenhLech > 0) {
+                        document.getElementById("phuThu" + maSach).innerHTML = soNgayChenhLech * 2000 + (giasach * 0.5 * Soluongloi); //+ " VND";
+                    } else {
+                        document.getElementById("phuThu" + maSach).innerHTML = giasach * 0.5 * Soluongloi; //+ " VND";
 
+                    }
+                }
+                else
+                {
+                    document.getElementById("phuThu" + maSach).innerHTML = 0;
+                }
+            }
 
     </script>
 }

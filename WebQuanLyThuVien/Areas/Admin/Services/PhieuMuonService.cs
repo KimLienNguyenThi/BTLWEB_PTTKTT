@@ -136,24 +136,27 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
             var sachMuonList = (
                 from chiTietPM in unitOfWork.Context.ChiTietPMs
                 join sach in unitOfWork.Context.Saches on chiTietPM.MaSach equals sach.MaSach
+                join CHITIETPN in unitOfWork.Context.CHITIETPNs on chiTietPM.MaSach equals CHITIETPN.MaSACH
                 where chiTietPM.MaPM == MaPm
                 select new SachMuonDTO
                 {
                     MaSach = sach.MaSach,
                     TenSach = sach.TenSach,
-                    SoLuongMuon = chiTietPM.Soluongmuon
+                    SoLuongMuon = chiTietPM.Soluongmuon,
+                    giasach = CHITIETPN.GiaSach.Value
                 })
+                .GroupBy(group => new { group.MaSach, group.TenSach, group.SoLuongMuon })
                 .AsEnumerable()
                 .Select(x =>
                 {
                     // Tìm kiếm thông tin sách đã trả tương ứng
-                    var sachDaTra = listSachTra.FirstOrDefault(s => s.MaSach == x.MaSach);
+                    var sachDaTra = listSachTra.FirstOrDefault(s => s.MaSach == x.Key.MaSach);
 
                     // Nếu không tìm thấy, sử dụng giá trị mặc định là 0
                     int soLuongDaTra = sachDaTra?.SoLuongDaTra ?? 0;
 
                     // Tính toán số lượng còn lại của sách mượn
-                    int? soLuongMuonConLaiNullable = x.SoLuongMuon - soLuongDaTra;
+                    int? soLuongMuonConLaiNullable = x.Key.SoLuongMuon - soLuongDaTra;
 
                     // Chuyển đổi kiểu dữ liệu từ int? sang int
                     int soLuongMuonConLai = soLuongMuonConLaiNullable ?? 0;
@@ -162,9 +165,10 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                     // Tạo đối tượng SachMuonDTO mới
                     return new SachMuonDTO
                     {
-                        MaSach = x.MaSach,
-                        TenSach = x.TenSach,
-                        SoLuongMuon = soLuongMuonConLai
+                        MaSach = x.Key.MaSach,
+                        TenSach = x.Key.TenSach,
+                        SoLuongMuon = soLuongMuonConLai,
+                        giasach = x.OrderByDescending(item => item.giasach).First().giasach
                     };
                 })
                 .Where(x => x.SoLuongMuon > 0)

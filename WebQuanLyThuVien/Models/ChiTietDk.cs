@@ -12,14 +12,13 @@ namespace WebQuanLyThuVien.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CHITIETPN
+    public partial class ChiTietDk
     {
-        public int MaPN { get; set; }
-        public int MaSACH { get; set; }
-        public Nullable<decimal> GiaSach { get; set; }
-        public Nullable<int> SoLuongNHAP { get; set; }
+        public int MaDK { get; set; }
+        public int MaSach { get; set; }
+        public Nullable<int> Soluongmuon { get; set; }
     
-        public virtual PhieuNhapSach PhieuNhapSach { get; set; }
+        public virtual DkiMuonSach DkiMuonSach { get; set; }
         public virtual Sach Sach { get; set; }
     }
 }

@@ -52,24 +52,29 @@
                                             <th>Ngày mượn</th>
                                             <th>Hạn trả</th>
                                             <th>Mã NV</th>
-                                            <th>Xử lý</th>
+                                            <th>Tình trạng</th>
                                         </tr>
                                     </thead>
                                     <tbody id="danhSachPhieuMuon">
                                         @foreach (var item in ViewData["PhieuMuon"] as List<WebQuanLyThuVien.Areas.Admin.Data.PhieuMuon_DTO>)
                                         {
                                             <tr class="qly_phieumuon_row" data-ma-the="@item.MaThe">
-                                                <td>@item.MaPM</td>
+                                                <td >@item.MaPM</td>
                                                 <td>@item.MaThe</td>
                                                 <td>@item.HoTenDG</td>
                                                 <td>@string.Format("{0:dd-MM-yyyy}", item.NgayMuon)</td>
                                                 <td>@string.Format("{0:dd-MM-yyyy}", item.HanTra)</td>
                                                 <td>@item.MaNV</td>
                                                 <td>
-                                                    @if (item.HanTra < DateTime.Now)
+                                                    @if (item.HanTra < DateTime.Now && !item.Tinhtrang)
                                                     {
-                                                        <button type="button" class="btn btn-danger p-1" style="font-size: 11px;" onclick="console.log('Xử lý quá hạn')">Quá hạn</button>
+                                                    <button type="button" class="btn btn-danger p-1" style="font-size: 11px;" onclick="console.log('Xử lý quá hạn')">Quá hạn</button>
                                                     }
+                                                    else
+                                                    {
+                                                    <button type="button" class="btn btn-warning p-1" style="font-size: 11px;" onclick="console.log('Xử lý đã trả')">Chưa trả</button>
+                                                    }
+
                                                 </td>
                                             </tr>
                                         }
