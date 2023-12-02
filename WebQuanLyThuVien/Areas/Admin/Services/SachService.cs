@@ -34,10 +34,33 @@ namespace WebQuanLyThuVien.Services
             return _sachRepository.GetAll().ToList();
         }
 
-        public Sach GetById(int id)
+        public SachDTOcs GetById(int id)
         {
-            return _sachRepository.GetById(id);
+            try
+            {
+                return (from SACH in unitOfWork.Context.Saches
+                        where SACH.MaSach == id
+                        select new SachDTOcs
+                        {
+                            MaSach = SACH.MaSach,
+                            TenSach = SACH.TenSach,
+                            TheLoai = SACH.TheLoai,
+                            TacGia = SACH.TacGia,
+                            NgonNgu = SACH.NgonNgu,
+                            NXB = SACH.NXB,
+                            NamXB  = SACH.NamXB,
+                            SoLuongHIENTAI = SACH.SoLuongHIENTAI
+                        }).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có
+                Console.WriteLine($"Error in GetById: {ex.Message}");
+                return null;
+            }
         }
+
+
         public IEnumerable<SachDTOcs> GetSACH()
         {
             var listSACH =

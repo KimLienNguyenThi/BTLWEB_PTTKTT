@@ -190,6 +190,7 @@
     <Compile Include="Areas\Admin\Interfaces\IDocGiaRepository.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IDocGiaService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\INhaCungCapService.cs" />
+    <Compile Include="Areas\Admin\Interfaces\Services\INhapSachService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IPhieuMuonCTPhieuMuonService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IPhieuMuonService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IPhieuTraCTPhieuTraService.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Areas\Admin\Services\DocGiaService.cs" />
     <Compile Include="Areas\Admin\Services\IPhieuTraService.cs" />
     <Compile Include="Areas\Admin\Services\NhaCungCapService.cs" />
+    <Compile Include="Areas\Admin\Services\NhapSachService.cs" />
     <Compile Include="Areas\Admin\Services\PhieuMuonCTPhieuMuonService.cs" />
     <Compile Include="Areas\Admin\Services\PhieuMuonService.cs" />
     <Compile Include="Areas\Admin\Services\PhieuTraCTPhieuTraService.cs" />

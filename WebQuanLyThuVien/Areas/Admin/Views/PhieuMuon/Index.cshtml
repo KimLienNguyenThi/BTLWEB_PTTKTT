@@ -326,12 +326,11 @@
                     // Lấy số lượng hiện tại của sách
                     var soLuongHienTai = parseInt($(this).closest("tr").prev().find("td:nth-child(3)").text());
 
-                    var soLuongMuon =parseInt(this.parentElement.previousElementSibling.querySelector("#inputSoluong").value);
+                    var soLuongMuon = this.parentElement.previousElementSibling.querySelector("#inputSoluong").value;
 
-                    if (isNaN(soLuongMuon) || soLuongMuon > soLuongHienTai || soLuongMuon <= 0) {
+                    if (!Number.isInteger(Number(soLuongMuon)) || soLuongMuon > soLuongHienTai || soLuongMuon <= 0) {
                         document.getElementById("contentModalError").innerHTML = "Hãy nhập đúng số lượng sách mượn!";
                         $("#ModalError").modal("show");
-                        console.log('số lượng sách mượn: ', soLuongMuon);
                     } else {
                         // Gửi yêu cầu POST để thêm sách mượn
                         $.ajax({

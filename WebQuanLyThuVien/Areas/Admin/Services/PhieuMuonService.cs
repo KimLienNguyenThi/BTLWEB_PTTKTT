@@ -22,8 +22,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
         public PhieuMuonService()
         {
-
-
         }
 
         public string Delete(int obj)
@@ -49,6 +47,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                     on PhieuMuon.MaThe equals DocGia.MaDG
                  join NhanVien in unitOfWork.Context.NhanViens
                  on PhieuMuon.MaNV equals NhanVien.MaNV
+                 where PhieuMuon.Tinhtrang == false
                  select new PhieuMuon_DTO
                  {
                      MaPM = PhieuMuon.MaPM,
@@ -62,8 +61,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                  ).ToList();
             return listPhieuMuon_DocGia;
         }
-
-
 
         public IEnumerable<PhieuMuon_DTO> GetPhieuMuonsChuaTraSach()
         {

@@ -56,6 +56,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
             listSachMuon = new List<DTO_Sach_Muon>();
         }
     }
+
     public class DTO_Sach_Tra
     {
         public int MaPT { get; set; }
@@ -83,5 +84,32 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public decimal PhuThu { get; set; } // Sử dụng decimal cho giá trị tiền tệ
     }
 
+
+    public class DTO_Sach_Nhap
+    {
+        public int maSach { get; set; }
+        public string tenSach { get; set; }
+        public string theLoai { get; set; }
+        public string ngonNgu { get; set; }
+        public string tacGia { get; set; }
+        public string nhaXB { get; set; }
+        public int namXB { get; set; }
+        public int soLuong { get; set; }
+        public decimal giaSach { get; set; }
+
+    }
+
+    public class DTO_Tao_Phieu_Nhap
+    {
+        public int MaNhanVien { get; set; }
+        public int MaNhaCungCap { get; set; }
+        public DateTime NgayNhap { get; set; }
+        public List<DTO_Sach_Nhap> listSachNhap { get; set; }
+
+        public DTO_Tao_Phieu_Nhap()
+        {
+            listSachNhap = new List<DTO_Sach_Nhap>();
+        }
+    }
 
 }
