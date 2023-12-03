@@ -43,7 +43,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Repository
             throw new NotImplementedException();
         }
 
-        public DocGia GetById(int id)
+        public DTO_DocGia_TheDocGia GetById(int id)
         {
             throw new NotImplementedException();
         }

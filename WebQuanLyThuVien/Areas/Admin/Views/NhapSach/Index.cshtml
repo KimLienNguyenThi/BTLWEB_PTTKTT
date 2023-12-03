@@ -69,9 +69,14 @@
 
                             <!-- Địa chỉ-->
                             <div class="form-row">
-                                <div class="form-group col">
-                                    <label for="book">Địa chỉ:</label>
+                                <div class="form-group col-8">
+                                    <label for="DiaChi">Địa chỉ:</label>
                                     <input type="text" class="form-control" id="DiaChi" name="DiaChi" readonly>
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label for="tongTienNhap">Tổng tiền nhập:</label>
+                                    <input type="text" class="form-control" id="tongTienNhap" name="tongTienNhap" readonly>
                                 </div>
 
                             </div>
@@ -193,7 +198,6 @@
                                         <tr class="sach-row" aria-expanded="false" data-widget="expandable-table">
                                             <td>@item.MaSach</td>
                                             <td>@item.TenSach</td>
-                                            @*<td class="soLuongSach" data-ma-sach="@item.MaSach">@item.SoLuongHIENTAI</td>*@
                                         </tr>
                                     }
                                 </tbody>
@@ -498,6 +502,12 @@
 
         // Set ngày mượn là ngày hiện tại
         document.getElementById("NgayNhap").value = formatCurrentDate;
+        document.getElementById("tongTienNhap").value = formatMoney(0);
+
+        // Hàm format tiền
+        function formatMoney(number) {
+            return number.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        }
 
         // Set mã nhân viên
         var manv = @HttpContext.Current.Session["manv"]
@@ -648,11 +658,12 @@
 
 
         //===================== Hàm Thêm Sách  =====================
-        var i = -1;
+        var maSachMoi = -1;
+        var tongTienNhap = 0;
         function ThemSach(idMaSach, idTenSach, idTheLoai, idNgonNgu, idTacGia, idNhaXB, idNamXB, idSoLuong, idGiaSach)
         {
             var maSach
-            idMaSach == "maSachModal" ? maSach = document.getElementById(idMaSach).value : maSach = i--;
+            idMaSach == "maSachModal" ? maSach = document.getElementById(idMaSach).value : maSach = maSachMoi--;
             var tenSach = document.getElementById(idTenSach).value;
             var theLoai = document.getElementById(idTheLoai).value;
             var ngonNgu = document.getElementById(idNgonNgu).value;
@@ -662,6 +673,10 @@
 
             var soLuong = document.getElementById(idSoLuong).value;
             var giaSach = document.getElementById(idGiaSach).value;
+
+            tongTienNhap = tongTienNhap + giaSach * soLuong
+
+            document.getElementById("tongTienNhap").value = formatMoney(tongTienNhap);
 
             if (!tenSach.trim() || !theLoai.trim() || !ngonNgu.trim() || !tacGia.trim() || !nhaXB.trim() || !namXB.trim()) {
                 document.getElementById("contentModalError").innerHTML = "Hãy nhập đủ thông tin sách!";
@@ -787,6 +802,7 @@
                         document.getElementById("TenNCC").value = "";
                         document.getElementById("SDT").value = "";
                         document.getElementById("DiaChi").value = "";
+                        document.getElementById("tongTienNhap").value = formatMoney(0);
                     }
                 }
             });

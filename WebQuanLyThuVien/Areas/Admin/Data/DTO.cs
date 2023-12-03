@@ -9,9 +9,16 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
     public class DTO_DocGia_TheDocGia
     {
             public int MaThe { get; set; }
+            public int MaDocGia { get; set; }
+            public int MaNhanVien { get; set; }
             public string HoTenDG { get; set; }
             public string SDT { get; set; }
             public string DiaChi { get; set; }
+            public string GioiTinh { get; set; }
+            public DateTime NgaySinh { get; set; }
+            public DateTime NgayDangKy { get; set; }
+            public DateTime NgayHetHan { get; set; }
+            public decimal TienThe { get; set; }
     }
 
 

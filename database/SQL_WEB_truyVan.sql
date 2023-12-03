@@ -2,7 +2,7 @@
 USE QuanLyThuVien;
 SELECT * FROM donvitl
 SELECT * FROM PHIEUMUON
-SELECT * FROM CHITIETPM 
+SELECT * FROM CHITIETPn
 SELECT * FROM PHIEUTRA 
 SELECT * FROM CHITIETPT 
 SELECT * FROM SACH
@@ -10,12 +10,14 @@ SELECT * FROM KHOSACHTHANHLY
 SELECT * FROM PhieuThanhLy
 SELECT * FROM ChiTietPTL
 
-select * from  nhacungcap
-select  * from phieunhapsach
-select * from chitietpn where masach = 1
+select  * from docgia
+select  * from thedocgia
 
-
-
+select chitietpn.masach,tensach, giasach from chitietpm join chitietpn 
+on chitietpm.masach = chitietpn.masach  
+join sach on chitietpm.masach = sach.masach  
+group by chitietpn.masach,tensach, giasach
+order by giasach desc
 SELECT
     PM.MaPM,
     PM.MaThe,
@@ -198,7 +200,3 @@ LEFT JOIN (
   JOIN chitietpt ctpt ON Pt.mapt = ctpt.mapt
 ) AS Tra ON PM.mapm = Tra.mapm AND ctpm.masach = Tra.masach
 WHERE PM.Tinhtrang = N'CHƯA TRẢ' AND Tra.mapm IS NULL;
-
-
-
-

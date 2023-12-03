@@ -181,6 +181,8 @@
     <Compile Include="Areas\Admin\Controllers\PhieuTraController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyMuonController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyPhieuTraController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TheDocGiaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ThongTinDocGiaController.cs" />
     <Compile Include="Areas\Admin\Data\ApiResponse.cs" />
     <Compile Include="Areas\Admin\Data\DTO.cs" />
     <Compile Include="Areas\Admin\Data\PhieuMuon_DTO.cs" />
@@ -2538,6 +2540,8 @@
     <Content Include="Areas\Admin\Views\QuanLyMuon\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KhoSach\Index.cshtml" />
     <Content Include="Areas\Admin\Views\NhapSach\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyPhieuTra\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TheDocGia\Index.cshtml" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -2545,7 +2549,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\QuanLyPhieuTra\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongTinDocGia\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

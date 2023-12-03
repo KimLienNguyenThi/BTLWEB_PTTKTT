@@ -180,7 +180,6 @@
       <PropertyRef Name="MaThe" />
     </Key>
     <Property Name="MaThe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="HanThe" Type="nvarchar" MaxLength="50" />
     <Property Name="NgayDK" Type="date" />
     <Property Name="NgayHH" Type="date" />
     <Property Name="TienThe" Type="int" />
