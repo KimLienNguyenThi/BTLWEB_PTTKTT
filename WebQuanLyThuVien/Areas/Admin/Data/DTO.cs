@@ -110,7 +110,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public int namXB { get; set; }
         public int soLuong { get; set; }
         public decimal giaSach { get; set; }
-
     }
 
     public class DTO_Tao_Phieu_Nhap

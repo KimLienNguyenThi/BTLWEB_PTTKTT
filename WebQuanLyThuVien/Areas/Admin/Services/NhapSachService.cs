@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using WebQuanLyThuVien.Areas.Admin.Data;
 using WebQuanLyThuVien.Areas.Admin.Interfaces.Services;
+using WebQuanLyThuVien.Interfaces;
 using WebQuanLyThuVien.Models;
 using WebQuanLyThuVien.Repository;
 
@@ -13,6 +14,11 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
     {
 
         private UnitOfWork<QuanLyThuVienEntities> unitOfWork = new UnitOfWork<QuanLyThuVienEntities>();
+
+        public IEnumerable<CHITIETPN> GetAllChiTietPhieuNhap()
+        {
+            return unitOfWork.Context.CHITIETPNs.ToList();
+        }
 
         public void Insert(DTO_Tao_Phieu_Nhap obj)
         {
@@ -71,5 +77,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
             unitOfWork.Save(); // Lưu thay đổi vào cơ sở dữ liệu
         }
+
     }
 }

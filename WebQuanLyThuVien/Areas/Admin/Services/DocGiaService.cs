@@ -69,6 +69,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                      DiaChi = DocGia.DiaChi,
                      NgayDangKy = (DateTime)TheDocGia.NgayDK,
                      NgayHetHan = (DateTime)TheDocGia.NgayHH,
+                     TienThe = (decimal)TheDocGia.TienThe,
                  }
                  ).ToList();
             return listTheDocGia;
