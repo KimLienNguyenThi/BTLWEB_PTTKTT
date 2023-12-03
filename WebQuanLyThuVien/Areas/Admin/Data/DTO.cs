@@ -27,8 +27,13 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public int MaNV { get; set; }
         public string HoTenNV { get; set; }
         public string SDT { get; set; }
+        public string GioiTinh { get; set; }
+        public DateTime NgaySinh { get; set; }
         public string DiaChi { get; set; }
         public string ChucVu { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+
 
         public static explicit operator DTO_NhanVien_LoginNV(NhanVien v)
         {
@@ -38,7 +43,9 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
                 HoTenNV = v.HoTenNV,
                 SDT = v.SDT,
                 DiaChi = v.DiaChi,
-                ChucVu = v.ChucVu
+                GioiTinh = v.GioiTinh,
+                NgaySinh = (DateTime)v.NGAYSINH,
+                ChucVu = v.ChucVu,
             };
         }
     }

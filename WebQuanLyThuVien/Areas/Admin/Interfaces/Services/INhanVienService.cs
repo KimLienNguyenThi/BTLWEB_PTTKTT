@@ -12,7 +12,7 @@ namespace WebQuanLyThuVien.Interfaces.Services
     public interface INhanVienService
     {
         IEnumerable<NhanVien> GetAll();
-        NhanVien GetById(int id);
+        DTO_NhanVien_LoginNV GetById(int id);
         void Insert(NhanVien obj);
         void Update(NhanVien obj);
         string Delete(int obj);
@@ -21,5 +21,9 @@ namespace WebQuanLyThuVien.Interfaces.Services
         NhanVien GetBySDT(string sdt);
 
         DTO_NhanVien_LoginNV Login(string username, string password);
+
+        void ThemNhanVien(DTO_NhanVien_LoginNV obj);
+
+        void UpdateThongTinNhanVien(DTO_NhanVien_LoginNV obj);
     }
 }

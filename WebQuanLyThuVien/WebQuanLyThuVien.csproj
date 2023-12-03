@@ -177,6 +177,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhoSachController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhapSachController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PhanQuyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieuMuonController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieuTraController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyMuonController.cs" />
@@ -2550,6 +2551,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Admin\Views\ThongTinDocGia\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PhanQuyen\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

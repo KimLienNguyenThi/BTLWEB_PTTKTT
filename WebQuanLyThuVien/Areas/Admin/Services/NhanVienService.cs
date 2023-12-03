@@ -46,11 +46,35 @@ namespace WebQuanLyThuVien.Services
             return _nhanVienRepository.GetAll();
         }
 
-        public NhanVien GetById(int id)
+        public DTO_NhanVien_LoginNV GetById(int id)
         {
-            var data = _nhanVienRepository.GetById(id);
-            // check null gì đó ....
-            return data;
+            try
+            {
+                var DTO_NhanVien_LoginNV = (
+                    from NhanVien in unitOfWork.Context.NhanViens
+                    join LOGIN_NV in unitOfWork.Context.LOGIN_NV
+                    on NhanVien.MaNV equals LOGIN_NV.MANV
+                    where NhanVien.MaNV == id
+                    select new DTO_NhanVien_LoginNV
+                    {
+                        MaNV = NhanVien.MaNV,
+                        HoTenNV = NhanVien.HoTenNV,
+                        NgaySinh = (DateTime)NhanVien.NGAYSINH,
+                        GioiTinh = NhanVien.GioiTinh,
+                        DiaChi = NhanVien.DiaChi,
+                        ChucVu = NhanVien.ChucVu,
+                        SDT = NhanVien.SDT,
+                        Username = LOGIN_NV.USERNAME_NV,
+                        Password = LOGIN_NV.PASSWORD_NV,
+                    }).FirstOrDefault();
+
+                return DTO_NhanVien_LoginNV;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetById: {ex.Message}");
+                throw;
+            }
         }
 
         public DTO_NhanVien_LoginNV Login(string username, string password)
@@ -87,10 +111,6 @@ namespace WebQuanLyThuVien.Services
 
         public void Insert(NhanVien obj)
         {
-            // nên kiểm tra đầu vào trước khi gọi......
-
-
-            // check xem nếu thành công hình như sẽ > 0 trả return thông báo cho UI người dùng
             var isSuccess = _nhanVienRepository.Insert(obj);
         }
 
@@ -99,5 +119,94 @@ namespace WebQuanLyThuVien.Services
             // check xem nếu thành công hình như sẽ > 0 trả return thông báo cho UI người dùng
             var isSuccess = _nhanVienRepository.Update(nhanvien);
         }
+
+        public void ThemNhanVien(DTO_NhanVien_LoginNV obj)
+        {
+            try
+            {
+                var existingSDT = unitOfWork.Context.NhanViens.FirstOrDefault(nv => nv.SDT == obj.SDT);
+
+                if (existingSDT != null)
+                {
+                    throw new Exception("Số điện thoại đã tồn tại.");
+                }
+                else
+                {
+                    // Tạo một đối tượng nhan viên mới
+                    var newNhanVien = new NhanVien
+                    {
+                        HoTenNV = obj.HoTenNV,
+                        SDT = obj.SDT,
+                        GioiTinh = obj.GioiTinh,
+                        NGAYSINH = obj.NgaySinh,
+                        DiaChi = obj.DiaChi,
+                        ChucVu = obj.ChucVu,
+                    };
+
+                    unitOfWork.Context.NhanViens.Add(newNhanVien);
+                    unitOfWork.Save(); // Lưu các thay đổi vào cơ sở dữ liệu
+
+                    // Tạo một đối tượng loginNV mới
+                    var newLoginNV = new LOGIN_NV
+                    {
+                        MANV = newNhanVien.MaNV,
+                        USERNAME_NV = obj.Username,
+                        PASSWORD_NV = obj.Password,
+                    };
+
+                    unitOfWork.Context.LOGIN_NV.Add(newLoginNV);
+                    unitOfWork.Save(); // Lưu các thay đổi vào cơ sở dữ liệu
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi trong ThemNhanVien: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void UpdateThongTinNhanVien(DTO_NhanVien_LoginNV obj)
+        {
+            try
+            {
+                var existingSDT = unitOfWork.Context.NhanViens.FirstOrDefault(nv => nv.SDT == obj.SDT && nv.MaNV != obj.MaNV);
+                var existingUsername = unitOfWork.Context.LOGIN_NV.FirstOrDefault(login => login.USERNAME_NV == obj.Username && login.MANV != obj.MaNV);
+
+                if (existingSDT != null)
+                {
+                    throw new Exception("Số điện thoại đã tồn tại.");
+                }
+                else
+                { 
+                    if (existingUsername != null)
+                    {
+                        throw new Exception("Username đã tồn tại.");
+                    }
+                    else
+                    {
+                        var nhanVien = unitOfWork.Context.NhanViens.FirstOrDefault(t => t.MaNV == obj.MaNV);
+                        nhanVien.HoTenNV = obj.HoTenNV;
+                        nhanVien.SDT = obj.SDT;
+                        nhanVien.NGAYSINH = obj.NgaySinh;
+                        nhanVien.GioiTinh = obj.GioiTinh;
+                        nhanVien.DiaChi = obj.DiaChi;
+                        nhanVien.ChucVu = obj.ChucVu;
+
+                        var login = unitOfWork.Context.LOGIN_NV.FirstOrDefault(t => t.MANV == obj.MaNV);
+                        login.USERNAME_NV = obj.Username;
+                        login.PASSWORD_NV = obj.Password;
+
+                        // Lưu thay đổi vào cơ sở dữ liệu
+                        unitOfWork.Context.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in Update: {ex.Message}");
+                throw;
+            }
+        }
+
     }
 }

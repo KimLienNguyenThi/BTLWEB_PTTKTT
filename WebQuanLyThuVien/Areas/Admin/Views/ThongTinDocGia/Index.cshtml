@@ -54,7 +54,6 @@
                                             <th>Địa chỉ</th>
                                             <th>Ngày Đ/Ký</th>
                                             <th>Ngày H/Hạn</th>
-                                            <th>Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody id="danhSachThongTinĐocGia">
@@ -70,11 +69,6 @@
 
                                                 <td>@string.Format("{0:MM-dd-yyyy}", item.NgayDangKy)</td>
                                                 <td>@string.Format("{0:MM-dd-yyyy}", item.NgayHetHan)</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-warning p-1" style="font-size: 11px;">
-                                                        Chỉnh sửa
-                                                    </button>
-                                                </td>
                                             </tr>
                                         }
                                     </tbody>
@@ -272,9 +266,11 @@
                             var ngaySinhDate = new Date(ngaySinhTicks);
 
                             // Chuyển đổi ngày thành định dạng "yyyy-mm-dd" để đặt giá trị cho input type="date"
-                            var formattedNgaySinh = ngaySinhDate.toISOString().split('T')[0];
+                            var formattedNgaySinh = ngaySinhDate.toLocaleDateString('en-CA');
 
                             document.getElementById("ngaySinhModal").value = formattedNgaySinh;
+
+
 
                             // Mở modal
                             $("#chinhSuaThongTinModal").modal("show");
