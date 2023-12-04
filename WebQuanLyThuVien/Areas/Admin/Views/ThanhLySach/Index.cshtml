@@ -340,11 +340,14 @@
             const keyword = searchInput.value.trim(); // Lấy từ khóa từ ô tìm kiếm
             // Gửi yêu cầu tìm kiếm đến Controller
 
-            if (thongTinSachTable.style.display == "block") {
+            if (thongTinSachTable.style.display == "block" && thongTinDonViTable.style.display == "none" && thongTinSachNhapKho.style.display == "none") {
                 loadsachTLs(keyword);
             }
-            if (thongTinDonViTable.style.display == "block") {
+            if (thongTinDonViTable.style.display == "block" && thongTinSachTable.style.display == "none" && thongTinSachNhapKho.style.display == "none") {
                 loadDVTLs(keyword);
+            }
+            if (thongTinSachTable.style.display == "none" && thongTinDonViTable.style.display == "none" && thongTinSachNhapKho.style.display == "block") {
+                loadDanhSachNhapKho(keyword);
             }
 
         });
@@ -355,28 +358,33 @@
             if (event.key === "Enter") {
                 const keyword = searchInput.value.trim();
 
-                if (thongTinSachTable.style.display = "block" && thongTinDonViTable.style.display == "none") {
+                if (thongTinSachTable.style.display == "block" && thongTinDonViTable.style.display == "none" && thongTinSachNhapKho.style.display == "none") {
                     loadsachTLs(keyword);
                 }
-                if (thongTinDonViTable.style.display = "block" && thongTinSachTable.style.display == "none") {
+                if (thongTinDonViTable.style.display == "block" && thongTinSachTable.style.display == "none" && thongTinSachNhapKho.style.display == "none") {
                     loadDVTLs(keyword);
+                }
+                if (thongTinSachTable.style.display == "none" && thongTinDonViTable.style.display == "none" && thongTinSachNhapKho.style.display == "block") {
+                    loadDanhSachNhapKho(keyword);
                 }
 
             }
         });
 
 
-        // Hàm thực hiện tìm kiếm
-        function performSearch() {
-            const keyword = searchInput.value.trim(); // Lấy từ khóa từ ô tìm kiếm
-            if (thongTinSachTable.style.display == "block" && thongTinDonViTable.style.display == "none") {
-                loadsachTLs(keyword);
-            }
-            if (thongTinDonViTable.style.display == "block" && thongTinSachTable.style.display == "none") {
-                loadDVTLs(keyword);
-            }
-
-        }
+        //// Hàm thực hiện tìm kiếm
+        //function performSearch() {
+        //    const keyword = searchInput.value.trim(); // Lấy từ khóa từ ô tìm kiếm
+        //    if (thongTinSachTable.style.display == "block" && thongTinDonViTable.style.display == "none" && thongTinSachNhapKho.style.display == "none") {
+        //        loadsachTLs(keyword);
+        //    }
+        //    if (thongTinDonViTable.style.display == "block" && thongTinSachTable.style.display == "none" && thongTinSachNhapKho.style.display == "none") {
+        //        loadDVTLs(keyword);
+        //    }
+        //    if (thongTinSachTable.style.display == "none" && thongTinDonViTable.style.display == "none" && thongTinSachNhapKho.style.display == "block") {
+        //        loadDanhSachNhapKho(keyword);
+        //    }
+        //}
 
         //===================== Hàm show don vi thanh ly =====================
 

@@ -28,7 +28,31 @@
                                         <h5 class="">Tổng tiền thanh lý sách</h5>
                                     </div>
                                     <div class="card-body">
-                                        <h3 id="tongTienThanhLy"></h3>
+                                        <h3 id="tongTienThanhLySach">@ViewData["tongTienThanhLySach"]</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tổng tiền phụ thu-->
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="">Tổng tiền phụ thu</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 id="tongTienPhuThu">@ViewData["tongTienPhuThu"]</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tổng tiền nhập sách-->
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="">Tổng tiền nhập sách</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 id="tongTienNhapSach">@ViewData["tongTienNhapSach"]</h3>
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +64,7 @@
                                         <h5 class="">Tổng tiền đăng ký thẻ độc giả</h5>
                                     </div>
                                     <div class="card-body">
-                                        <h3 id="tongTienDangKyThe">@ViewData["tongTienDangKyThe"] đ</h3>
+                                        <h3 id="tongTienDangKyThe">@ViewData["tongTienDangKyThe"]</h3>
                                     </div>
                                 </div>
                             </div>
@@ -57,31 +81,6 @@
                                 </div>
                             </div>
 
-                            <!-- Tổng sách trong kho-->
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h5 class="">Tổng sách trong kho</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <h3 id="tongSach">@ViewData["soLuongSach"]</h3>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Tổng tiền nhập sách-->
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h5 class="">Tổng tiền nhập sách</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <h3 id="tongTienNhapSach">@ViewData["tongTienNhapSach"] đ</h3>
-
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- Doanh thu -->
                             <div class="col-md-4">
                                 <div class="card">
@@ -89,7 +88,7 @@
                                         <h5 class="">Doanh thu</h5>
                                     </div>
                                     <div class="card-body">
-                                        <h3 id="doanhThu"></h3>
+                                        <h3 id="doanhThu">@ViewData["doanhThu"]</h3>
                                     </div>
                                 </div>
                             </div>
@@ -102,10 +101,30 @@
     </div>
 </section>
 
-<!-- Thêm các thư viện JavaScript cần thiết -->
 @section scripts
 {
     <script>
+
+        // Hàm format tiền
+        function formatMoney(number) {
+            return number.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        }
+
+        function parseAndFormat(elementId) {
+            var element = document.getElementById(elementId);
+            if (element) {
+                var value = parseFloat(element.innerHTML);
+                if (!isNaN(value)) {
+                    element.innerHTML = formatMoney(value);
+                }
+            }
+        }
+
+        parseAndFormat('tongTienThanhLySach');
+        parseAndFormat('tongTienDangKyThe');
+        parseAndFormat('tongTienNhapSach');
+        parseAndFormat('tongTienPhuThu');
+        parseAndFormat('doanhThu');
 
     </script>
 }

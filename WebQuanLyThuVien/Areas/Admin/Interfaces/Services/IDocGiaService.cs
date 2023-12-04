@@ -28,5 +28,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Interfaces.Services
         IEnumerable<DTO_DocGia_TheDocGia> GetAllTheDocGia();
 
         void DangKyTheDocGia(DTO_DocGia_TheDocGia obj);
+
     }
+
 }

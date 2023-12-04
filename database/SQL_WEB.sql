@@ -432,7 +432,7 @@ BEGIN
 					JOIN chitietpm ctpm ON PM.mapm  = ctpm.mapm 
 					WHERE PM.Tinhtrang = '0'
 					INTERSECT
-					SELECT Pt.mapm,  ctpt.masach, SUM(ISNULL(ctpt.Soluongtra, 0) + ISNULL(ctpt.Soluongloi, 0)) AS soluongtra
+					SELECT Pt.mapm,  ctpt.masach, SUM(ISNULL(ctpt.Soluongtra, 0) + ISNULL(ctpt.Soluongloi, 0)+ ISNULL(ctpt.Soluongmat, 0)) AS soluongtra
 					FROM phieutra Pt
 					JOIN chitietpt ctpt ON Pt.mapt = ctpt.mapt
 					LEFT JOIN chitietpm ctpm ON Pt.mapm = ctpm.mapm AND ctpt.masach = ctpm.masach
@@ -477,9 +477,6 @@ AS
 	SELECT ptl.maptl, Madv, NgayTL, MaNV, SUM(GiaTL) AS N'Tổng tiền thanh lý'
 	FROM PhieuThanhLy Ptl JOIN CHITIETPtl ctptl ON Ptl.MAPtl= ctptl.MAPtl JOIN SACH ON SACH.MaSach = ctptl.MaSACHkho
 	GROUP BY ptl.maptl, Madv, NgayTL, MaNV;
-
-
-
 
 
 	

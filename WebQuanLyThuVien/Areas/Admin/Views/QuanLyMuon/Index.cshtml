@@ -4,7 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<!-- Hiển thị danh sách NhanViens -->
+<!-- Hiển thị danh phiếu mượn -->
 <section class="content">
     <div class="container-fluid pt-4">
         <div class="row">
@@ -23,10 +23,10 @@
                                     <input type="text"
                                            name="table_search"
                                            class="form-control float-right"
-                                           placeholder="Search" />
+                                           placeholder="Search" id="inputSearch" onkeypress="handleKeyPress(event)" />
 
                                     <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
+                                        <button type="submit" onclick="search()" class="btn btn-default">
                                             <i class="fas fa-search"></i>
                                         </button>
                                     </div>
@@ -34,7 +34,7 @@
                             </div>
 
                             <div class="col-3">
-                                <button type="button" class="btn btn-warning lamMoiSach" id="lamMoiButton">Làm mới</button>
+                                <button type="button" class="btn btn-warning lamMoiSach" id="lamMoiButton" onclick="lamMoi()">Làm mới</button>
                             </div>
 
                         </div>
@@ -152,6 +152,44 @@
 @section scripts
 {
     <script>
+
+        function search() {
+            // Lấy giá trị từ ô input
+            var keyword = document.getElementById("inputSearch").value.toLowerCase();
+
+            // Lấy danh sách các hàng trong bảng thongTinDocGiaTable
+            var phieuMuonRows = document.querySelectorAll("#danhSachPhieuMuon tr.qly_phieumuon_row");
+            // Duyệt qua từng hàng để kiểm tra từ khóa
+            phieuMuonRows.forEach(function (row) {
+                // Lấy nội dung của từng ô trong hàng
+                var maPhieuMuon = row.querySelector("td:nth-child(1)").innerText.toLowerCase();
+                var maTheDocGia = row.querySelector("td:nth-child(2)").innerText.toLowerCase();
+                var hoTenDocGia = row.querySelector("td:nth-child(3)").innerText.toLowerCase();
+                var ngayMuon = row.querySelector("td:nth-child(4)").innerText.toLowerCase();
+
+                // Kiểm tra xem từ khóa có xuất hiện trong bất kỳ ô nào hay không
+                if (maPhieuMuon.includes(keyword) || maTheDocGia.includes(keyword) || hoTenDocGia.includes(keyword) || ngayMuon.includes(keyword)) {
+                    // Hiển thị hàng nếu có từ khóa
+                    row.style.display = "table-row";
+                } else {
+                    // Ẩn hàng nếu không có từ khóa
+                    row.style.display = "none";
+                }
+            });
+        }
+        function handleKeyPress(event) {
+            // Kiểm tra xem người dùng đã nhấn phím "Enter" chưa (mã ASCII: 13)
+            if (event.keyCode === 13) {
+                // Ngăn chặn hành động mặc định của phím "Enter" trên form
+                event.preventDefault();
+                search();
+            }
+
+        }
+        function lamMoi() {
+            // Làm mới trang
+            location.reload();
+        }
 
         //=====================  Xử lý sự kiện khi click vào 1 hàng  trong table  =====================
 

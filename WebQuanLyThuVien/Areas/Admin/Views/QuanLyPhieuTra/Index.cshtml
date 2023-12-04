@@ -23,10 +23,10 @@
                                     <input type="text"
                                            name="table_search"
                                            class="form-control float-right"
-                                           placeholder="Search" />
+                                           placeholder="Search" id="inputSearch" onkeypress="handleKeyPress(event)" />
 
                                     <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
+                                        <button type="submit" onclick="search()" class="btn btn-default">
                                             <i class="fas fa-search"></i>
                                         </button>
                                     </div>
@@ -34,7 +34,7 @@
                             </div>
 
                             <div class="col-3">
-                                <button type="button" class="btn btn-warning lamMoiSach" id="lamMoiButton">Làm mới</button>
+                                <button type="button" class="btn btn-warning lamMoiSach" id="lamMoiButton" onclick="lamMoi()">Làm mới</button>
                             </div>
 
                         </div>
@@ -141,15 +141,15 @@
                         </thead>
                         <tbody id="danhSachSachTra">
                             @*@foreach (var item in ViewData["CTPhieuTra"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Tra> ?? new List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Tra>())
-                            {
-                                <tr class="sachmuon-row" data-ma-sach="@item">
+                                {
+                                    <tr class="sachmuon-row" data-ma-sach="@item">
 
-                                    <td>@item.MaSach</td>
-                                    <td>@item.TenSach</td>
-                                    <td>@item.SoLuongTra</td>
-                                    <td>@item.SoLuongLoi</td>
-                                </tr>
-                            }*@
+                                        <td>@item.MaSach</td>
+                                        <td>@item.TenSach</td>
+                                        <td>@item.SoLuongTra</td>
+                                        <td>@item.SoLuongLoi</td>
+                                    </tr>
+                                }*@
                         </tbody>
                     </table>
                 </div>
@@ -204,15 +204,15 @@
                         </thead>
                         <tbody id="danhSachSachTrabyPM">
                             @*@foreach (var item in ViewData["CTPhieuTra"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Tra> ?? new List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Tra>())
-                            {
-                                <tr class="sachmuon-row" data-ma-sach="@item.">
-                                    <td>@item.MaPT</td>
-                                    <td>@item.MaSach</td>
-                                    <td>@item.TenSach</td>
-                                    <td>@item.SoLuongTra</td>
-                                    <td>@item.SoLuongLoi</td>
-                                </tr>
-                            }*@
+                                {
+                                    <tr class="sachmuon-row" data-ma-sach="@item.">
+                                        <td>@item.MaPT</td>
+                                        <td>@item.MaSach</td>
+                                        <td>@item.TenSach</td>
+                                        <td>@item.SoLuongTra</td>
+                                        <td>@item.SoLuongLoi</td>
+                                    </tr>
+                                }*@
                         </tbody>
                     </table>
                 </div>
@@ -231,43 +231,49 @@
 {
     <script>
 
+        function lamMoi() {
+            // Làm mới trang
+            location.reload();
+        }
+
         //=====================  Xử lý sự kiện khi click vào 1 hàng  trong table  =====================
 
         // Lấy danh sách các hàng của table
         var quanLyPhieuTraRows = document.querySelectorAll(".qly_phieutra_row");
 
-        // Bắt sự kiện click cho từng hàng sách
-        //quanLyPhieuTraRows.forEach(function (row) {
-        //     row.addEventListener("click", function (e) {
-        //        // Lấy thông tin
-        //        var maPhieuTra = row.querySelector("td:nth-child(3)").textContent;
-        //        var maTheDocGia = row.querySelector("td:nth-child(5)").textContent;
+        function search() {
+            // Lấy giá trị từ ô input
+            var keyword = document.getElementById("inputSearch").value.toLowerCase();
 
-        //        // Điền modal với dữ liệu
-        //         document.getElementById("maPhieutraModal").value = maPhieuTra;
-        //        document.getElementById("maTheModal").value = maTheDocGia;
+            // Lấy danh sách các hàng trong bảng danhSachPhieuTra
+            var phieuTraRows = document.querySelectorAll("#danhSachPhieuTra tr.qly_phieutra_row");
 
-        //         var maPt = parseInt(maPhieuTra);
-        //         /*var maPM = parseInt(maPhieuMuon);*/
-        //         getCTPT(maPt);
-        //    });
-        //});
+            // Duyệt qua từng hàng để kiểm tra từ khóa
+            phieuTraRows.forEach(function (row) {
 
-                 // Bắt sự kiện khi click vào nút "See All"
-        //$(document).on('click', '.see-all-btn', function () {
-        //    // Lấy mã PM từ thuộc tính data-ma-pm của hàng chứa nút
-        //    // Lấy thông tin
-        //    var maPhieuMuon = row.querySelector("td:nth-child(1)").textContent;
-        //    var maTheDocGia = row.querySelector("td:nth-child(5)").textContent;
+                var maTheDocGia = row.querySelector("td:nth-child(5)").innerText.toLowerCase();
+                var hoTenDocGia = row.querySelector("td:nth-child(6)").innerText.toLowerCase();
 
-        //    // Điền modal với dữ liệu
-        //    document.getElementById("maPhieuMuonModal").value = maPhieuMuon;
-        //    document.getElementById("maTheModal").value = maTheDocGia;
-        //    var maPM = parseInt(maPhieuMuon);
-        //    // Gọi hàm để xử lý sự kiện "See All" với mã PM
-        //    handleSeeAllClick(maPM);
-        //});
 
+                // Kiểm tra xem từ khóa có xuất hiện trong bất kỳ ô nào hay không
+                if (maTheDocGia.includes(keyword) || hoTenDocGia.includes(keyword)) {
+                    // Hiển thị hàng nếu có từ khóa
+                    row.style.display = "table-row";
+                } else {
+                    // Ẩn hàng nếu không có từ khóa
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        function handleKeyPress(event) {
+            // Kiểm tra xem người dùng đã nhấn phím "Enter" chưa (mã ASCII: 13)
+            if (event.keyCode === 13) {
+                // Ngăn chặn hành động mặc định của phím "Enter" trên form
+                event.preventDefault();
+                search();
+            }
+        }
         // Hàm xử lý sự kiện "See All" với mã PM
         function getCTPT(id, matheDocGia) {
                      $.ajax({
@@ -325,7 +331,7 @@
                             var danhSachSachTrabyPM = $("#danhSachSachTrabyPM");
 
                             danhSachSachTrabyPM.empty(); // Xóa nội dung bảng
-                        
+
                             $.each(ctptData, function (index, item) {
                                 var newRow = $(` <tr class="sachtra-row" data-ma-sach="${item.MaSach}">
                                  <td>${item.MaPT}</td>
@@ -347,7 +353,7 @@
 
                         } else {
                             console.error("Không thành công trong việc nhận dữ liệu từ server.");
-                         
+
                         }
                     }
               });

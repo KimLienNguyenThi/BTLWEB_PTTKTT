@@ -148,9 +148,13 @@
                     <!--Form search-->
                     <div class="card-tools">
                         <div class="input-group input-group-sm pt-2" style="width: 100%">
-                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search" />
+                            <input type="text"
+                                   name="table_search"
+                                   class="form-control float-right"
+                                   placeholder="Search" id="inputSearch" onkeypress="handleKeyPress(event)" />
+
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-default">
+                                <button type="submit" onclick="search()" class="btn btn-default">
                                     <i class="fas fa-search"></i>
                                 </button>
                             </div>
@@ -493,6 +497,77 @@
 {
     <script>
 
+        function searchNhaCungCap() {
+            // Get the search keyword from the input field
+            var keyword = document.getElementById("inputSearch").value.toLowerCase();
+
+            // Get the rows of the table danhSachNCC
+            var nccRows = document.querySelectorAll("#danhSachNCC tr.ncc-row");
+
+            // Iterate through each row to check for the keyword
+            nccRows.forEach(function (row) {
+                // Get the content of each cell in the row
+
+                var tenNCC = row.querySelector("td:nth-child(2)").innerText.toLowerCase();
+                var sdtNCC = row.querySelector("td:nth-child(3)").innerText.toLowerCase();
+
+                // Check if the keyword appears in any of the cells
+                if ( tenNCC.includes(keyword) || sdtNCC.includes(keyword) ) {
+                    // Display the row if the keyword is found
+                    row.style.display = "table-row";
+                } else {
+                    // Hide the row if the keyword is not found
+                    row.style.display = "none";
+                }
+            });
+        }
+        function searchSachSan() {
+            // Get the search keyword from the input field
+            var keyword = document.getElementById("inputSearch").value.toLowerCase();
+
+            // Get the rows of the table thongTinSachTable
+            var sachRows = document.querySelectorAll("#thongTinSachTable tr.sach-row");
+
+            // Iterate through each row to check for the keyword
+            sachRows.forEach(function (row) {
+                // Get the content of each cell in the row
+                var maSach = row.querySelector("td:nth-child(1)").innerText.toLowerCase();
+                var tenSach = row.querySelector("td:nth-child(2)").innerText.toLowerCase();
+
+                // Check if the keyword appears in any of the cells
+                if (maSach.includes(keyword) || tenSach.includes(keyword)) {
+                    // Display the row if the keyword is found
+                    row.style.display = "table-row";
+                } else {
+                    // Hide the row if the keyword is not found
+                    row.style.display = "none";
+                }
+            });
+        }
+        function search() {
+            if (thongTinNCCTable.style.display = "block" && thongTinSachTable.style.display == "none") {
+                searchNhaCungCap();
+            }
+            else {
+                searchSachSan();
+            }
+        }
+        function handleKeyPress(event) {
+            // Kiểm tra xem người dùng đã nhấn phím "Enter" chưa (mã ASCII: 13)
+            if (event.keyCode === 13) {
+                // Ngăn chặn hành động mặc định của phím "Enter" trên form
+                event.preventDefault();
+            }
+            if (thongTinNCCTable.style.display = "block" && thongTinSachTable.style.display == "none") {
+                searchNhaCungCap();
+            }
+            else {
+                searchSachSan();
+            }
+
+        }
+
+
         //=====================  Set dữ liệu mặc định  =====================
         // Lấy ngày hiện tại
         var currentDate = new Date();
@@ -549,14 +624,26 @@
 
 
         //=====================  Thêm nhà cung cấp  =====================
+        function LamMoiNCC()
+        {
+            document.getElementById("TenNccModal").value = "";
+            document.getElementById("SdtNccModal").value = "";
+            document.getElementById("DiaChiNccModal").value = "";
+        }
+
         function btnShowModalThemNCC()
         {
+            document.getElementById("TenNccModal").value = "";
+            document.getElementById("SdtNccModal").value = "";
+            document.getElementById("DiaChiNccModal").value = "";
             $("#ThemNccModal").modal("show");
         }
 
         function btnThemNCC() {
             var tenNcc = document.getElementById("TenNccModal").value;
+
             var sdtNcc = document.getElementById("SdtNccModal").value;
+
             var diaChiNcc = document.getElementById("DiaChiNccModal").value;
 
             if (!tenNcc || !sdtNcc || !diaChiNcc) {

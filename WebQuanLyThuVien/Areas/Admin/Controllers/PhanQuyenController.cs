@@ -18,12 +18,30 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
         public ActionResult Index()
         {
             if (Session["user"] == null)
+            {
                 return RedirectToAction("Login", "Account");
+            }
+            else if (!(Session["chucvu"].ToString().ToLower() == "admin"))
+            {
+                return RedirectToAction("loiphanquyen", "phanquyen");
+            }
             else
             {
                 var thongTinNhanVien = _nhanVienService.GetAll();
                 ViewData["ThongTinNhanVien"] = thongTinNhanVien;
 
+                return View();
+            }
+        }
+
+        public ActionResult LoiPhanQuyen()
+        {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
                 return View();
             }
         }

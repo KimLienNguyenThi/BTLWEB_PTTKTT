@@ -107,14 +107,11 @@ INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(6, 10, 100000,
 
 -- Them chi tiet phieu muon
 		insert into PhieuMuon ( MaThe, NgayMuon, HanTra,  MaNV) values (6, '2023-11-18', '2023-12-16',2);
-		update chitietpt set soluongloi = 1 where mapt =8
-insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 8, 10, 2);
-insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 13, 4, 1);
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 11, 10, 2);
 
- insert into phieutra(ngaytra,manv,mathe,mapm) values ('2023-11-21',2,6,8)
-  insert into phieutra(ngaytra,manv,mathe,mapm) values ('2023-11-22',2,1,1)
+ insert into phieutra(ngaytra,manv,mathe,mapm) values ('2023-11-21',2,6,11)
 
- insert into ChiTietPT(MaPT, MaSach, Soluongtra, Soluongloi) values(8,10,0,2)
+ insert into ChiTietPT(MaPT, MaSach, Soluongtra, Soluongloi, soluongmat) values(17,10,0,0,2)
   insert into ChiTietPT(MaPT, MaSach, Soluongtra, Soluongloi) values(9,20,1,0)
   --insert into ChiTietPT(MaPT, MaSach, Soluongtra, Soluongloi) values(6,4,1,0)
 

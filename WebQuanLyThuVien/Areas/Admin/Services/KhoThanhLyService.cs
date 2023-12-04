@@ -36,59 +36,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
             throw new NotImplementedException();
         }
 
-        //public bool Insert(KhoSachThanhLy x)
-        //{
-        //    if (x.masachkho <=0 || x.soluongkhotl<=0)
-        //    {
-        //        return false;
-        //    }
-        //    try
-        //    {
-        //        var sachthanhly = unitOfWork.Context.KhoSachThanhLies.FirstOrDefault(p => p.masachkho == x.masachkho);
-
-        //        if (sachthanhly != null)
-        //        {
-        //            sachthanhly.soluongkhotl = sachthanhly.soluongkhotl + x.soluongkhotl;
-        //            unitOfWork.Context.KhoSachThanhLies.AddOrUpdate(sachthanhly);
-        //            return true;
-        //        }
-
-
-        //        else
-        //        {
-        //            unitOfWork.CreateTransaction(); // Bắt đầu giao dịch
-
-        //            // Tạo đối tượng PhieuTra từ DTO_Tao_Phieu_Tra
-        //            var newsachtl = new KhoSachThanhLy()
-        //            {
-        //                masachkho = x.masachkho,
-        //                soluongkhotl = x.soluongkhotl,
-        //            };
-
-        //            // Thêm PhieuTra vào Context
-        //            unitOfWork.Context.KhoSachThanhLies.Add(newsachtl);
-
-
-        //            // Lưu thay đổi vào cơ sở dữ liệu khi mọi thứ đã thành công
-        //            unitOfWork.Commit();
-
-        //            unitOfWork.Save();
-
-        //            return true;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        unitOfWork.Rollback(); // Rollback nếu có lỗi
-        //        Console.WriteLine($"Error: {ex.Message}");
-        //        // Xử lý lỗi và ghi log
-        //        return false;
-        //    }
-        //    finally
-        //    {
-        //        unitOfWork.Dispose(); // Giải phóng tài nguyên
-        //    }
-        //}
+       
         public bool Insert(KhoSachThanhLy x)
         {
             if (x.masachkho <= 0 || x.soluongkhotl <= 0)
