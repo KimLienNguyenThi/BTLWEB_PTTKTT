@@ -437,7 +437,7 @@
             <div class="modal-header">
                 <h4 class="modal-title text-primary col-8" style="font-weight:bold;">Thêm Nhà Cung Cấp</h4>
                 <div class="col-3">
-                    <button type="button" class="btn btn-warning lamMoiSach" id="lamMoiButtonModal" onclick="">Làm mới</button>
+                    <button type="button" class="btn btn-warning lamMoiSach" id="lamMoiButtonModal" onclick="LamMoiNCC()">Làm mới</button>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -549,8 +549,18 @@
 
 
         //=====================  Thêm nhà cung cấp  =====================
+        function LamMoiNCC()
+        {
+            document.getElementById("TenNccModal").value = "";
+            document.getElementById("SdtNccModal").value = "";
+            document.getElementById("DiaChiNccModal").value = "";
+        }
+
         function btnShowModalThemNCC()
         {
+            document.getElementById("TenNccModal").value = "";
+            document.getElementById("SdtNccModal").value = "";
+            document.getElementById("DiaChiNccModal").value = "";
             $("#ThemNccModal").modal("show");
         }
 

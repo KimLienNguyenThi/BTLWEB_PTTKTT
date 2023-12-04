@@ -34,7 +34,7 @@
                             </div>
 
                             <div class="col-3">
-                                <button type="button" class="btn btn-warning lamMoiSach" id="lamMoiButton">Làm mới</button>
+                                <button type="button" class="btn btn-warning lamMoiSach" id="lamMoiButton" onclick="lamMoi()">Làm mới</button>
                             </div>
 
                         </div>
@@ -230,6 +230,11 @@
 @section scripts
 {
     <script>
+
+        function lamMoi() {
+            // Làm mới trang
+            location.reload();
+        }
 
         //=====================  Xử lý sự kiện khi click vào 1 hàng  trong table  =====================
 
