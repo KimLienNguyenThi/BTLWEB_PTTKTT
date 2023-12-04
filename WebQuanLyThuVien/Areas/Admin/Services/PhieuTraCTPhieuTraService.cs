@@ -16,7 +16,10 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
         private UnitOfWork<QuanLyThuVienEntities> unitOfWork = new UnitOfWork<QuanLyThuVienEntities>();
 
-
+        public IEnumerable<ChiTietPT> GetAllChiTietPT()
+        {
+            return unitOfWork.Context.ChiTietPTs.ToList();
+        }
 
         public bool Insert(DTO_Tao_Phieu_Tra x)
         {
