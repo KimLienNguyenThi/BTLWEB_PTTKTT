@@ -70,7 +70,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                     tongTienPhuThu += item.PhuThu.Value;
                 }
 
-                doanhThu = tongTienDangKyThe + tongTienThanhLySach + tongTienPhuThu - tongTienNhapSach;
+                doanhThu = tongTienDangKyThe + tongTienThanhLySach + tongTienPhuThu;
 
                 ViewData["tongTienDangKyThe"] = tongTienDangKyThe;
                 ViewData["soLuongDocGia"] = soLuongDocGia;
