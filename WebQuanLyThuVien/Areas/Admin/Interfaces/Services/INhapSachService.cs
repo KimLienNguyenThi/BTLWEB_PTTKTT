@@ -7,7 +7,7 @@ using WebQuanLyThuVien.Models;
 
 namespace WebQuanLyThuVien.Areas.Admin.Interfaces.Services
 {
-    public class INhapSachService
+    public interface INhapSachService
     {
         void Insert(DTO_Tao_Phieu_Nhap obj);
         IEnumerable<CHITIETPN> GetAllChiTietPhieuNhap();

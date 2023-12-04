@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6951a8e6d3544ee6a34ee30af439d0aa" Name="Diagram1" ZoomLevel="47">
+      <Diagram DiagramId="715b49a4dba4439188d30910e70b4c28" Name="Diagram1">
         <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietDk" Width="1.5" PointX="10.5" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPM" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyThuVienModel.CHITIETPN" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPT" Width="1.5" PointX="13.5" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPT" Width="1.5" PointX="13.5" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPTL" Width="1.5" PointX="5.25" PointY="13.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyThuVienModel.DkiMuonSach" Width="1.5" PointX="8.25" PointY="17.5" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyThuVienModel.DocGia" Width="1.5" PointX="3.75" PointY="2.375" IsExpanded="true" />
@@ -30,7 +30,7 @@
         <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPM__MaPM__5070F446" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPM__MaSac__5165187F" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__CHITIETPN__MaPN__46E78A0C" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__CHITIETPN__MaPN__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__CHITIETPN__MaSAC__47DBAE45" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaPT__59063A47" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaSac__59FA5E80" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaPTL__628FA481" ManuallyRouted="false" />
@@ -47,7 +47,7 @@
         <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaNV__5535A963" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__TheDocGia__MaNV__3B75D760" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuMuon__MaThe__4D94879B" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaNV__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaPM__5441852A" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaThe__5629CD9C" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__TT_SACH__MASACH__6C190EBB" ManuallyRouted="false" />
       </Diagram>

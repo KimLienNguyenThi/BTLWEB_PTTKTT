@@ -20,7 +20,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
         public bool Insert(DTO_Tao_Phieu_Tra x)
         {
-            if (x.ListSachTra.Any(sach => sach.SoLuongLoi > 0 || sach.SoLuongTra > 0) == false)
+            if (x.ListSachTra.Any(sach => sach.SoLuongLoi > 0 || sach.SoLuongTra > 0 || sach.SoLuongMat > 0) == false)
             {
                 return false;
             }
@@ -51,7 +51,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                 // Duyệt qua danh sách sách trả và tạo đối tượng ChiTietPT cho mỗi cuốn sách
                 foreach (var sachtra in x.ListSachTra)
                 {
-                    if (sachtra.SoLuongTra == 0 && sachtra.SoLuongLoi == 0)
+                    if (sachtra.SoLuongTra == 0 && sachtra.SoLuongLoi == 0 && sachtra.SoLuongMat == 0) 
                     {
                         continue;
                     }
@@ -61,6 +61,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                         MaSach = sachtra.MaSach,
                         Soluongtra = sachtra.SoLuongTra,
                         Soluongloi = sachtra.SoLuongLoi,
+                        Soluongmat = sachtra.SoLuongMat,
                         PhuThu = sachtra.PhuThu,
                     };
 

@@ -18,6 +18,7 @@ namespace WebQuanLyThuVien.Models
         public int MaSach { get; set; }
         public Nullable<int> Soluongtra { get; set; }
         public Nullable<int> Soluongloi { get; set; }
+        public Nullable<int> Soluongmat { get; set; }
         public Nullable<decimal> PhuThu { get; set; }
     
         public virtual PhieuTra PhieuTra { get; set; }

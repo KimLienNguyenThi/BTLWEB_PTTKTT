@@ -80,6 +80,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public int SoLuongMuon { get; set; }
         public int SoLuongTra { get; set; }
         public int SoLuongLoi { get; set; }
+        public int SoLuongMat { get; set; }
         public decimal PhuThu { get; set; }
 
     }

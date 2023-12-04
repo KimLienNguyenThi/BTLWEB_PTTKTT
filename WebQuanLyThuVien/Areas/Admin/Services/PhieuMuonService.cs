@@ -128,7 +128,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                 select new SachDaTraDTO
                 {
                     MaSach = g.Key,
-                    SoLuongDaTra = g.Sum(a => a.Soluongtra + a.Soluongloi)
+                    SoLuongDaTra = g.Sum(a => a.Soluongtra + a.Soluongloi + a.Soluongmat)
                 }
             ).ToList();
 

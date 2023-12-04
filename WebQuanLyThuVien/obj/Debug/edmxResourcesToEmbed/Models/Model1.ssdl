@@ -37,6 +37,7 @@
     <Property Name="MaSach" Type="int" Nullable="false" />
     <Property Name="Soluongtra" Type="int" />
     <Property Name="Soluongloi" Type="int" />
+    <Property Name="Soluongmat" Type="int" />
     <Property Name="PhuThu" Type="money" />
   </EntityType>
   <EntityType Name="ChiTietPTL">
@@ -255,7 +256,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__CHITIETPN__MaPN__47DBAE45">
+  <Association Name="FK__CHITIETPN__MaSAC__47DBAE45">
     <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
     <End Role="CHITIETPN" Type="Self.CHITIETPN" Multiplicity="*" />
     <ReferentialConstraint>
@@ -263,7 +264,7 @@
         <PropertyRef Name="MaSach" />
       </Principal>
       <Dependent Role="CHITIETPN">
-        <PropertyRef Name="MaPN" />
+        <PropertyRef Name="MaSACH" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -423,18 +424,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PhieuTra__MaNV__5441852A">
-    <End Role="PhieuMuon" Type="Self.PhieuMuon" Multiplicity="0..1" />
-    <End Role="PhieuTra" Type="Self.PhieuTra" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PhieuMuon">
-        <PropertyRef Name="MaPM" />
-      </Principal>
-      <Dependent Role="PhieuTra">
-        <PropertyRef Name="MaNV" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__PhieuTra__MaNV__5535A963">
     <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
     <End Role="PhieuTra" Type="Self.PhieuTra" Multiplicity="*" />
@@ -444,6 +433,18 @@
       </Principal>
       <Dependent Role="PhieuTra">
         <PropertyRef Name="MaNV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PhieuTra__MaPM__5441852A">
+    <End Role="PhieuMuon" Type="Self.PhieuMuon" Multiplicity="0..1" />
+    <End Role="PhieuTra" Type="Self.PhieuTra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PhieuMuon">
+        <PropertyRef Name="MaPM" />
+      </Principal>
+      <Dependent Role="PhieuTra">
+        <PropertyRef Name="MaPM" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -536,7 +537,7 @@
       <End Role="PhieuNhapSach" EntitySet="PhieuNhapSach" />
       <End Role="CHITIETPN" EntitySet="CHITIETPN" />
     </AssociationSet>
-    <AssociationSet Name="FK__CHITIETPN__MaPN__47DBAE45" Association="Self.FK__CHITIETPN__MaPN__47DBAE45">
+    <AssociationSet Name="FK__CHITIETPN__MaSAC__47DBAE45" Association="Self.FK__CHITIETPN__MaSAC__47DBAE45">
       <End Role="Sach" EntitySet="Sach" />
       <End Role="CHITIETPN" EntitySet="CHITIETPN" />
     </AssociationSet>
@@ -592,12 +593,12 @@
       <End Role="NhanVien" EntitySet="NhanVien" />
       <End Role="PhieuThanhLy" EntitySet="PhieuThanhLy" />
     </AssociationSet>
-    <AssociationSet Name="FK__PhieuTra__MaNV__5441852A" Association="Self.FK__PhieuTra__MaNV__5441852A">
-      <End Role="PhieuMuon" EntitySet="PhieuMuon" />
-      <End Role="PhieuTra" EntitySet="PhieuTra" />
-    </AssociationSet>
     <AssociationSet Name="FK__PhieuTra__MaNV__5535A963" Association="Self.FK__PhieuTra__MaNV__5535A963">
       <End Role="NhanVien" EntitySet="NhanVien" />
+      <End Role="PhieuTra" EntitySet="PhieuTra" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PhieuTra__MaPM__5441852A" Association="Self.FK__PhieuTra__MaPM__5441852A">
+      <End Role="PhieuMuon" EntitySet="PhieuMuon" />
       <End Role="PhieuTra" EntitySet="PhieuTra" />
     </AssociationSet>
     <AssociationSet Name="FK__PhieuTra__MaThe__5629CD9C" Association="Self.FK__PhieuTra__MaThe__5629CD9C">

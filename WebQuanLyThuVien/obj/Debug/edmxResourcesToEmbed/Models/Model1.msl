@@ -36,6 +36,7 @@
           <ScalarProperty Name="MaSach" ColumnName="MaSach" />
           <ScalarProperty Name="Soluongtra" ColumnName="Soluongtra" />
           <ScalarProperty Name="Soluongloi" ColumnName="Soluongloi" />
+          <ScalarProperty Name="Soluongmat" ColumnName="Soluongmat" />
           <ScalarProperty Name="PhuThu" ColumnName="PhuThu" />
         </MappingFragment>
       </EntityTypeMapping>
