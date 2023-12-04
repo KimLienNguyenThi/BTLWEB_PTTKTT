@@ -1,4 +1,4 @@
-﻿	CREATE DATABASE QuanLyThuVien;
+﻿CREATE DATABASE QuanLyThuVien;
 GO
 
 USE QuanLyThuVien;
@@ -24,7 +24,7 @@ create TABLE DocGia (
 
 CREATE TABLE TheDocGia (
 	MaThe INT PRIMARY KEY IDENTITY NOT NULL,
-	HanThe NVARCHAR(50),
+	--HanThe NVARCHAR(50),
 	NgayDK DATE,
 	NgayHH DATE,
 	TienThe INT,
@@ -65,7 +65,7 @@ CREATE TABLE CHITIETPN(
 	MaPN INT,
 	FOREIGN KEY (MaPN) REFERENCES PhieuNhapSach (MaPN),
 	MaSACH INT,
-	FOREIGN KEY (MaPN) REFERENCES SACH (MaSACH),
+	FOREIGN KEY (MaSACH) REFERENCES SACH (MaSACH),
 	GiaSach MONEY,
 	SoLuongNHAP INT,
 	constraint ChiTietPN_MaPN_MaSach PRIMARY KEY (MaPN, MaSach)
@@ -104,7 +104,7 @@ CREATE TABLE PhieuTra (
 	MaNV INT,
 	MaThe INT,
 	MaPM INT,
-	FOREIGN KEY (MaNV) REFERENCES PhieuMuon (MaPM),
+	FOREIGN KEY (MaPM) REFERENCES PhieuMuon (MaPM),
 	FOREIGN KEY (MaNV) REFERENCES NhanVien (MaNV),
 	FOREIGN KEY (MaThe) REFERENCES TheDocGia (MaThe)
 );
@@ -114,6 +114,7 @@ CREATE TABLE ChiTietPT (
 	MaSach INT,
 	Soluongtra INT,
 	Soluongloi INT,
+	Soluongmat INT,
 	PhuThu MONEY,
 	FOREIGN KEY (MaPT) REFERENCES PhieuTra (MaPT),
 	FOREIGN KEY (MaSach) REFERENCES Sach (MaSach),
@@ -294,7 +295,7 @@ BEGIN
 	JOIN INSERTED ON INSERTED.MASACH = SACH.MASACH
 END
 
-/* CẬP NHẬT SÁCH TRONG KHO SAU KHI TRẢ  */
+--/* CẬP NHẬT SÁCH TRONG KHO SAU KHI TRẢ  */
 CREATE OR ALTER TRIGGER TRG_SACHTRAvaTL ON CHITIETPT AFTER INSERT AS 
 BEGIN
     -- Update the current quantity of books in the 'SACH' table after a book is returned
@@ -348,6 +349,38 @@ BEGIN
 END;
 --GO
 
+----/* CẬP NHẬT SÁCH TRONG KHO khi insert  */
+--CREATE OR ALTER drop PROCEDURE KiemTraMaVaCapNhatSachthanhly
+--    @MaSachkho INT,
+--    @soluongkhotl INT,
+--    @InsertLocation INT -- Thêm tham số mới để phân biệt nơi thực hiện insert
+--AS
+--BEGIN
+--    -- Kiểm tra xem mã sách đã tồn tại trong kho thanh lý chưa
+--    IF EXISTS (SELECT 1 FROM KhosachThanhLy WHERE masachkho = @MaSachkho)
+--    BEGIN
+--        -- Nếu tồn tại, tăng số lượng sách
+--        UPDATE KhosachThanhLy
+--        SET soluongkhotl = soluongkhotl + @soluongkhotl
+--        WHERE MaSachkho = @MaSachkho;
+--    END
+--    ELSE
+--    BEGIN
+--        -- Nếu chưa tồn tại, thêm mới sách vào kho thanh lý
+--        INSERT INTO KhosachThanhLy (MaSachkho, soluongkhotl)
+--        VALUES (@MaSachkho, @soluongkhotl);
+--    END
+
+--    -- Giảm số lượng sách trong bảng chính
+--    IF @InsertLocation = 1 -- Thêm điều kiện để phân biệt nơi thực hiện insert
+--    BEGIN
+--        UPDATE SACH
+--        SET SoLuongHIENTAI = SoLuongHIENTAI - @soluongkhotl
+--        WHERE MaSach = @MaSachkho;
+--    END;
+--END;
+
+
 /* CẬP NHẬT SÁCH TRONG KHO SAU KHI THANH LÍ  */
 CREATE or ALTER TRIGGER TRG_SACHTL ON CHITIETPTL AFTER INSERT AS 
 BEGIN
@@ -360,28 +393,6 @@ BEGIN
 	FROM KhoSachThanhLy 
 	JOIN INSERTED ON INSERTED.MASACHKHO = KhoSachThanhLy.MASACHKHO
 END
-
-
---******************TẠO VIEW CHECK TỔNG TIEN *********************
-CREATE or alter VIEW PHIEUNHAP_VIEW 
-AS
-	SELECT PN.MAPN, NgayNhap, MaNV, MaNCC, SUM(ABS(S.GIASACH*SOLUONGNHAP)) AS N'TỔNG TIỀN', SUM(SOLUONGNHAP) AS N'TỔNG SÁCH'
-	FROM PHIEUNHAPSACH PN JOIN CHITIETPN S ON PN.MAPN= S.MAPN JOIN SACH ON SACH.MaSach = S.MaSACH
-	GROUP BY PN.MAPN, NgayNhap, MaNV, MaNCC;
-		
-
-CREATE or alter VIEW PHIEUTra_VIEW 
-AS
-	SELECT pt.mapt,MaPM, MaThe, NgayTra, MaNV, SUM(PhuThu) AS N'Tổng tiền xử lý'
-	FROM PhieuTra Pt JOIN CHITIETPt ctpt ON Pt.MAPt= ctpt.MAPt JOIN SACH ON SACH.MaSach = ctpt.MaSACH
-	GROUP BY pt.mapt,MaPM, MaThe, NgayTra, MaNV;
-
-
-CREATE or alter VIEW PHIEUThanhLy_VIEW 
-AS
-	SELECT ptl.maptl, Madv, NgayTL, MaNV, SUM(GiaTL) AS N'Tổng tiền thanh lý'
-	FROM PhieuThanhLy Ptl JOIN CHITIETPtl ctptl ON Ptl.MAPtl= ctptl.MAPtl JOIN SACH ON SACH.MaSach = ctptl.MaSACHkho
-	GROUP BY ptl.maptl, Madv, NgayTL, MaNV;
 
 
 --******************CÁC TRIGGER VỀ TÌNH TRẠNG XÉT DUYỆT*********************
@@ -433,6 +444,101 @@ BEGIN
    -- WHERE CountResult.loaisach = CountResult.soluongls;
 END;
 
+/* CẬP NHẬT TÌNH TRẠNG ĐK MƯỢN SÁCH */
+CREATE OR ALTER  TRIGGER SetTinhTrangPhieuDK
+ON DkiMuonSach 
+FOR INSERT AS
+BEGIN 
+	UPDATE DkiMuonSach 
+	SET TINHTRANG = 0
+	FROM DkiMuonSach 
+	JOIN INSERTED ON INSERTED.MaDK = DkiMuonSach.MaDK
+END;
+
+
+
+--******************TẠO VIEW CHECK TỔNG TIEN *********************
+CREATE or alter VIEW PHIEUNHAP_VIEW 
+AS
+	SELECT PN.MAPN, NgayNhap, MaNV, MaNCC, SUM(ABS(S.GIASACH*SOLUONGNHAP)) AS N'TỔNG TIỀN', SUM(SOLUONGNHAP) AS N'TỔNG SÁCH'
+	FROM PHIEUNHAPSACH PN JOIN CHITIETPN S ON PN.MAPN= S.MAPN JOIN SACH ON SACH.MaSach = S.MaSACH
+	GROUP BY PN.MAPN, NgayNhap, MaNV, MaNCC;
+		
+
+CREATE or alter VIEW PHIEUTra_VIEW 
+AS
+	SELECT pt.mapt,MaPM, MaThe, NgayTra, MaNV, SUM(PhuThu) AS N'Tổng tiền xử lý'
+	FROM PhieuTra Pt JOIN CHITIETPt ctpt ON Pt.MAPt= ctpt.MAPt JOIN SACH ON SACH.MaSach = ctpt.MaSACH
+	GROUP BY pt.mapt,MaPM, MaThe, NgayTra, MaNV;
+
+
+CREATE or alter VIEW PHIEUThanhLy_VIEW 
+AS
+	SELECT ptl.maptl, Madv, NgayTL, MaNV, SUM(GiaTL) AS N'Tổng tiền thanh lý'
+	FROM PhieuThanhLy Ptl JOIN CHITIETPtl ctptl ON Ptl.MAPtl= ctptl.MAPtl JOIN SACH ON SACH.MaSach = ctptl.MaSACHkho
+	GROUP BY ptl.maptl, Madv, NgayTL, MaNV;
+
+
+
+
+
+	
+--CREATE OR ALTER drop TRIGGER Trig_CapNhatSachThanhLy
+--ON KhosachThanhLy
+--AFTER INSERT
+--AS
+--BEGIN
+--    DECLARE @MaSachkho INT, @soluongkhotl INT;
+
+--    -- Lấy dữ liệu từ bảng Inserted (chứa dữ liệu mới được thêm vào)
+--    SELECT @MaSachkho = MaSachkho, @soluongkhotl = soluongkhotl
+--    FROM Inserted;
+
+--    -- Kiểm tra xem mã sách đã tồn tại trong kho thanh lý chưa
+--    IF EXISTS (SELECT 1 FROM KhoSachThanhLy WHERE masachkho = @MaSachkho)
+--    BEGIN
+--        -- Nếu tồn tại, cập nhật số lượng sách lỗi
+--        UPDATE KhoSachThanhLy
+--        SET soluongkhotl = soluongkhotl + @soluongkhotl
+--        WHERE masachkho = @MaSachkho;
+--   end   
+--    ELSE
+--    BEGIN
+--        -- Nếu không tồn tại, thêm mới sách vào kho thanh lý
+--        INSERT INTO KhosachThanhLy (MaSachkho, soluongkhotl)
+--        VALUES (@MaSachkho, @soluongkhotl);
+--    END
+--	  -- Giảm số lượng sách trong bảng chính
+--        UPDATE SACH
+--        SET SoLuongHIENTAI = SoLuongHIENTAI - @soluongkhotl
+--        WHERE MaSach = @MaSachkho;    
+--END;
+
+
+--/* CẬP NHẬT  PHIẾU THANH LÝ */
+--CREATE OR ALTER  TRIGGER trg_CapNhatGiaTL
+--ON ChiTietPTL
+--AFTER INSERT
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
+
+--    DECLARE @GiaSachMax MONEY; 
+--    SET @GiaSachMax = (
+--        SELECT TOP 1 GiaSach
+--        FROM INSERTED i
+--        INNER JOIN ChitietPN ctpn ON i.MaSachKho = ctpn.MaSach
+--        ORDER BY ctpn.GiaSach ASC
+--    )
+  
+--        UPDATE ChiTietPTl
+--        SET GiaTL = @GiaSachMax * INSERTED.Soluongtl *0.3
+--        FROM ChiTietPTL
+--		INNER JOIN PhieuThanhLy ON ChiTietPTL.MaPTL = PhieuThanhLy.MaPTL
+--        JOIN INSERTED ON ChiTietPTL.MaPTL = INSERTED.MaPTL 
+--		where ChiTietPTL.MaSachkho = INSERTED.MaSachkho
+--	END
+
 
 --/* CẬP NHẬT TÌNH TRẠNG PHIẾU TRẢ */ 
 --CREATE OR ALTER  TRIGGER trg_CapNhatPhuThu
@@ -467,44 +573,6 @@ END;
 --    INNER JOIN INSERTED ON ChiTietPT.MaSach = INSERTED.MaSach
 --        AND ChiTietPT.MaPT = INSERTED.MaPT; -- Thêm điều kiện join cho MaSach và MaPT
 --END;
-
-
-
-/* CẬP NHẬT TÌNH TRẠNG PHIẾU THANH LÝ */
-CREATE OR ALTER TRIGGER trg_CapNhatGiaTL
-ON ChiTietPTL
-AFTER INSERT
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    DECLARE @GiaSachMax MONEY; 
-    SET @GiaSachMax = (
-        SELECT TOP 1 GiaSach
-        FROM INSERTED i
-        INNER JOIN ChitietPN ctpn ON i.MaSachKho = ctpn.MaSach
-        ORDER BY ctpn.GiaSach ASC
-    )
-  
-     
-        UPDATE ChiTietPTl
-        SET GiaTL = @GiaSachMax * INSERTED.Soluongtl *0.3
-        FROM ChiTietPTL
-		INNER JOIN PhieuThanhLy ON ChiTietPTL.MaPTL = PhieuThanhLy.MaPTL
-        JOIN INSERTED ON ChiTietPTL.MaPTL = INSERTED.MaPTL 
-		where ChiTietPTL.MaSachkho = INSERTED.MaSachkho
-	END
-
-/* CẬP NHẬT TÌNH TRẠNG ĐK MƯỢN SÁCH */
-CREATE OR ALTER  TRIGGER SetTinhTrangPhieuDK
-ON DkiMuonSach 
-FOR INSERT AS
-BEGIN 
-	UPDATE DkiMuonSach 
-	SET TINHTRANG = 0
-	FROM DkiMuonSach 
-	JOIN INSERTED ON INSERTED.MaDK = DkiMuonSach.MaDK
-END;
 
 --GO
 /* CẬP NHẬT SÁCH TRONG KHO SAU KHI CẬP NHẬT NHAP */
@@ -549,27 +617,6 @@ END;
 
 
 
-----CẬP NHẬT SÁCH kho SAU KHI THÊM VÀO KHO THANH LÝ
---CREATE or ALTER drop  PROCEDURE KiemTraMaVaCapNhatSachthanhly
---    @MaSachkho INT,
---    @soluongkhotl INT
---AS
---BEGIN
---    -- Kiểm tra xem mã sách đã tồn tại trong kho thanh lý chưa
---    IF EXISTS (SELECT 1 FROM KhosachThanhLy WHERE masachkho = @MaSachkho)
---    BEGIN
---        -- Nếu tồn tại, tăng số lượng sách
---        UPDATE KhosachThanhLy
---        SET soluongkhotl = soluongkhotl + @soluongkhotl
---        WHERE MaSachkho = @MaSachkho;
---    END
---    ELSE
---    BEGIN
---        -- Nếu chưa tồn tại, thêm mới sách vào kho thanh lý
---        INSERT INTO KhosachThanhLy (MaSachkho, soluongkhotl)
---        VALUES (@MaSachkho, @soluongkhotl);
---    END
---END
 
 --INSERT INTO CHITIETPT ( MAPT, MASACH, SOLUONG) VALUES ( 2, 18, 5);
 		

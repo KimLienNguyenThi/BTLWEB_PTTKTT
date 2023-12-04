@@ -12,14 +12,21 @@ namespace WebQuanLyThuVien.Areas.Admin.Interfaces.Services
     {
 
         IEnumerable<DocGia> GetAll();
-        DocGia GetById(int id);
+        DTO_DocGia_TheDocGia GetById(int id);
         void Insert(DocGia obj);
-        void Update(DocGia obj);
+        void Update(TheDocGia obj);
         string Delete(int obj);
 
         // ví dụ 1 phương thức đặc thù
+        void UpdateThongTinDocGia(DocGia obj);
+
+
         DocGia GetBySDT(string sdt);
+
         IEnumerable<DTO_DocGia_TheDocGia> GetAllDocGia_TheDocGia();
 
+        IEnumerable<DTO_DocGia_TheDocGia> GetAllTheDocGia();
+
+        void DangKyTheDocGia(DTO_DocGia_TheDocGia obj);
     }
 }

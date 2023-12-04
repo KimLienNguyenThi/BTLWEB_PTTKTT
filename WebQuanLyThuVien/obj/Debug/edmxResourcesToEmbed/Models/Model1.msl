@@ -193,7 +193,6 @@
       <EntityTypeMapping TypeName="QuanLyThuVienModel.TheDocGia">
         <MappingFragment StoreEntitySet="TheDocGia">
           <ScalarProperty Name="MaThe" ColumnName="MaThe" />
-          <ScalarProperty Name="HanThe" ColumnName="HanThe" />
           <ScalarProperty Name="NgayDK" ColumnName="NgayDK" />
           <ScalarProperty Name="NgayHH" ColumnName="NgayHH" />
           <ScalarProperty Name="TienThe" ColumnName="TienThe" />

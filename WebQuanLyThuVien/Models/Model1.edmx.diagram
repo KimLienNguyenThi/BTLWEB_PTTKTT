@@ -4,27 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d1308eedd99a45a795fb2ba68f9660b3" Name="Diagram1">
-        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietDk" Width="1.5" PointX="10.5" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPM" Width="1.5" PointX="8.25" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.CHITIETPN" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPT" Width="1.5" PointX="13.5" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPTL" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.DkiMuonSach" Width="1.5" PointX="8.25" PointY="18.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.DocGia" Width="1.5" PointX="3.75" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.DonViTL" Width="1.5" PointX="0.75" PointY="14.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.KhoSachThanhLy" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.LOGIN_DG" Width="1.5" PointX="6" PointY="18.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.LOGIN_NV" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.NhanVien" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuMuon" Width="1.5" PointX="6" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuNhapSach" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuThanhLy" Width="1.5" PointX="3" PointY="13.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuTra" Width="1.5" PointX="11.25" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.Sach" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.TheDocGia" Width="1.5" PointX="6" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyThuVienModel.TT_SACH" Width="1.5" PointX="8.25" PointY="1.5" IsExpanded="true" />
+      <Diagram DiagramId="6951a8e6d3544ee6a34ee30af439d0aa" Name="Diagram1" ZoomLevel="47">
+        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietDk" Width="1.5" PointX="10.5" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPM" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.CHITIETPN" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPT" Width="1.5" PointX="13.5" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPTL" Width="1.5" PointX="5.25" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.DkiMuonSach" Width="1.5" PointX="8.25" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.DocGia" Width="1.5" PointX="3.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.DonViTL" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.KhoSachThanhLy" Width="1.5" PointX="3" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.LOGIN_DG" Width="1.5" PointX="6" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.LOGIN_NV" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.NhanVien" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuMuon" Width="1.5" PointX="6" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuNhapSach" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuThanhLy" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.PhieuTra" Width="1.5" PointX="11.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.Sach" Width="1.5" PointX="6" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.TheDocGia" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThuVienModel.TT_SACH" Width="1.5" PointX="8.25" PointY="1.75" IsExpanded="true" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietDk__MaDK__72C60C4A" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietDk__MaSac__73BA3083" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPM__MaPM__5070F446" ManuallyRouted="false" />

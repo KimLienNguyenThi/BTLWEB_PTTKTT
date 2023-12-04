@@ -18,16 +18,16 @@ insert into DocGia ( HoTenDG, GioiTinh, NgaySinh, SDT, DiaChi) values (N'Cao Ho�
 insert into DocGia ( HoTenDG, GioiTinh, NgaySinh, SDT, DiaChi) values (N'Đỗ Thị Q', N'Nữ', '2003-9-6', '0727180418',N'Quận 2');
 
 -- THEM THE DOC GIA
-insert into TheDocGia ( HanThe, NgayDK, NGAYHH, TienThe, MaNV, MaDG) values (N'6 Tháng', '2023-2-22','2023-8-22', '120000', 2, 1);
-insert into TheDocGia ( HanThe, NgayDK, NGAYHH, TienThe, MaNV, MaDG) values (N'1 Năm', '2023-4-8','2024-4-8', '240000', 2, 2);
-insert into TheDocGia ( HanThe, NgayDK, NGAYHH, TienThe, MaNV, MaDG) values (N'2 Năm', '2023-5-10','2025-5-10', '480000', 2, 3);
-insert into TheDocGia ( HanThe, NgayDK, NGAYHH, TienThe, MaNV, MaDG) values (N'6 Tháng', '2023-5-20','2023-11-20', '120000', 2, 4);
-insert into TheDocGia ( HanThe, NgayDK, NGAYHH, TienThe, MaNV, MaDG) values (N'1 Năm', '2023-7-15','2024-7-15', '240000', 2, 5);
-insert into TheDocGia ( HanThe, NgayDK, NGAYHH, TienThe, MaNV, MaDG) values (N'6 Tháng', '2023-7-1','2024-1-1', '120000', 2, 6);
-insert into TheDocGia ( HanThe, NgayDK, NGAYHH, TienThe, MaNV, MaDG) values (N'6 Tháng', '2023-7-22','2024-1-22', '120000', 2, 7);
-insert into TheDocGia ( HanThe, NgayDK, NGAYHH, TienThe, MaNV, MaDG) values (N'1 Năm', '2023-8-25','2024-8-25', '240000', 2, 8);
-insert into TheDocGia ( HanThe, NgayDK, NGAYHH, TienThe, MaNV, MaDG) values (N'1 Năm', '2023-9-10','2024-9-10', '240000', 2, 9);
-insert into TheDocGia ( HanThe, NgayDK, NGAYHH, TienThe, MaNV, MaDG) values (N'6 Tháng', '2023-10-25','2024-4-25', '120000', 2, 10);
+insert into TheDocGia ( NgayDK, NGAYHH, TienThe, MaNV, MaDG) values ( '2023-2-22','2023-8-22', '120000', 2, 1);
+insert into TheDocGia ( NgayDK, NGAYHH, TienThe, MaNV, MaDG) values ( '2023-4-8','2024-4-8', '240000', 2, 2);
+insert into TheDocGia ( NgayDK, NGAYHH, TienThe, MaNV, MaDG) values ( '2023-5-10','2025-5-10', '480000', 2, 3);
+insert into TheDocGia ( NgayDK, NGAYHH, TienThe, MaNV, MaDG) values ( '2023-5-20','2023-11-20', '120000', 2, 4);
+insert into TheDocGia ( NgayDK, NGAYHH, TienThe, MaNV, MaDG) values ( '2023-7-15','2024-7-15', '240000', 2, 5);
+insert into TheDocGia ( NgayDK, NGAYHH, TienThe, MaNV, MaDG) values ( '2023-7-1','2024-1-1', '120000', 2, 6);
+insert into TheDocGia ( NgayDK, NGAYHH, TienThe, MaNV, MaDG) values ( '2023-7-22','2024-1-22', '120000', 2, 7);
+insert into TheDocGia ( NgayDK, NGAYHH, TienThe, MaNV, MaDG) values ( '2023-8-25','2024-8-25', '240000', 2, 8);
+insert into TheDocGia ( NgayDK, NGAYHH, TienThe, MaNV, MaDG) values ( '2023-9-10','2024-9-10', '240000', 2, 9);
+insert into TheDocGia ( NgayDK, NGAYHH, TienThe, MaNV, MaDG) values ( '2023-10-25','2024-4-25', '120000', 2, 10);
 
 --THEM LOGIN DG
 insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0981724637','0981724637',1);
@@ -155,12 +155,16 @@ insert into DonViTL ( TenDV, DiaChiDV, SDTDV) values (N'Sách Xưa',N'Quận 10,
 insert into DonViTL ( TenDV, DiaChiDV, SDTDV) values (N'Bá Tân Sách',N'Quận 3, Thành phố Hồ Chí Minh', '0962936310');
 
 -- Them Phieu muon
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 1,'2023-08-25', '2023-10-25', 2);
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 2,'2023-09-10', '2023-11-10', 2);
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 6,'2023-10-07', '2023-11-07', 2);
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 4,'2023-10-19', '2023-11-19', 2);
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 3,'2023-11-16', '2023-12-16',2);
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 1,'2023-08-20', '2023-09-20', 2);
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 1,'2023-08-25', '2023-10-25', 2);--1
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 2,'2023-09-10', '2023-11-10', 2);--2
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 6,'2023-10-07', '2023-11-07', 2);--3
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 4,'2023-10-19', '2023-11-19', 2);--4
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 3,'2023-11-16', '2023-12-16', 2);--5
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 1,'2023-08-20', '2023-09-20', 2);--6
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 3,'2023-09-20', '2023-10-20', 2);--7
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 2,'2023-11-01', '2023-12-01', 2);--8
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 1,'2023-08-20', '2023-10-20', 2);--9
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 3,'2023-10-27', '2023-11-27', 2);--10
 
 -- Them chi tiet phieu muon
 insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 1, 2, 4);
@@ -182,41 +186,58 @@ insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 5, 13, 1);
 
 insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 6, 15, 2);
 
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 7, 21, 1);
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 7, 3, 2);
+
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 8, 2, 1);
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 8, 15, 2);
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 8, 30, 3);
+
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 9, 15, 1);
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 9, 8, 2);
+
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 10, 2, 1);
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 10, 4, 2);
 
 -- Them Phieu tra 
-insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (3, 6, '2023-12-14', 2);
-insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (5, 3, '2023-11-10', 2);
-insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (1, 1, '2023-10-20', 2);
-insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (1, 1, '2023-10-21', 2);
+insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (3, 6, '2023-11-08', 2);--trễ 1 ngày   --1
+insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (5, 3, '2023-11-30', 2);--trễ 0 ngày	--2
+insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (1, 1, '2023-10-20', 2);--trễ 0 ngày	--3
+insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (4, 4, '2023-10-30', 2);--trễ 0 ngày	--4
+insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (6, 1, '2023-10-10', 2);--trễ 20 ngày	--5
+insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (10, 3, '2023-11-30', 2);--trễ 3 ngày	--6
+insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (1, 1, '2023-11-04', 2);--trễ 10 ngày	--7
 
 -- Them Chi tiet phieu tra
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi) values ( 1, 10, 1,0);
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi) values ( 1, 11, 1,0);
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi) values ( 1, 12, 1,0);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 1, 10, 1,0,0,2000);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 1, 11, 0,0,1,57000);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 1, 12, 1,0,0,2000);
+ 
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 2, 13, 0,0,1,86000);
 
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi) values ( 2, 13, 1,0);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 3, 2, 0,1,1,105000);	
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 3, 6, 0,1,0,48000);
 
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi) values ( 3, 2, 0,2);
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi) values ( 3, 6, 0,1);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 4, 15, 0,1,0,33500);
 
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi) values ( 4, 2, 1,1);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 5, 15, 1,1,0,73500);
+
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 6, 2, 1,0,0,76000);	
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 6, 4, 0,2,0,46000);
+
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 7, 2, 1,1,0,55000);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 7, 20, 0,1,0,31500);
+
 
 --THEM KHO SACH THANH LY
+--KiemTraMaVaCapNhatSachthanhly 2,5,1
 
 -- Them Phieu thanh ly
 insert into PhieuThanhLy (MaDV, NgayTL,  MaNV) values (1, '2023-10-25',  3);
 
 -- Them Chi tiet phieu thanh ly 
-insert into ChiTietPTL (MaPTL, MaSachkho, Soluongtl) values (1, 2, 2);
-insert into ChiTietPTL (MaPTL, MaSachkho, Soluongtl) values (1 ,6, 1);
-
---insert into PhieuNhapSach ( NgayNhap,  MaNV, MaNCC) values ( '2023-2-15',  3,  2);--TEST
-
---INSERT INTO CHITIETPN( MaPN, MaSACH, SoLuongNHAP) VALUES(4,5,20);--TEST
-
---SELECT * FROM PhieuNhapSach;
---SELECT * FROM CHITIETPN WHERE MAPN = 4;
-
+insert into ChiTietPTL (MaPTL, MaSachkho, Soluongtl, GiaTL) values (1, 2, 2, 42000);
+insert into ChiTietPTL (MaPTL, MaSachkho, Soluongtl, GiaTL) values (1 ,6, 1,48000);
 
 
 

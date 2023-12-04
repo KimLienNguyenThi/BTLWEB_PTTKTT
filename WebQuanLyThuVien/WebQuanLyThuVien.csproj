@@ -177,28 +177,41 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhoSachController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhapSachController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PhanQuyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieuMuonController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieuTraController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyMuonController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyPhieuTraController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ThanhLySachController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TheDocGiaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ThongTinDocGiaController.cs" />
     <Compile Include="Areas\Admin\Data\ApiResponse.cs" />
     <Compile Include="Areas\Admin\Data\DTO.cs" />
+    <Compile Include="Areas\Admin\Data\KhoThanhLyDTO.cs" />
     <Compile Include="Areas\Admin\Data\PhieuMuon_DTO.cs" />
     <Compile Include="Areas\Admin\Data\PhieuTra_DTO.cs" />
     <Compile Include="Areas\Admin\Data\SachDTOcs.cs" />
     <Compile Include="Areas\Admin\Data\SachMuonDTO.cs" />
     <Compile Include="Areas\Admin\Interfaces\IDocGiaRepository.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IDocGiaService.cs" />
+    <Compile Include="Areas\Admin\Interfaces\Services\IDonViTLService.cs" />
+    <Compile Include="Areas\Admin\Interfaces\Services\IKhoThanhLyService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\INhaCungCapService.cs" />
+    <Compile Include="Areas\Admin\Interfaces\Services\INhapSachService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IPhieuMuonCTPhieuMuonService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IPhieuMuonService.cs" />
+    <Compile Include="Areas\Admin\Interfaces\Services\IPhieuThanhLyService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IPhieuTraCTPhieuTraService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IPhieuTraService.cs" />
     <Compile Include="Areas\Admin\Repository\DocGiaRepository.cs" />
     <Compile Include="Areas\Admin\Services\DocGiaService.cs" />
+    <Compile Include="Areas\Admin\Services\DonViTLService.cs" />
+    <Compile Include="Areas\Admin\Services\KhoThanhLyService.cs" />
     <Compile Include="Areas\Admin\Services\NhaCungCapService.cs" />
+    <Compile Include="Areas\Admin\Services\NhapSachService.cs" />
     <Compile Include="Areas\Admin\Services\PhieuMuonCTPhieuMuonService.cs" />
     <Compile Include="Areas\Admin\Services\PhieuMuonService.cs" />
+    <Compile Include="Areas\Admin\Services\PhieuThanhLyService.cs" />
     <Compile Include="Areas\Admin\Services\PhieuTraCTPhieuTraService.cs" />
     <Compile Include="Areas\Admin\Services\PhieuTraService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -2535,6 +2548,8 @@
     <Content Include="Areas\Admin\Views\QuanLyMuon\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KhoSach\Index.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyPhieuTra\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NhapSach\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ThanhLySach\Index.cshtml" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -2542,7 +2557,9 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\NhapSach\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PhanQuyen\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TheDocGia\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongTinDocGia\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

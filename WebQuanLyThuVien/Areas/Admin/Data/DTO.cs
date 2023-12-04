@@ -9,10 +9,17 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
 {
     public class DTO_DocGia_TheDocGia
     {
-            public int MaThe { get; set; }
-            public string HoTenDG { get; set; }
-            public string SDT { get; set; }
-            public string DiaChi { get; set; }
+        public int MaThe { get; set; }
+        public int MaDocGia { get; set; }
+        public int MaNhanVien { get; set; }
+        public string HoTenDG { get; set; }
+        public string SDT { get; set; }
+        public string DiaChi { get; set; }
+        public string GioiTinh { get; set; }
+        public DateTime NgaySinh { get; set; }
+        public DateTime NgayDangKy { get; set; }
+        public DateTime NgayHetHan { get; set; }
+        public decimal TienThe { get; set; }
     }
 
 
@@ -21,8 +28,13 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public int MaNV { get; set; }
         public string HoTenNV { get; set; }
         public string SDT { get; set; }
+        public string GioiTinh { get; set; }
+        public DateTime NgaySinh { get; set; }
         public string DiaChi { get; set; }
         public string ChucVu { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+
 
         public static explicit operator DTO_NhanVien_LoginNV(NhanVien v)
         {
@@ -32,7 +44,9 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
                 HoTenNV = v.HoTenNV,
                 SDT = v.SDT,
                 DiaChi = v.DiaChi,
-                ChucVu = v.ChucVu
+                GioiTinh = v.GioiTinh,
+                NgaySinh = (DateTime)v.NGAYSINH,
+                ChucVu = v.ChucVu,
             };
         }
     }
@@ -83,6 +97,30 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
 
         public decimal PhuThu { get; set; } // Sử dụng decimal cho giá trị tiền tệ
     }
-  
 
+    public class DTO_Sach_Nhap
+    {
+        public int maSach { get; set; }
+        public string tenSach { get; set; }
+        public string theLoai { get; set; }
+        public string ngonNgu { get; set; }
+        public string tacGia { get; set; }
+        public string nhaXB { get; set; }
+        public int namXB { get; set; }
+        public int soLuong { get; set; }
+        public decimal giaSach { get; set; }
+    }
+
+    public class DTO_Tao_Phieu_Nhap
+    {
+        public int MaNhanVien { get; set; }
+        public int MaNhaCungCap { get; set; }
+        public DateTime NgayNhap { get; set; }
+        public List<DTO_Sach_Nhap> listSachNhap { get; set; }
+
+        public DTO_Tao_Phieu_Nhap()
+        {
+            listSachNhap = new List<DTO_Sach_Nhap>();
+        }
+    }
 }

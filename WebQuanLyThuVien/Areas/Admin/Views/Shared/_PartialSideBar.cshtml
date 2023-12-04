@@ -19,7 +19,7 @@
             </a>
         </div>
         <div class="image">
-            <a  href="~/admin/account/logout">
+            <a href="~/admin/account/logout">
                 <i class="nav-icon fas fa-sign-out-alt pt-2" style="color: lightslategrey; font-size: 20px;"></i>
             </a>
         </div>
@@ -35,7 +35,7 @@
                     @* active *@
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
-                        Dashboard
+                        Trang Chủ
                     </p>
                 </a>
             </li>
@@ -129,13 +129,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="../UI/general.html" class="nav-link">
+                        <a href="~/admin/thedocgia" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Thẻ Độc Giả</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../UI/icons.html" class="nav-link">
+                        <a href="~/admin/thongtindocgia" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>T.Tin Độc Giả</p>
                         </a>
@@ -143,44 +143,36 @@
                 </ul>
             </li>
 
-            <!-- Xử lý đặc biệt -->
+
+            <!-- Phân quyền -->
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-edit"></i>
+                <a href="~/admin/phanquyen" class="nav-link">
+                    <i class="nav-icon fas fa-tree"></i>
                     <p>
-                        Xử Lý Đặc Biệt
-                        <i class="fas fa-angle-left right"></i>
+                        Phân quyền
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="../forms/general.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Hạn Trả</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../forms/advanced.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Sách Hư Hỏng</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../forms/editors.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Hạn Thẻ</p>
-                        </a>
-                    </li>
-                </ul>
             </li>
 
-            <li class="nav-header">EXAMPLES</li>
+            <li class="nav-header">Xử lý yêu cầu từ khách hàng</li>
 
+            <!-- Đăng ký sách -->
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon far fa-calendar-alt"></i>
                     <p>
-                        EXAMPLES
+                        Đ/Ký Mượn Sách
+                        <span class="badge badge-info right">2</span>
+                    </p>
+                </a>
+            </li>
+
+            <!-- Đăng ký thẻ độc giả -->
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon far fa-calendar-alt"></i>
+                    <p>
+                        Đ/Ký Thẻ DG
                         <span class="badge badge-info right">2</span>
                     </p>
                 </a>

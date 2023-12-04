@@ -11,7 +11,7 @@ namespace WebQuanLyThuVien.Interfaces.Services
     {
 
         IEnumerable<Sach> GetAll();
-        Sach GetById(int id);
+        SachDTOcs GetById(int id);
         void Insert(Sach obj);
         void Update(Sach obj);
         string Delete(int obj);

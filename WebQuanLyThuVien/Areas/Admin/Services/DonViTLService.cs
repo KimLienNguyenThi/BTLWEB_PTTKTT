@@ -10,13 +10,13 @@ using WebQuanLyThuVien.Repository;
 
 namespace WebQuanLyThuVien.Areas.Admin.Services
 {
-    public class NhaCungCapService : INhaCungCapService
+    public class DonViTLService : IDonViTLService
     {
         //private IDocGiaRepository _docGiaRepository;
 
         private UnitOfWork<QuanLyThuVienEntities> unitOfWork = new UnitOfWork<QuanLyThuVienEntities>();
 
-        public NhaCungCapService()
+        public DonViTLService()
         {
         }
 
@@ -25,40 +25,54 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<NhaCungCap> GetAll()
+        public IEnumerable<DonViTL> GetAll()
         {
-            return unitOfWork.Context.NhaCungCaps.ToList();
+            return unitOfWork.Context.DonViTLs.ToList();
         }
 
-        public NhaCungCap GetById(int id)
+        public DonViTL GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Insert(NhaCungCap obj)
+        public bool Insert(DonViTL obj)
         {
-            unitOfWork.Context.NhaCungCaps.Add(obj);
 
-            if (obj.TenNCC == "" || obj.sdtNCC == "" || obj.DiaChiNCC == "")
+            if (obj.TenDV == "" || obj.SDTDV == "" || obj.DiaChiDV == "")
             {
                 return false;
             }
             try
+
             {
-                unitOfWork.CreateTransaction(); // Bắt đầu giao dịch
+                var existingDonVi = unitOfWork.Context.DonViTLs.FirstOrDefault(dv => dv.SDTDV == obj.SDTDV);
 
-                // Lưu thay đổi vào cơ sở dữ liệu khi mọi thứ đã thành công
-                unitOfWork.Commit();
+                if (existingDonVi != null)
+                {
+                    throw new Exception("existingDonVi");
+                }
+                else
+                {
+                    var newDonVi = new DonViTL();
+                    {
 
-                unitOfWork.Save();
+                        newDonVi.MaDV = obj.MaDV;
+                        newDonVi.TenDV = obj.TenDV;
+                        newDonVi.DiaChiDV = obj.DiaChiDV;
+                        newDonVi.SDTDV = obj.SDTDV;
+                    };
 
-                return true;
+                    unitOfWork.Context.DonViTLs.Add(newDonVi);
+
+                    unitOfWork.Save();
+
+                    return true;
+                }
+                
             }
             catch (Exception ex)
             {
-                unitOfWork.Rollback(); // Rollback nếu có lỗi
                 Console.WriteLine($"Error: {ex.Message}");
-                // Xử lý lỗi và ghi log
                 return false;
             }
             finally
@@ -68,7 +82,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
         }
 
-        public void Update(NhaCungCap obj)
+        public void Update(DonViTL obj)
         {
             throw new NotImplementedException();
         }

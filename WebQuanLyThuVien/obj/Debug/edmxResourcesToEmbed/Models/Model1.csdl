@@ -225,7 +225,6 @@
       <PropertyRef Name="MaThe" />
     </Key>
     <Property Name="MaThe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="HanThe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="NgayDK" Type="DateTime" Precision="0" />
     <Property Name="NgayHH" Type="DateTime" Precision="0" />
     <Property Name="TienThe" Type="Int32" />
