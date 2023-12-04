@@ -13,6 +13,12 @@ SELECT * FROM ChiTietPTL
 select  * from docgia
 select  * from thedocgia
 
+select * from login_nv
+select * from nhanvien
+
+SELECT * FROM CHITIETPn
+select * from PhieuNhapsach
+
 select chitietpn.masach,tensach, giasach from chitietpm join chitietpn 
 on chitietpm.masach = chitietpn.masach  
 join sach on chitietpm.masach = sach.masach  

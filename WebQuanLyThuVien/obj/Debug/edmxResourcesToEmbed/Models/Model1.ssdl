@@ -37,6 +37,7 @@
     <Property Name="MaSach" Type="int" Nullable="false" />
     <Property Name="Soluongtra" Type="int" />
     <Property Name="Soluongloi" Type="int" />
+    <Property Name="Soluongmat" Type="int" />
     <Property Name="PhuThu" Type="money" />
   </EntityType>
   <EntityType Name="ChiTietPTL">

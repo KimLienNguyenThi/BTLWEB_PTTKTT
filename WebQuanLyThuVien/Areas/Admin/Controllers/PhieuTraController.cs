@@ -24,7 +24,13 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
         public ActionResult Index()
         {
             if (Session["user"] == null)
+            {
                 return RedirectToAction("Login", "Account");
+            }
+            else if (Session["chucvu"].ToString().ToLower() == "quanlykho")
+            {
+                return RedirectToAction("loiphanquyen", "phanquyen");
+            }
             else
             {
                 var phieuMuon = _phieuMuonService.GetPhieuMuonsChuaTraSach();

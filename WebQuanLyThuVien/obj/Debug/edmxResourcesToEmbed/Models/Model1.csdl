@@ -43,6 +43,7 @@
     <Property Name="MaSach" Type="Int32" Nullable="false" />
     <Property Name="Soluongtra" Type="Int32" />
     <Property Name="Soluongloi" Type="Int32" />
+    <Property Name="Soluongmat" Type="Int32" />
     <Property Name="PhuThu" Type="Decimal" Precision="19" Scale="4" />
     <NavigationProperty Name="PhieuTra" Relationship="Self.FK__ChiTietPT__MaPT__6B24EA82" FromRole="ChiTietPT" ToRole="PhieuTra" />
     <NavigationProperty Name="Sach" Relationship="Self.FK__ChiTietPT__MaSac__6C190EBB" FromRole="ChiTietPT" ToRole="Sach" />

@@ -42,6 +42,7 @@
           <Property Name="MaSach" Type="int" Nullable="false" />
           <Property Name="Soluongtra" Type="int" />
           <Property Name="Soluongloi" Type="int" />
+          <Property Name="Soluongmat" Type="int" />
           <Property Name="PhuThu" Type="money" />
         </EntityType>
         <EntityType Name="ChiTietPTL">
@@ -670,6 +671,7 @@
           <Property Name="MaSach" Type="Int32" Nullable="false" />
           <Property Name="Soluongtra" Type="Int32" />
           <Property Name="Soluongloi" Type="Int32" />
+          <Property Name="Soluongmat" Type="Int32" />
           <Property Name="PhuThu" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="PhieuTra" Relationship="Self.FK__ChiTietPT__MaPT__6B24EA82" FromRole="ChiTietPT" ToRole="PhieuTra" />
           <NavigationProperty Name="Sach" Relationship="Self.FK__ChiTietPT__MaSac__6C190EBB" FromRole="ChiTietPT" ToRole="Sach" />
@@ -1335,6 +1337,7 @@
                 <ScalarProperty Name="MaSach" ColumnName="MaSach" />
                 <ScalarProperty Name="Soluongtra" ColumnName="Soluongtra" />
                 <ScalarProperty Name="Soluongloi" ColumnName="Soluongloi" />
+                <ScalarProperty Name="Soluongmat" ColumnName="Soluongmat" />
                 <ScalarProperty Name="PhuThu" ColumnName="PhuThu" />
               </MappingFragment>
             </EntityTypeMapping>
