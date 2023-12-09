@@ -115,8 +115,9 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        <button
-                            id="thongTinDocGiaButton" class="btn btn-primary" onclick="changeTableShow(thongTinDocGiaTable, thongTinSachTable)">Thông tin độc giả</button>
+                        <button id="thongTinDocGiaButton" class="btn btn-primary" onclick="changeTableShow(thongTinDocGiaTable, thongTinSachTable)">
+                            Thông tin độc giả
+                        </button>
                         <button id="thongTinSachButton" class="btn btn-primary" onclick="changeTableShow(thongTinSachTable, thongTinDocGiaTable)">Thông tin sách</button>
                         <div class="card-tools">
                             <div class="input-group input-group-sm pt-2"
@@ -124,10 +125,10 @@
                                 <input type="text"
                                        name="table_search"
                                        class="form-control float-right"
-                                       placeholder="Search" />
+                                       placeholder="Search" id="inputSearch" onkeypress="handleKeyPress(event)" />
 
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default">
+                                    <button type="submit" onclick="search()" class="btn btn-default">
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </div>
@@ -235,7 +236,77 @@
 {
     <script>
 
+        function searchDocGia() {
+            // Lấy giá trị từ ô input
+            var keyword = document.getElementById("inputSearch").value.toLowerCase();
 
+            // Lấy danh sách các hàng trong bảng thongTinDocGiaTable
+            var docGiaRows = document.querySelectorAll("#thongTinDocGiaTable tbody tr");
+
+            // Duyệt qua từng hàng để kiểm tra từ khóa
+            docGiaRows.forEach(function (row) {
+                // Lấy nội dung của từng ô trong hàng
+                var maThe = row.querySelector("td:nth-child(1)").textContent.toLowerCase();
+                var hoTen = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                var sdt = row.querySelector("td:nth-child(3)").textContent.toLowerCase();
+                var diaChi = row.querySelector("td:nth-child(4)").textContent.toLowerCase();
+
+                // Kiểm tra xem từ khóa có xuất hiện trong bất kỳ ô nào hay không
+                if (maThe.includes(keyword) || hoTen.includes(keyword) || sdt.includes(keyword) || diaChi.includes(keyword)) {
+                    // Hiển thị hàng nếu có từ khóa
+                    row.style.display = "table-row";
+                } else {
+                    // Ẩn hàng nếu không có từ khóa
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        function searchSach() {
+            // Lấy giá trị nhập từ ô tìm kiếm
+            var searchTerm = document.getElementById("inputSearch").value.toLowerCase();
+
+            // Lặp qua từng hàng sách trong bảng sách
+            var sachRows = document.querySelectorAll("#thongTinSachTable tbody tr.sach-row");
+            sachRows.forEach(function (row) {
+                var maSach = row.querySelector("td:first-child").innerText.toLowerCase();
+                var tenSach = row.querySelector("td:nth-child(2)").innerText.toLowerCase();
+
+                // Kiểm tra xem từ khóa tìm kiếm có xuất hiện trong thông tin sách không
+                if (maSach.includes(searchTerm) || tenSach.includes(searchTerm)) {
+                    // Nếu có, hiển thị hàng sách
+                    row.style.display = "table-row";
+                } else {
+                    // Nếu không, ẩn hàng sách
+                    row.style.display = "none";
+                }
+            });
+
+
+        }
+        function search() {
+            if (thongTinDocGiaTable.style.display = "block" && thongTinSachTable.style.display == "none") {
+                searchDocGia();
+            }
+            else {
+                searchSach();
+            }
+        }
+        function handleKeyPress(event) {
+            // Kiểm tra xem người dùng đã nhấn phím "Enter" chưa (mã ASCII: 13)
+            if (event.keyCode === 13) {
+                // Ngăn chặn hành động mặc định của phím "Enter" trên form
+                event.preventDefault();
+            }
+            // Gọi hàm tìm kiếm khi người dùng nhấn "Enter"
+            if (thongTinDocGiaTable.style.display = "block" && thongTinSachTable.style.display == "none") {
+                searchDocGia();
+            }
+            else {
+                searchSach();
+            }
+
+        }
         //=====================  Set dữ liệu mặc định  =====================
 
         // Lấy ngày hiện tại

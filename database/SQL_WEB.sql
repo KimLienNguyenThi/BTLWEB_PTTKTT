@@ -65,7 +65,7 @@ CREATE TABLE CHITIETPN(
 	MaPN INT,
 	FOREIGN KEY (MaPN) REFERENCES PhieuNhapSach (MaPN),
 	MaSACH INT,
-	FOREIGN KEY (MaPN) REFERENCES SACH (MaSACH),
+	FOREIGN KEY (MaSACH) REFERENCES SACH (MaSACH),
 	GiaSach MONEY,
 	SoLuongNHAP INT,
 	constraint ChiTietPN_MaPN_MaSach PRIMARY KEY (MaPN, MaSach)
@@ -104,7 +104,7 @@ CREATE TABLE PhieuTra (
 	MaNV INT,
 	MaThe INT,
 	MaPM INT,
-	FOREIGN KEY (MaNV) REFERENCES PhieuMuon (MaPM),
+	FOREIGN KEY (MaPM) REFERENCES PhieuMuon (MaPM),
 	FOREIGN KEY (MaNV) REFERENCES NhanVien (MaNV),
 	FOREIGN KEY (MaThe) REFERENCES TheDocGia (MaThe)
 );
@@ -241,8 +241,6 @@ ALTER TABLE CHITIETPM ADD CONSTRAINT CHK_SOLUONG_CTPM CHECK (SOLUONGmuon > 0);
 --RANG BUOC CHI TIET PHIEU TRA 
 ALTER TABLE CHITIETPT ADD CONSTRAINT CHK_SOLUONGT_CTPT CHECK (SOLUONGtra >= 0);
 ALTER TABLE CHITIETPT ADD CONSTRAINT CHK_SOLUONGL_CTPT CHECK (SOLUONGloi >= 0);
-ALTER TABLE CHITIETPT ADD CONSTRAINT CHK_SOLUONGM_CTPT CHECK (SOLUONGmat >= 0);
-
 ALTER TABLE CHITIETPT ADD CONSTRAINT CHK_PHUTHU_CTPT CHECK (PhuThu >= 0);
 --ALTER TABLE CHITIETPT ADD CONSTRAINT CHK_SOLUONG_CTPT CHECK (SOLUONGloi+SOLUONGtra = SOLUONGmuon);
 
@@ -434,7 +432,7 @@ BEGIN
 					JOIN chitietpm ctpm ON PM.mapm  = ctpm.mapm 
 					WHERE PM.Tinhtrang = '0'
 					INTERSECT
-					SELECT Pt.mapm,  ctpt.masach, SUM(ISNULL(ctpt.Soluongtra, 0) + ISNULL(ctpt.Soluongloi, 0)) AS soluongtra
+					SELECT Pt.mapm,  ctpt.masach, SUM(ISNULL(ctpt.Soluongtra, 0) + ISNULL(ctpt.Soluongloi, 0)+ ISNULL(ctpt.Soluongmat, 0)) AS soluongtra
 					FROM phieutra Pt
 					JOIN chitietpt ctpt ON Pt.mapt = ctpt.mapt
 					LEFT JOIN chitietpm ctpm ON Pt.mapm = ctpm.mapm AND ctpt.masach = ctpm.masach
@@ -476,12 +474,9 @@ AS
 
 CREATE or alter VIEW PHIEUThanhLy_VIEW 
 AS
-	SELECT ptl.maptl, Madv, NgayTL, MaNV, SUM(GiaTL) AS N'Tổng tiền thanh lý'
+	SELECT ptl.maptl, Madv, NgayTL, MaNV, SUM(GiaTL*Soluongtl) AS N'Tổng tiền thanh lý'
 	FROM PhieuThanhLy Ptl JOIN CHITIETPtl ctptl ON Ptl.MAPtl= ctptl.MAPtl JOIN SACH ON SACH.MaSach = ctptl.MaSACHkho
 	GROUP BY ptl.maptl, Madv, NgayTL, MaNV;
-
-
-
 
 
 	

@@ -103,6 +103,7 @@ insert into PhieuNhapSach ( NgayNhap,  MaNV, MaNCC) values ( '2023-1-15', 3, 2);
 insert into PhieuNhapSach ( NgayNhap,  MaNV, MaNCC) values ( '2023-2-15',  3,  3);
 insert into PhieuNhapSach ( NgayNhap,  MaNV, MaNCC) values ( '2023-10-15',  3,  4);
 insert into PhieuNhapSach ( NgayNhap,  MaNV, MaNCC) values ( '2023-10-30',  3,  2);
+insert into PhieuNhapSach ( NgayNhap,  MaNV, MaNCC) values ( '2023-11-30',  3,  2);
 
 --THEM CHITIET PN
 INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(1, 1, 100000,20)
@@ -150,6 +151,9 @@ INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(5, 38, 39000,2
 INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(5, 39, 55000,15)
 INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(5, 40, 20000,20)
 
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(6, 1, 50000,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(6, 2, 100000,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(6, 3, 90000,17)
 -- Them don vi thanh ly 
 insert into DonViTL ( TenDV, DiaChiDV, SDTDV) values (N'Sách Xưa',N'Quận 10, Thành phố Hồ Chí Minh', '0903663733');
 insert into DonViTL ( TenDV, DiaChiDV, SDTDV) values (N'Bá Tân Sách',N'Quận 3, Thành phố Hồ Chí Minh', '0962936310');
@@ -209,24 +213,24 @@ insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (10, 3, '2023-11-30', 2
 insert into PhieuTra (MaPM, MaThe, NgayTra, MaNV) values (1, 1, '2023-11-04', 2);--trễ 10 ngày	--7
 
 -- Them Chi tiet phieu tra
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 1, 10, 1,0,0,2000);
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 1, 11, 0,0,1,57000);
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 1, 12, 1,0,0,2000);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 1, 10, 1, 0, 0, 2000);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 1, 11, 0, 0, 1, 57000);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 1, 12, 1, 0, 0, 2000);
  
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 2, 13, 0,0,1,86000);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 2, 13, 0, 0, 1, 86000);
 
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 3, 2, 0,1,1,105000);	
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 3, 6, 0,1,0,48000);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 3, 2, 0, 1, 1, 150000);	
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 3, 6, 0, 1, 0, 48000);
 
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 4, 15, 0,1,0,33500);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 4, 15, 0, 1, 0, 33500);
 
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 5, 15, 1,1,0,73500);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 5, 15, 1, 1, 0, 113500);
 
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 6, 2, 1,0,0,76000);	
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 6, 4, 0,2,0,46000);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 6, 2, 1, 0, 0, 6000);	
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 6, 4, 0, 2, 0, 52000);
 
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 7, 2, 1,1,0,55000);
-insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 7, 20, 0,1,0,31500);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 7, 2, 1, 1, 0, 90000);
+insert into ChiTietPT (MaPT, MaSach, Soluongtra,Soluongloi, Soluongmat, PhuThu) values ( 7, 20, 0, 1, 0, 31500);
 
 
 --THEM KHO SACH THANH LY

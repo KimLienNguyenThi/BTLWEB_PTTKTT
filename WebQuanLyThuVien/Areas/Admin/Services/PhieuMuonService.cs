@@ -22,6 +22,8 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
         public PhieuMuonService()
         {
+
+
         }
 
         public string Delete(int obj)
@@ -61,6 +63,8 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                  ).ToList();
             return listPhieuMuon_DocGia;
         }
+
+
 
         public IEnumerable<PhieuMuon_DTO> GetPhieuMuonsChuaTraSach()
         {
@@ -125,7 +129,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                 select new SachDaTraDTO
                 {
                     MaSach = g.Key,
-                    SoLuongDaTra = g.Sum(a => a.Soluongtra + a.Soluongloi)
+                    SoLuongDaTra = g.Sum(a => a.Soluongtra + a.Soluongloi + a.Soluongmat)
                 }
             ).ToList();
 

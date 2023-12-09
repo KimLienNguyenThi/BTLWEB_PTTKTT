@@ -29,6 +29,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Interfaces.Services
 
         void DangKyTheDocGia(DTO_DocGia_TheDocGia obj);
 
-
     }
+
 }

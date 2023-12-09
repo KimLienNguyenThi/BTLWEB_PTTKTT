@@ -35,7 +35,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
             foreach (var sachNhap in obj.listSachNhap)
             {
 
-                if(sachNhap.maSach > 0)
+                if (sachNhap.maSach > 0)
                 {
                     var newChiTietPN = new CHITIETPN
                     {

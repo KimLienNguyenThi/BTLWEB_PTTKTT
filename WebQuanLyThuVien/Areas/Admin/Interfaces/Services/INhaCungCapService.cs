@@ -9,8 +9,9 @@ namespace WebQuanLyThuVien.Areas.Admin.Interfaces.Services
 {
     public interface INhaCungCapService
     {
-        IEnumerable<NhaCungCap> GetAll();
+        IEnumerable<NhaCungCap> GetAll(); //test
         NhaCungCap GetById(int id);
+
         bool Insert(NhaCungCap obj);
         void Update(NhaCungCap obj);
         string Delete(int obj);

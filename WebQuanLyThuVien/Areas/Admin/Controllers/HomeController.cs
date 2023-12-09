@@ -61,9 +61,9 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 // Phiếu thanh lý
                 foreach (var item in phieuThanhLy)
                 {
-                    tongTienThanhLySach += item.GiaSachTL  * item.SoLuongKhoTL;
+                    tongTienThanhLySach += item.GiaSachTL * item.SoLuongKhoTL;
                 }
-                
+
                 // Chi tiết phiếu trả
                 foreach (var item in chiTietPT)
                 {

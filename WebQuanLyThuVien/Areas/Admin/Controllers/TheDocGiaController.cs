@@ -11,7 +11,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 {
     public class TheDocGiaController : Controller
     {
-        DocGiaService _theDocGiaService =  new DocGiaService();
+        DocGiaService _theDocGiaService = new DocGiaService();
 
 
         // GET: Admin/TheDocGia
@@ -34,6 +34,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 return View();
             }
         }
+
 
 
         [HttpPost]

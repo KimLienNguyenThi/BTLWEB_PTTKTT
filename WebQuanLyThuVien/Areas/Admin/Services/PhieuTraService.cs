@@ -60,7 +60,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
         private List<PhieuTra_GroupMaPM_DTO> listPhieutra_All;
         public List<DTO_Sach_Tra> Get_ChiTietPT_ByMaPM(int maPM)
         {
-
+           
             var listPhieutra_All =
                 (from ChiTietPT in unitOfWork.Context.ChiTietPTs
                  join Sach in unitOfWork.Context.Saches
@@ -69,8 +69,8 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                  join PhieuTra in unitOfWork.Context.PhieuTras
                     on ChiTietPT.MaPT equals PhieuTra.MaPT
 
-                 join PhieuMuon in unitOfWork.Context.PhieuMuons
-                     on PhieuTra.MaPM equals PhieuMuon.MaPM
+                join PhieuMuon in unitOfWork.Context.PhieuMuons
+                    on PhieuTra.MaPM equals PhieuMuon.MaPM
 
 
                  where PhieuTra.MaPM == maPM
@@ -79,9 +79,10 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                      MaPT = PhieuTra.MaPT,
                      MaSach = Sach.MaSach,
                      TenSach = Sach.TenSach,
-                     //   SoLuongMuon = ChiTietPM.Soluongmuon.Value,
+                  //   SoLuongMuon = ChiTietPM.Soluongmuon.Value,
                      SoLuongTra = ChiTietPT.Soluongtra.Value,
                      SoLuongLoi = ChiTietPT.Soluongloi.Value,
+                     SoLuongMat = ChiTietPT.Soluongmat.Value,
                  }).ToList();
 
 
@@ -110,6 +111,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                     MaSach = ctpt.MaSach,
                     SoLuongTra = (int)ctpt.Soluongtra,
                     SoLuongLoi = (int)ctpt.Soluongloi,
+                    SoLuongMat = (int)ctpt.Soluongmat,
                     TenSach = tenSach,
                 };
 
@@ -118,7 +120,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
             return listDTO_Sach_Tra;
         }
-
+        
 
     }
 }

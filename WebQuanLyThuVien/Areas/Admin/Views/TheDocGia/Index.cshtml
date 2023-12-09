@@ -128,10 +128,10 @@
                                 <input type="text"
                                        name="table_search"
                                        class="form-control float-right"
-                                       placeholder="Search" />
+                                       placeholder="Search" id="inputSearch" onkeypress="handleKeyPress(event)" />
 
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default">
+                                    <button type="submit" onclick="search()" class="btn btn-default">
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </div>
@@ -317,6 +317,39 @@
 @section scripts
 {
     <script>
+        function search() {
+            // Get the search keyword from the input field
+
+            var keyword = document.getElementById("inputSearch").value.toLowerCase();
+            // Get the rows of the table thongTinDocGiaTable
+            var docGiaRows = document.querySelectorAll("#thongTinDocGiaTable tbody tr.thedocgia-row");
+
+            // Iterate through each row to check for the keyword
+            docGiaRows.forEach(function (row) {
+                // Get the content of each cell in the row
+
+                var hoTen = row.querySelector("td:nth-child(2)").innerText.toLowerCase();
+                var soDienThoai = row.querySelector("td:nth-child(3)").innerText.toLowerCase();
+
+
+                // Check if the keyword appears in any of the cells
+                if (hoTen.includes(keyword) || soDienThoai.includes(keyword)) {
+                    // Display the row if the keyword is found
+                    row.style.display = "table-row";
+                } else {
+                    // Hide the row if the keyword is not found
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        function handleKeyPress(event) {
+            if (event.keyCode === 13) {
+                // Ngăn chặn hành động mặc định của phím "Enter" trên form
+                event.preventDefault();
+            }
+            search();
+        }
 
         //=====================  Set dữ liệu mặc định  =====================
 

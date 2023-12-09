@@ -110,7 +110,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                         MaNhanVien = (int)TheDocGia.MaNV,
                         HoTenDG = DocGia.HoTenDG,
                         SDT = DocGia.SDT,
-                        DiaChi =  DocGia.DiaChi,
+                        DiaChi = DocGia.DiaChi,
                         GioiTinh = DocGia.GioiTinh,
                         NgaySinh = (DateTime)DocGia.NgaySinh,
                         NgayDangKy = (DateTime)TheDocGia.NgayDK,

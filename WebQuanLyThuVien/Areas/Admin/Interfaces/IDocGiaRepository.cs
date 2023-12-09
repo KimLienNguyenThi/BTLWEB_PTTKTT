@@ -11,7 +11,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Interfaces
     internal interface IDocGiaRepository
     {
         IEnumerable<DocGia> GetAll();
-        DTO_DocGia_TheDocGia GetById(int id);
+        DocGia GetById(int id);
         int Insert(DocGia obj);
         int Update(DocGia obj);
         int Delete(int obj);

@@ -39,7 +39,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
         {
             unitOfWork.Context.NhaCungCaps.Add(obj);
 
-            if (obj.TenNCC == "" || obj.sdtNCC =="" || obj.DiaChiNCC ==  "")
+            if (obj.TenNCC == "" || obj.sdtNCC == "" || obj.DiaChiNCC == "")
             {
                 return false;
             }

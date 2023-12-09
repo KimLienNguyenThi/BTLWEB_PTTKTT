@@ -36,7 +36,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public int MaNhanVien { get; set; }
         public int MaDonVi { get; set; }
         public DateTime NgayTL { get; set; } = DateTime.Now;
-
+    
         public List<DTO_Sach_Tl> listSachTL { get; set; }
 
         public DTO_Tao_Phieu_TL()

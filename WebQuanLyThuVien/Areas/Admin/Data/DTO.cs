@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
 using WebQuanLyThuVien.Models;
 
@@ -8,17 +9,17 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
 {
     public class DTO_DocGia_TheDocGia
     {
-            public int MaThe { get; set; }
-            public int MaDocGia { get; set; }
-            public int MaNhanVien { get; set; }
-            public string HoTenDG { get; set; }
-            public string SDT { get; set; }
-            public string DiaChi { get; set; }
-            public string GioiTinh { get; set; }
-            public DateTime NgaySinh { get; set; }
-            public DateTime NgayDangKy { get; set; }
-            public DateTime NgayHetHan { get; set; }
-            public decimal TienThe { get; set; }
+        public int MaThe { get; set; }
+        public int MaDocGia { get; set; }
+        public int MaNhanVien { get; set; }
+        public string HoTenDG { get; set; }
+        public string SDT { get; set; }
+        public string DiaChi { get; set; }
+        public string GioiTinh { get; set; }
+        public DateTime NgaySinh { get; set; }
+        public DateTime NgayDangKy { get; set; }
+        public DateTime NgayHetHan { get; set; }
+        public decimal TienThe { get; set; }
     }
 
 
@@ -70,7 +71,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
             listSachMuon = new List<DTO_Sach_Muon>();
         }
     }
-
     public class DTO_Sach_Tra
     {
         public int MaPT { get; set; }
@@ -80,6 +80,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public int SoLuongMuon { get; set; }
         public int SoLuongTra { get; set; }
         public int SoLuongLoi { get; set; }
+        public int SoLuongMat { get; set; }
         public decimal PhuThu { get; set; }
 
     }
@@ -97,7 +98,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
 
         public decimal PhuThu { get; set; } // Sử dụng decimal cho giá trị tiền tệ
     }
-
 
     public class DTO_Sach_Nhap
     {
@@ -124,5 +124,4 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
             listSachNhap = new List<DTO_Sach_Nhap>();
         }
     }
-
 }

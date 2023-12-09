@@ -48,7 +48,7 @@ namespace WebQuanLyThuVien.Services
                             TacGia = SACH.TacGia,
                             NgonNgu = SACH.NgonNgu,
                             NXB = SACH.NXB,
-                            NamXB  = SACH.NamXB,
+                            NamXB = SACH.NamXB,
                             SoLuongHIENTAI = SACH.SoLuongHIENTAI
                         }).FirstOrDefault();
             }
@@ -89,7 +89,9 @@ namespace WebQuanLyThuVien.Services
 
         public void Update(Sach obj)
         {
-            
+
         }
+
+        
     }
 }

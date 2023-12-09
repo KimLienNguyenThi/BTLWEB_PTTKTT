@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="form-group col-4">
                                     <label for="tongTienPhuThu">Tổng tiền:</label>
-                                    <input type="text" class="form-control" id="tongTienPhuThu" name="tongTienPhuThu" readonly>
+                                    <input type="text" class="form-control" id="tongTienPhuThu" name="tongTienPhuThu" readonly >
 
                                 </div>
                             </div>
@@ -88,12 +88,13 @@
                                     <!--text-nowrap-->
                                     <thead>
                                         <tr>
-                                            <th style="width: 15%">Mã Sách</th>
-                                            <th style="width: 40%">Tên sách</th>
+                                            <th style="width: 20%">Mã Sách</th>
+                                            <th style="width: 30%">Tên sách</th>
                                             <th style="width: 15%">SL Mượn</th>
-                                            <th style="width: 15%">SL Trả</th>
-                                            <th style="width: 20%"> Lỗi  </th>
-                                            <th style="width: 20%"> Phụ Thu  </th>
+                                            <th style="width: 12%"> Trả</th>
+                                            <th style="width: 12%"> Lỗi  </th>
+                                            <th style="width: 12%"> Mất  </th>
+                                            <th style="width: 30%"> Phụ Thu  </th>
 
                                         </tr>
 
@@ -228,7 +229,7 @@
             document.getElementById("return_datetra").value = formatCurrentDate;
         document.getElementById("tongTienPhuThu").value = formatMoney(0);
 
-
+        
             var manv = @HttpContext.Current.Session["manv"]
             document.getElementById("selectedMaNhanVien").value = manv;
 
@@ -335,9 +336,10 @@
                         /*    render += '<td>  <input class="soLuongTra" min="0" type="number" value="0" style="width: 60%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';*/
                             render += '<td>  <input id="phuThuSoLuongTra'+ item.MaSach + '"  onchange="PhuThu(' + item.MaSach + ',' + item.giasach + '); updateTongTien();"class="tra" min="0" type="number" value="0" style="width: 70%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';
                             render += '<td>  <input id="phuThuSoLuongLoi' + item.MaSach + '"  onchange="PhuThu(' + item.MaSach + ',' + item.giasach + '); updateTongTien();"class="loi" min="0" type="number" value="0" style="width: 70%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';
-                            render += '<td id="phuThu' + item.MaSach + '" class="phuThu" contenteditable="true" onchange="updateTongTien()">' + '0' + '</td>';
+                            render += '<td>  <input id="phuThuSoLuongMat' + item.MaSach + '"  onchange="PhuThu(' + item.MaSach + ',' + item.giasach + '); updateTongTien();"class="mat" min="0" type="number" value="0" style="width: 80%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';
+                            render += '<td id="phuThu' + item.MaSach + '" class="phuThu" style="width: 150%" onchange="updateTongTien()" >' + '0' + '</td>';
 
-
+                           
                             render += '</tr>';
                         });
 
@@ -355,13 +357,13 @@
                 })
 
         }
-
+       
 
 
     //=====================  Lấy dữ liệu khi click vào pm muốn thực hiện thao tác trả sách =====================
 
         function selectSachMuon() {
-
+            
             // Lấy danh sách các hàng trong bảng thông tin pm
                var pmrows = document.querySelectorAll(".phieuMuonRow");
 
@@ -419,7 +421,8 @@
                  var soLuongMuon = row.querySelector('td:nth-child(3)').textContent;
                  var soLuongTra = row.querySelector('input.tra').value;
                  var soluongLoi = row.querySelector('input.loi').value;
-                     var PhuThu = row.querySelector('td:nth-child(6)').textContent;
+                 var soluongMat = row.querySelector('input.mat').value;
+                 var PhuThu = row.querySelector('td:nth-child(7)').textContent;
 
                  // Thêm giá trị từ các ô nhập liệu vào mảng
                       sachValues.push({
@@ -428,6 +431,7 @@
                            SoLuongMuon: soLuongMuon,
                            SoLuongTra: soLuongTra,
                           SoLuongLoi: soluongLoi,
+                          SoLuongMat: soluongMat,
                           PhuThu: PhuThu,
                             });
                       });
@@ -449,7 +453,7 @@
 
                 // Kiểm tra xem tất cả các hàng có số lượng bằng 0 không
                 var allRowsZero = dataPost.ListSachTra.every(function (item) {
-                    return parseFloat(item.SoLuongTra) === 0 && parseFloat(item.SoLuongLoi) === 0;
+                    return parseFloat(item.SoLuongTra) === 0 && parseFloat(item.SoLuongLoi) === 0 === parseFloat(item.SoLuongMat) === 0;
                 });
 
                 if (allRowsZero) {
@@ -463,10 +467,11 @@
 
                     var soLuongTra = parseFloat(item.SoLuongTra);
                     var soLuongLoi = parseFloat(item.SoLuongLoi);
+                    var soLuongMat = parseFloat(item.SoLuongMat);
 
                     // Kiểm tra xem có biến số lượng nào bé hơn 0 không
-                    if (soLuongTra < 0 || soLuongLoi < 0) {
-                        document.getElementById("contentModalError").innerHTML = "Số lượng sách trả và số lượng sách lỗi không được bé hơn 0!";
+                    if (soLuongTra < 0 || soLuongLoi < 0 || soLuongMat<0) {
+                        document.getElementById("contentModalError").innerHTML = "Số lượng nhập không hợp lệ!";
                         $("#ModalError").modal("show");
                         return;
                     }
@@ -475,7 +480,7 @@
                     var soLuongMuon = parseFloat(item.SoLuongMuon);
 
                     // Kiểm tra xem số lượng mượn có lớn hơn số lượng trả và số lượng lỗi không
-                    if (isNaN(soLuongMuon) || soLuongMuon < soLuongTra + soLuongLoi) {
+                    if (isNaN(soLuongMuon) || soLuongMuon < soLuongTra + soLuongLoi+ soLuongMat) {
                         document.getElementById("contentModalError").innerHTML = "Hãy nhập đúng số lượng sách muốn trả!";
                         $("#ModalError").modal("show");
                         return;
@@ -521,15 +526,18 @@
             var HanTra = document.getElementById("return_datehan").value;
             var Soluongloi = document.getElementById('phuThuSoLuongLoi' + maSach).value;
             var Soluongtra = document.getElementById('phuThuSoLuongTra' + maSach).value;
+            var Soluongmat = document.getElementById('phuThuSoLuongMat' + maSach).value;
+
             let soNgayChenhLech = Math.max(0, (new Date(NgayTra) - new Date(HanTra)) / (1000 * 60 * 60 * 24));
             // Khai báo biến phuThu ở đây
 
-            if (Soluongtra > 0 || Soluongloi > 0) {
-                if (soNgayChenhLech > 0) {
-                    document.getElementById("phuThu" + maSach).innerHTML = soNgayChenhLech * 2000 + (giasach * 0.5 * Soluongloi); //+ " VND";
+            if (Soluongtra > 0 || Soluongloi > 0 || Soluongmat>0) {
+                if (soNgayChenhLech > 0) {// trễ
 
-                } else {
-                    document.getElementById("phuThu" + maSach).innerHTML = giasach * 0.5 * Soluongloi; //+ " VND";
+                    document.getElementById("phuThu" + maSach).innerHTML = (soNgayChenhLech * 2000 * Soluongtra) + (giasach * 0.5 * Soluongloi + soNgayChenhLech * 2000 * Soluongloi) + (Soluongmat * giasach + soNgayChenhLech * 2000 * Soluongmat); //+ " VND";
+
+                } else {//khong trễ 
+                    document.getElementById("phuThu" + maSach).innerHTML = giasach * 0.5 * Soluongloi   + Soluongmat * giasach ; //+ " VND";
 
                 }
             }
@@ -537,6 +545,8 @@
                 document.getElementById("phuThu" + maSach).innerHTML = 0;
             }
         }
+
+       
             function updateTongTien() {
                 var tongTienPhuThu = 0;
 
@@ -563,8 +573,8 @@
                 return number.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
             }
 
-
-
+        
+     
 
     </script>
 }

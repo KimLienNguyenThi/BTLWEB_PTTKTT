@@ -20,4 +20,8 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         //public int? GiaSach { get; set; }
         public int? SoLuongHIENTAI { get; set; }
     }
+
+
+   
+
 }

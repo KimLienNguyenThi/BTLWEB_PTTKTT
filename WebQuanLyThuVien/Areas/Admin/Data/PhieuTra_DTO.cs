@@ -13,7 +13,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
 
         public int MaPT { get; set; }
         public DateTime? NgayTra { get; set; }
-
+      
         public int MaNV { get; set; }
 
         public String HoTenNV { get; set; }
@@ -21,7 +21,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public int MaPM { get; set; }
 
         public int MaThe { get; set; }
-        public String HoTenDG { get; set; }
+        public String HoTenDG { get; set; } 
         public String SDT { get; set; }
 
     }

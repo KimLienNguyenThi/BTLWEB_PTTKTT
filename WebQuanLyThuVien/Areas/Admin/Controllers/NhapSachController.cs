@@ -16,7 +16,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
     {
         SachService _sachService = new SachService();
         NhaCungCapService _nhaCungCapService = new NhaCungCapService();
-        NhapSachService _nhapSachService = new NhapSachService ();
+        NhapSachService _nhapSachService = new NhapSachService();
 
 
         // GET: Admin/NhapSach
@@ -80,7 +80,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
         {
             try
             {
-                 var sach = _sachService.GetById(id);
+                var sach = _sachService.GetById(id);
 
                 if (sach != null)
                 {
@@ -103,7 +103,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
 
 
-        
+
         [HttpPost]
         public ActionResult ThemSach(int maSach, string tenSach, string theLoai, string ngonNgu, string tacGia, string nhaXB, int namXB, int soLuong, decimal giaSach)
         {
@@ -189,14 +189,14 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
             tpn.MaNhanVien = maNhanVien;
             tpn.MaNhaCungCap = maNCC;
             tpn.NgayNhap = ngayNhap;
-            tpn.listSachNhap= Session["ListSachNhap"] as List<DTO_Sach_Nhap>;
+            tpn.listSachNhap = Session["ListSachNhap"] as List<DTO_Sach_Nhap>;
 
             if (Session["ListSachNhap"] as List<DTO_Sach_Nhap> == null)
                 return Json(new { success = false });
             else
             {
                 _nhapSachService.Insert(tpn);
-                return Json(new { success = true, data = tpn});
+                return Json(new { success = true, data = tpn });
             }
         }
     }
