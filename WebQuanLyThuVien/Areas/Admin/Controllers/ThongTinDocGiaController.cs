@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebQuanLyThuVien.Areas.Admin.Data;
+using WebQuanLyThuVien.Areas.Admin.Interfaces.Services;
 using WebQuanLyThuVien.Areas.Admin.Services;
 using WebQuanLyThuVien.Models;
 
@@ -30,6 +32,29 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 ViewData["ThongTinDocGia"] = thongTinDocGia;
                 return View();
             }
+        }
+
+        //[HttpGet]
+        //public ActionResult GetAllThongTinDocGia()
+        //{
+        //    try
+        //    {
+        //        var thongTinDocGia = _docGiaService.GetAllTheDocGia();
+
+        //        return Json(new { Result = thongTinDocGia }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex) 
+        //    {
+        //        // Trong trường hợp có lỗi, có thể log lỗi hoặc xử lý theo nhu cầu của bạn
+        //        return Json(new { Error = "Không thể lấy dữ liệu ncc." });
+        //    }
+        //}
+
+        [HttpGet]
+        public ActionResult GetAllThongTinDocGia()
+        {
+            var thongTinDocGia = _docGiaService.GetAllTheDocGia();
+            return Json(new ApiOkResponse(thongTinDocGia.ToList()), JsonRequestBehavior.AllowGet);
         }
 
 

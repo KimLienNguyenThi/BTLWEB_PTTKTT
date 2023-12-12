@@ -173,7 +173,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="danhSachNCC">
-                                    @foreach (var item in ViewData["Ncc"] as List<WebQuanLyThuVien.Models.NhaCungCap>)
+                                    @*@foreach (var item in ViewData["Ncc"] as List<WebQuanLyThuVien.Models.NhaCungCap>)
                                     {
                                         <tr class="ncc-row" aria-expanded="false" data-widget="expandable-table" data-ma-sach="@item.MaNCC">
                                             <td>@item.MaNCC</td>
@@ -181,7 +181,7 @@
                                             <td>@item.sdtNCC</td>
                                             <td>@item.DiaChiNCC</td>
                                         </tr>
-                                    }
+                                    }*@
                                 </tbody>
                             </table>
                         </div>
@@ -196,14 +196,14 @@
                                         <th>Tên sách</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach (var item in ViewData["Sach"] as List<WebQuanLyThuVien.Models.Sach>)
+                                <tbody id="danhSachSach">
+                                    @*@foreach (var item in ViewData["Sach"] as List<WebQuanLyThuVien.Models.Sach>)
                                     {
                                         <tr class="sach-row" aria-expanded="false" data-widget="expandable-table">
                                             <td>@item.MaSach</td>
                                             <td>@item.TenSach</td>
                                         </tr>
-                                    }
+                                    }*@
                                 </tbody>
                             </table>
                         </div>
@@ -602,25 +602,25 @@
 
 
         //=====================  Lấy dữ liệu khi click vào hàng trong table tt nhà cung cấp  =====================
-        var nhaCungCapRows = document.querySelectorAll(".ncc-row");
+        var tableContainer = document.getElementById("thongTinNCCTable");
 
-        // Xử lý sự kiện nhấp cho từng hàng
-        nhaCungCapRows.forEach(function (row) {
-            row.addEventListener("click", function () {
+        tableContainer.addEventListener("click", function (event) {
+            var targetRow = event.target.closest(".ncc-row");
 
-                // Lấy thông tin tên từ cột Họ tên của hàng
-                var maNCC = row.querySelector("td:nth-child(1)").textContent;
-                var tenNCC = row.querySelector("td:nth-child(2)").textContent;
-                var sdt = row.querySelector("td:nth-child(3)").textContent;
-                var diaChi = row.querySelector("td:nth-child(4)").textContent;
+            if (targetRow) {
+                var maNCC = targetRow.querySelector("td:nth-child(1)").textContent;
+                var tenNCC = targetRow.querySelector("td:nth-child(2)").textContent;
+                var sdt = targetRow.querySelector("td:nth-child(3)").textContent;
+                var diaChi = targetRow.querySelector("td:nth-child(4)").textContent;
 
-                // Hiển thị thông tin tên vào input tên độc giả trong form
+                // Update input values
                 document.getElementById("MaNCC").value = maNCC;
                 document.getElementById("TenNCC").value = tenNCC;
                 document.getElementById("SDT").value = sdt;
                 document.getElementById("DiaChi").value = diaChi;
-            });
+            }
         });
+
 
 
         //=====================  Thêm nhà cung cấp  =====================
@@ -672,13 +672,14 @@
                                     document.getElementById("SdtNccModal").value = "";
                                     document.getElementById("DiaChiNccModal").value = "";
 
+                                    GetAllNhaCungCap();
+
                                     document.getElementById("contentModalSuccess").innerHTML = "Thêm nhà cung cấp thành công";
                                     $("#ModalSuccess").modal("show");
-                                    console.log("ncc: ", data)
+                                    $("#ThemNccModal").modal("hide");
                                 } else {
                                     document.getElementById("contentModalError").innerHTML = "Lỗi khi thêm, Hãy thử lại!";
                                     $("#ModalError").modal("show");
-                                    console.log("ncc: ", data)
                                 }
                             },
                             error: function () {
@@ -691,16 +692,16 @@
         }
 
 
-        //=====================  Xử lý sự kiện khi click vào 1 hàng  trong table  =====================
 
-        // Lấy danh sách các hàng của table
-        var sachRows = document.querySelectorAll(".sach-row");
+        ////=====================  Xử lý sự kiện khi click vào 1 hàng  trong table  =====================
+        var tableContainerSach = document.getElementById("thongTinSachTable");
+        tableContainerSach.addEventListener("click", function (event) {
+            var targetRow = event.target.closest(".sach-row");
 
-        // Bắt sự kiện click cho từng hàng sách
-        sachRows.forEach(function (row) {
-            row.addEventListener("click", function () {
+            if (targetRow) {
+
                 // Lấy thông tin
-                var maS = row.querySelector("td:nth-child(1)").textContent;
+                var maS = targetRow.querySelector("td:nth-child(1)").textContent;
 
                 // Điền modal với dữ liệu
                 document.getElementById("maSachModal").value = maS;
@@ -738,8 +739,22 @@
                         console.error("Error:", error);
                     }
                 });
-            });
+
+            }
         });
+
+
+        ////=====================  Xử lý sự kiện khi click vào 1 hàng  trong table  =====================
+
+        //// Lấy danh sách các hàng của table
+        //var sachRows = document.querySelectorAll(".sach-row");
+
+        //// Bắt sự kiện click cho từng hàng sách
+        //sachRows.forEach(function (row) {
+        //    row.addEventListener("click", function () {
+
+        //    });
+        //});
 
 
 
@@ -972,6 +987,7 @@
                                 lamMoiPhieuNhap();
 
                                 document.getElementById("contentModalSuccess").innerHTML = "Nhập sách thành công!";
+                                GetAllSach();
                                 $("#ModalSuccess").modal("show");
                                 console.log('Tạo phiếu nhập: ', data);
                             } else {
@@ -984,6 +1000,65 @@
                 }
             }
         }
+
+
+        function GetAllSach() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetAllSach", "NhapSach")',
+                dataType: 'json', // Đảm bảo dữ liệu trả về là JSON
+                success: function (res) {
+                    var render = "";
+
+                    $.each(res.Result, function (i, item) {
+                        render += '<tr class="sach-row" aria-expanded="false" data-widget="expandable-table" data-ma-sach=' + item.MaSach +'>';
+                        render += '<td>' + item.MaSach + '</td>';
+                        render += '<td>' + item.TenSach + '</td>';
+                        render += '</tr>';
+                    });
+
+                    let danhSachSach = document.getElementById("danhSachSach");
+                    danhSachSach.innerHTML = render;
+                },
+                error: function (status) {
+                    alert("Không tìm thấy dữ liệu");
+                }
+            });
+        }
+
+
+        function GetAllNhaCungCap() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetAllNhaCungCap", "NhapSach")',
+                dataType: 'json', // Đảm bảo dữ liệu trả về là JSON
+                success: function (res) {
+                    var render = "";
+
+                    $.each(res.Result, function (i, item) {
+                        render += '<tr class="ncc-row" aria-expanded="false" data-widget="expandable-table" data-ma-sach='+item.MaNCC+'>';
+                        render += '<td>' + item.MaNCC + '</td>';
+                        render += '<td>' + item.TenNCC + '</td>';
+                        render += '<td>' + item.sdtNCC + '</td>';
+                        render += '<td>' + item.DiaChiNCC + '</td>';
+
+                        render += '</tr>';
+                    });
+
+                    let danhSachNhaCungCap = document.getElementById("danhSachNCC");
+                    danhSachNhaCungCap.innerHTML = render;
+                },
+                error: function (status) {
+                    alert("Không tìm thấy dữ liệu");
+                }
+            });
+        }
+
+
+        $(document).ready(function () {
+            GetAllNhaCungCap(); // Gọi hàm khi trang đã sẵn sàng
+            GetAllSach();
+        });
 
 
     </script>

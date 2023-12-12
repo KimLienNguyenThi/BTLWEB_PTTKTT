@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebQuanLyThuVien.Areas.Admin.Data;
+using WebQuanLyThuVien.Areas.Admin.Interfaces.Services;
 using WebQuanLyThuVien.Areas.Admin.Services;
 using WebQuanLyThuVien.Models;
 
@@ -33,6 +34,15 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
                 return View();
             }
+        }
+        
+
+
+        [HttpGet]
+        public ActionResult GetAllTheDocGia()
+        {
+            var theDocGia = _theDocGiaService.GetAllTheDocGia();
+            return Json(new ApiOkResponse(theDocGia.ToList()), JsonRequestBehavior.AllowGet);
         }
 
 
