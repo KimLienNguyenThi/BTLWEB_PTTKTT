@@ -22,7 +22,6 @@ namespace ThuVienBTL.Models
         }
     
         public int MaThe { get; set; }
-        public string HanThe { get; set; }
         public Nullable<System.DateTime> NgayDK { get; set; }
         public Nullable<System.DateTime> NgayHH { get; set; }
         public Nullable<int> TienThe { get; set; }

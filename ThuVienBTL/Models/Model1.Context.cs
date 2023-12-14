@@ -12,8 +12,6 @@ namespace ThuVienBTL.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
     public partial class QuanLyThuVienEntities : DbContext
     {
@@ -27,10 +25,12 @@ namespace ThuVienBTL.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ChiTietDk> ChiTietDks { get; set; }
         public virtual DbSet<ChiTietPM> ChiTietPMs { get; set; }
         public virtual DbSet<CHITIETPN> CHITIETPNs { get; set; }
         public virtual DbSet<ChiTietPT> ChiTietPTs { get; set; }
         public virtual DbSet<ChiTietPTL> ChiTietPTLs { get; set; }
+        public virtual DbSet<DkiMuonSach> DkiMuonSaches { get; set; }
         public virtual DbSet<DocGia> DocGias { get; set; }
         public virtual DbSet<DonViTL> DonViTLs { get; set; }
         public virtual DbSet<KhoSachThanhLy> KhoSachThanhLies { get; set; }
@@ -46,18 +46,7 @@ namespace ThuVienBTL.Models
         public virtual DbSet<TheDocGia> TheDocGias { get; set; }
         public virtual DbSet<TT_SACH> TT_SACH { get; set; }
         public virtual DbSet<PHIEUNHAP_VIEW> PHIEUNHAP_VIEW { get; set; }
-    
-        public virtual int KiemTraMaVaCapNhatSachthanhly(Nullable<int> maSachkho, Nullable<int> soluongkhotl)
-        {
-            var maSachkhoParameter = maSachkho.HasValue ?
-                new ObjectParameter("MaSachkho", maSachkho) :
-                new ObjectParameter("MaSachkho", typeof(int));
-    
-            var soluongkhotlParameter = soluongkhotl.HasValue ?
-                new ObjectParameter("soluongkhotl", soluongkhotl) :
-                new ObjectParameter("soluongkhotl", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("KiemTraMaVaCapNhatSachthanhly", maSachkhoParameter, soluongkhotlParameter);
-        }
+        public virtual DbSet<PHIEUThanhLy_VIEW> PHIEUThanhLy_VIEW { get; set; }
+        public virtual DbSet<PHIEUTra_VIEW> PHIEUTra_VIEW { get; set; }
     }
 }

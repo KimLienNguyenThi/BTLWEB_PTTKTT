@@ -146,6 +146,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChiTietDk.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ChiTietPM.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -158,6 +161,9 @@
     <Compile Include="Models\ChiTietPTL.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DkiMuonSach.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DocGia.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -167,6 +173,7 @@
     <Compile Include="Models\KhoSachThanhLy.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ListSachMuon.cs" />
     <Compile Include="Models\LOGIN_DG.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -207,7 +214,13 @@
     <Compile Include="Models\PhieuThanhLy.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PHIEUThanhLy_VIEW.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PhieuTra.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PHIEUTra_VIEW.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sach.cs">
@@ -494,9 +507,9 @@
     <Content Include="Views\Classes\DanhSachSach.cshtml" />
     <Content Include="Views\ThueSach\Index.cshtml" />
     <Content Include="Views\ThueSach\LocYeuCau.cshtml" />
-    <Content Include="Views\ThueSach\SearchSach.cshtml" />
     <Content Include="Views\User\UpdatePassWord.cshtml" />
     <Content Include="Views\Classes\SearchSach.cshtml" />
+    <Content Include="Views\ThueSach\GioHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />

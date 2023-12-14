@@ -54,7 +54,7 @@ namespace ThuVienBTL.Controllers
         {
             mapTaiKhoan map = new mapTaiKhoan();
 
-            if(model.PASSWORD_DG.IsEmpty() || model.HoTen_DG.IsEmpty() || model.USERNAME_DG.IsEmpty())
+            if(model.PASSWORD_DG.IsEmpty() || /*model.HoTen_DG.IsEmpty() ||*/ model.USERNAME_DG.IsEmpty())
             {
                 ViewBag.errorInfo = "* Thông tin không được để trống";
                 return View(model);

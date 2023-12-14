@@ -14,9 +14,10 @@ namespace ThuVienBTL.Models
     
     public partial class ChiTietPTL
     {
+        public int MaPTL { get; set; }
         public int MaSachkho { get; set; }
         public Nullable<int> Soluongtl { get; set; }
-        public int MaPTL { get; set; }
+        public Nullable<decimal> GiaTL { get; set; }
     
         public virtual PhieuThanhLy PhieuThanhLy { get; set; }
         public virtual KhoSachThanhLy KhoSachThanhLy { get; set; }

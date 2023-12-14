@@ -18,7 +18,7 @@ namespace ThuVienBTL.Models
         public Nullable<System.DateTime> NgayNhap { get; set; }
         public Nullable<int> MaNV { get; set; }
         public Nullable<int> MaNCC { get; set; }
-        public Nullable<int> TỔNG_TIỀN { get; set; }
+        public Nullable<decimal> TỔNG_TIỀN { get; set; }
         public Nullable<int> TỔNG_SÁCH { get; set; }
     }
 }

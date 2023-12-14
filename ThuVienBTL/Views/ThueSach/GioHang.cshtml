@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ThuVienBTL.Models.QuanLyThuVienEntities db = new ThuVienBTL.Models.QuanLyThuVienEntities();
+}
+
+
+<h4 style="text-align:center">Danh sách các loại sách mà quý khách đã chọn từ thư viện ABC</h4>
+@*Nút nhấn xác nhận mượn*@
+<div class="d-flex w-50 ms-0">
+    <a href="" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Xác nhận thuê</a>
+</div>
+
+@*Danh sách sách mượn*@
+@if (ThuVienBTL.Models.ListSachMuon.listSachMuon.Count == 0)
+{
+    <p style="font-style:italic">Giỏ hàng của quý khách đang trống</p>
+}
+else
+{
+    <div class="row g-4 pt-5">
+        @foreach (var item in ThuVienBTL.Models.ListSachMuon.listSachMuon)
+        {
+
+            ThuVienBTL.Models.TT_SACH ttSach = db.TT_SACH.Find(item.Key);
+            ThuVienBTL.Models.Sach Sach = db.Saches.Find(item.Key);
+
+
+            // Tạo URL đầy đủ từ đường dẫn tương đối
+            string imageUrl = Url.Content(ttSach.URL_IMAGE);
+
+            @*begin*@
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" id="sachMuon_@Sach.MaSach">
+                <div class="classes-item">
+                    <div class="bg-light rounded-circle w-75 mx-auto p-3">
+
+                        <img class="img-fluid rounded-circle" src="@imageUrl" alt="" style="width: 330px; height: 300px;">
+                    </div>
+                    <div class="bg-light rounded p-4 pt-5 mt-n5">
+                        <a class="d-block text-center h3 mt-3 mb-4" href="">@Sach.TenSach</a>
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="d-flex align-items-center">
+
+                                <img class="rounded-circle flex-shrink-0" src="" alt="" style="width: 45px; height: 45px;">
+                                <div class="ms-3">
+                                    <h6 class="text-primary mb-1">@Sach.TacGia</h6>
+                                    <small>@Sach.NgonNgu</small>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" id="soLuongSachMuon_@Sach.MaSach">@item.Value</button>
+                            <button class="btn btn-primary" onclick="XoaSach(@Sach.MaSach)">Xoá sách</button>
+                        </div>
+                        <div class="row g-1">
+                            <div class="col-4">
+                                <div class="border-top border-3 border-primary pt-2">
+                                    <h6 class="text-primary mb-1">Thể loại</h6>
+                                    <small>@Sach.TheLoai</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="border-top border-3 border-success pt-2">
+                                    <h6 class="text-success mb-1">Năm xuất bản</h6>
+                                    <small>@Sach.NamXB</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="border-top border-3 border-warning pt-2">
+                                    <h6 class="text-warning mb-1">Số lượng</h6>
+                                    <small>@Sach.SoLuongHIENTAI</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*end*@
+        }
+    </div>
+}
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Xác nhận xoá sách</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn muốn xoá bao nhiêu cuốn sách?</p>
+                <input type="number" id="quantityToDelete" class="form-control" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="confirmDelete()">Xoá</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    ////////////////////// Button xoá sách /////////////////////////////////
+
+    var maSachToDelete; // Biến toàn cục để lưu trữ mã sách cần xoá
+
+    function XoaSach(maSach) {
+        maSachToDelete = maSach; // Lưu mã sách vào biến toàn cục
+        $('#confirmDeleteModal').modal('show'); // Hiển thị modal
+    }
+
+    function confirmDelete() {
+        var quantityToDelete = $('#quantityToDelete').val();
+        var soLuongSachMuonValue = $('#soLuongSachMuon_' + maSachToDelete).text();
+
+        console.log("1. Số lượng sách xoá:", quantityToDelete);    // Kiểm tra dữ liệu
+        console.log("2. Mã sách xoá:", maSachToDelete);    // Kiểm tra dữ liệu
+        console.log("3. Số lượng sách mượn:", soLuongSachMuonValue);    // Kiểm tra dữ liệu
+
+        // Kiểm tra xem số sách muốn xoá có nằm trong khoảng từ 1 đến số sách mượn hay không (ví dụ)
+        if (quantityToDelete >= 1 && quantityToDelete <= soLuongSachMuonValue) {
+            console.log("Giá trị hợp lệ: " + quantityToDelete);
+
+            $.ajax({
+                url: "@Url.Action("XoaSachMuon", "ThueSach")",
+                type: "POST",
+                data: {
+                    maSach: maSachToDelete,
+                    quantity: quantityToDelete
+                },
+                success: function (result) {
+                    if (result.success) {
+                        alert("Bạn đã xoá thành công!");
+                    } else {
+                        alert(result.message);
+                    }
+                    $('#confirmDeleteModal').modal('hide'); // Đóng modal sau khi xử lý xong
+
+                    // Cập nhật số lượng sách mượn
+                    var updatedQuantity = result.updatedQuantity; // Thay đổi này tùy thuộc vào dữ liệu bạn nhận được từ server
+                    console.log("Kiểm tra số lượng: ", updatedQuantity);
+
+                    // Kiểm tra nếu updatedQuantity không phải là số hoặc bé hơn hoặc bằng 0
+                    if (isNaN(updatedQuantity) || updatedQuantity <= 0) {
+                        console.log("Hết số lượng hoặc có lỗi: ", updatedQuantity);
+                        // Xoá phần tử HTML tương ứng
+                        $("#sachMuon_" + maSachToDelete).remove();
+                    } else {
+                        console.log("Còn số lượng: ", updatedQuantity);
+                        // Nếu không, cập nhật số lượng sách mượn
+                        $("#soLuongSachMuon_" + maSachToDelete).text(updatedQuantity);
+                    }
+
+                },
+                error: function () {
+                    alert("Đã xảy ra lỗi khi xoá sách.");
+                    $('#confirmDeleteModal').modal('hide'); // Đóng modal nếu có lỗi
+                }
+            });
+        } else {
+            alert("Số lượng không phù hợp! Vui lòng kiểm tra lại");
+        }
+    }
+
+
+</script>
+

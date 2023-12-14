@@ -4,15 +4,14 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.active = 4;
+    ThuVienBTL.Models.QuanLyThuVienEntities db = new ThuVienBTL.Models.QuanLyThuVienEntities();
 }
 
 <div class="container-sm pt-5 w-50">
-    <form class="d-flex" action="~/ThueSach/SearchSach" method="post">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search" name="search">
-            <button type="submit" class="btn btn-secondary" name="searchSach" id="searchSach"><i class="bi-search"></i></button>
-        </div>
-    </form>
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" id="searchInput">
+        <button type="button" class="btn btn-secondary" id="searchSach" onclick="TimKiem()"><i class="bi-search"></i></button>
+    </div>
 </div>
 
 
@@ -62,23 +61,19 @@
 </form>
 
 
-
-
-<div class="row g-4 pt-5">
+<div class="row g-4 pt-5" id="resultContainer">
     @foreach (var item in Model)
     {
+        ThuVienBTL.Models.TT_SACH ttSach = db.TT_SACH.Find(item.MaSach);
+
+        // Tạo URL đầy đủ từ đường dẫn tương đối
+        string imageUrl = Url.Content(ttSach.URL_IMAGE);
 
         @*begin*@
-        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" id="sachMuon_@item.MaSach">
             <div class="classes-item">
                 <div class="bg-light rounded-circle w-75 mx-auto p-3">
-                    @{
-                        ThuVienBTL.Models.QuanLyThuVienEntities db = new ThuVienBTL.Models.QuanLyThuVienEntities();
-                        ThuVienBTL.Models.TT_SACH ttSach = db.TT_SACH.Find(item.MaSach);
 
-                        // Tạo URL đầy đủ từ đường dẫn tương đối
-                        string imageUrl = Url.Content(ttSach.URL_IMAGE);
-                    }
                     <img class="img-fluid rounded-circle" src="@imageUrl" alt="" style="width: 330px; height: 300px;">
                 </div>
                 <div class="bg-light rounded p-4 pt-5 mt-n5">
@@ -92,7 +87,7 @@
                                 <small>@item.NgonNgu</small>
                             </div>
                         </div>
-                        <button class="btn btn-primary" OnCommand="DangKyMuon" CommandArgument="@item.MaSach">Đăng ký</button>
+                        <button class="btn btn-primary" onclick="ShowDangKyDialog(@item.MaSach)">Đăng ký</button>
                     </div>
                     <div class="row g-1">
                         <div class="col-4">
@@ -110,7 +105,7 @@
                         <div class="col-4">
                             <div class="border-top border-3 border-warning pt-2">
                                 <h6 class="text-warning mb-1">Số lượng</h6>
-                                <small>@item.SoLuongHIENTAI</small>
+                                <small id="soLuongSach_@item.MaSach">@item.SoLuongHIENTAI</small>
                             </div>
                         </div>
                     </div>
@@ -120,3 +115,198 @@
         @*end*@
     }
 </div>
+
+<!-- Thêm dropdown và modal để chọn số lượng sách đăng ký mượn -->
+<div id="dangKyDialog" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Đăng ký mượn sách</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="soLuong">Chọn số lượng sách:</label>
+                <input type="number" id="soLuong" class="form-control" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="DangKyMuon()">Đăng ký</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    /////////////////////// Đăng ký mượn sách /////////////////////////////
+    function ShowDangKyDialog(maSach) {
+        // Lưu mã sách vào biến toàn cục để sử dụng sau này
+        selectedMaSach = maSach;
+
+        console.log("1. maSach:", selectedMaSach);    // Kiểm tra dữ liệu
+
+        // Mở modal
+        $('#dangKyDialog').modal('show');
+    }
+
+    var selectedMaSach; // Biến toàn cục để lưu mã sách đã chọn
+
+    function DangKyMuon() {
+
+        // Lấy giá trị từ dropdown
+        var soLuongMuon = $('#soLuong').val();
+        var soLuongSachHienTai = $('#soLuongSach_' + selectedMaSach).text();
+
+        console.log("2. So luong:", soLuongMuon);    // Kiểm tra dữ liệu
+        console.log("3. maSach:", selectedMaSach, "soLuong:", soLuongMuon);    // Kiểm tra dữ liệu
+        console.log("4. So luong sach hien tai :", soLuongSachHienTai);    // Kiểm tra dữ liệu
+
+        // Kiểm tra xem số sách muốn mượn có nằm trong khoảng từ 1 đến số sách hiện tại hay không (ví dụ)
+        if (soLuongMuon >= 1 && soLuongMuon <= soLuongSachHienTai) {
+            console.log("Giá trị hợp lệ: " + soLuongMuon);
+
+            $.ajax({
+                url: "/ThueSach/DangKyMuon",
+                type: "POST",
+                data: {
+                    maSach: selectedMaSach,
+                    soLuongMuon: soLuongMuon
+                },
+                success: function () {
+                    // Xử lý khi đăng ký thành công
+                    alert("Bạn đã đăng ký thành công!");
+                    // Đóng modal sau khi đăng ký
+                    $('#dangKyDialog').modal('hide');
+
+
+                    // lấy ra số lượng sách trước khi mượn
+                    var soLuongSachTruocMuon = $('#soLuongSach_' + selectedMaSach).text();
+                    // lấy ra số lượng sách sau khi mượn
+                    var soLuongSachSauMuon = soLuongSachTruocMuon - soLuongMuon;
+
+                    // kiểm tra dữ liệu
+                    console.log("Số lượng sách trước mượn: ", soLuongSachTruocMuon);
+                    console.log("Số lượng sách mượn: ", soLuongMuon);
+                    console.log("Số lượng sách sau mượn: ", soLuongSachSauMuon);
+
+
+                    // Kiểm tra nếu soLuongSachSauMuon không phải là số hoặc bé hơn hoặc bằng 0
+                    if (isNaN(soLuongSachSauMuon) || soLuongSachSauMuon <= 0) {
+                        console.log("Hết số lượng hoặc có lỗi, số lượng sách sau mượn: ", soLuongSachSauMuon);
+                        // Xoá phần tử HTML tương ứng
+                        $("#sachMuon_" + selectedMaSach).remove();
+                    } else {
+                        console.log("Còn số lượng: ", soLuongSachSauMuon);
+                        // Nếu không, cập nhật số lượng sách mượn
+                        $("#soLuongSach_" + selectedMaSach).text(soLuongSachSauMuon);
+                    }
+                },
+                error: function () {
+                    // Xử lý khi có lỗi
+                    alert("Đã xảy ra lỗi!");
+                }
+            });
+        } else {
+            alert("Số lượng không phù hợp! Vui lòng kiểm tra lại");
+        }
+    }
+
+    ///////////////////////////// Tìm kiếm dựa trên search ////////////////////////////////////
+    function TimKiem() {
+        console.log("Function TimKiem called");
+        // Lấy giá trị từ ô input
+        var search = $("#searchInput").val();
+
+        // Gửi yêu cầu AJAX đến action "SearchSach" trên controller "ThueSach"
+        $.ajax({
+            url: "/ThueSach/SearchSach",
+            type: "POST",
+            data: { search: search },
+            success: function (result) {
+                // Xử lý dữ liệu JSON và cập nhật nội dung trang
+                console.log("Phản hồi từ server:", result);
+                UpdateView(result.sachList);
+            },
+            error: function (result) {
+                console.log("Lỗi khi gửi yêu cầu AJAX:", result);
+            }
+        });
+    }
+
+    function UpdateView(result) {
+        $("#resultContainer").empty();
+        console.log("Hàm updateView đang thực hiện");
+        console.log("Đầu vào của hàm updateView:", result);
+
+        $.each(result, function (index, item) {
+            console.log("Item: ", item);
+
+            // Gọi action GetSachDetails để lấy thông tin chi tiết sách
+            $.ajax({
+                url: "@Url.Action("GetSachDetails", "ThueSach")",
+                type: "POST",
+                data: { maSach: item },
+                success: function (sachDetails) {
+
+                    console.log("success GetSachDetails");
+
+                    // Xử lý dữ liệu và tạo HTML để hiển thị chi tiết sách
+                    var imageUrl = Url.Content(sachDetails.URL_IMAGE);
+
+                    // Chuyển đổi chuỗi HTML thành mã Razor
+                    var newHtml = $(`
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="classes-item">
+                                <div class="bg-light rounded-circle w-75 mx-auto p-3">
+                                    <img class="img-fluid rounded-circle" src="${imageUrl}" alt="" style="width: 330px; height: 300px;">
+                                </div>
+                                <div class="bg-light rounded p-4 pt-5 mt-n5">
+                                    <a class="d-block text-center h3 mt-3 mb-4" href="">${sachDetails.MaSach}</a>
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded-circle flex-shrink-0" src="" alt="" style="width: 45px; height: 45px;">
+                                            <div class="ms-3">
+                                                <h6 class="text-primary mb-1">${sachDetails.TacGia}</h6>
+                                                <small>${sachDetails.NgonNgu}</small>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary" onclick="ShowDangKyDialog(${sachDetails.MaSach})">Đăng ký</button>
+                                    </div>
+                                    <div class="row g-1">
+                                        <div class="col-4">
+                                            <div class="border-top border-3 border-primary pt-2">
+                                                <h6 class="text-primary mb-1">Thể loại</h6>
+                                                <small>${sachDetails.TheLoai}</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="border-top border-3 border-success pt-2">
+                                                <h6 class="text-success mb-1">Năm xuất bản</h6>
+                                                <small>${sachDetails.NamXB}</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="border-top border-3 border-warning pt-2">
+                                                <h6 class="text-warning mb-1">Số lượng</h6>
+                                                <small>${sachDetails.SoLuongHIENTAI}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+
+                    $("#resultContainer").append(newHtml);
+                },
+                error: function (error) {
+                    console.log("Lỗi khi gửi yêu cầu AJAX:", error);
+                }
+            });
+        });
+    }
+
+</script>
