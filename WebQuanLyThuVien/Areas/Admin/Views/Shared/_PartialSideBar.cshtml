@@ -206,13 +206,17 @@
         sidebar.addEventListener('click', handleSidebarClick);
     });
 
-
     function confirmLogout() {
         var confirmLogout = confirm("Bạn có chắc chắn muốn đăng xuất không?");
         if (confirmLogout) {
+            // Set a session variable to indicate logout
+            sessionStorage.setItem('logout', 'true');
+
+            // Redirect to the logout URL
             window.location.href = "/Admin/account/logout";
         }
     }
+
 
 </script>
 

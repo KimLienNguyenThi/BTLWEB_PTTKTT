@@ -816,8 +816,8 @@
                             $.each(data, function (index, item) {
                                 //var masachCell = item.maSach < 0 ? 'New' : item.maSach;
                                 var newRow = $(`
-                                <tr class="sachNhap-row" data-ma-sach="${item.maSach}">
-                                    <td>${item.maSach}</td>
+                                  <tr class="sachNhap-row" data-ma-sach="${item.maSach}">
+                                    <td>${item.maSach < 0 ? 'New' : item.maSach}</td>
                                     <td>${item.tenSach}</td>
                                     <td>${item.theLoai}</td>
                                     <td>${item.tacGia}</td>
@@ -827,9 +827,11 @@
                                     <td>${item.soLuong}</td>
                                     <td>${item.giaSach}</td>
                                     <td>
-                                    <button type="button" class="btn btn-danger xoaSachNhap" id="xoaSachNhap">Xóa</button>
+                                      <button type="button" class="btn btn-danger xoaSachNhap" id="xoaSachNhap">Xóa</button>
                                     </td>
-                                </tr> `);
+                                  </tr>
+                                `);
+
 
                                 danhSachSachNhap.append(newRow);
                             });
