@@ -10,6 +10,14 @@ SELECT * FROM KHOSACHTHANHLY
 SELECT * FROM PhieuThanhLy
 SELECT * FROM ChiTietPTL
 
+SELECT * FROM login_nv
+SELECT * FROM nhanvien
+
+
+DELETE FROM LOGIN_NV WHERE MaNV = 3;
+
+
+
 select chitietpn.masach,tensach, giasach from chitietpm join chitietpn 
 on chitietpm.masach = chitietpn.masach  
 join sach on chitietpm.masach = sach.masach  

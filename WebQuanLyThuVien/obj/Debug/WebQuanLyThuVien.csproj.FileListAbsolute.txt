@@ -813,3 +813,6 @@ D:\Visual Studio Source\Lập Trình Web\Bài tập lớn\BTLWEB_PTTKTT\WebQuanL
 D:\Visual Studio Source\Lập Trình Web\Bài tập lớn\BTLWEB_PTTKTT\WebQuanLyThuVien\obj\Debug\WebQuanLyThuVien.csproj.CopyComplete
 D:\Visual Studio Source\Lập Trình Web\Bài tập lớn\BTLWEB_PTTKTT\WebQuanLyThuVien\obj\Debug\WebQuanLyThuVien.dll
 D:\Visual Studio Source\Lập Trình Web\Bài tập lớn\BTLWEB_PTTKTT\WebQuanLyThuVien\obj\Debug\WebQuanLyThuVien.pdb
+D:\Visual Studio Source\Lập Trình Web\Bài tập lớn\BTLWEB_PTTKTT\WebQuanLyThuVien\bin\BCrypt.Net.dll
+D:\Visual Studio Source\Lập Trình Web\Bài tập lớn\BTLWEB_PTTKTT\WebQuanLyThuVien\bin\BCrypt.Net.pdb
+D:\Visual Studio Source\Lập Trình Web\Bài tập lớn\BTLWEB_PTTKTT\WebQuanLyThuVien\bin\BCrypt.Net.xml

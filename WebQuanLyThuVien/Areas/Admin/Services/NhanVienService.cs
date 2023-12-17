@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using WebQuanLyThuVien.Areas.Admin.Data;
@@ -46,6 +47,24 @@ namespace WebQuanLyThuVien.Services
             return _nhanVienRepository.GetAll();
         }
 
+        public IEnumerable<DTO_NhanVien_LoginNV> GetAllNhanVien()
+        {
+            var listNhanVien =
+                (from NhanVien in unitOfWork.Context.NhanViens
+                 select new DTO_NhanVien_LoginNV
+                 {
+                     MaNV = NhanVien.MaNV,
+                     HoTenNV = NhanVien.HoTenNV,
+                     GioiTinh = NhanVien.GioiTinh,
+                     DiaChi = NhanVien.DiaChi,
+                     NgaySinh = (DateTime)NhanVien.NGAYSINH,
+                     SDT = NhanVien.SDT,
+                     ChucVu = NhanVien.ChucVu,
+                 }
+                 ).ToList();
+            return listNhanVien;
+        }
+
         public DTO_NhanVien_LoginNV GetById(int id)
         {
             try
@@ -79,27 +98,52 @@ namespace WebQuanLyThuVien.Services
 
         public DTO_NhanVien_LoginNV Login(string username, string password)
         {
-            var nhanVien =
-                (from nv in unitOfWork.Context.NhanViens
-                 join lg in unitOfWork.Context.LOGIN_NV
-                    on nv.MaNV equals lg.MANV
-                 where lg.USERNAME_NV == username && lg.PASSWORD_NV == password
-                 select new DTO_NhanVien_LoginNV
-                 {
-                     MaNV = nv.MaNV,
-                     HoTenNV = nv.HoTenNV,
-                     SDT = nv.SDT,
-                     ChucVu = nv.ChucVu,
-                     DiaChi = nv.DiaChi
-                 }).FirstOrDefault();
+           //var nhanVien =
+           //     (from nv in unitOfWork.Context.NhanViens
+           //      join lg in unitOfWork.Context.LOGIN_NV
+           //         on nv.MaNV equals lg.MANV
+           //      where lg.USERNAME_NV == username && BCrypt.Net.BCrypt.Verify(password, lg.PASSWORD_NV)
+           //      select new DTO_NhanVien_LoginNV
+           //      {
+           //          MaNV = nv.MaNV,
+           //          HoTenNV = nv.HoTenNV,
+           //          SDT = nv.SDT,
+           //          ChucVu = nv.ChucVu,
+           //          DiaChi = nv.DiaChi
+           //      }).FirstOrDefault();
 
-            //if (nhanVien == null)
-            //{
-            //    return new DTO_NhanVien_LoginNV(); // Trả về một DTO rỗng
-            //    // throw new Exception("Thông tin đăng nhập không hợp lệ");
-            //}
+            var login = (
+                from nv in unitOfWork.Context.NhanViens
+                join lg in unitOfWork.Context.LOGIN_NV on nv.MaNV equals lg.MANV
+                where lg.USERNAME_NV.Equals(username)
+                select new
+                {
+                    passwordHash = lg.PASSWORD_NV,
+                    NhanVien = nv
+                }
+            ).FirstOrDefault();
 
-            return nhanVien;
+            if (login != null)
+            {
+                var verify = BCrypt.Net.BCrypt.Verify(password, login.passwordHash);
+                if (verify)
+                {
+                    var nhanVien = new DTO_NhanVien_LoginNV
+                    {
+                        MaNV = login.NhanVien.MaNV,
+                        HoTenNV = login.NhanVien.HoTenNV,
+                        SDT = login.NhanVien.SDT,
+                        ChucVu = login.NhanVien.ChucVu,
+                        DiaChi = login.NhanVien.DiaChi
+                    };
+
+                    return nhanVien;
+                }
+                else
+                    return null;
+            }
+            else
+                return null;
         }
 
         public NhanVien GetBySDT(string sdt)
@@ -146,12 +190,15 @@ namespace WebQuanLyThuVien.Services
                     unitOfWork.Context.NhanViens.Add(newNhanVien);
                     unitOfWork.Save(); // Lưu các thay đổi vào cơ sở dữ liệu
 
+                    // Mã hóa mật khẩu với bcrypt
+                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(obj.Password, 12);
+
                     // Tạo một đối tượng loginNV mới
                     var newLoginNV = new LOGIN_NV
                     {
                         MANV = newNhanVien.MaNV,
                         USERNAME_NV = obj.Username,
-                        PASSWORD_NV = obj.Password,
+                        PASSWORD_NV = hashedPassword,
                     };
 
                     unitOfWork.Context.LOGIN_NV.Add(newLoginNV);
@@ -193,11 +240,23 @@ namespace WebQuanLyThuVien.Services
                         nhanVien.ChucVu = obj.ChucVu;
 
                         var login = unitOfWork.Context.LOGIN_NV.FirstOrDefault(t => t.MANV == obj.MaNV);
-                        login.USERNAME_NV = obj.Username;
-                        login.PASSWORD_NV = obj.Password;
 
-                        // Lưu thay đổi vào cơ sở dữ liệu
-                        unitOfWork.Context.SaveChanges();
+                        if (obj.Password.Trim() == "")
+                        {
+                            login.USERNAME_NV = obj.Username;
+                            //login.PASSWORD_NV = obj.Password;
+                            // Lưu thay đổi vào cơ sở dữ liệu
+                            unitOfWork.Context.SaveChanges();
+                        }
+                        else
+                        {
+                            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(obj.Password, 12);
+
+                            login.USERNAME_NV = obj.Username;
+                            login.PASSWORD_NV = hashedPassword;
+
+                            unitOfWork.Context.SaveChanges();
+                        }
                     }
                 }
             }

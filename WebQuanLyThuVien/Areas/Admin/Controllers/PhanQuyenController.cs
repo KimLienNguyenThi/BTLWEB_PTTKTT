@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebQuanLyThuVien.Areas.Admin.Data;
+using WebQuanLyThuVien.Interfaces.Services;
 using WebQuanLyThuVien.Models;
 using WebQuanLyThuVien.Services;
 
@@ -45,6 +46,24 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 return View();
             }
         }
+
+
+        [HttpGet]
+        public ActionResult GetAllNhanVien()
+        {
+            try
+            {
+                var nhanVien = _nhanVienService.GetAllNhanVien();
+
+                return Json(new { Result = nhanVien }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                // Trong trường hợp có lỗi, có thể log lỗi hoặc xử lý theo nhu cầu của bạn
+                return Json(new { Error = "Không thể lấy dữ liệu nhan vien." });
+            }
+        }
+
 
 
         [HttpPost]
