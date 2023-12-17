@@ -1,0 +1,137 @@
+﻿@model IEnumerable<ThuVienBTL.Models.Sach>
+
+@{
+    ViewBag.Title = "LocYeuCau";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex w-50 ms-0">
+    <a href="~/ThueSach/Index" class="btn btn-primary rounded-pill px-3 d-none d-lg-block"><i class="fa fa-arrow-left ms-3"></i> Quay về</a>
+</div>
+
+<div class="row g-4 pt-5">
+    @foreach (var item in Model)
+    {
+
+        @*begin*@
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="classes-item">
+                <div class="bg-light rounded-circle w-75 mx-auto p-3">
+                    @{
+                        ThuVienBTL.Models.QuanLyThuVienEntities db = new ThuVienBTL.Models.QuanLyThuVienEntities();
+                        ThuVienBTL.Models.TT_SACH ttSach = db.TT_SACH.Find(item.MaSach);
+
+                        // Tạo URL đầy đủ từ đường dẫn tương đối
+                        string imageUrl = Url.Content(ttSach.URL_IMAGE);
+                    }
+                    <img class="img-fluid rounded-circle" src="@imageUrl" alt="" style="width: 330px; height: 300px;">
+                </div>
+                <div class="bg-light rounded p-4 pt-5 mt-n5">
+                    <a class="d-block text-center h3 mt-3 mb-4" href="">@item.TenSach</a>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="d-flex align-items-center">
+
+                            <img class="rounded-circle flex-shrink-0" src="" alt="" style="width: 45px; height: 45px;">
+                            <div class="ms-3">
+                                <h6 class="text-primary mb-1">@item.TacGia</h6>
+                                <small>@item.NgonNgu</small>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="ShowDangKyDialog(@item.MaSach)">Đăng ký</button>
+                    </div>
+                    <div class="row g-1">
+                        <div class="col-4">
+                            <div class="border-top border-3 border-primary pt-2">
+                                <h6 class="text-primary mb-1">Thể loại</h6>
+                                <small>@item.TheLoai</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="border-top border-3 border-success pt-2">
+                                <h6 class="text-success mb-1">Năm xuất bản</h6>
+                                <small>@item.NamXB</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="border-top border-3 border-warning pt-2">
+                                <h6 class="text-warning mb-1">Số lượng</h6>
+                                <small>@item.SoLuongHIENTAI</small>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Thêm dropdown -->
+                        <div id="dangKyDialog" class="modal fade" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Đăng ký mượn sách</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label for="soLuong">Chọn số lượng sách:</label>
+                                        <select id="soLuongDropdown" class="form-control">
+                                            <!-- Tạo các option tùy thuộc vào số lượng sách có sẵn -->
+                                            @for (var i = 1; i <= item.SoLuongHIENTAI; i++)
+                                            {
+                                                <option value="@i">@i</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                        <button type="button" class="btn btn-primary" onclick="DangKyMuon(@item.MaSach)">Đăng ký</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*end*@
+    }
+</div>
+
+
+
+<script>
+    function ShowDangKyDialog(maSach) {
+        // Mở modal
+        $('#dangKyDialog').modal('show');
+    }
+
+    function DangKyMuon(maSach) {
+        // Lấy giá trị từ dropdown
+        var soLuongMuon = $('#soLuongDropdown').val();
+        console.log("maSach:", maSach, "soLuong:", soLuongDropdown);    // Kiểm tra dữ liệu
+
+
+        $.ajax({
+            url: "/ThueSach/DangKyMuon",
+            type: "POST",
+            data: {
+                maSach: maSach,
+                soLuongMuon: soLuongMuon
+            },
+            success: function () {
+                // Xử lý khi đăng ký thành công
+                alert("Bạn đã đăng ký thành công!");
+                // Đóng modal sau khi đăng ký
+                $('#dangKyDialog').modal('hide');
+            },
+            error: function () {
+                // Xử lý khi có lỗi
+                alert("Đã xảy ra lỗi!");
+                console.log("Error:", xhr.responseText); // Log lỗi để xem chi tiết
+            }
+        });
+    }
+
+</script>

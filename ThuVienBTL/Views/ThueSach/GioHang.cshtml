@@ -1,0 +1,201 @@
+﻿@{
+    ViewBag.Title = "GioHang";
+    /*Layout = "~/Views/Shared/_Layout.cshtml";*/
+    ThuVienBTL.Models.QuanLyThuVienEntities db = new ThuVienBTL.Models.QuanLyThuVienEntities();
+}
+
+
+<h4 style="text-align:center">Thư viện sách của bạn</h4>
+@*Nút nhấn xác nhận mượn*@
+<nav>
+    <div class="container mt-5">
+        <div class="row align-items-center justify-content-between border-bottom mb-3">
+
+            @* CHECK BOX CHỖ NÀY NÈ *@
+            <!--|
+                |
+                V -->
+            <div class="col-1" style="margin-left: 46px;" id="SelectAll">
+                <input type="checkbox" class="form-check-input" style="transform:scale(1)">
+            </div>
+            <div class="col-2" style="margin-left:30px"> Sách </div>
+            <div class="col-4 text-center"> Tên sách </div>
+            <div class="col-2 text-center"> Số lượng </div>
+            <div class="col-1 text-center"> Thao tác </div>
+        </div>
+    </div>
+</nav>
+
+@*Danh sách sách mượn*@
+@if (ThuVienBTL.Models.ListSachMuon.listSachMuon.Count == 0)
+{
+    <p style="font-style:italic">Thư viện của bạn đang trống</p>
+}
+else
+{
+    <div class="row g-4 pt-5">
+        @foreach (var item in ThuVienBTL.Models.ListSachMuon.listSachMuon)
+        {
+
+            ThuVienBTL.Models.TT_SACH ttSach = db.TT_SACH.Find(item.Key);
+            ThuVienBTL.Models.Sach Sach = db.Saches.Find(item.Key);
+
+
+            // Tạo URL đầy đủ từ đường dẫn tương đối
+            string imageUrl = Url.Content(ttSach.URL_IMAGE);
+            <nav>
+                <div class="container mt-5">
+                    <div class="row align-items-center justify-content-between border-bottom mb-3">
+                        @* CHECK BOX CHỖ NÀY NÈ *@
+                        <!--|
+                            |
+                            V -->
+                        <div class="col-1" style="margin-left: 60px; margin-bottom: 80px" @*id="SelectAll"*@>
+                            <input type="checkbox" class="form-check-input" style="transform:scale(1)">
+                        </div>
+                        <div class="col-2" style="margin-right: 70px; margin-bottom:80px">
+                            <img src="@imageUrl" alt="" style="width: 150px; height: 150px;">
+                        </div>
+                        <div class="col-4 text-center" style="margin-bottom: 80px">
+                            <h4>@Sach.TenSach</h4>
+                            <p>Thể loại: @Sach.TheLoai</p>
+                        </div>
+                        <div class="col-2 text-center" style="margin-bottom: 80px">
+                            <input id="soLuongSachMuon_@Sach.MaSach" type="number" value="@item.Value" class="form-control">
+                        </div>
+                        <div class="col-1" style="margin-bottom: 80px">
+                            <button class="btn btn-danger" onclick="XoaSach(@Sach.MaSach)">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        }
+    </div>
+}
+
+<!-- Thông tin tổng cộng -->
+<nav class="sticky-top fixed-bottom " style="background-color:aliceblue; height:70px;" id="SelectAll">
+    <div class="row mt">
+        @* CHECK BOX CHỖ NÀY NÈ *@
+        <!--|
+            |
+            V -->
+        <div class="col-2" style="margin-left:60px; margin-top:27px">
+            <input type="checkbox" class="form-check-input" style="transform:scale(1)"><a style="margin-left:10px">Chọn tất cả</a>
+        </div>
+        <div class="col-6">
+            <p class="font-weight-bold" style="margin-left:500px; margin-top:27px"> Tổng số sách mượn: </p>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-primary" style="margin-left:50px; margin-top:20px">Đăng ký mượn</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Xác nhận xoá sách</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn muốn xoá bao nhiêu cuốn sách?</p>
+                <input type="number" id="quantityToDelete" class="form-control" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="confirmDelete()">Xoá</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    ////////////////////// Button xoá sách /////////////////////////////////
+
+    var maSachToDelete; // Biến toàn cục để lưu trữ mã sách cần xoá
+
+    function XoaSach(maSach) {
+        maSachToDelete = maSach; // Lưu mã sách vào biến toàn cục
+        $('#confirmDeleteModal').modal('show'); // Hiển thị modal
+    }
+
+    function confirmDelete() {
+        var quantityToDelete = $('#quantityToDelete').val();
+        var soLuongSachMuonValue = document.getElementById('soLuongSachMuon_' + maSachToDelete);
+        /*$('#soLuongSachMuon_' + maSachToDelete).text();
+        document.getElementById('soLuongSachMuon_' + maSachToDelete);*/
+
+        console.log("1. Số lượng sách xoá:", quantityToDelete);    // Kiểm tra dữ liệu
+        console.log("2. Mã sách xoá:", maSachToDelete);    // Kiểm tra dữ liệu
+        console.log("3. Số lượng sách mượn:", soLuongSachMuonValue);    // Kiểm tra dữ liệu
+
+        // Kiểm tra xem số sách muốn xoá có nằm trong khoảng từ 1 đến số sách mượn hay không (ví dụ)
+        if (quantityToDelete >= 1 && quantityToDelete <= soLuongSachMuonValue) {
+            console.log("Giá trị hợp lệ: " + quantityToDelete);
+
+            $.ajax({
+                url: "@Url.Action("XoaSachMuon", "ThueSach")",
+                type: "POST",
+                data: {
+                    maSach: maSachToDelete,
+                    quantity: quantityToDelete
+                },
+                success: function (result) {
+                    if (result.success) {
+                        alert("Bạn đã xoá thành công!");
+                    } else {
+                        alert(result.message);
+                    }
+                    $('#confirmDeleteModal').modal('hide'); // Đóng modal sau khi xử lý xong
+
+                    // Cập nhật số lượng sách mượn
+                    var updatedQuantity = result.updatedQuantity; // Thay đổi này tùy thuộc vào dữ liệu bạn nhận được từ server
+                    console.log("Kiểm tra số lượng: ", updatedQuantity);
+
+                    // Kiểm tra nếu updatedQuantity không phải là số hoặc bé hơn hoặc bằng 0
+                    if (isNaN(updatedQuantity) || updatedQuantity <= 0) {
+                        console.log("Hết số lượng hoặc có lỗi: ", updatedQuantity);
+                        // Xoá phần tử HTML tương ứng
+                        $("#sachMuon_" + maSachToDelete).remove();
+                    } else {
+                        console.log("Còn số lượng: ", updatedQuantity);
+                        // Nếu không, cập nhật số lượng sách mượn
+                        $("#soLuongSachMuon_" + maSachToDelete).text(updatedQuantity);
+                    }
+
+                },
+                error: function () {
+                    alert("Đã xảy ra lỗi khi xoá sách.");
+                    $('#confirmDeleteModal').modal('hide'); // Đóng modal nếu có lỗi
+                }
+            });
+        } else {
+            alert("Số lượng không phù hợp! Vui lòng kiểm tra lại");
+        }
+    }
+
+
+
+</script>
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Xử lý sự kiện khi checkbox "Chọn tất cả" được thay đổi
+        $('#SelectAll input[type="checkbox"]').change(function () {
+            var isChecked = $(this).prop('checked');
+
+            // Cập nhật trạng thái của tất cả các checkbox khác
+            $('input[type="checkbox"]').not(this).prop('checked', isChecked);
+        });
+    });
+</script>
+
+

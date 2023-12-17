@@ -1,0 +1,61 @@
+﻿@model ThuVienBTL.Models.DocGia
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-3">
+
+    <h2>Thông tin người dùng</h2>
+
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                <lable>Họ và tên</lable>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.HoTenDG)
+            </dd>
+
+            <dt>
+                <lable>Giới tính</lable>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.GioiTinh)
+            </dd>
+
+            <dt>
+                <lable>Ngày sinh</lable>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NgaySinh)
+            </dd>
+
+            <dt>
+                <lable>Số điện thoại</lable>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SDT)
+            </dd>
+
+            <dt>
+                <lable>Địa chỉ</lable>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Đổi mật khẩu", "UpdatePassWord")@*, new { id = Model.MaDG }*@|
+        @Html.ActionLink("Quay về", "Index")
+    </p>
+</div>
+
