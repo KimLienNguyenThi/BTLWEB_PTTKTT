@@ -27,8 +27,28 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
         public IEnumerable<NhaCungCap> GetAll()
         {
-            return unitOfWork.Context.NhaCungCaps.ToList();
+            var nhaCungCap =
+                (from NhaCungCap in unitOfWork.Context.NhaCungCaps
+                 select new
+                 {
+                     NhaCungCap.MaNCC,
+                     NhaCungCap.TenNCC,
+                     NhaCungCap.DiaChiNCC,
+                     NhaCungCap.sdtNCC,
+                 })
+                .ToList() // Materialize the query before the subsequent projection
+                .Select(x => new NhaCungCap
+                {
+                    MaNCC = x.MaNCC,
+                    TenNCC = x.TenNCC,
+                    DiaChiNCC = x.DiaChiNCC,
+                    sdtNCC = x.sdtNCC,
+                })
+                .ToList();
+
+            return nhaCungCap;
         }
+
 
         public NhaCungCap GetById(int id)
         {

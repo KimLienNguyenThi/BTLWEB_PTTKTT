@@ -11,5 +11,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Interfaces.Services
     {
         void Insert(DTO_Tao_Phieu_Nhap obj);
         IEnumerable<CHITIETPN> GetAllChiTietPhieuNhap();
+
     }
 }

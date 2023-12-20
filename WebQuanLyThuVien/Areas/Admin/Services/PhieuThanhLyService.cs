@@ -51,38 +51,85 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
             return distinctdonvi;
         }
 
+
         public IEnumerable<KhoThanhLyDTO> GetAllSachTL()
         {
             var listSachTL_All =
                 (from KhoSachThanhLy in unitOfWork.Context.KhoSachThanhLies
-                 join Sach in unitOfWork.Context.Saches
-                   on KhoSachThanhLy.masachkho equals Sach.MaSach
-                 join CHITIETPN in unitOfWork.Context.CHITIETPNs
-                on KhoSachThanhLy.masachkho equals CHITIETPN.MaSACH
+                 join Sach in unitOfWork.Context.Saches on KhoSachThanhLy.masachkho equals Sach.MaSach
+                 join CHITIETPN in unitOfWork.Context.CHITIETPNs on KhoSachThanhLy.masachkho equals CHITIETPN.MaSACH
                  select new KhoThanhLyDTO
                  {
                      MaSachKho = KhoSachThanhLy.masachkho,
                      TenSach = Sach.TenSach,
                      SoLuongKhoTL = KhoSachThanhLy.soluongkhotl.Value,
                      GiaSachTL = (decimal)(CHITIETPN.GiaSach.Value * 30 / 100),
-                 }).ToList();
+                 })
+                .GroupBy(group => new { group.MaSachKho, group.TenSach, group.SoLuongKhoTL })
+                .AsEnumerable()
+                .Select(x =>
+                {
+                    // Tạo đối tượng SachMuonDTO mới
+                    return new KhoThanhLyDTO
+                    {
+                        MaSachKho = x.Key.MaSachKho,
+                        TenSach = x.Key.TenSach,
+                        SoLuongKhoTL = x.Key.SoLuongKhoTL,
+                        GiaSachTL = x.OrderByDescending(item => item.GiaSachTL).First().GiaSachTL
+                    };
+                })
+                .Where(x => x.SoLuongKhoTL > 0)
+                .ToList();
 
             return listSachTL_All;
         }
+
+
+
+
         public IEnumerable<KhoThanhLyDTO> SearchSach(string searchTerm)
         {
             var distinctSach =
-              (from Sach in unitOfWork.Context.Saches
-               join KhoSachThanhLy in unitOfWork.Context.KhoSachThanhLies
-                  on Sach.MaSach equals KhoSachThanhLy.masachkho
-               where Sach.TenSach.Contains(searchTerm)
-               select new KhoThanhLyDTO
-               {
-                   MaSachKho = KhoSachThanhLy.masachkho,
-                   TenSach = Sach.TenSach,
-                   SoLuongKhoTL = KhoSachThanhLy.soluongkhotl.Value,
-               }
-                ).Distinct().ToList();
+                (from KhoSachThanhLy in unitOfWork.Context.KhoSachThanhLies
+                 join Sach in unitOfWork.Context.Saches on KhoSachThanhLy.masachkho equals Sach.MaSach
+                 join CHITIETPN in unitOfWork.Context.CHITIETPNs on KhoSachThanhLy.masachkho equals CHITIETPN.MaSACH
+                 where Sach.TenSach.Contains(searchTerm)
+                 select new KhoThanhLyDTO
+                 {
+                     MaSachKho = KhoSachThanhLy.masachkho,
+                     TenSach = Sach.TenSach,
+                     SoLuongKhoTL = KhoSachThanhLy.soluongkhotl.Value,
+                     GiaSachTL = (decimal)(CHITIETPN.GiaSach.Value * 30 / 100),
+                 })
+                .GroupBy(group => new { group.MaSachKho, group.TenSach, group.SoLuongKhoTL })
+                .AsEnumerable()
+                .Select(x =>
+                {
+                    // Tạo đối tượng SachMuonDTO mới
+                    return new KhoThanhLyDTO
+                    {
+                        MaSachKho = x.Key.MaSachKho,
+                        TenSach = x.Key.TenSach,
+                        SoLuongKhoTL = x.Key.SoLuongKhoTL,
+                        GiaSachTL = x.OrderByDescending(item => item.GiaSachTL).First().GiaSachTL
+                    };
+                })
+                .Where(x => x.SoLuongKhoTL > 0)
+                .ToList();
+
+            //return listSachTL_All;
+            //var distinctSach =
+            //  (from Sach in unitOfWork.Context.Saches
+            //   join KhoSachThanhLy in unitOfWork.Context.KhoSachThanhLies
+            //      on Sach.MaSach equals KhoSachThanhLy.masachkho
+            //   where Sach.TenSach.Contains(searchTerm)
+            //   select new KhoThanhLyDTO
+            //   {
+            //       MaSachKho = KhoSachThanhLy.masachkho,
+            //       TenSach = Sach.TenSach,
+            //       SoLuongKhoTL = KhoSachThanhLy.soluongkhotl.Value,
+            //   }
+            //    ).Distinct().ToList();
 
             return distinctSach;
         }

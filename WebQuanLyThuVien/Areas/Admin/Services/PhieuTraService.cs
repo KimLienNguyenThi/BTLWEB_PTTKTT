@@ -82,6 +82,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                   //   SoLuongMuon = ChiTietPM.Soluongmuon.Value,
                      SoLuongTra = ChiTietPT.Soluongtra.Value,
                      SoLuongLoi = ChiTietPT.Soluongloi.Value,
+                     SoLuongMat = ChiTietPT.Soluongmat.Value,
                  }).ToList();
 
 
@@ -110,6 +111,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                     MaSach = ctpt.MaSach,
                     SoLuongTra = (int)ctpt.Soluongtra,
                     SoLuongLoi = (int)ctpt.Soluongloi,
+                    SoLuongMat = (int)ctpt.Soluongmat,
                     TenSach = tenSach,
                 };
 

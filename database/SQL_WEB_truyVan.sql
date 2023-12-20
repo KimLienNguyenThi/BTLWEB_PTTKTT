@@ -10,6 +10,14 @@ SELECT * FROM KHOSACHTHANHLY
 SELECT * FROM PhieuThanhLy
 SELECT * FROM ChiTietPTL
 
+SELECT * FROM login_nv
+SELECT * FROM nhanvien
+
+
+DELETE FROM LOGIN_NV WHERE MaNV = 3;
+
+
+
 select chitietpn.masach,tensach, giasach from chitietpm join chitietpn 
 on chitietpm.masach = chitietpn.masach  
 join sach on chitietpm.masach = sach.masach  
@@ -84,7 +92,9 @@ GROUP BY
 	WHERE pt.MaPT = 1
 
 		;
-select * from chitietpn --where masach =2 ;
+		select * from phieunhapsach --where masach =2 ;
+
+select masach, giasach*30/100 as gia from chitietpn  --where masach =2 ;
 SELECT * FROM PHIEUMUON-- where mapm = 1;
 SELECT * FROM CHITIETPM --- where mapm = 1;
 SELECT * FROM PHIEUTRA --where mapm = 1;
@@ -93,7 +103,7 @@ SELECT * FROM KHOSACHTHANHLY
 select * from chitietpn where masach = 2;
 SELECT * FROM PhieuThanhLy
 SELECT * FROM ChiTietPTL
-
+select * from sach;
 -- Them Phieu thanh ly
 insert into PhieuThanhLy (MaDV, NgayTL,  MaNV) values (2, '2023-11-25',  3);
 
@@ -103,7 +113,7 @@ insert into ChiTietPTL (MaPTL, MaSachkho, Soluongtl) values (2, 2, 1);
 
 
 		insert into PhieuNhapSach ( NgayNhap,  MaNV, MaNCC) values ( '2023-10-30',  3,  2);
-INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(6, 10, 100000,20)
+INSERT INTO CHITIETPN( MaPN, MaSACH, GiaSach, SoLuongNHAP) VALUES(6, 2, 100000,20)
 
 -- Them chi tiet phieu muon
 		insert into PhieuMuon ( MaThe, NgayMuon, HanTra,  MaNV) values (6, '2023-11-18', '2023-12-16',2);

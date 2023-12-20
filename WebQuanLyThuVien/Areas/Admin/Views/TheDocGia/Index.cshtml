@@ -152,8 +152,8 @@
                                     <th>Xử lý</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach (var item in ViewData["theDocGia"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_DocGia_TheDocGia>)
+                            <tbody id="DanhSachTheDocGia">
+                                @*@foreach (var item in ViewData["theDocGia"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_DocGia_TheDocGia>)
                                 {
                                     <tr class="thedocgia-row" aria-expanded="false" data-widget="expandable-table" data-ma-thedg="@item.MaThe">
                                         <td>@item.MaThe</td>
@@ -176,7 +176,7 @@
 
                                         </td>
                                     </tr>
-                                }
+                                }*@
                             </tbody>
                         </table>
                     </div>
@@ -554,6 +554,9 @@
                                 if (data) {
                                     document.getElementById("contentModalSuccess").innerHTML = "Gia hạn thẻ thành công!";
                                     $("#ModalSuccess").modal("show");
+                                    // Reload the table
+                                    GetAllTheDocGia();
+
                                     console.log("data", data)
                                     $("#showChiTietTheDocGiaModal").modal("hide");
                                 }
@@ -629,6 +632,9 @@
                             document.getElementById('hanThe').value = "Chọn hạn thẻ";
                             document.getElementById('tienDangKyThe').value = formatMoney(0);
 
+                            // Reload the table
+                            GetAllTheDocGia();
+
                         } else {
                             console.log("data: ", data)
 
@@ -640,6 +646,42 @@
             }
         }
 
+
+        function GetAllTheDocGia() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetAllTheDocGia", "TheDocGia")',
+                dataType: 'json', // Đảm bảo dữ liệu trả về là JSON
+                success: function (res) {
+                    var render = "";
+
+                    $.each(res.Result, function (i, item) {
+                        var ngayHetHan = moment(item.NgayHetHan);
+                        var ngayHetHanFormatted = ngayHetHan.format('MM/DD/YYYY');
+                        render += '<tr class="thedocgia-row" aria-expanded="false" data-widget="expandable-table" data-ma-thedg="' + item.MaThe + '">';
+                            render += '<td>' + item.MaThe + '</td>';
+                            render += '<td>' + item.HoTenDG + '</td>';
+                            render += '<td>' + item.SDT + '</td>';
+                            render += '<td>' + ngayHetHanFormatted + '</td>';
+
+                            render += '<td> <button type="button" class="btn btn-primary giaHanThe text-center" onclick="ShowGiaHan(' + item.MaThe + ')">Gia Hạn</button> </td>';
+                        render += '</tr>';
+                    });
+
+                    let danhSachTheDocGia = document.getElementById("DanhSachTheDocGia");
+                    danhSachTheDocGia.innerHTML = render;
+                },
+                error: function (status) {
+                    // Hiển thị cảnh báo nếu có lỗi
+                    alert("Không tìm thấy dữ liệu");
+                }
+            });
+        }
+
+
+        $(document).ready(function () {
+            GetAllTheDocGia(); // Gọi hàm khi trang đã sẵn sàng
+        });
 
     </script>
 }

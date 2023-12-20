@@ -51,21 +51,22 @@
                                 <div class="form-group col">
                                     <label for="book">Số điện thoại:</label>
                                     <input type="text" class="form-control" id="SDT" name="SDT" readonly>
-                                </div>
-                            </div>
-                            <div class="form-row">
 
-                                <div class="form-group col">
-                                    <label for="book">Địa chỉ:</label>
-                                    <input type="text" class="form-control" id="DiaChi" name="DiaChi" readonly>
+     
                                 </div>
+                             </div>
+                                <div class="form-row">
 
-                                <!--Ngày thanh lý-->
+                                    <div class="form-group col">
+                                        <label for="book">Địa chỉ:</label>
+                                        <input type="text" class="form-control" id="DiaChi" name="DiaChi" readonly>
+                                    </div>
+                                 <!--Ngày thanh lý-->
                                 <div class="form-group col">
                                     <label for="NgayTL">Ngày thanh lý:</label>
                                     <input type="date" class="form-control" id="NgayTL" name="NgayTL" readonly>
                                 </div>
-
+                           
                             </div>
 
                             <!--Danh sách sách thanh lý-->
@@ -167,6 +168,7 @@
                                     <th>Mã </th>
                                     <th>Tên sách</th>
                                     <th>S/l Hiện tại</th>
+                                    <th>Thao tác</th>
                                 </tr>
 
                             </thead>
@@ -456,12 +458,13 @@
                         render += '<td style="width: 15%">' + item.SoLuongKhoTL + '</td>';
                         render += '<td style="width: 12%">' + item.GiaSachTL + '</td>';
                         render += '<td style="width: 15%">  <input class="soLuongInsert" id="soLuongInsert' + item.MaSachKho + '" min="0"  max ="'+ item.SoLuongKhoTL+'"  type="number" value="0" style="width: 75%" onkeydown="validateInput(event, ' + item.SoLuongKhoTL + ')" />  </td>';
-                        render += '<td style="width: 2%"> <button class="btn btn-primary"   onclick="themButtonClick(' + item.MaSachKho + ', \'' + item.TenSach + '\', ' + item.GiaSachTL + ', ' + item.SoLuongKhoTL + ');">Thêm</button></td>';
+                        render += '<td style="width: 2%"> <button class="btn btn-primary"   onclick="themButtonClick(' + item.MaSachKho + ', \'' + item.TenSach + '\', ' + item.GiaSachTL + ', ' + item.SoLuongKhoTL + ')">Thêm</button></td>';
                         render += '</tr>';
                     });
 
                     let danhSachSach = document.getElementById("danhSachSach");
                     danhSachSach.innerHTML = render;
+                    //document.getElementById("tongTienPhuThu").value = formatMoney(0);
                     //selectDV();
                 },
                 error: function (status) {
@@ -471,6 +474,30 @@
             });
         }
 
+        //function updateTongTien() {
+        //    var tongTienPhuThu = 0;
+
+        //    // Lấy danh sách các hàng trong bảng thông tin sách
+        //    var sachRows = document.querySelectorAll(".SachtlRow");
+
+        //    // Lặp qua từng hàng và tính tổng tiền Phụ Thu
+        //    sachRows.forEach(function (row) {
+        //        var soLuongInsert = document.getElementById("soLuongInsert" + maSach).value;
+        //        var giaSach = parseFloat(row.querySelector('td:nth-child(4)').textContent);
+
+        //        // Kiểm tra nếu số lượng và giá sách là các số hợp lệ thì thêm vào tổng tiền
+        //        if (!isNaN(soLuong) && !isNaN(giaSach)) {
+        //            tongTienPhuThu += soLuong * giaSach;
+        //        }
+        //    });
+
+        //    // Hiển thị tổng tiền trong trường "Tổng tiền"
+        //    document.getElementById("tongTienPhuThu").value = formatMoney(tongTienPhuThu);
+        //}
+        // Hàm format tiền
+        //function formatMoney(number) {
+        //    return number.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        //}
         function loadDanhSachNhapKho(keyword) {
             $.ajax({
                 type: "GET",
@@ -562,7 +589,7 @@
         console.log(sachValues);
         } else {
         // Chuyển đổi giá trị soLuongInsert sang kiểu số nguyên và cộng dồn
-            if (parseInt(soLuongInsert) + sachValues[index].SoLuong > soLuongKhoTL) {
+            if (parseInt(soLuongInsert)  > soLuongKhoTL) {
                 alert("Vui lòng nhập số lượng nhỏ hơn số lượng còn lại.");
                 return;
             } else {
@@ -595,7 +622,7 @@
 
             let danhSachSach = document.getElementById("danhSachSach");
             danhSachSach.innerHTML = render;
-            
+           // updateTongTien();
         }
 
         // Gọi hàm thêm sách vào bảng

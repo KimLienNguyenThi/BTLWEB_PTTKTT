@@ -147,14 +147,14 @@ CREATE  TABLE ChiTietPTL (
 
 CREATE TABLE LOGIN_DG (
 	USERNAME_DG NVARCHAR(50) PRIMARY KEY,
-	PASSWORD_DG NVARCHAR(50),
+	PASSWORD_DG NVARCHAR(255),
 	MaDG INT,
 		FOREIGN KEY (MaDG) REFERENCES DOCGIA (MaDG),
 );
 
 CREATE TABLE LOGIN_NV (
 	USERNAME_NV NVARCHAR(50) PRIMARY KEY,
-	PASSWORD_NV NVARCHAR(50),
+	PASSWORD_NV NVARCHAR(MAX),
 	MANV INT,
 		FOREIGN KEY (MANV) REFERENCES NHANVIEN (MANV),
 );
@@ -349,36 +349,6 @@ BEGIN
 END;
 --GO
 
-----/* CẬP NHẬT SÁCH TRONG KHO khi insert  */
---CREATE OR ALTER drop PROCEDURE KiemTraMaVaCapNhatSachthanhly
---    @MaSachkho INT,
---    @soluongkhotl INT,
---    @InsertLocation INT -- Thêm tham số mới để phân biệt nơi thực hiện insert
---AS
---BEGIN
---    -- Kiểm tra xem mã sách đã tồn tại trong kho thanh lý chưa
---    IF EXISTS (SELECT 1 FROM KhosachThanhLy WHERE masachkho = @MaSachkho)
---    BEGIN
---        -- Nếu tồn tại, tăng số lượng sách
---        UPDATE KhosachThanhLy
---        SET soluongkhotl = soluongkhotl + @soluongkhotl
---        WHERE MaSachkho = @MaSachkho;
---    END
---    ELSE
---    BEGIN
---        -- Nếu chưa tồn tại, thêm mới sách vào kho thanh lý
---        INSERT INTO KhosachThanhLy (MaSachkho, soluongkhotl)
---        VALUES (@MaSachkho, @soluongkhotl);
---    END
-
---    -- Giảm số lượng sách trong bảng chính
---    IF @InsertLocation = 1 -- Thêm điều kiện để phân biệt nơi thực hiện insert
---    BEGIN
---        UPDATE SACH
---        SET SoLuongHIENTAI = SoLuongHIENTAI - @soluongkhotl
---        WHERE MaSach = @MaSachkho;
---    END;
---END;
 
 
 /* CẬP NHẬT SÁCH TRONG KHO SAU KHI THANH LÍ  */
@@ -474,11 +444,41 @@ AS
 
 CREATE or alter VIEW PHIEUThanhLy_VIEW 
 AS
-	SELECT ptl.maptl, Madv, NgayTL, MaNV, SUM(GiaTL) AS N'Tổng tiền thanh lý'
+	SELECT ptl.maptl, Madv, NgayTL, MaNV, SUM(GiaTL*Soluongtl) AS N'Tổng tiền thanh lý'
 	FROM PhieuThanhLy Ptl JOIN CHITIETPtl ctptl ON Ptl.MAPtl= ctptl.MAPtl JOIN SACH ON SACH.MaSach = ctptl.MaSACHkho
 	GROUP BY ptl.maptl, Madv, NgayTL, MaNV;
 
 
+----/* CẬP NHẬT SÁCH TRONG KHO khi insert  */
+--CREATE OR ALTER drop PROCEDURE KiemTraMaVaCapNhatSachthanhly
+--    @MaSachkho INT,
+--    @soluongkhotl INT,
+--    @InsertLocation INT -- Thêm tham số mới để phân biệt nơi thực hiện insert
+--AS
+--BEGIN
+--    -- Kiểm tra xem mã sách đã tồn tại trong kho thanh lý chưa
+--    IF EXISTS (SELECT 1 FROM KhosachThanhLy WHERE masachkho = @MaSachkho)
+--    BEGIN
+--        -- Nếu tồn tại, tăng số lượng sách
+--        UPDATE KhosachThanhLy
+--        SET soluongkhotl = soluongkhotl + @soluongkhotl
+--        WHERE MaSachkho = @MaSachkho;
+--    END
+--    ELSE
+--    BEGIN
+--        -- Nếu chưa tồn tại, thêm mới sách vào kho thanh lý
+--        INSERT INTO KhosachThanhLy (MaSachkho, soluongkhotl)
+--        VALUES (@MaSachkho, @soluongkhotl);
+--    END
+
+--    -- Giảm số lượng sách trong bảng chính
+--    IF @InsertLocation = 1 -- Thêm điều kiện để phân biệt nơi thực hiện insert
+--    BEGIN
+--        UPDATE SACH
+--        SET SoLuongHIENTAI = SoLuongHIENTAI - @soluongkhotl
+--        WHERE MaSach = @MaSachkho;
+--    END;
+--END;
 	
 --CREATE OR ALTER drop TRIGGER Trig_CapNhatSachThanhLy
 --ON KhosachThanhLy

@@ -45,23 +45,13 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 TempData["error"] = "Tài khoản hoặc mật khẩu không chính xác!";
                 return View();
             }
-
-
-            // check code
-            //if (username.ToLower() == "admin" && password == "123456")
-            //{
-            //    Session["user"] = "Thành Luân (Admin)";
-            //    return RedirectToAction("Index", "Home");
-            //}
-            //else
-            //    TempData["error"] = "Tài khoản hoặc mật khẩu không chính xác!";
-            //    return View();
         }
 
         public ActionResult Logout()
         {
             // Xóa session
             Session.Remove("user");
+
             // Xóa session from authent
             FormsAuthentication.SignOut();
 

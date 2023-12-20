@@ -49,6 +49,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                     on PhieuMuon.MaThe equals DocGia.MaDG
                  join NhanVien in unitOfWork.Context.NhanViens
                  on PhieuMuon.MaNV equals NhanVien.MaNV
+                 where PhieuMuon.Tinhtrang == false
                  select new PhieuMuon_DTO
                  {
                      MaPM = PhieuMuon.MaPM,

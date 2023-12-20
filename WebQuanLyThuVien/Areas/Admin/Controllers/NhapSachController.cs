@@ -43,6 +43,39 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult GetAllSach()
+        {
+            try
+            {
+                var sach = _sachService.GetSACH();
+
+                return Json(new { Result = sach }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                // Trong trường hợp có lỗi, có thể log lỗi hoặc xử lý theo nhu cầu của bạn
+                return Json(new { Error = "Không thể lấy dữ liệu ncc." });
+            }
+        }
+
+
+        [HttpGet]
+        public ActionResult GetAllNhaCungCap()
+        {
+            try
+            {
+                var nhaCungCap = _nhaCungCapService.GetAll();
+
+                return Json(new { Result = nhaCungCap }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                // Trong trường hợp có lỗi, có thể log lỗi hoặc xử lý theo nhu cầu của bạn
+                return Json(new { Error = "Không thể lấy dữ liệu ncc." });
+            }
+        }
+
 
 
         [HttpPost]

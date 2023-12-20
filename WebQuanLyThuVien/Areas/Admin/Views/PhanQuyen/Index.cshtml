@@ -123,7 +123,7 @@
 
                     <!--Body table nhân viên-->
                     <div class="card-body table-responsive p-0"
-                         style="height: 71.2vh" id="thongTinDocGiaTable">
+                         style="height: 71.2vh" id="thongTinNhanVienTable">
                         <table class="table table-head-fixed table-hover table-bordered">
                             <thead>
                                 <tr>
@@ -134,7 +134,7 @@
                                 </tr>
                             </thead>
                             <tbody id="thongTinNhanVien">
-                                @foreach (var item in ViewData["thongTinNhanVien"] as List<WebQuanLyThuVien.Models.NhanVien>)
+                                @*@foreach (var item in ViewData["thongTinNhanVien"] as List<WebQuanLyThuVien.Models.NhanVien>)
                                 {
                                     <tr class="thongtinnhanvien-row" data-ma-nv="@item.MaNV">
                                         <td>@item.MaNV</td>
@@ -142,7 +142,7 @@
                                         <td>@item.SDT</td>
                                         <td>@item.ChucVu</td>
                                     </tr>
-                                }
+                                }*@
                             </tbody>
                         </table>
                     </div>
@@ -280,11 +280,14 @@
             return regex.test(username);
         }
 
-        function isValidPassword(password) {
-            // Kiểm tra password không chứa ký tự đặc biệt, viết hoa, dấu cách và có chiều dài từ 3 đến 20 ký tự
-            var regex = /^[a-zA-Z0-9]{3,20}$/;
-            return regex.test(password);
+       function isValidPassword(password) {
+        // Không cho phép khoảng trắng và kí tự có dấu
+        var regex = /^[a-zA-Z0-9!#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/;
+
+        // Kiểm tra chiều dài từ 3 đến 20 ký tự
+        return regex.test(password) && password.length >= 3 && password.length <= 20;
         }
+
 
         // Hàm check số điện thoại
         function isValidPhoneNumber(phone) {
@@ -309,13 +312,14 @@
         }
 
 
-        //=====================  Xử lý sự kiện khi click vào 1 hàng trong table  =====================
+        ////=====================  Xử lý sự kiện khi click vào 1 hàng  trong table  =====================
+        var tableContainer = document.getElementById("thongTinNhanVienTable");
+        tableContainer.addEventListener("click", function (event) {
+            var targetRow = event.target.closest(".thongtinnhanvien-row");
 
-        var thongTinNhanVienRows = document.querySelectorAll(".thongtinnhanvien-row");
-        thongTinNhanVienRows.forEach(function (row) {
-             row.addEventListener("click", function () {
+            if (targetRow) {
                  // Lấy thông tin
-                 var maNV = row.querySelector("td:nth-child(1)").textContent;
+                var maNV = targetRow.querySelector("td:nth-child(1)").textContent;
 
                  $.ajax({
                     url: '@Url.Action("ThongTinNhanVien", "PhanQuyen")',
@@ -336,7 +340,7 @@
                             document.getElementById("diaChiModal").value = nv.DiaChi;
                             document.getElementById("chucVuModal").value = nv.ChucVu;
                             document.getElementById("usernameModal").value = nv.Username;
-                            document.getElementById("passwordModal").value = nv.Password;
+                            document.getElementById("passwordModal").value = "";
 
                             // Lấy ngày sinh từ đối tượng nv.NgaySinh
                             var ngaySinhTicks = parseInt(nv.NgaySinh.replace("/Date(", "").replace(")/", ""));
@@ -358,8 +362,9 @@
                         console.error("Error:", error);
                     }
                 });
-            });
+            }
         });
+
 
 
         //=====================  Thêm nhân viên  =====================
@@ -399,10 +404,10 @@
                 return;
             }
 
-            if (!isValidPassword(password)) {
-                showError("Password không chứa ký tự đặc biệt, viết hoa và từ 3 -> 20 ký tự!");
-                return;
-            }
+            //if (!isValidPassword(password)) {
+            //    showError("Password không chứa ký tự đặc biệt, viết hoa và từ 3 -> 20 ký tự!");
+            //    return;
+            //}
 
             var confirmed = confirm("Bạn có chắc muốn thêm nhân viên không?");
             if (confirmed) {
@@ -425,6 +430,8 @@
 
                             document.getElementById("contentModalSuccess").innerHTML = "Thêm nhân viên thành công";
                             $("#ModalSuccess").modal("show");
+
+                            GetAllNhanVien();
 
                             document.getElementById('hoTen').value = "";
                             document.getElementById('soDienThoai').value = "";
@@ -466,7 +473,7 @@
                 $("#ModalError").modal("show");
             }
 
-            if (!hoTen || !soDienThoai || !diaChi || !ngaySinh || gioiTinh === "Chọn giới tính" || chucVu === "Chọn chức vụ" || !username || !password) {
+            if (!hoTen || !soDienThoai || !diaChi || !ngaySinh || gioiTinh === "Chọn giới tính" || chucVu === "Chọn chức vụ" || !username) {
                 showError("Hãy điền đầy đủ thông tin!");
                 return;
             }
@@ -486,8 +493,8 @@
                 return;
             }
 
-            if (!isValidPassword(password)) {
-                showError("Password không chứa ký tự đặc biệt, viết hoa và từ 3 -> 20 ký tự!");
+            if (!isValidPassword(password) && password.trim() != "") {
+                showError("Password không chứa khoảng trắng, kí tự có dấu và từ 3 -> 20 ký tự!");
                 return;
             }
 
@@ -514,6 +521,8 @@
                             document.getElementById("contentModalSuccess").innerHTML = "Cập nhật thông tin nhân viên thành công!";
                             $("#ModalSuccess").modal("show");
 
+                            GetAllNhanVien()
+
                             $("#chinhSuaThongTinModal").modal("hide");
                         } else {
                             console.log("data: ", data)
@@ -525,6 +534,39 @@
                 });
             }
         }
+
+
+        function GetAllNhanVien() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetAllNhanVien", "PhanQuyen")',
+                dataType: 'json', // Đảm bảo dữ liệu trả về là JSON
+                success: function (res) {
+                    var render = "";
+
+                    $.each(res.Result, function (i, item) {
+                        render += '<tr class="thongtinnhanvien-row" data-ma-nv="' + item.MaNV + '">';
+                        render += '<td>' + item.MaNV + '</td>';
+                        render += '<td>' + item.HoTenNV + '</td>';
+                        render += '<td>' + item.SDT + '</td>';
+                        render += '<td>' + item.ChucVu + '</td>';
+                    });
+
+                    let danhSachNhanVien = document.getElementById("thongTinNhanVien");
+                    danhSachNhanVien.innerHTML = render;
+                },
+                error: function (status) {
+                    // Hiển thị cảnh báo nếu có lỗi
+                    alert("Không tìm thấy dữ liệu");
+                }
+            });
+        }
+
+
+        $(document).ready(function () {
+            GetAllNhanVien(); // Gọi hàm khi trang đã sẵn sàng
+        });
+
 
     </script>
 }
