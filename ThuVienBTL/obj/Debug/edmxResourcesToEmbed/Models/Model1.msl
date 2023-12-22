@@ -55,7 +55,7 @@
       <EntityTypeMapping TypeName="QuanLyThuVienModel.DkiMuonSach">
         <MappingFragment StoreEntitySet="DkiMuonSach">
           <ScalarProperty Name="MaDK" ColumnName="MaDK" />
-          <ScalarProperty Name="USERNAME_DG" ColumnName="USERNAME_DG" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
           <ScalarProperty Name="NgayDKMuon" ColumnName="NgayDKMuon" />
           <ScalarProperty Name="NgayHen" ColumnName="NgayHen" />
           <ScalarProperty Name="Tinhtrang" ColumnName="Tinhtrang" />
@@ -95,9 +95,10 @@
     <EntitySetMapping Name="LOGIN_DG">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.LOGIN_DG">
         <MappingFragment StoreEntitySet="LOGIN_DG">
-          <ScalarProperty Name="USERNAME_DG" ColumnName="USERNAME_DG" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
           <ScalarProperty Name="PASSWORD_DG" ColumnName="PASSWORD_DG" />
-          <ScalarProperty Name="MaDG" ColumnName="MaDG" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -190,6 +191,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="QuanLyThuVienModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="TheDocGias">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.TheDocGia">
         <MappingFragment StoreEntitySet="TheDocGia">
@@ -247,5 +259,29 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="QuanLyThuVienModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="QuanLyThuVienModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="QuanLyThuVienModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="QuanLyThuVienModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QuanLyThuVienModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="QuanLyThuVienModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QuanLyThuVienModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="QuanLyThuVienModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="QuanLyThuVienModel.Store.sp_upgraddiagrams" />
   </EntityContainerMapping>
 </Mapping>

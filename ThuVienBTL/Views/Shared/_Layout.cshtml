@@ -103,14 +103,14 @@
 
                 @if (user != null)
                 {
-                    // lấy tên độc giả sau khi đăng nhập
-                    ThuVienBTL.Models.QuanLyThuVienEntities db = new ThuVienBTL.Models.QuanLyThuVienEntities();
-                    var tenDG = db.DocGias.Find(user.MaDG);
+                    //// lấy tên độc giả sau khi đăng nhập
+                    //ThuVienBTL.Models.QuanLyThuVienEntities db = new ThuVienBTL.Models.QuanLyThuVienEntities();
+                    //var tenDG = db.DocGias.Find(user.MaDG);
 
                     <a href="~/ThueSach/GioHang" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Giỏ hàng</a>
 
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@tenDG.HoTenDG</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@user.HoTen</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
                             <a href="~/User/Profile" class="dropdown-item">Profile</a>
                             <a href="~/User/Logout" class="dropdown-item">Logout</a>

@@ -1,20 +1,36 @@
 ﻿@{
     ViewBag.Title = "GioHang";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    /*Layout = "~/Views/Shared/_Layout.cshtml";*/
     ThuVienBTL.Models.QuanLyThuVienEntities db = new ThuVienBTL.Models.QuanLyThuVienEntities();
 }
 
 
-<h4 style="text-align:center">Danh sách các loại sách mà quý khách đã chọn từ thư viện ABC</h4>
+<h4 style="text-align:center">Thư viện sách của bạn</h4>
+
 @*Nút nhấn xác nhận mượn*@
-<div class="d-flex w-50 ms-0">
-    <a href="" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Xác nhận thuê</a>
-</div>
+<nav>
+    <div class="container mt-5">
+        <div class="row align-items-center justify-content-between border-bottom mb-3">
+
+            @* CHECK BOX CHỖ NÀY NÈ *@
+            <!--|
+                |
+                V -->
+            <div class="col-1" style="margin-left: 46px;" id="SelectAll">
+                <input type="checkbox" class="form-check-input" style="transform:scale(1)">
+            </div>
+            <div class="col-2" style="margin-left:30px"> Sách </div>
+            <div class="col-4 text-center"> Tên sách </div>
+            <div class="col-2 text-center"> Số lượng </div>
+            <div class="col-1 text-center"> Thao tác </div>
+        </div>
+    </div>
+</nav>
 
 @*Danh sách sách mượn*@
 @if (ThuVienBTL.Models.ListSachMuon.listSachMuon.Count == 0)
 {
-    <p style="font-style:italic">Giỏ hàng của quý khách đang trống</p>
+    <p style="font-style:italic">Thư viện của bạn đang trống</p>
 }
 else
 {
@@ -28,142 +44,301 @@ else
 
             // Tạo URL đầy đủ từ đường dẫn tương đối
             string imageUrl = Url.Content(ttSach.URL_IMAGE);
-
-            @*begin*@
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" id="sachMuon_@Sach.MaSach">
-                <div class="classes-item">
-                    <div class="bg-light rounded-circle w-75 mx-auto p-3">
-
-                        <img class="img-fluid rounded-circle" src="@imageUrl" alt="" style="width: 330px; height: 300px;">
-                    </div>
-                    <div class="bg-light rounded p-4 pt-5 mt-n5">
-                        <a class="d-block text-center h3 mt-3 mb-4" href="">@Sach.TenSach</a>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="d-flex align-items-center">
-
-                                <img class="rounded-circle flex-shrink-0" src="" alt="" style="width: 45px; height: 45px;">
-                                <div class="ms-3">
-                                    <h6 class="text-primary mb-1">@Sach.TacGia</h6>
-                                    <small>@Sach.NgonNgu</small>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary" id="soLuongSachMuon_@Sach.MaSach">@item.Value</button>
-                            <button class="btn btn-primary" onclick="XoaSach(@Sach.MaSach)">Xoá sách</button>
+            <nav>
+                <div class="container mt-5" id="sachMuon_@Sach.MaSach">
+                    <div class="row align-items-center justify-content-between border-bottom mb-3">
+                        @* CHECK BOX CHỖ NÀY NÈ *@
+                        <!--|
+                            |
+                            V -->
+                        <div class="col-1" style="margin-left: 60px; margin-bottom: 80px">
+                            <input id="checkbox_Sach" type="checkbox" class="form-check-input checkbox_Sach" style="transform:scale(1)" value="@Sach.MaSach">
                         </div>
-                        <div class="row g-1">
-                            <div class="col-4">
-                                <div class="border-top border-3 border-primary pt-2">
-                                    <h6 class="text-primary mb-1">Thể loại</h6>
-                                    <small>@Sach.TheLoai</small>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="border-top border-3 border-success pt-2">
-                                    <h6 class="text-success mb-1">Năm xuất bản</h6>
-                                    <small>@Sach.NamXB</small>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="border-top border-3 border-warning pt-2">
-                                    <h6 class="text-warning mb-1">Số lượng</h6>
-                                    <small>@Sach.SoLuongHIENTAI</small>
-                                </div>
-                            </div>
+                        <div class="col-2" style="margin-right: 70px; margin-bottom:80px">
+                            <img src="@imageUrl" alt="" style="width: 150px; height: 150px;">
+                        </div>
+                        <div class="col-4 text-center" style="margin-bottom: 80px">
+                            <h4>@Sach.TenSach</h4>
+                            <p>Thể loại: @Sach.TheLoai</p>
+                        </div>
+                        <div class="col-2 text-center" style="margin-bottom: 80px">
+                            <input id="soLuongSachMuon_@Sach.MaSach" type="number" value="@item.Value" class="form-control sach-input">
+                        </div>
+                        <div class="col-1" style="margin-bottom: 80px">
+                            <button class="btn btn-danger" onclick="XoaSach(@Sach.MaSach)">Xóa</button>
                         </div>
                     </div>
                 </div>
-            </div>
-            @*end*@
+            </nav>
         }
     </div>
 }
 
-<!-- Modal -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteModalLabel">Xác nhận xoá sách</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Bạn muốn xoá bao nhiêu cuốn sách?</p>
-                <input type="number" id="quantityToDelete" class="form-control" />
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" onclick="confirmDelete()">Xoá</button>
-            </div>
+<!-- Thông tin tổng cộng -->
+<nav class="sticky-top fixed-bottom " style="background-color:aliceblue; height:70px;" id="SelectAll">
+    <div class="row mt">
+        @* CHECK BOX CHỖ NÀY NÈ *@
+        <!--|
+            |
+            V -->
+        <div class="col-2" style="margin-left:60px; margin-top:27px">
+            <input type="checkbox" class="form-check-input" style="transform:scale(1)"><a style="margin-left:10px">Chọn tất cả</a>
+        </div>
+        <div class="col-6">
+            <p class="font-weight-bold" style="margin-left:500px; margin-top:27px" id="TongSoSachMuon"> Tổng số sách mượn: </p>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-primary" style="margin-left:50px; margin-top:20px" onclick="DangKyMuon()">Đăng ký mượn</button>
         </div>
     </div>
-</div>
+</nav>
 
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-    ////////////////////// Button xoá sách /////////////////////////////////
+    // Mảng lưu giá trị của các checkbox_Sach được chọn
+    var selectedValues = [];
 
+    ////////////////////////// Xử lý checkbox ////////////////////////
+    $(document).ready(function () {
+
+        // Xử lý sự kiện khi checkbox "Chọn tất cả" được thay đổi
+        $('#SelectAll input[type="checkbox"]').change(function () {
+            var tongSoSachMuon = 0;
+
+            console.log('Sự kiện kiểm tra checkboxAll được gọi');
+
+            // Kiểm tra checkbox SelectAll có được nhấn hay không
+            var isChecked = $(this).prop('checked');
+
+            if (isChecked) {
+                // Cập nhật trạng thái của được chọn của tất cả các checkbox khác
+                $('input[type="checkbox"]').not(this).prop('checked', isChecked);
+
+                // Xóa toàn bộ phần tử trong mảng
+                selectedValues = [];
+
+                // Duyệt qua tất cả các checkbox và thêm giá trị của những checkbox được chọn vào mảng
+                $('.checkbox_Sach').each(function () {
+                    if ($(this).prop('checked')) {
+                        selectedValues.push($(this).val());
+                    }
+                });
+
+
+                // Lặp qua danh sách các ID và lấy giá trị của mỗi input
+                selectedValues.forEach(function (id) {
+                    // Lấy tham chiếu đến phần tử input theo ID
+                    var inputElement = document.getElementById('soLuongSachMuon_' + id);
+
+                    // Kiểm tra xem input có tồn tại không
+                    if (inputElement) {
+                        // Lấy giá trị của thuộc tính value
+                        var giaTri = parseInt(inputElement.value);
+                        tongSoSachMuon = tongSoSachMuon + giaTri;
+                    }
+                });
+
+                var tongSoSach = document.getElementById("TongSoSachMuon");
+
+                // Kiểm tra xem thẻ có tồn tại không
+                if (tongSoSach) {
+                    // Thay đổi nội dung của thẻ <p>
+                    tongSoSach.innerHTML = "Tổng số sách mượn: " + tongSoSachMuon;
+                }
+
+            } else {
+                selectedValues = [];
+                // Cập nhật trạng thái không được chọn của tất cả các checkbox khác
+                $('input[type="checkbox"]').not(this).prop('checked', isChecked);
+                // Thay đổi nội dung thẻ <p> chứa thông tin tổng số sách được chọn
+                var tongSoSachMuon = document.getElementById("TongSoSachMuon");
+                if (tongSoSachMuon) {
+                    tongSoSachMuon.innerHTML = " Tổng số sách mượn: ";
+                }
+            }
+
+        });
+
+
+
+        // Xử lý sự kiện khi một checkbox được thay đổi trạng thái
+        $('.checkbox_Sach').change(function () {
+            var tongSoSachMuon=0;
+            console.log('Sự kiện kiểm tra checkbox_Sach được gọi');
+            $('#SelectAll input[type="checkbox"]').not(this).prop('checked', false);
+
+            // Kiểm tra xem checkbox có được chọn hay không
+            if ($(this).is(':checked')) {
+
+                // Nếu được chọn, thêm giá trị của checkbox vào mảng
+                selectedValues.push($(this).val());
+                // Kiểm tra danh sách checkbox được chọn
+                console.log(selectedValues);
+
+                // Lặp qua danh sách các ID và lấy giá trị của mỗi input
+                selectedValues.forEach(function (id) {
+                    // Lấy tham chiếu đến phần tử input theo ID
+                    var inputElement = document.getElementById('soLuongSachMuon_' + id);
+
+                    // Kiểm tra xem input có tồn tại không
+                    if (inputElement) {
+                        // Lấy giá trị của thuộc tính value
+                        var giaTri = parseInt(inputElement.value);
+                        tongSoSachMuon = tongSoSachMuon + giaTri;
+                    }
+                });
+
+                var tongSoSach = document.getElementById("TongSoSachMuon");
+
+                // Kiểm tra xem thẻ có tồn tại không
+                if (tongSoSach) {
+                    // Thay đổi nội dung của thẻ <p>
+                    tongSoSach.innerHTML = "Tổng số sách mượn: " + tongSoSachMuon;
+                }
+
+            } else {
+                // Nếu checkbox bị bỏ chọn, loại bỏ giá trị của checkbox khỏi mảng
+                var index = selectedValues.indexOf($(this).val());
+
+                if (index !== -1) {
+                    selectedValues.splice(index, 1);
+                }
+
+                // Lặp qua danh sách các ID và lấy giá trị của mỗi input
+                selectedValues.forEach(function (id) {
+                    // Lấy tham chiếu đến phần tử input theo ID
+                    var inputElement = document.getElementById('soLuongSachMuon_' + id);
+
+                    // Kiểm tra xem input có tồn tại không
+                    if (inputElement) {
+                        // Lấy giá trị của thuộc tính value
+                        var giaTri = parseInt(inputElement.value);
+                        tongSoSachMuon = tongSoSachMuon + giaTri;
+                    }
+                });
+
+                var tongSoSach = document.getElementById("TongSoSachMuon");
+
+                // Kiểm tra xem thẻ có tồn tại không
+                if (tongSoSach) {
+                    // Thay đổi nội dung của thẻ <p>
+                    tongSoSach.innerHTML = "Tổng số sách mượn: " + tongSoSachMuon;
+                }
+
+                // Kiểm tra danh sách checkbox được chọn
+                console.log(selectedValues);
+            }
+        });
+
+
+        $('.sach-input').change(function () {
+            var tongSoSachMuon = 0;
+            console.log(selectedValues);
+
+            // Lặp qua danh sách các ID và lấy giá trị của mỗi input
+            selectedValues.forEach(function (id) {
+                // Lấy tham chiếu đến phần tử input theo ID
+                var inputElement = document.getElementById('soLuongSachMuon_' + id);
+
+                // Kiểm tra xem input có tồn tại không
+                if (inputElement) {
+                    // Lấy giá trị của thuộc tính value
+                    var giaTri = parseInt(inputElement.value);
+                    tongSoSachMuon = tongSoSachMuon + giaTri;
+                }
+            });
+
+            var tongSoSach = document.getElementById("TongSoSachMuon");
+
+            // Kiểm tra xem thẻ có tồn tại không
+            if (tongSoSach) {
+                // Thay đổi nội dung của thẻ <p>
+                tongSoSach.innerHTML = "Tổng số sách mượn: " + tongSoSachMuon;
+            }
+        });
+
+    });
+
+
+    ///////////////////////// Button đăng ký mượn sách /////////////////////////
+    function DangKyMuon() {
+        // mảng chứa số lượng sách của mỗi loại sách
+        var giaTri = [];
+
+        alert("Thực hiện đăng ký mượn?");
+
+        // Kiểm tra danh sách checkbox được chọn
+        console.log(selectedValues);
+
+        // Lặp qua danh sách các ID và lấy giá trị của mỗi input
+        selectedValues.forEach(function (id) {
+            // Lấy tham chiếu đến phần tử input theo ID
+            var inputElement = document.getElementById('soLuongSachMuon_' + id);
+
+            // Kiểm tra xem input có tồn tại không
+            if (inputElement) {
+                // Lấy giá trị của thuộc tính value
+                giaTri.push(parseInt(inputElement.value));
+                console.log("Mã sách mượn: " + id);
+                console.log("Số lượng sách mượn: " + inputElement.value);
+
+            }
+
+        });
+
+        console.log("Mảng số lượng sách mượn: " + giaTri);
+
+        // Gọi controller xử lý mượn sách
+        $.ajax({
+        url: "@Url.Action("XacNhanThueSach", "ThueSach")",
+            type: "POST",
+            data: {
+                maSach: selectedValues,
+                soLuongSach: giaTri,
+            },
+            success: function (result) {
+
+            },
+            error: function () {
+            console.log("Đã xảy ra lỗi khi gửi ajax thuê sách.");
+            }
+        });
+    }
+
+
+    //////////////// Button Xoá sách /////////////////////////////////////
     var maSachToDelete; // Biến toàn cục để lưu trữ mã sách cần xoá
 
     function XoaSach(maSach) {
         maSachToDelete = maSach; // Lưu mã sách vào biến toàn cục
-        $('#confirmDeleteModal').modal('show'); // Hiển thị modal
-    }
 
-    function confirmDelete() {
-        var quantityToDelete = $('#quantityToDelete').val();
-        var soLuongSachMuonValue = $('#soLuongSachMuon_' + maSachToDelete).text();
+        console.log("1. Mã sách xoá:", maSachToDelete);    // Kiểm tra dữ liệu
 
-        console.log("1. Số lượng sách xoá:", quantityToDelete);    // Kiểm tra dữ liệu
-        console.log("2. Mã sách xoá:", maSachToDelete);    // Kiểm tra dữ liệu
-        console.log("3. Số lượng sách mượn:", soLuongSachMuonValue);    // Kiểm tra dữ liệu
-
-        // Kiểm tra xem số sách muốn xoá có nằm trong khoảng từ 1 đến số sách mượn hay không (ví dụ)
-        if (quantityToDelete >= 1 && quantityToDelete <= soLuongSachMuonValue) {
-            console.log("Giá trị hợp lệ: " + quantityToDelete);
-
-            $.ajax({
-                url: "@Url.Action("XoaSachMuon", "ThueSach")",
-                type: "POST",
-                data: {
-                    maSach: maSachToDelete,
-                    quantity: quantityToDelete
-                },
-                success: function (result) {
-                    if (result.success) {
-                        alert("Bạn đã xoá thành công!");
-                    } else {
-                        alert(result.message);
-                    }
-                    $('#confirmDeleteModal').modal('hide'); // Đóng modal sau khi xử lý xong
-
-                    // Cập nhật số lượng sách mượn
-                    var updatedQuantity = result.updatedQuantity; // Thay đổi này tùy thuộc vào dữ liệu bạn nhận được từ server
-                    console.log("Kiểm tra số lượng: ", updatedQuantity);
-
-                    // Kiểm tra nếu updatedQuantity không phải là số hoặc bé hơn hoặc bằng 0
-                    if (isNaN(updatedQuantity) || updatedQuantity <= 0) {
-                        console.log("Hết số lượng hoặc có lỗi: ", updatedQuantity);
-                        // Xoá phần tử HTML tương ứng
-                        $("#sachMuon_" + maSachToDelete).remove();
-                    } else {
-                        console.log("Còn số lượng: ", updatedQuantity);
-                        // Nếu không, cập nhật số lượng sách mượn
-                        $("#soLuongSachMuon_" + maSachToDelete).text(updatedQuantity);
-                    }
-
-                },
-                error: function () {
-                    alert("Đã xảy ra lỗi khi xoá sách.");
-                    $('#confirmDeleteModal').modal('hide'); // Đóng modal nếu có lỗi
+        $.ajax({
+            url: "@Url.Action("XoaSachMuon", "ThueSach")",
+            type: "POST",
+            data: {
+                maSach: maSachToDelete,
+            },
+            success: function (result) {
+                console.log("1. Mã sách xoá:", maSachToDelete);    // Kiểm tra dữ liệu
+                if (result.success) {
+                    alert("Bạn đã xoá thành công!");
+                    // Xoá phần tử HTML tương ứng
+                    $("#sachMuon_" + maSachToDelete).remove();
+                } else {
+                    alert(result.message);
                 }
-            });
-        } else {
-            alert("Số lượng không phù hợp! Vui lòng kiểm tra lại");
-        }
+            },
+            error: function () {
+                alert("Đã xảy ra lỗi khi xoá sách.");
+            }
+        });
     }
-
 
 </script>
+
+
 

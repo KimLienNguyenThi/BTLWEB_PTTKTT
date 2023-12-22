@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +10,7 @@ namespace ThuVienBTL.Models
         QuanLyThuVienEntities db = new QuanLyThuVienEntities();
         public LOGIN_DG TimKiem(string username, string password)
         {
-            var user = db.LOGIN_DG.Where(m=>m.USERNAME_DG == username && m.PASSWORD_DG == password).ToList();
+            var user = db.LOGIN_DG.Where(m=>m.SDT == username && m.PASSWORD_DG == password).ToList();
 
             if(user.Count() > 0 )
             {

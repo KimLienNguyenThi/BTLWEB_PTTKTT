@@ -8,8 +8,8 @@
     <Property Name="MaDK" Type="Int32" Nullable="false" />
     <Property Name="MaSach" Type="Int32" Nullable="false" />
     <Property Name="Soluongmuon" Type="Int32" />
-    <NavigationProperty Name="DkiMuonSach" Relationship="Self.FK__ChiTietDk__MaDK__72C60C4A" FromRole="ChiTietDk" ToRole="DkiMuonSach" />
-    <NavigationProperty Name="Sach" Relationship="Self.FK__ChiTietDk__MaSac__73BA3083" FromRole="ChiTietDk" ToRole="Sach" />
+    <NavigationProperty Name="DkiMuonSach" Relationship="Self.FK__ChiTietDk__MaDK__70DDC3D8" FromRole="ChiTietDk" ToRole="DkiMuonSach" />
+    <NavigationProperty Name="Sach" Relationship="Self.FK__ChiTietDk__MaSac__71D1E811" FromRole="ChiTietDk" ToRole="Sach" />
   </EntityType>
   <EntityType Name="ChiTietPM">
     <Key>
@@ -65,12 +65,12 @@
       <PropertyRef Name="MaDK" />
     </Key>
     <Property Name="MaDK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="USERNAME_DG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="NgayDKMuon" Type="DateTime" Precision="0" />
     <Property Name="NgayHen" Type="DateTime" Precision="0" />
-    <Property Name="Tinhtrang" Type="Boolean" />
-    <NavigationProperty Name="ChiTietDks" Relationship="Self.FK__ChiTietDk__MaDK__72C60C4A" FromRole="DkiMuonSach" ToRole="ChiTietDk" />
-    <NavigationProperty Name="LOGIN_DG" Relationship="Self.FK__DkiMuonSa__USERN__6EF57B66" FromRole="DkiMuonSach" ToRole="LOGIN_DG" />
+    <Property Name="Tinhtrang" Type="Int32" />
+    <NavigationProperty Name="ChiTietDks" Relationship="Self.FK__ChiTietDk__MaDK__70DDC3D8" FromRole="DkiMuonSach" ToRole="ChiTietDk" />
+    <NavigationProperty Name="LOGIN_DG" Relationship="Self.FK__DkiMuonSach__SDT__6E01572D" FromRole="DkiMuonSach" ToRole="LOGIN_DG" />
   </EntityType>
   <EntityType Name="DocGia">
     <Key>
@@ -82,7 +82,6 @@
     <Property Name="NgaySinh" Type="DateTime" Precision="0" />
     <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="LOGIN_DG" Relationship="Self.FK__LOGIN_DG__MaDG__66603565" FromRole="DocGia" ToRole="LOGIN_DG" />
     <NavigationProperty Name="TheDocGias" Relationship="Self.FK__TheDocGia__MaDG__3C69FB99" FromRole="DocGia" ToRole="TheDocGia" />
   </EntityType>
   <EntityType Name="DonViTL">
@@ -105,22 +104,22 @@
   </EntityType>
   <EntityType Name="LOGIN_DG">
     <Key>
-      <PropertyRef Name="USERNAME_DG" />
+      <PropertyRef Name="SDT" />
     </Key>
-    <Property Name="USERNAME_DG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="PASSWORD_DG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="MaDG" Type="Int32" />
-    <NavigationProperty Name="DkiMuonSaches" Relationship="Self.FK__DkiMuonSa__USERN__6EF57B66" FromRole="LOGIN_DG" ToRole="DkiMuonSach" />
-    <NavigationProperty Name="DocGia" Relationship="Self.FK__LOGIN_DG__MaDG__66603565" FromRole="LOGIN_DG" ToRole="DocGia" />
+    <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PASSWORD_DG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DkiMuonSaches" Relationship="Self.FK__DkiMuonSach__SDT__6E01572D" FromRole="LOGIN_DG" ToRole="DkiMuonSach" />
   </EntityType>
   <EntityType Name="LOGIN_NV">
     <Key>
       <PropertyRef Name="USERNAME_NV" />
     </Key>
     <Property Name="USERNAME_NV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="PASSWORD_NV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PASSWORD_NV" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="MANV" Type="Int32" />
-    <NavigationProperty Name="NhanVien" Relationship="Self.FK__LOGIN_NV__MANV__693CA210" FromRole="LOGIN_NV" ToRole="NhanVien" />
+    <NavigationProperty Name="NhanVien" Relationship="Self.FK__LOGIN_NV__MANV__68487DD7" FromRole="LOGIN_NV" ToRole="NhanVien" />
   </EntityType>
   <EntityType Name="NhaCungCap">
     <Key>
@@ -143,7 +142,7 @@
     <Property Name="NGAYSINH" Type="DateTime" Precision="0" />
     <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ChucVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="LOGIN_NV" Relationship="Self.FK__LOGIN_NV__MANV__693CA210" FromRole="NhanVien" ToRole="LOGIN_NV" />
+    <NavigationProperty Name="LOGIN_NV" Relationship="Self.FK__LOGIN_NV__MANV__68487DD7" FromRole="NhanVien" ToRole="LOGIN_NV" />
     <NavigationProperty Name="PhieuMuons" Relationship="Self.FK__PhieuMuon__MaNV__4CA06362" FromRole="NhanVien" ToRole="PhieuMuon" />
     <NavigationProperty Name="PhieuNhapSaches" Relationship="Self.FK__PhieuNhapS__MaNV__412EB0B6" FromRole="NhanVien" ToRole="PhieuNhapSach" />
     <NavigationProperty Name="PhieuThanhLies" Relationship="Self.FK__PhieuThanh__MaNV__5EBF139D" FromRole="NhanVien" ToRole="PhieuThanhLy" />
@@ -215,11 +214,21 @@
     <Property Name="NXB" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="NamXB" Type="Int32" />
     <Property Name="SoLuongHIENTAI" Type="Int32" />
-    <NavigationProperty Name="ChiTietDks" Relationship="Self.FK__ChiTietDk__MaSac__73BA3083" FromRole="Sach" ToRole="ChiTietDk" />
+    <NavigationProperty Name="ChiTietDks" Relationship="Self.FK__ChiTietDk__MaSac__71D1E811" FromRole="Sach" ToRole="ChiTietDk" />
     <NavigationProperty Name="ChiTietPMs" Relationship="Self.FK__ChiTietPM__MaSac__5165187F" FromRole="Sach" ToRole="ChiTietPM" />
     <NavigationProperty Name="CHITIETPNs" Relationship="Self.FK__CHITIETPN__MaSAC__47DBAE45" FromRole="Sach" ToRole="CHITIETPN" />
     <NavigationProperty Name="ChiTietPTs" Relationship="Self.FK__ChiTietPT__MaSac__59FA5E80" FromRole="Sach" ToRole="ChiTietPT" />
-    <NavigationProperty Name="TT_SACH" Relationship="Self.FK__TT_SACH__MASACH__6C190EBB" FromRole="Sach" ToRole="TT_SACH" />
+    <NavigationProperty Name="TT_SACH" Relationship="Self.FK__TT_SACH__MASACH__6B24EA82" FromRole="Sach" ToRole="TT_SACH" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="TheDocGia">
     <Key>
@@ -244,7 +253,7 @@
     <Property Name="URL_IMAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="MOTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="MASACH" Type="Int32" />
-    <NavigationProperty Name="Sach" Relationship="Self.FK__TT_SACH__MASACH__6C190EBB" FromRole="TT_SACH" ToRole="Sach" />
+    <NavigationProperty Name="Sach" Relationship="Self.FK__TT_SACH__MASACH__6B24EA82" FromRole="TT_SACH" ToRole="Sach" />
   </EntityType>
   <EntityType Name="PHIEUNHAP_VIEW">
     <Key>
@@ -278,7 +287,7 @@
     <Property Name="MaNV" Type="Int32" />
     <Property Name="Tổng_tiền_xử_lý" Type="Decimal" Precision="19" Scale="4" />
   </EntityType>
-  <Association Name="FK__ChiTietDk__MaDK__72C60C4A">
+  <Association Name="FK__ChiTietDk__MaDK__70DDC3D8">
     <End Role="DkiMuonSach" Type="Self.DkiMuonSach" Multiplicity="1" />
     <End Role="ChiTietDk" Type="Self.ChiTietDk" Multiplicity="*" />
     <ReferentialConstraint>
@@ -290,7 +299,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ChiTietDk__MaSac__73BA3083">
+  <Association Name="FK__ChiTietDk__MaSac__71D1E811">
     <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
     <End Role="ChiTietDk" Type="Self.ChiTietDk" Multiplicity="*" />
     <ReferentialConstraint>
@@ -398,27 +407,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__DkiMuonSa__USERN__6EF57B66">
+  <Association Name="FK__DkiMuonSach__SDT__6E01572D">
     <End Role="LOGIN_DG" Type="Self.LOGIN_DG" Multiplicity="0..1" />
     <End Role="DkiMuonSach" Type="Self.DkiMuonSach" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="LOGIN_DG">
-        <PropertyRef Name="USERNAME_DG" />
+        <PropertyRef Name="SDT" />
       </Principal>
       <Dependent Role="DkiMuonSach">
-        <PropertyRef Name="USERNAME_DG" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__LOGIN_DG__MaDG__66603565">
-    <End Role="DocGia" Type="Self.DocGia" Multiplicity="0..1" />
-    <End Role="LOGIN_DG" Type="Self.LOGIN_DG" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="DocGia">
-        <PropertyRef Name="MaDG" />
-      </Principal>
-      <Dependent Role="LOGIN_DG">
-        <PropertyRef Name="MaDG" />
+        <PropertyRef Name="SDT" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -446,7 +443,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__LOGIN_NV__MANV__693CA210">
+  <Association Name="FK__LOGIN_NV__MANV__68487DD7">
     <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
     <End Role="LOGIN_NV" Type="Self.LOGIN_NV" Multiplicity="*" />
     <ReferentialConstraint>
@@ -566,7 +563,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__TT_SACH__MASACH__6C190EBB">
+  <Association Name="FK__TT_SACH__MASACH__6B24EA82">
     <End Role="Sach" Type="Self.Sach" Multiplicity="0..1" />
     <End Role="TT_SACH" Type="Self.TT_SACH" Multiplicity="*" />
     <ReferentialConstraint>
@@ -597,16 +594,17 @@
     <EntitySet Name="PhieuThanhLies" EntityType="Self.PhieuThanhLy" />
     <EntitySet Name="PhieuTras" EntityType="Self.PhieuTra" />
     <EntitySet Name="Saches" EntityType="Self.Sach" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TheDocGias" EntityType="Self.TheDocGia" />
     <EntitySet Name="TT_SACH" EntityType="Self.TT_SACH" />
     <EntitySet Name="PHIEUNHAP_VIEW" EntityType="Self.PHIEUNHAP_VIEW" />
     <EntitySet Name="PHIEUThanhLy_VIEW" EntityType="Self.PHIEUThanhLy_VIEW" />
     <EntitySet Name="PHIEUTra_VIEW" EntityType="Self.PHIEUTra_VIEW" />
-    <AssociationSet Name="FK__ChiTietDk__MaDK__72C60C4A" Association="Self.FK__ChiTietDk__MaDK__72C60C4A">
+    <AssociationSet Name="FK__ChiTietDk__MaDK__70DDC3D8" Association="Self.FK__ChiTietDk__MaDK__70DDC3D8">
       <End Role="DkiMuonSach" EntitySet="DkiMuonSaches" />
       <End Role="ChiTietDk" EntitySet="ChiTietDks" />
     </AssociationSet>
-    <AssociationSet Name="FK__ChiTietDk__MaSac__73BA3083" Association="Self.FK__ChiTietDk__MaSac__73BA3083">
+    <AssociationSet Name="FK__ChiTietDk__MaSac__71D1E811" Association="Self.FK__ChiTietDk__MaSac__71D1E811">
       <End Role="Sach" EntitySet="Saches" />
       <End Role="ChiTietDk" EntitySet="ChiTietDks" />
     </AssociationSet>
@@ -642,13 +640,9 @@
       <End Role="KhoSachThanhLy" EntitySet="KhoSachThanhLies" />
       <End Role="ChiTietPTL" EntitySet="ChiTietPTLs" />
     </AssociationSet>
-    <AssociationSet Name="FK__DkiMuonSa__USERN__6EF57B66" Association="Self.FK__DkiMuonSa__USERN__6EF57B66">
+    <AssociationSet Name="FK__DkiMuonSach__SDT__6E01572D" Association="Self.FK__DkiMuonSach__SDT__6E01572D">
       <End Role="LOGIN_DG" EntitySet="LOGIN_DG" />
       <End Role="DkiMuonSach" EntitySet="DkiMuonSaches" />
-    </AssociationSet>
-    <AssociationSet Name="FK__LOGIN_DG__MaDG__66603565" Association="Self.FK__LOGIN_DG__MaDG__66603565">
-      <End Role="DocGia" EntitySet="DocGias" />
-      <End Role="LOGIN_DG" EntitySet="LOGIN_DG" />
     </AssociationSet>
     <AssociationSet Name="FK__TheDocGia__MaDG__3C69FB99" Association="Self.FK__TheDocGia__MaDG__3C69FB99">
       <End Role="DocGia" EntitySet="DocGias" />
@@ -658,7 +652,7 @@
       <End Role="DonViTL" EntitySet="DonViTLs" />
       <End Role="PhieuThanhLy" EntitySet="PhieuThanhLies" />
     </AssociationSet>
-    <AssociationSet Name="FK__LOGIN_NV__MANV__693CA210" Association="Self.FK__LOGIN_NV__MANV__693CA210">
+    <AssociationSet Name="FK__LOGIN_NV__MANV__68487DD7" Association="Self.FK__LOGIN_NV__MANV__68487DD7">
       <End Role="NhanVien" EntitySet="NhanViens" />
       <End Role="LOGIN_NV" EntitySet="LOGIN_NV" />
     </AssociationSet>
@@ -698,9 +692,50 @@
       <End Role="TheDocGia" EntitySet="TheDocGias" />
       <End Role="PhieuTra" EntitySet="PhieuTras" />
     </AssociationSet>
-    <AssociationSet Name="FK__TT_SACH__MASACH__6C190EBB" Association="Self.FK__TT_SACH__MASACH__6C190EBB">
+    <AssociationSet Name="FK__TT_SACH__MASACH__6B24EA82" Association="Self.FK__TT_SACH__MASACH__6B24EA82">
       <End Role="Sach" EntitySet="Saches" />
       <End Role="TT_SACH" EntitySet="TT_SACH" />
     </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(QuanLyThuVienModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(QuanLyThuVienModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
   </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
 </Schema>

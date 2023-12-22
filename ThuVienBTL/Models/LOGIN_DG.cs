@@ -20,12 +20,12 @@ namespace ThuVienBTL.Models
             this.DkiMuonSaches = new HashSet<DkiMuonSach>();
         }
     
-        public string USERNAME_DG { get; set; }
+        public string SDT { get; set; }
         public string PASSWORD_DG { get; set; }
-        public Nullable<int> MaDG { get; set; }
+        public string HoTen { get; set; }
+        public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DkiMuonSach> DkiMuonSaches { get; set; }
-        public virtual DocGia DocGia { get; set; }
     }
 }

@@ -32,9 +32,9 @@ namespace ThuVienBTL.Controllers
             if(user != null)
             {
                 SessionConfig.SetUser(user);
-                Session["sharedData"] = user.MaDG;
+                Session["shared_SDT"] = user.SDT;
 
-                TempData["user_name"] = user.USERNAME_DG;
+                TempData["user_name"] = user.SDT;
                 TempData["user_password"] = user.PASSWORD_DG;
 
                 return RedirectToAction("Index", "Home");
@@ -54,7 +54,7 @@ namespace ThuVienBTL.Controllers
         {
             mapTaiKhoan map = new mapTaiKhoan();
 
-            if(model.PASSWORD_DG.IsEmpty() || /*model.HoTen_DG.IsEmpty() ||*/ model.USERNAME_DG.IsEmpty())
+            if(model.PASSWORD_DG.IsEmpty() || model.HoTen.IsEmpty() || model.SDT.IsEmpty() || model.Email.IsEmpty())
             {
                 ViewBag.errorInfo = "* Thông tin không được để trống";
                 return View(model);
@@ -81,7 +81,7 @@ namespace ThuVienBTL.Controllers
 
         public ActionResult Profile()
         {
-           int maDG = (int)Session["sharedData"];
+           int maDG = (int)Session["shared_SDT"];
            DocGia dg = db.DocGias.Find(maDG);
 
            return View(dg);

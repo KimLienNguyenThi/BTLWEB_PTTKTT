@@ -6,57 +6,69 @@
     ViewBag.active = 4;
     ThuVienBTL.Models.QuanLyThuVienEntities db = new ThuVienBTL.Models.QuanLyThuVienEntities();
 }
-
-<div class="container-sm pt-5 w-50">
+    @*NÚT SEARCH*@
+<div class="container-sm pt-5 w-50" style="justify-items:center">
     <div class="input-group">
         <input type="text" class="form-control" placeholder="Search" id="searchInput">
         <button type="button" class="btn btn-secondary" id="searchSach" onclick="TimKiem()"><i class="bi-search"></i></button>
     </div>
 </div>
 
-
+    @*LỌC YÊU CẦU*@
 <form action="~/ThueSach/LocYeuCau" method="post">
-    <div class="d-flex flex-row">
-
-        <p>Ngôn ngữ</p>
-        <select name="NgonNgu">
-            <option value="All">Tất cả</option>
-            <option value="Tiếng việt">Tiếng Việt</option>
-            <option value="Tiếng anh">Tiếng Anh</option>
-            <option value="Tiếng trung">Tiếng Trung</option>
-            <option value="Tiếng pháp">Tiếng Pháp</option>
-        </select>
-
-        <p>Thể loại</p>
-        <select name="TheLoai">
-            <option value="All">Tất cả</option>
-            <option value="Truyện thiếu nhi">Truyện thiếu nhi</option>
-            <option value="Tiểu thuyết">Tiểu thuyết</option>
-            <option value="Kỹ năng sống">Kỹ năng sống</option>
-            <option value="Ngôn tình">Ngôn tình</option>
-            <option value="Sách giáo khoa">Sách giáo khoa</option>
-            <option value="Sách ngoại ngữ">Sách ngoại ngữ</option>
-            <option value="Truyện ngắn">Truyện ngắn</option>
-            <option value="Văn học">Sách ngoại ngữ</option>
-            <option value="Sách tham khảo">Sách tham khảo</option>
-        </select>
-
-        <p>Năm xuất bản</p>
-        <select name="NamXB">
-            <option value="All">Tất cả</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-            <option value="2020">2020</option>
-            <option value="2019">2019</option>
-            <option value="2018">2018</option>
-            <option value="2017">2017</option>
-            <option value="2016">2016</option>
-            <option value="2015">2015</option>
-            <option value="2014">2014</option>
-        </select>
-
-        <button type="submit" class="btn btn-primary" value="Submit">Lọc</button>
+    <div class="container mt-4" style=" padding: 20px; border-radius: 10px; ">
+        <div class="row" style="margin-left:200px">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="TheLoai" style="font-weight: bold">Thể loại</label>
+                    <select name="TheLoai" class="form-control">
+                        <option value="All">Tất cả</option>
+                        <option value="Truyện thiếu nhi">Truyện thiếu nhi</option>
+                        <option value="Tiểu thuyết">Tiểu thuyết</option>
+                        <option value="Kỹ năng sống">Kỹ năng sống</option>
+                        <option value="Ngôn tình">Ngôn tình</option>
+                        <option value="Sách giáo khoa">Sách giáo khoa</option>
+                        <option value="Sách ngoại ngữ">Sách ngoại ngữ</option>
+                        <option value="Truyện ngắn">Truyện ngắn</option>
+                        <option value="Văn học">Sách ngoại ngữ</option>
+                        <option value="Sách tham khảo">Sách tham khảo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="NgonNgu" style="font-weight: bold">Ngôn ngữ</label>
+                    <select name="NgonNgu" class="form-control">
+                        <option value="All">Tất cả</option>
+                        <option value="TiếngViệt">Tiếng Việt</option>
+                        <option value="TiếngAnh">Tiếng Anh</option>
+                        <option value="TiếngTrung">Tiếng Trung</option>
+                        <option value="TiếngPháp">Tiếng Pháp</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="NamXB" style="font-weight: bold">Năm xuất bản</label>
+                    <select name="NamXB" class="form-control">
+                        <option value="All">Tất cả</option>
+                        <!-- Script to generate years dynamically -->
+                        <script>
+                            var currentYear = new Date().getFullYear();
+                            for (var i = currentYear; i >= 1940; i--) {
+                                document.write('<option value="' + i + '">' + i + '</option>');
+                            }
+                        </script>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>&nbsp;</label> <!-- Empty label for spacing -->
+                    <button type="submit" class="btn btn-primary btn-block" value="Submit" style=" margin-top: 25px;">Lọc</button>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
 
@@ -157,16 +169,16 @@
     function DangKyMuon() {
 
         // Lấy giá trị từ dropdown
-        var soLuongMuon = $('#soLuong').val();
-        var soLuongSachHienTai = $('#soLuongSach_' + selectedMaSach).text();
+        var soLuongMuon = parseInt($('#soLuong').val());
+        var soLuongSachHienTai = parseInt($('#soLuongSach_' + selectedMaSach).text());
 
         console.log("2. So luong:", soLuongMuon);    // Kiểm tra dữ liệu
         console.log("3. maSach:", selectedMaSach, "soLuong:", soLuongMuon);    // Kiểm tra dữ liệu
         console.log("4. So luong sach hien tai :", soLuongSachHienTai);    // Kiểm tra dữ liệu
 
         // Kiểm tra xem số sách muốn mượn có nằm trong khoảng từ 1 đến số sách hiện tại hay không (ví dụ)
-        if (soLuongMuon >= 1 && soLuongMuon <= soLuongSachHienTai) {
-            console.log("Giá trị hợp lệ: " + soLuongMuon);
+        if (!isNaN(soLuongMuon) && !isNaN(soLuongSachHienTai) && soLuongMuon >= 1 && soLuongMuon <= soLuongSachHienTai) {
+            console.log("Số lượng sách mượn hợp lệ");
 
             $.ajax({
                 url: "/ThueSach/DangKyMuon",

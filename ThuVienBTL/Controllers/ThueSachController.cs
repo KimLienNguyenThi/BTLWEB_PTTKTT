@@ -54,7 +54,7 @@ namespace ThuVienBTL.Controllers
             // Lọc theo thể loại
             if (TheLoai.ToString() != "All")
             {
-                sachLocTheLoai = sachLocNgonNgu.Where(m=>m.TheLoai == TheLoai).ToList();
+                sachLocTheLoai = sachLocNgonNgu.Where(m => m.TheLoai == TheLoai).ToList();
             }
             else
             {
@@ -65,7 +65,7 @@ namespace ThuVienBTL.Controllers
             if (NamXB.ToString() != "All")
             {
                 int number = int.Parse(NamXB);
-                sachLocNamXB = sachLocTheLoai.Where(m =>m.NamXB == number).ToList();
+                sachLocNamXB = sachLocTheLoai.Where(m => m.NamXB == number).ToList();
             }
             else
             {
@@ -73,32 +73,6 @@ namespace ThuVienBTL.Controllers
             }
 
             return View(sachLocNamXB);
-        }
-
-        public ActionResult GioHang()
-        {
-            return View();
-        }
-
-
-        [HttpPost]
-        public ActionResult DangKyMuon(int maSach, int soLuongMuon)
-        {
-            try
-            {
-                // Thêm i = soLuong cuốn sách vào ListSachMuon
-                for (int i = 0; i < soLuongMuon; i++)
-                {
-                    Sach sach = db.Saches.Find(maSach);
-                    ListSachMuon.listSachMuon.Add(maSach, soLuongMuon);
-                }
-
-                return Json(new { success = true }); // Trả về JSON để xử lý trong script nếu cần
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, error = ex.Message });
-            }
         }
 
         [HttpPost]
@@ -146,27 +120,47 @@ namespace ThuVienBTL.Controllers
             return Json(sachDetails);
         }
 
+        public ActionResult GioHang()
+        {
+            return View();
+        }
+
 
         [HttpPost]
-        public ActionResult XoaSachMuon(int maSach, int quantity)
+        public ActionResult DangKyMuon(int maSach, int soLuongMuon)
+        {
+            try
+            {
+                // kiểm tra nếu sách đã được thêm vào thì cập nhật số lượng sách bằng tổng số sách 2 lần nhập
+                if (ListSachMuon.listSachMuon.ContainsKey(maSach))
+                {
+                    var value = ListSachMuon.listSachMuon[maSach];   // lấy ra số sách khách hàng đã mượn trước đó
+                    ListSachMuon.listSachMuon[maSach] = value + soLuongMuon;   // cập nhật tổng số sách
+                }
+                else
+                {
+                    // Nếu sách chưa được nhập trước đó thì thêm sách mới
+                    Sach sach = db.Saches.Find(maSach);
+                    ListSachMuon.listSachMuon.Add(maSach, soLuongMuon);
+                }
+
+                return Json(new { success = true }); // Trả về JSON để xử lý trong script nếu cần
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult XoaSachMuon(int maSach)
         {
             try
             {
                 if (ListSachMuon.listSachMuon.ContainsKey(maSach))  // Kiểm tra mã sách đưa vào có tồn tại hay không
                 {
-                    var value = ListSachMuon.listSachMuon[maSach];   // lấy ra số sách khách hàng dã mượn
-
-                    ListSachMuon.listSachMuon[maSach] = value - quantity;   // cập nhật số sách mượn khi khách hàng chọn xoá
-
-                    if (ListSachMuon.listSachMuon[maSach] > 0)
-                    {
-                        return Json(new { success = true, message = "Cập nhật số lượng thành công", updatedQuantity = ListSachMuon.listSachMuon[maSach] });
-                    }
-                    else
-                    {
-                        ListSachMuon.listSachMuon.Remove(maSach);
-                        return Json(new { success = true, message = "Cập nhật số lượng thành công" });
-                    }
+                    ListSachMuon.listSachMuon.Remove(maSach);
+                    return Json(new { success = true, message = "Cập nhật số lượng thành công" });
                 }
                 else
                 {
@@ -177,6 +171,41 @@ namespace ThuVienBTL.Controllers
             {
                 return Json(new { success = false, message = "Đã xảy ra lỗi khi xoá sách." });
             }
+        }
+
+        [HttpPost]
+        public ActionResult TinhTongSoSachMuon()
+        {
+            return Json(new { success = true, tongSoSach = ListSachMuon.listSachMuon.Values.Sum() });
+        }
+
+        [HttpPost]
+        public ActionResult XacNhanThueSach(int[] maSach, int[] soLuongSach)
+        {
+            //DateTime now = DateTime.Now;
+
+            //DkiMuonSach dkMuon = new DkiMuonSach()
+            //{
+            //    SDT = (string)Session["sharedData"],
+            //    NgayDKMuon = now,
+            //    NgayHen = now.AddDays(7),
+            //    Tinhtrang = 0,
+            //};
+
+            //db.DkiMuonSaches.Add(dkMuon);
+
+
+            //// Luu vao database
+            //db.SaveChanges();
+
+            //ChiTietDk ctDK = new ChiTietDk()
+            //{
+            //    MaDK = dkMuon.MaDK,
+            //    MaSach = id,
+            //    Soluongmuon = giaTri,
+            //};
+            return Json(new { success = true, tongSoSach = ListSachMuon.listSachMuon.Values.Sum() });
+
         }
     }
 }

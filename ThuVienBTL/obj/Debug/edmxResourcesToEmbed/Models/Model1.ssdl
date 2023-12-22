@@ -55,10 +55,10 @@
       <PropertyRef Name="MaDK" />
     </Key>
     <Property Name="MaDK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="USERNAME_DG" Type="nvarchar" MaxLength="50" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="50" />
     <Property Name="NgayDKMuon" Type="date" />
     <Property Name="NgayHen" Type="date" />
-    <Property Name="Tinhtrang" Type="bit" />
+    <Property Name="Tinhtrang" Type="int" />
   </EntityType>
   <EntityType Name="DocGia">
     <Key>
@@ -89,18 +89,19 @@
   </EntityType>
   <EntityType Name="LOGIN_DG">
     <Key>
-      <PropertyRef Name="USERNAME_DG" />
+      <PropertyRef Name="SDT" />
     </Key>
-    <Property Name="USERNAME_DG" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="PASSWORD_DG" Type="nvarchar" MaxLength="50" />
-    <Property Name="MaDG" Type="int" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PASSWORD_DG" Type="nvarchar" MaxLength="255" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="LOGIN_NV">
     <Key>
       <PropertyRef Name="USERNAME_NV" />
     </Key>
     <Property Name="USERNAME_NV" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="PASSWORD_NV" Type="nvarchar" MaxLength="50" />
+    <Property Name="PASSWORD_NV" Type="nvarchar(max)" />
     <Property Name="MANV" Type="int" />
   </EntityType>
   <EntityType Name="NhaCungCap">
@@ -176,6 +177,16 @@
     <Property Name="NamXB" Type="int" />
     <Property Name="SoLuongHIENTAI" Type="int" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="TheDocGia">
     <Key>
       <PropertyRef Name="MaThe" />
@@ -234,7 +245,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
     <Property Name="MaNV" Type="int" />
     <Property Name="Tổng tiền xử lý" Type="money" />
   </EntityType>
-  <Association Name="FK__ChiTietDk__MaDK__72C60C4A">
+  <Association Name="FK__ChiTietDk__MaDK__70DDC3D8">
     <End Role="DkiMuonSach" Type="Self.DkiMuonSach" Multiplicity="1" />
     <End Role="ChiTietDk" Type="Self.ChiTietDk" Multiplicity="*" />
     <ReferentialConstraint>
@@ -246,7 +257,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ChiTietDk__MaSac__73BA3083">
+  <Association Name="FK__ChiTietDk__MaSac__71D1E811">
     <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
     <End Role="ChiTietDk" Type="Self.ChiTietDk" Multiplicity="*" />
     <ReferentialConstraint>
@@ -354,31 +365,19 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__DkiMuonSa__USERN__6EF57B66">
+  <Association Name="FK__DkiMuonSach__SDT__6E01572D">
     <End Role="LOGIN_DG" Type="Self.LOGIN_DG" Multiplicity="0..1" />
     <End Role="DkiMuonSach" Type="Self.DkiMuonSach" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="LOGIN_DG">
-        <PropertyRef Name="USERNAME_DG" />
+        <PropertyRef Name="SDT" />
       </Principal>
       <Dependent Role="DkiMuonSach">
-        <PropertyRef Name="USERNAME_DG" />
+        <PropertyRef Name="SDT" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__LOGIN_DG__MaDG__66603565">
-    <End Role="DocGia" Type="Self.DocGia" Multiplicity="0..1" />
-    <End Role="LOGIN_DG" Type="Self.LOGIN_DG" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="DocGia">
-        <PropertyRef Name="MaDG" />
-      </Principal>
-      <Dependent Role="LOGIN_DG">
-        <PropertyRef Name="MaDG" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__LOGIN_NV__MANV__693CA210">
+  <Association Name="FK__LOGIN_NV__MANV__68487DD7">
     <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
     <End Role="LOGIN_NV" Type="Self.LOGIN_NV" Multiplicity="*" />
     <ReferentialConstraint>
@@ -522,7 +521,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__TT_SACH__MASACH__6C190EBB">
+  <Association Name="FK__TT_SACH__MASACH__6B24EA82">
     <End Role="Sach" Type="Self.Sach" Multiplicity="0..1" />
     <End Role="TT_SACH" Type="Self.TT_SACH" Multiplicity="*" />
     <ReferentialConstraint>
@@ -534,6 +533,37 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="QuanLyThuVienModelStoreContainer">
     <EntitySet Name="ChiTietDk" EntityType="Self.ChiTietDk" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ChiTietPM" EntityType="Self.ChiTietPM" Schema="dbo" store:Type="Tables" />
@@ -553,6 +583,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
     <EntitySet Name="PhieuThanhLy" EntityType="Self.PhieuThanhLy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PhieuTra" EntityType="Self.PhieuTra" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TheDocGia" EntityType="Self.TheDocGia" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TT_SACH" EntityType="Self.TT_SACH" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PHIEUNHAP_VIEW" EntityType="Self.PHIEUNHAP_VIEW" store:Type="Views" store:Schema="dbo">
@@ -584,11 +615,11 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
     [PHIEUTra_VIEW].[Tổng tiền xử lý] AS [Tổng tiền xử lý]
     FROM [dbo].[PHIEUTra_VIEW] AS [PHIEUTra_VIEW]</DefiningQuery>
     </EntitySet>
-    <AssociationSet Name="FK__ChiTietDk__MaDK__72C60C4A" Association="Self.FK__ChiTietDk__MaDK__72C60C4A">
+    <AssociationSet Name="FK__ChiTietDk__MaDK__70DDC3D8" Association="Self.FK__ChiTietDk__MaDK__70DDC3D8">
       <End Role="DkiMuonSach" EntitySet="DkiMuonSach" />
       <End Role="ChiTietDk" EntitySet="ChiTietDk" />
     </AssociationSet>
-    <AssociationSet Name="FK__ChiTietDk__MaSac__73BA3083" Association="Self.FK__ChiTietDk__MaSac__73BA3083">
+    <AssociationSet Name="FK__ChiTietDk__MaSac__71D1E811" Association="Self.FK__ChiTietDk__MaSac__71D1E811">
       <End Role="Sach" EntitySet="Sach" />
       <End Role="ChiTietDk" EntitySet="ChiTietDk" />
     </AssociationSet>
@@ -624,15 +655,11 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       <End Role="KhoSachThanhLy" EntitySet="KhoSachThanhLy" />
       <End Role="ChiTietPTL" EntitySet="ChiTietPTL" />
     </AssociationSet>
-    <AssociationSet Name="FK__DkiMuonSa__USERN__6EF57B66" Association="Self.FK__DkiMuonSa__USERN__6EF57B66">
+    <AssociationSet Name="FK__DkiMuonSach__SDT__6E01572D" Association="Self.FK__DkiMuonSach__SDT__6E01572D">
       <End Role="LOGIN_DG" EntitySet="LOGIN_DG" />
       <End Role="DkiMuonSach" EntitySet="DkiMuonSach" />
     </AssociationSet>
-    <AssociationSet Name="FK__LOGIN_DG__MaDG__66603565" Association="Self.FK__LOGIN_DG__MaDG__66603565">
-      <End Role="DocGia" EntitySet="DocGia" />
-      <End Role="LOGIN_DG" EntitySet="LOGIN_DG" />
-    </AssociationSet>
-    <AssociationSet Name="FK__LOGIN_NV__MANV__693CA210" Association="Self.FK__LOGIN_NV__MANV__693CA210">
+    <AssociationSet Name="FK__LOGIN_NV__MANV__68487DD7" Association="Self.FK__LOGIN_NV__MANV__68487DD7">
       <End Role="NhanVien" EntitySet="NhanVien" />
       <End Role="LOGIN_NV" EntitySet="LOGIN_NV" />
     </AssociationSet>
@@ -680,7 +707,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       <End Role="NhanVien" EntitySet="NhanVien" />
       <End Role="TheDocGia" EntitySet="TheDocGia" />
     </AssociationSet>
-    <AssociationSet Name="FK__TT_SACH__MASACH__6C190EBB" Association="Self.FK__TT_SACH__MASACH__6C190EBB">
+    <AssociationSet Name="FK__TT_SACH__MASACH__6B24EA82" Association="Self.FK__TT_SACH__MASACH__6B24EA82">
       <End Role="Sach" EntitySet="Sach" />
       <End Role="TT_SACH" EntitySet="TT_SACH" />
     </AssociationSet>
