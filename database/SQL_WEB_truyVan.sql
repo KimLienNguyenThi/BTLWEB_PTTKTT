@@ -10,7 +10,7 @@ SELECT * FROM KHOSACHTHANHLY
 SELECT * FROM PhieuThanhLy
 SELECT * FROM ChiTietPTL
 
-SELECT * FROM login_nv
+SELECT * FROM login_DG
 SELECT * FROM nhanvien
 
 SELECT * FROM dkimuonsach
