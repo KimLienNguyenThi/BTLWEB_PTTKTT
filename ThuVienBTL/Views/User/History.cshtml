@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ThuVienBTL.Models.DkiMuonSach>
+
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>History</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaDK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayDKMuon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayHen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tinhtrang)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaDK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayDKMuon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayHen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tinhtrang)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.MaDK }) |
+            @Html.ActionLink("Details", "Details", new { id = item.MaDK }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.MaDK })
+        </td>
+    </tr>
+}
+    
+</table>

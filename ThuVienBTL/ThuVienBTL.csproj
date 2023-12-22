@@ -512,13 +512,13 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\DangKy.cshtml" />
-    <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\Classes\DanhSachSach.cshtml" />
     <Content Include="Views\ThueSach\Index.cshtml" />
     <Content Include="Views\ThueSach\LocYeuCau.cshtml" />
     <Content Include="Views\User\UpdatePassWord.cshtml" />
     <Content Include="Views\Classes\SearchSach.cshtml" />
     <Content Include="Views\ThueSach\GioHang.cshtml" />
+    <Content Include="Views\User\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />

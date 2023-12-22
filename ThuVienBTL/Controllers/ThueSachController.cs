@@ -182,29 +182,45 @@ namespace ThuVienBTL.Controllers
         [HttpPost]
         public ActionResult XacNhanThueSach(int[] maSach, int[] soLuongSach)
         {
-            //DateTime now = DateTime.Now;
+            DateTime now = DateTime.Now;
 
-            //DkiMuonSach dkMuon = new DkiMuonSach()
-            //{
-            //    SDT = (string)Session["sharedData"],
-            //    NgayDKMuon = now,
-            //    NgayHen = now.AddDays(7),
-            //    Tinhtrang = 0,
-            //};
+            DkiMuonSach dkMuon = new DkiMuonSach()
+            {
+                SDT = (string)Session["shared_SDT"],
+                NgayDKMuon = now,
+                NgayHen = now.AddDays(7),
+                Tinhtrang = 0,
+            };
 
-            //db.DkiMuonSaches.Add(dkMuon);
+            db.DkiMuonSaches.Add(dkMuon);
+            // Luu vao database
+            db.SaveChanges();
 
+            // Lặp qua từng phần tử của hai mảng cùng một chỉ số
+            for (int i = 0; i < Math.Min(maSach.Length, soLuongSach.Length); i++)
+            {
+                // Lấy ra phần tử tương ứng từ mảng maSach và soLuongSach
+                int maSachItem = maSach[i];
+                int soLuongSachItem = soLuongSach[i];
 
-            //// Luu vao database
-            //db.SaveChanges();
+                // Tạo một đối tượng mới và thêm vào danh sách
+                ChiTietDk ctdk = new ChiTietDk()
+                {
+                    MaDK = dkMuon.MaDK,
+                    MaSach = maSachItem,
+                    Soluongmuon = soLuongSachItem,
+                };
 
-            //ChiTietDk ctDK = new ChiTietDk()
-            //{
-            //    MaDK = dkMuon.MaDK,
-            //    MaSach = id,
-            //    Soluongmuon = giaTri,
-            //};
-            return Json(new { success = true, tongSoSach = ListSachMuon.listSachMuon.Values.Sum() });
+                db.ChiTietDks.Add(ctdk);
+
+                var sach = db.Saches.Find(maSachItem);
+                sach.SoLuongHIENTAI = sach.SoLuongHIENTAI - soLuongSachItem;
+            }
+
+            // Luu vào database
+            db.SaveChanges();
+
+            return Json(new { success = true });
 
         }
     }

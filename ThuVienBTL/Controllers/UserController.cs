@@ -44,34 +44,36 @@ namespace ThuVienBTL.Controllers
                 return View();
         }
 
-        public ActionResult DangKy() 
+        public ActionResult DangKy()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult DangKy(LOGIN_DG model)
+
+        public ActionResult DangKyTaiKhoan(string hoTen, string email, string sdt, string matKhau)
         {
             mapTaiKhoan map = new mapTaiKhoan();
-
-            if(model.PASSWORD_DG.IsEmpty() || model.HoTen.IsEmpty() || model.SDT.IsEmpty() || model.Email.IsEmpty())
+            LOGIN_DG data = new LOGIN_DG()
             {
-                ViewBag.errorInfo = "* Thông tin không được để trống";
-                return View(model);
+                Email = email,
+                HoTen = hoTen,
+                PASSWORD_DG = matKhau,
+                SDT = sdt,
+            };
+
+            if (map.ThemMoi(data))
+            {
+                // Chuyển hướng đến hành động "Index" của controller "User"
+                return View();
             }
             else
             {
-                if (map.ThemMoi(model) == true)
-                {
-                    return RedirectToAction("Index", "User");
-                }
-                else
-                {
-                    ViewBag.error = "* Thông tin không hợp lệ hoặc đã bị trùng";
-                    return View(model);
-                }
+                // Trả về phản hồi JSON nếu cần
+                return Json(new { success = false, message = "Đăng ký thất bại", data = data });
             }
         }
+
 
         public ActionResult Logout()
         {
@@ -118,6 +120,28 @@ namespace ThuVienBTL.Controllers
                 ViewBag.error = "*Sai tên đăng nhập!";
                 return View();
             }
+        }
+
+
+        public ActionResult History()
+        {
+            
+                var sessionValue = Session["shared_SDT"].ToString(); // Convert to string or appropriate type
+
+                var data = db.DkiMuonSaches.Where(m => m.SDT == sessionValue).ToList();
+
+                if (data.Count > 0)
+                {
+                    return View(data);
+                }
+                else
+                {
+                    // Handle when there is no data
+                    ViewBag.Message = "Không có dữ liệu.";
+                    return View();
+                }
+            
+            
         }
     }
 }

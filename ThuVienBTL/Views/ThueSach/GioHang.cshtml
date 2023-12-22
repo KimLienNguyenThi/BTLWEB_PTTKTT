@@ -158,7 +158,6 @@ else
                     tongSoSachMuon.innerHTML = " Tổng số sách mượn: ";
                 }
             }
-
         });
 
 
@@ -241,12 +240,23 @@ else
             selectedValues.forEach(function (id) {
                 // Lấy tham chiếu đến phần tử input theo ID
                 var inputElement = document.getElementById('soLuongSachMuon_' + id);
+                var SoLuongHienTai = document.getElementById('soLuongHienTai_' + id);
 
                 // Kiểm tra xem input có tồn tại không
                 if (inputElement) {
-                    // Lấy giá trị của thuộc tính value
-                    var giaTri = parseInt(inputElement.value);
-                    tongSoSachMuon = tongSoSachMuon + giaTri;
+                    console.log("Số lượng hiện tại: " + parseInt(SoLuongHienTai.value));
+                    console.log("Số lượng chọn: " + parseInt(inputElement.value));
+
+                    // Kiểm tra xem giá trị có âm không và đặt lại thành 0 nếu cần
+                    if (parseInt(inputElement.value) > 1 && parseInt(inputElement.value) <= parseInt(SoLuongHienTai.value)) {
+                        // Lấy giá trị của thuộc tính value
+                        var giaTri = parseInt(inputElement.value);
+                        tongSoSachMuon = tongSoSachMuon + giaTri;
+                    } else {
+                        inputElement.value = 0;
+                        alert("Vui lòng chọn giá trị hợp lệ")
+                    }
+
                 }
             });
 
@@ -264,47 +274,55 @@ else
 
     ///////////////////////// Button đăng ký mượn sách /////////////////////////
     function DangKyMuon() {
-        // mảng chứa số lượng sách của mỗi loại sách
-        var giaTri = [];
+        // Hien thi hop thoai xac nhan
+        var xacNhan = confirm("Bạn có chắc chắn muốn đăng ký mượn sách không?");
 
-        alert("Thực hiện đăng ký mượn?");
+        // Nếu người dùng đồng ý
+        if (xacNhan) {
+            // mảng chứa số lượng sách của mỗi loại sách
+            var giaTri = [];
 
-        // Kiểm tra danh sách checkbox được chọn
-        console.log(selectedValues);
+            alert("Thực hiện đăng ký mượn?");
 
-        // Lặp qua danh sách các ID và lấy giá trị của mỗi input
-        selectedValues.forEach(function (id) {
-            // Lấy tham chiếu đến phần tử input theo ID
-            var inputElement = document.getElementById('soLuongSachMuon_' + id);
+            // Kiểm tra danh sách checkbox được chọn
+            console.log(selectedValues);
 
-            // Kiểm tra xem input có tồn tại không
-            if (inputElement) {
-                // Lấy giá trị của thuộc tính value
-                giaTri.push(parseInt(inputElement.value));
-                console.log("Mã sách mượn: " + id);
-                console.log("Số lượng sách mượn: " + inputElement.value);
+            // Lặp qua danh sách các ID và lấy giá trị của mỗi input
+            selectedValues.forEach(function (id) {
+                // Lấy tham chiếu đến phần tử input theo ID
+                var inputElement = document.getElementById('soLuongSachMuon_' + id);
 
-            }
+                // Kiểm tra xem input có tồn tại không
+                if (inputElement) {
+                    // Lấy giá trị của thuộc tính value
+                    giaTri.push(parseInt(inputElement.value));
+                    console.log("Mã sách mượn: " + id);
+                    console.log("Số lượng sách mượn: " + inputElement.value);
 
-        });
+                }
 
-        console.log("Mảng số lượng sách mượn: " + giaTri);
+            });
 
-        // Gọi controller xử lý mượn sách
-        $.ajax({
-        url: "@Url.Action("XacNhanThueSach", "ThueSach")",
-            type: "POST",
-            data: {
-                maSach: selectedValues,
-                soLuongSach: giaTri,
-            },
-            success: function (result) {
+            console.log("Mảng số lượng sách mượn: " + giaTri);
 
-            },
-            error: function () {
-            console.log("Đã xảy ra lỗi khi gửi ajax thuê sách.");
-            }
-        });
+            // Gọi controller xử lý mượn sách
+            $.ajax({
+                url: "@Url.Action("XacNhanThueSach", "ThueSach")",
+                type: "POST",
+                data: {
+                    maSach: selectedValues,
+                    soLuongSach: giaTri,
+                },
+                success: function (result) {
+
+                },
+                error: function () {
+                    console.log("Đã xảy ra lỗi khi gửi ajax thuê sách.");
+                }
+            });
+            alert("Đăng ký mượn thành công");
+
+        }
     }
 
 
@@ -339,6 +357,5 @@ else
     }
 
 </script>
-
 
 
