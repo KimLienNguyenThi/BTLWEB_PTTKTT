@@ -21,10 +21,10 @@ namespace WebQuanLyThuVien.Models
         }
     
         public int MaDK { get; set; }
-        public string USERNAME_DG { get; set; }
+        public string SDT { get; set; }
         public Nullable<System.DateTime> NgayDKMuon { get; set; }
         public Nullable<System.DateTime> NgayHen { get; set; }
-        public Nullable<bool> Tinhtrang { get; set; }
+        public Nullable<int> Tinhtrang { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDk> ChiTietDks { get; set; }

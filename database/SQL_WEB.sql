@@ -145,11 +145,15 @@ CREATE  TABLE ChiTietPTL (
 	constraint ChiTietPTL_MaPTL_MaSach PRIMARY KEY (MaPTL, MaSachkho)
 );
 
+
+--khong cho  nó đăng kí thẻ onlline 
 CREATE TABLE LOGIN_DG (
-	USERNAME_DG NVARCHAR(50) PRIMARY KEY,
+	SDT NVARCHAR(50) PRIMARY KEY,
 	PASSWORD_DG NVARCHAR(255),
-	MaDG INT,
-		FOREIGN KEY (MaDG) REFERENCES DOCGIA (MaDG),
+	HoTen NVARCHAR(50),
+	Email Nvarchar(255)
+	--MaDG INT,
+	--	FOREIGN KEY (MaDG) REFERENCES DOCGIA (MaDG),
 );
 
 CREATE TABLE LOGIN_NV (
@@ -169,11 +173,11 @@ FOREIGN KEY (MASACH) REFERENCES Sach (MASACH),
 
 CREATE TABLE DkiMuonSach (
 	MaDK INT PRIMARY KEY IDENTITY NOT NULL,
-	USERNAME_DG NVARCHAR(50),
+	SDT NVARCHAR(50),
 	NgayDKMuon DATE,
 	NgayHen DATE,
-	FOREIGN KEY (USERNAME_DG) REFERENCES LOGIN_DG (USERNAME_DG),
-	Tinhtrang bit default '0'--DANG CHỜ XÁC THỰC
+	FOREIGN KEY (SDT) REFERENCES LOGIN_DG (SDT),
+	Tinhtrang int --DANG CHỜ XÁC THỰC  0 --đã duyệt là 1 --đã mượn là 2
 );
 
 CREATE TABLE ChiTietDk (
@@ -258,6 +262,9 @@ ALTER TABLE CHITIETPTL ADD CONSTRAINT CHK_GiaTL_CTPTL CHECK (GiaTL > 0);
 
 --RANG BUOC phieu dk
 ALTER TABLE DkiMuonSach ADD CONSTRAINT CHK_NGAYMUON_DK CHECK (NgayDKMuon <= NgayHen);
+ALTER TABLE DkiMuonSach add CONSTRAINT CHK_TINHTRANG_DK CHECK (Tinhtrang IN (0,1,2,3));
+
+
 --ALTER TABLE PHIEUMUON ADD CONSTRAINT CHK_PHIEUMUON_Tinhtrang CHECK (Tinhtrang IN(0,1));
 
 --ALTER TABLE PHIEUMUON ADD CONSTRAINT CHK_SOLUONGTONG_PM CHECK (SOLUONGTONG > 0);
@@ -265,6 +272,10 @@ ALTER TABLE DkiMuonSach ADD CONSTRAINT CHK_NGAYMUON_DK CHECK (NgayDKMuon <= Ngay
 
 --RANG BUOC CHI TIET PHIEU MUON 
 ALTER TABLE CHITIETDK ADD CONSTRAINT CHK_SOLUONG_CTDK CHECK (SOLUONGmuon > 0);
+
+--RANG BUOC login dg
+ALTER TABLE Login_DG ADD CONSTRAINT CHK_SDT_LOGIN_DG   UNIQUE(SDT);
+ALTER TABLE Login_DG ADD CONSTRAINT CHK_EMAIL_LOGIN_DG   UNIQUE(EMAIL);
 
 
 --***************CẬP NHẬT SỐ LƯỢNG CÁC THAO TÁC+******************
@@ -349,36 +360,6 @@ BEGIN
 END;
 --GO
 
-----/* CẬP NHẬT SÁCH TRONG KHO khi insert  */
---CREATE OR ALTER drop PROCEDURE KiemTraMaVaCapNhatSachthanhly
---    @MaSachkho INT,
---    @soluongkhotl INT,
---    @InsertLocation INT -- Thêm tham số mới để phân biệt nơi thực hiện insert
---AS
---BEGIN
---    -- Kiểm tra xem mã sách đã tồn tại trong kho thanh lý chưa
---    IF EXISTS (SELECT 1 FROM KhosachThanhLy WHERE masachkho = @MaSachkho)
---    BEGIN
---        -- Nếu tồn tại, tăng số lượng sách
---        UPDATE KhosachThanhLy
---        SET soluongkhotl = soluongkhotl + @soluongkhotl
---        WHERE MaSachkho = @MaSachkho;
---    END
---    ELSE
---    BEGIN
---        -- Nếu chưa tồn tại, thêm mới sách vào kho thanh lý
---        INSERT INTO KhosachThanhLy (MaSachkho, soluongkhotl)
---        VALUES (@MaSachkho, @soluongkhotl);
---    END
-
---    -- Giảm số lượng sách trong bảng chính
---    IF @InsertLocation = 1 -- Thêm điều kiện để phân biệt nơi thực hiện insert
---    BEGIN
---        UPDATE SACH
---        SET SoLuongHIENTAI = SoLuongHIENTAI - @soluongkhotl
---        WHERE MaSach = @MaSachkho;
---    END;
---END;
 
 
 /* CẬP NHẬT SÁCH TRONG KHO SAU KHI THANH LÍ  */
@@ -479,6 +460,36 @@ AS
 	GROUP BY ptl.maptl, Madv, NgayTL, MaNV;
 
 
+----/* CẬP NHẬT SÁCH TRONG KHO khi insert  */
+--CREATE OR ALTER drop PROCEDURE KiemTraMaVaCapNhatSachthanhly
+--    @MaSachkho INT,
+--    @soluongkhotl INT,
+--    @InsertLocation INT -- Thêm tham số mới để phân biệt nơi thực hiện insert
+--AS
+--BEGIN
+--    -- Kiểm tra xem mã sách đã tồn tại trong kho thanh lý chưa
+--    IF EXISTS (SELECT 1 FROM KhosachThanhLy WHERE masachkho = @MaSachkho)
+--    BEGIN
+--        -- Nếu tồn tại, tăng số lượng sách
+--        UPDATE KhosachThanhLy
+--        SET soluongkhotl = soluongkhotl + @soluongkhotl
+--        WHERE MaSachkho = @MaSachkho;
+--    END
+--    ELSE
+--    BEGIN
+--        -- Nếu chưa tồn tại, thêm mới sách vào kho thanh lý
+--        INSERT INTO KhosachThanhLy (MaSachkho, soluongkhotl)
+--        VALUES (@MaSachkho, @soluongkhotl);
+--    END
+
+--    -- Giảm số lượng sách trong bảng chính
+--    IF @InsertLocation = 1 -- Thêm điều kiện để phân biệt nơi thực hiện insert
+--    BEGIN
+--        UPDATE SACH
+--        SET SoLuongHIENTAI = SoLuongHIENTAI - @soluongkhotl
+--        WHERE MaSach = @MaSachkho;
+--    END;
+--END;
 	
 --CREATE OR ALTER drop TRIGGER Trig_CapNhatSachThanhLy
 --ON KhosachThanhLy

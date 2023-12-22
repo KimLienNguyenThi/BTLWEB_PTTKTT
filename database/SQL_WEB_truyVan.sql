@@ -13,8 +13,28 @@ SELECT * FROM ChiTietPTL
 SELECT * FROM login_nv
 SELECT * FROM nhanvien
 
+select * from docgia
+where sdt = 0466155193
+
+SELECT * FROM dkimuonsach
+SELECT * FROM chitietdk
+
+select * from login_dg
+
+SELECT * FROM docgia
+SELECT * FROM thedocgia
+
+SELECT * FROM PHIEUMUON
+SELECT * FROM chitietpm
+
 
 DELETE FROM LOGIN_NV WHERE MaNV = 3;
+
+update dkimuonsach
+set tinhtrang = 0
+where madk = 4
+
+
 
 
 
