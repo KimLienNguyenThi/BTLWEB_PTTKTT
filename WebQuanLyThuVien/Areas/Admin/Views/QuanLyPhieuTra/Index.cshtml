@@ -19,7 +19,7 @@
                             </div>
 
                             <div class="card-tools col-3">
-                                <div class="input-group input-group-sm pt-1">
+                                @*<div class="input-group input-group-sm pt-1">
                                     <input type="text"
                                            name="table_search"
                                            class="form-control float-right"
@@ -30,7 +30,7 @@
                                             <i class="fas fa-search"></i>
                                         </button>
                                     </div>
-                                </div>
+                                </div>*@
                             </div>
 
                             <div class="col-3">
@@ -43,7 +43,7 @@
                         <form>
                             <!--Danh sách phieu trả-->
                             <div class="text-center">
-                                <table class="table table-hover table-head-fixed table-bordered">
+                                <table  id="tblDanhSachPhieuTra" class="table table-hover table-head-fixed table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Mã PM</th>
@@ -56,36 +56,7 @@
                                             <th>Mã NV</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="danhSachPhieuTra">
-                                        @foreach (var item in ViewData["PhieuTra"] as List<WebQuanLyThuVien.Areas.Admin.Data.PhieuTra_GroupMaPM_DTO>)
-                                        {
-                                            var isFirst = true;
-                                            foreach (var dataPhieuTra in item.DataPhieuTras)
-                                            {
-                                                <tr class="qly_phieutra_row" data-ma-the="@dataPhieuTra.MaPT">
-                                                    @if (isFirst)
-                                                    {
-                                                        isFirst = false;
-                                                        <td rowspan="@item.CountRow">@item.MaPM</td>
-                                                        <td id="'see_all' + @dataPhieuTra.MaPM" rowspan="@item.CountRow">
-                                                            <!-- Thêm nút "Xem tất cả" -->
-                                                            <button type="button" class="btn btn-info btn-sm" onclick="handleSeeAllClick(@item.MaPM,@dataPhieuTra.MaThe)">See All</button>
-                                                        </td>
-                                                    }
-
-
-                                                    <td onclick="getCTPT(@dataPhieuTra.MaPT,@dataPhieuTra.MaThe )">@dataPhieuTra.MaPT</td>
-                                                    <td>@string.Format("{0:dd-MM-yyyy}", dataPhieuTra.NgayTra)</td>
-
-                                                    <td>@dataPhieuTra.MaThe</td>
-                                                    <td>@dataPhieuTra.HoTenDG</td>
-                                                    <td>@dataPhieuTra.SDT</td>
-                                                    <td>@dataPhieuTra.MaNV</td>
-
-                                                </tr>
-                                            }
-                                        }
-                                    </tbody>
+                               
                                 </table>
                             </div>
                         </form>
@@ -193,7 +164,7 @@
 
                 <!--Danh sách sách mượn-->
                 <div class="text-center">
-                    <table class="table table-hover">
+                    <table  class="table table-hover">
                         <thead>
                             <tr>
                                 <th>Mã PT</th>
@@ -233,6 +204,7 @@
 {
     <script>
 
+        init();
         function lamMoi() {
             // Làm mới trang
             location.reload();
@@ -317,8 +289,7 @@
                      });
                  }
         // Hàm xử lý sự kiện "See All" với mã PM
-        function handleSeeAllClick(maPM, mathedocgia) {
-            //event.preventDefault();
+        function handleSeeAllClick(maPM, mathedocgia, event) {
             //event.stopPropagation();
               $.ajax({
                     url: '@Url.Action("ChiTietptByPM", "QuanLyPhieuTra")',
@@ -372,6 +343,182 @@
             var formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
             return formattedDate;
         }
+
+
+        function init()
+        {
+            $('#tblDanhSachPhieuTra').DataTable({
+                processing: true, //Hiển thị thông báo khi dữ liệu đang được xử lý.
+                serverSide: true,//Bật chế độ xử lý phía máy chủ.
+                paging: true,//paging, search, searching: Cho phép phân trang và tìm kiếm.
+                search: true,
+                searching: true,
+                searchDelay: 400, // sau khi thay đổi input search delay 1 tý, tránh thay đổi text liên tục thì gọi liên tục
+                scrollY: false,//Cho phép cuộn (scroll) theo chiều dọc.
+                iDisplayLength: 5, // chỉnh nếu muốn hiện số row mỗi trang
+                bLengthChange: false,//Không hiển thị lựa chọn thay đổi số lượng hàng hiển thị trên trang.
+                language: {
+                    info: "Hiện thị _START_ đến _END_ của _TOTAL_ mục",
+                    lengthMenu: "Hiện thị _MENU_ mục",
+                    search: "Search",
+                    processing: "Đang tải dữ liệu...",
+                    paginate: {
+                        previous: "Đầu",
+                        next: "Tiếp theo",
+                        last: "Cuối"
+                    }
+                },
+                ajax: {
+                    url: "/QuanLyPhieuTra/GetListPhieuTraPaging",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        // alone.startLoading();
+                    },
+                    data: function (data) { //Chuẩn bị dữ liệu trước khi gửi yêu cầu.
+                        var settings = $("#tblDanhSachPhieuTra").dataTable().fnSettings();
+                        var currentPageIndex = Math.ceil(settings._iDisplayStart / settings._iDisplayLength) + 1;
+                        var request =
+                        {
+                            // CategoryId: parseInt($('#ddlCategory').val(), 10),
+                            PageSize: 5,
+                            Page: currentPageIndex,
+                            Keyword: $('.dataTables_filter input[type="search"]').val()
+                        };
+                        return JSON.stringify(request);
+                    },
+                    dataSrc: function (res) {//Trích xuất dữ liệu từ phản hồi.
+                        if (res.Result != null && res.Result.Results != null) {
+                            return res.Result.Results;
+                            //alone.stopLoading();
+                        }
+                        else {
+                            //alone.notify('Cannot load data of Product', 'danger');
+                            //alone.stopLoading();
+                            return [];
+                        }
+                    },
+                    dataFilter: function (data) {
+                        // Xử lý dữ liệu trước khi nó được sử dụng.
+                        var page = $.parseJSON(data);
+                        if (page.Result == null) {
+                            page.recordsTotal = 0;
+                            page.recordsFiltered = 0;
+                            //alone.stopLoading();
+                            return JSON.stringify(page);
+                        }
+                        page.recordsTotal = page.Result.RowCount;
+                        page.recordsFiltered = page.Result.RowCount;
+                        //alone.stopLoading();
+                        return JSON.stringify(page);
+                    },
+                    error: function (status) {//Xử lý lỗi khi yêu cầu không thành công.
+                        //alone.notify('Cannot load data of Product', 'danger');
+                        //alone.stopLoading();
+                    }
+                },
+                columns: [
+                    {
+                        name: 'first',
+                        "data": "MaPM", "width": "7%"
+                    },
+                    {
+                        name: 'second',
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-icon btn-hover btn-sm btn-see-all" id="' + row.MaPM +'_'+ row.MaThe + '">See All</button>'
+                        }
+                    },
+                    {
+                        "data": "MaPT", "width": "10%"
+                        //render: $.fn.dataTable.render.number(',')
+                    },
+                    {
+                        "data": "NgayTra", "width": "15%",
+                        render: DataTable.render.datetime('D-M-yyyy')
+                    },
+                    {
+                        "data": "MaThe", "width": "15%"
+                    },
+                    {
+                        "data": "HoTenDG", "width": "15%"
+                    },
+                    {
+                        "data": "SDT", "width": "15%"
+                    },
+                    {
+                        "data": "MaNV", "width": "15%"
+                    },
+                   
+                ],
+                rowsGroup: [
+                    'first:name', 'second:name',
+                ],
+                columnDefs: [{//Nếu giá trị của một ô là null hoặc undefined, sẽ hiển thị giá trị mặc định là "-".
+                    "defaultContent": "-",
+                    "targets": "_all"
+                }],
+                initComplete: function () {
+                    //$("#tblDanhSachPhieuTra label input").attr('id', 'search_box');
+                    //var input = $('.dataTables_filter input').unbind(),
+                    //    self = this.api(),
+                    //    $searchButton = $('<a href="javascript:void(0);"' +
+                    //        '<i class="anticon anticon-search"></i></a>')
+                    //        .click(function () {
+                    //            self.search(input.val()).draw();
+                    //        })
+                    //$('.dataTables_filter').append($searchButton);
+                },
+            });
+
+        }
+
+        $('body').on('click', '.btn-see-all', function (e) {
+            e.preventDefault();
+            var arr = $(this)[0].id.split("_");
+               $.ajax({
+                    url: '@Url.Action("ChiTietptByPM", "QuanLyPhieuTra")',
+                    type: 'POST',
+                    data: {
+                        maPM: arr[0],
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            // Xử lý dữ liệu JSON trả về
+                            var ctptData = data.data;
+                            // Cập nhật danh sách sách mượn trong view
+                            var danhSachSachTrabyPM = $("#danhSachSachTrabyPM");
+
+                            danhSachSachTrabyPM.empty(); // Xóa nội dung bảng
+
+                            $.each(ctptData, function (index, item) {
+                                var newRow = $(` <tr class="sachtra-row" data-ma-sach="${item.MaSach}">
+                                 <td>${item.MaPT}</td>
+                                <td>${item.MaSach}</td>
+                                    <td>${item.TenSach}</td>
+                                    <td>${item.SoLuongTra}</td>
+                                     <td>${item.SoLuongLoi}</td>
+                                      <td>${item.SoLuongMat}</td>
+                                </tr> `);
+
+                                danhSachSachTrabyPM.append(newRow);
+                            });
+
+                            // Mở modal
+                            $("#exampleModalScrollable").modal("show");
+
+                            //        // Điền modal với dữ liệu
+                            document.getElementById("maPhieuMuonModal").value = arr[0];
+                            document.getElementById("maTheModal2").value = arr[1];
+
+                        } else {
+                            console.error("Không thành công trong việc nhận dữ liệu từ server.");
+
+                        }
+                    }
+              });
+
+        });
 
     </script>
 }

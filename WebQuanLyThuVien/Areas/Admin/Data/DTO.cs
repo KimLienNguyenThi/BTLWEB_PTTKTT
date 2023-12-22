@@ -124,4 +124,22 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
             listSachNhap = new List<DTO_Sach_Nhap>();
         }
     }
+    public class DTO_DangKyMuonSach
+    {
+        public string SDT { get; set; }
+        public string HoTen { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public int MaDK { get; set; }
+        public DateTime? NgayDK { get; set; }
+        public DateTime? NgayHen { get; set; }
+        public int? TinhTrang { get; set; }
+    }
+
+    public class DTO_DangKyMuonSach_GroupSDT
+    {
+        public string SDT { get; set; }
+        public int CountRow { get; set; }
+        public List<DTO_DangKyMuonSach> List_DTO_DangKyMuonSach { get; set; }
+    }
 }

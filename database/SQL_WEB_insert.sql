@@ -4,8 +4,7 @@
 insert into NhanVien ( HoTenNV, GioiTinh, DiaChi, NGAYSINH, SDT, ChucVu) values ( N'Võ Gia Huy', 'Nam', N'Bình Định',  '1989-7-2','0767163999', 'Admin');
 insert into NhanVien ( HoTenNV, GioiTinh, DiaChi, NGAYSINH, SDT, ChucVu) values ( N'Nguyễn Thị Kim Liên', N'Nữ', N'Bình Thuận', '2000-10-15', '0319267184', 'ThuThu');
 insert into NhanVien ( HoTenNV, GioiTinh, DiaChi, NGAYSINH, SDT, ChucVu) values ( N'Nguyễn Thành Luân', 'Nam', N'Bình Định',  '2003-6-20','0231525416', 'QuanLyKho');
-insert into NhanVien ( HoTenNV, GioiTinh, DiaChi, NGAYSINH, SDT, ChucVu) values ( N'ALuân', 'Nam', N'Bình Định',  '2003-6-20','1235662115', 'Admin');
-
+insert into NhanVien ( HoTenNV, GioiTinh, DiaChi, NGAYSINH, SDT, ChucVu) values ( N'ALuân', 'Nam', N'Bình Định',  '2003-6-20','1234567892', 'Admin');
 -- THEM DOC GIA
 insert into DocGia ( HoTenDG, GioiTinh, NgaySinh, SDT, DiaChi) values (N'Nguyễn Văn A', 'Nam', '1996-7-2', '0981724637', N'Gò Vấp');
 insert into DocGia ( HoTenDG, GioiTinh, NgaySinh, SDT, DiaChi) values (N'Phạm Minh B', 'Nam', '2004-12-7', '0466155193',N'Thủ Đức');
@@ -31,23 +30,22 @@ insert into TheDocGia ( NgayDK, NGAYHH, TienThe, MaNV, MaDG) values ( '2023-9-10
 insert into TheDocGia ( NgayDK, NGAYHH, TienThe, MaNV, MaDG) values ( '2023-10-25','2024-4-25', '120000', 2, 10);
 
 --THEM LOGIN DG
-insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0981724637','0981724637',1);
-insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0466155193','0466155193',2);
-insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0596965300','0596965300',3);
-insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0305728822','0305728822',4);
-insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0251184897','0251184897',5);
-insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0396629886','0396629886',6);
-insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0745717832','0745717832',7);
-insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0317809370','0317809370',8);
-insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0638103599','0638103599',9);
-insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, MaDG) values('0727180418','0727180418',10);
+insert into LOGIN_DG (SDT, PASSWORD_DG, HoTen, EMAIL) values('0981724637','0981724637',N'Nguyễn Văn A', 'Nguyenvana123@gmail.com');
+insert into LOGIN_DG (SDT, PASSWORD_DG, HoTen, EMAIL) values('0466155193','0466155193',N'Phạm Minh B', 'Phamminhb123@gmail.com');
+insert into LOGIN_DG (SDT, PASSWORD_DG, HoTen, EMAIL) values('0964965332','0964965332',N'Nguyễn Văn Bách', 'Nguyenvanbach123@gmail.com');
+insert into LOGIN_DG (SDT, PASSWORD_DG, HoTen, EMAIL) values('0969728877','0969728877',N'Trần Uyển Ân', 'Tranuyenan123@gmail.com');
+insert into LOGIN_DG (SDT, PASSWORD_DG, HoTen, EMAIL) values('0471184811','0471184811',N'Hải Đường', 'Haiduong123@gmail.com');
+--insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, ) values('0396629886','0396629886',);
+--insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, ) values('0745717832','0745717832',);
+--insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, ) values('0317809370','0317809370',);
+--insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, ) values('0638103599','0638103599',);
+--insert into LOGIN_DG (USERNAME_DG, PASSWORD_DG, ) values('0727180418','0727180418',);
 
 --THEM LOGIN NV
 insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, MaNV) values('0767163999','$2a$12$TTe4xRhF5xkSvLBEpb47UOew4YGVojfUR.LhzV0EVc4/.P6jeHH4O',1);
 insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, MaNV) values('0319267184','$2a$12$81SLP2gr1J.nduEkFF7K3.4HrfLFEIdPoQTLm3XnbUg5kPO2lUm4m',2);
 insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, MaNV) values('0231525416','$2a$12$fQh9b6uaR8HboQjQwtslc.8cKXiaWuPbCNqCVPuuQqNFBFxTr7VPG',3);
 insert into LOGIN_NV (USERNAME_NV, PASSWORD_NV, MaNV) values('123','123',4);
-
 
 -- THEM NHACUNGCAP
 insert into NhaCungCap ( TenNCC, DiaChiNCC, sdtNCC) values (N'Nhà Xuất Bản Kim Đồng',N'Hồ gươm, Hà Nội', '0243942633');
@@ -505,10 +503,11 @@ mạnh mẽ trưởng thành, làm một phiên bản chính mình hoàn hảo n
 
 
 --THEM phieu dki muon sach
-insert into DkiMuonSach (USERNAME_DG, NgayDKMuon, NgayHen) values('0981724637','2023-7-25','2023-7-30');
-insert into DkiMuonSach (USERNAME_DG, NgayDKMuon, NgayHen) values('0466155193','2023-10-25','2023-11-05');
-insert into DkiMuonSach (USERNAME_DG, NgayDKMuon, NgayHen) values('0596965300','2023-09-17','2023-09-25');
-insert into DkiMuonSach (USERNAME_DG, NgayDKMuon, NgayHen) values('0305728822','2023-05-12','2023-05-15');
+insert into DkiMuonSach (SDT, NgayDKMuon, NgayHen) values('0981724637','2023-7-25','2023-7-30');
+insert into DkiMuonSach (SDT, NgayDKMuon, NgayHen) values('0466155193','2023-12-20','2023-12-27');
+insert into DkiMuonSach (SDT, NgayDKMuon, NgayHen) values('0964965332','2023-12-20','2023-12-27');
+insert into DkiMuonSach (SDT, NgayDKMuon, NgayHen) values('0969728877','2023-12-20','2023-12-27');
+insert into DkiMuonSach (SDT, NgayDKMuon, NgayHen) values('0471184811','2023-12-20','2023-12-27');
 
 -- Them chi tiet dki
 insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 1, 2, 2);

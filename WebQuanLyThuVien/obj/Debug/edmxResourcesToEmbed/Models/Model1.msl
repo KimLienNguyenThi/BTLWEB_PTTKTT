@@ -55,7 +55,7 @@
       <EntityTypeMapping TypeName="QuanLyThuVienModel.DkiMuonSach">
         <MappingFragment StoreEntitySet="DkiMuonSach">
           <ScalarProperty Name="MaDK" ColumnName="MaDK" />
-          <ScalarProperty Name="USERNAME_DG" ColumnName="USERNAME_DG" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
           <ScalarProperty Name="NgayDKMuon" ColumnName="NgayDKMuon" />
           <ScalarProperty Name="NgayHen" ColumnName="NgayHen" />
           <ScalarProperty Name="Tinhtrang" ColumnName="Tinhtrang" />
@@ -95,9 +95,10 @@
     <EntitySetMapping Name="LOGIN_DG">
       <EntityTypeMapping TypeName="QuanLyThuVienModel.LOGIN_DG">
         <MappingFragment StoreEntitySet="LOGIN_DG">
-          <ScalarProperty Name="USERNAME_DG" ColumnName="USERNAME_DG" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
           <ScalarProperty Name="PASSWORD_DG" ColumnName="PASSWORD_DG" />
-          <ScalarProperty Name="MaDG" ColumnName="MaDG" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

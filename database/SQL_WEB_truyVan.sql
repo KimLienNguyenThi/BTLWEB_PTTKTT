@@ -13,6 +13,7 @@ SELECT * FROM ChiTietPTL
 SELECT * FROM login_nv
 SELECT * FROM nhanvien
 
+SELECT * FROM dkimuonsach
 
 DELETE FROM LOGIN_NV WHERE MaNV = 3;
 

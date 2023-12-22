@@ -120,7 +120,55 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
             return listDTO_Sach_Tra;
         }
-        
 
+        public PagingResult<PhieuTra_DTO> GetAllPhieuTraPaging(GetListPhieuTraPaging req)
+        {
+            var query =
+                (from PhieuTra in unitOfWork.Context.PhieuTras
+                 join DocGia in unitOfWork.Context.DocGias
+                    on PhieuTra.MaThe equals DocGia.MaDG
+                 join NhanVien in unitOfWork.Context.NhanViens
+                 on PhieuTra.MaNV equals NhanVien.MaNV
+                 where string.IsNullOrEmpty(req.Keyword) || DocGia.HoTenDG.Contains(req.Keyword)
+                 select new PhieuTra_DTO
+                 {
+                     MaPT = PhieuTra.MaPT,
+                     NgayTra = PhieuTra.NgayTra,
+                     MaPM = PhieuTra.MaPM.Value,
+                     MaThe = DocGia.MaDG,
+                     HoTenDG = DocGia.HoTenDG,
+                     SDT = DocGia.SDT,
+                     MaNV = NhanVien.MaNV
+                 });
+                 
+                 //.AsQueryable()
+                 //.GroupBy(g => g.MaPM, (key, g) => new PhieuTra_GroupMaPM_DTO
+                 //{
+                 //    MaPM = key,
+                 //    DataPhieuTras = g.Select(phieutra => new PhieuTra_DTO
+                 //    {
+                 //        MaPT = phieutra.MaPT,
+                 //        NgayTra = phieutra.NgayTra,
+                 //        MaPM = phieutra.MaPM,
+                 //        MaThe = phieutra.MaThe,
+                 //        HoTenDG = phieutra.HoTenDG,
+                 //        SDT = phieutra.SDT,
+                 //        MaNV = phieutra.MaNV
+                 //    }).ToList(),
+                 //    CountRow = g.Count()
+                 //});
+
+            var totalRow = query.Count();
+
+            var listPhieutras = query.OrderByDescending(x=> x.MaPM).Skip((req.Page - 1) * req.PageSize).Take(req.PageSize).ToList();
+          
+            return new PagingResult<PhieuTra_DTO>()
+            {
+                Results = listPhieutras,
+                CurrentPage = req.Page,
+                RowCount = totalRow,
+                PageSize = req.PageSize
+            };
+        }
     }
 }

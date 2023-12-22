@@ -122,19 +122,19 @@
                         <div class="card-tools">
 
                             <div class="input-group input-group-sm pt-2" style="width: 150px">
-                                <input type="text" name="table_search" class="form-control float-right" id="searchInput" placeholder="Search" />
+                                <!--<input type="text" name="table_search" class="form-control float-right" id="searchInput" placeholder="Search" />-->
                                 @* <input type="text" id="searchInput" class="form-control" placeholder="Search" />*@
-                                <div class="input-group-append">
+                                <!--<div class="input-group-append">
                                     <button type="submit" class="btn btn-default" id="searchButton">
                                         <i class="fas fa-search"></i>
                                     </button>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
                     <!--Body table pm-->
                     <div class="card-body table-responsive p-0" style="height: 71.2vh" id="thongTinPhieuMuonTable">
-                        <table class="table table-head-fixed table-hover  table-bordered">
+                        <table  id="tablephieuMuon" class="table table-head-fixed table-hover  table-bordered">
                             <thead>
                                 <tr>
                                     <th>Mã PM</th>
@@ -145,8 +145,6 @@
                                     <th>Hạn trả</th>
                                 </tr>
                             </thead>
-                            <tbody id="tablephieuMuon">
-                            </tbody>
                         </table>
                     </div>
 
@@ -180,6 +178,7 @@
 @section scripts
 {
     <script>
+        init();
              //=====================    =====================
 
             // Lấy các phần tử DOM của bảng pm và bảng Thông tin độc giả
@@ -192,32 +191,32 @@
             var thongTinPheuMuonButton = document.getElementById("thongTinPheuMuonButton");
 
 
-            //=====================  Lấy dữ liệu khi search =====================
-           // Lấy các phần tử DOM
-            const searchInput = document.getElementById("searchInput");
-            const searchButton = document.getElementById("searchButton");
+         //   //=====================  Lấy dữ liệu khi search =====================
+         //  // Lấy các phần tử DOM
+         //   const searchInput = document.getElementById("searchInput");
+         //   const searchButton = document.getElementById("searchButton");
 
-            searchButton.addEventListener("click", function () {
-                const keyword = searchInput.value.trim(); // Lấy từ khóa từ ô tìm kiếm
-                // Gửi yêu cầu tìm kiếm đến Controller
-                loadPhieuMuons(keyword);
-            });
-
-
-            // Lắng nghe sự kiện keyup trên trường nhập tìm kiếm
-            searchInput.addEventListener("keyup", function (event) {
-                if (event.key === "Enter") {
-                    const keyword = searchInput.value.trim();
-                    loadPhieuMuons(keyword);
-                }
-            });
+         //   searchButton.addEventListener("click", function () {
+         //       const keyword = searchInput.value.trim(); // Lấy từ khóa từ ô tìm kiếm
+         //       // Gửi yêu cầu tìm kiếm đến Controller
+         //    //   loadPhieuMuons(keyword);
+         //   });
 
 
-            // Hàm thực hiện tìm kiếm
-            function performSearch() {
-                const keyword = searchInput.value.trim(); // Lấy từ khóa từ ô tìm kiếm
-                loadPhieuMuons(keyword);
-            }
+         //   // Lắng nghe sự kiện keyup trên trường nhập tìm kiếm
+         //   searchInput.addEventListener("keyup", function (event) {
+         //       if (event.key === "Enter") {
+         //           const keyword = searchInput.value.trim();
+         //       //    loadPhieuMuons(keyword);
+         //       }
+         //   });
+
+
+         //   // Hàm thực hiện tìm kiếm
+         //   function performSearch() {
+         //       const keyword = searchInput.value.trim(); // Lấy từ khóa từ ô tìm kiếm
+         ////       loadPhieuMuons(keyword);
+         //   }
 
             // Lấy ngày hiện tại
             var currentDate = new Date();
@@ -229,14 +228,14 @@
             document.getElementById("return_datetra").value = formatCurrentDate;
         document.getElementById("tongTienPhuThu").value = formatMoney(0);
 
-        
+
             var manv = @HttpContext.Current.Session["manv"]
             document.getElementById("selectedMaNhanVien").value = manv;
 
 
 
             //load lân đầu
-             loadPhieuMuons("");
+             //loadPhieuMuons("");
 
              // Hàm ajax này sẽ gọi trong controller PhieuTra / GetSachMuon
             // Trả về json và render ra tbody và gán vào element có ID tableBody
@@ -252,69 +251,69 @@
                 document.getElementById("tongTienPhuThu").value = "";
                 let tableBody = document.getElementById("tableBody");
                 tableBody.innerHTML = "";
-                loadPhieuMuons('');
+                //loadPhieuMuons('');
             }
 
     //===================== Hàm show phieu muon chua tra sach =====================
 
-            function loadPhieuMuons(keyword) {
+            //function loadPhieuMuons(keyword) {
 
-                function formatDate(dateString) {
-                    // Kiểm tra xem chuỗi ngày có trống không hoặc là null không
-                    if (!dateString)
-                    {
-                        return ''; // Trả về chuỗi trống nếu ngày không được cung cấp
-                    }
+            //    function formatDate(dateString) {
+            //        // Kiểm tra xem chuỗi ngày có trống không hoặc là null không
+            //        if (!dateString)
+            //        {
+            //            return ''; // Trả về chuỗi trống nếu ngày không được cung cấp
+            //        }
 
-                    try
-                    {
-                        // Trích xuất giá trị ticks từ chuỗi ngày
-                        var ticks = parseInt(dateString.match(/\d+/)[0]);
+            //        try
+            //        {
+            //            // Trích xuất giá trị ticks từ chuỗi ngày
+            //            var ticks = parseInt(dateString.match(/\d+/)[0]);
 
-                        // Chuyển đổi ticks thành đối tượng Date của JavaScript
-                        var date = new Date(ticks);
+            //            // Chuyển đổi ticks thành đối tượng Date của JavaScript
+            //            var date = new Date(ticks);
 
-                        // Định dạng ngày thành MM/dd/YYYY
-                        var formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
-                            date.getDate().toString().padStart(2, '0') + '/' +
-                            date.getFullYear();
+            //            // Định dạng ngày thành MM/dd/YYYY
+            //            var formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+            //                date.getDate().toString().padStart(2, '0') + '/' +
+            //                date.getFullYear();
 
-                        return formattedDate;
-                    } catch (error) {
-                        // Xử lý lỗi chuyển đổi ngày
-                        console.error('Lỗi chuyển đổi ngày:', error.message);
-                        return 'Ngày không hợp lệ';
-                    }
-                }
+            //            return formattedDate;
+            //        } catch (error) {
+            //            // Xử lý lỗi chuyển đổi ngày
+            //            console.error('Lỗi chuyển đổi ngày:', error.message);
+            //            return 'Ngày không hợp lệ';
+            //        }
+            //    }
 
-                $.ajax({
-                    type: "GET",
-                    url: "/Admin/PhieuTra/phieuMuon?keyword=" + keyword,
-                    dataType: 'json',
-                    success: function (res) {
-                        var render = "";
-                        $.each(res.Result, function (i, item) {
-                            render += '<tr class="phieuMuonRow" aria-expanded="false" data-widget="expandable-table">';
-                            render += '<td  class="selectMaPm">' + item.MaPM + '</td>';
-                            render += '<td >' + item.MaThe + '</td>';
-                            render += '<td >' + item.HoTenDG + '</td>';
-                            render += '<td >' + item.SDT + '</td>';
-                            render += '<td  class="date">' + formatDate(item.NgayMuon) + '</td>';
-                            render += '<td  class="date">' + formatDate(item.HanTra) + '</td>';
-                            render += '</tr>';
-                        });
+            //    $.ajax({
+            //        type: "GET",
+            //        url: "/Admin/PhieuTra/phieuMuon?keyword=" + keyword,
+            //        dataType: 'json',
+            //        success: function (res) {
+            //            var render = "";
+            //            $.each(res.Result, function (i, item) {
+            //                render += '<tr class="phieuMuonRow" aria-expanded="false" data-widget="expandable-table">';
+            //                render += '<td  class="selectMaPm">' + item.MaPM + '</td>';
+            //                render += '<td >' + item.MaThe + '</td>';
+            //                render += '<td >' + item.HoTenDG + '</td>';
+            //                render += '<td >' + item.SDT + '</td>';
+            //                render += '<td  class="date">' + formatDate(item.NgayMuon) + '</td>';
+            //                render += '<td  class="date">' + formatDate(item.HanTra) + '</td>';
+            //                render += '</tr>';
+            //            });
 
-                        let tablephieuMuon = document.getElementById("tablephieuMuon");
-                        tablephieuMuon.innerHTML = render;
-                        selectSachMuon();
-                    },
-                    error: function (status) {
-                        // show aler cảnh báo nếu lôi
-                        alert("Không tìm thấy data");
-                    }
-                });
-            }
-
+            //            let tablephieuMuon = document.getElementById("tablephieuMuon");
+            //            tablephieuMuon.innerHTML = render;
+            //            selectSachMuon();
+            //        },
+            //        error: function (status) {
+            //            // show aler cảnh báo nếu lôi
+            //            alert("Không tìm thấy data");
+            //        }
+            //    });
+            //}
+       
     //===================== Hàm show sach muon =====================
 
             function loadSachMuons(maPM)
@@ -339,7 +338,7 @@
                             render += '<td>  <input id="phuThuSoLuongMat' + item.MaSach + '"  onchange="PhuThu(' + item.MaSach + ',' + item.giasach + '); updateTongTien();"class="mat" min="0" type="number" value="0" style="width: 80%" onkeydown="if (event.key === \'e\' || event.key === \'E\') event.preventDefault();" />  </td>';
                             render += '<td id="phuThu' + item.MaSach + '" class="phuThu" style="width: 150%" onchange="updateTongTien()" >' + '0' + '</td>';
 
-                           
+
                             render += '</tr>';
                         });
 
@@ -357,52 +356,211 @@
                 })
 
         }
-       
 
 
-    //=====================  Lấy dữ liệu khi click vào pm muốn thực hiện thao tác trả sách =====================
 
-        function selectSachMuon() {
-            
-            // Lấy danh sách các hàng trong bảng thông tin pm
-               var pmrows = document.querySelectorAll(".phieuMuonRow");
+    ////=====================  Lấy dữ liệu khi click vào pm muốn thực hiện thao tác trả sách =====================
 
-               pmrows.forEach(function (row) {
-                   row.addEventListener("click", function () {
-                        var maThe = row.querySelector("td:nth-child(2)").textContent;
-                        var hoTen = row.querySelector("td:nth-child(3)").textContent;
-                        var sdt = row.querySelector("td:nth-child(4)").textContent;
-                        var ngaymuonText = row.querySelector("td:nth-child(5)").textContent;
-                        var hantraText = row.querySelector("td:nth-child(6)").textContent;
+    //       function selectSachMuon() {
 
+    //        // Lấy danh sách các hàng trong bảng thông tin pm
+    //           var pmrows = document.querySelectorAll(".phieuMuonRow");
 
-                        // Chuyển đổi ngày và giờ từ văn bản thành đối tượng Date
-                        var ngaymuon = new Date(ngaymuonText);
-                        var hantra = new Date(hantraText);
-
-                        // Điều chỉnh ngày và hạn trả để tránh sự sai khác về múi giờ
-                        ngaymuon.setHours(ngaymuon.getHours() + 12); // Điều chỉnh lại thời gian (+1 giờ)
-                        hantra.setHours(hantra.getHours() + 12); // Điều chỉnh lại thời gian (+1 giờ)
+    //           pmrows.forEach(function (row) {
+    //               row.addEventListener("click", function () {
+    //                    var maThe = row.querySelector("td:nth-child(2)").textContent;
+    //                    var hoTen = row.querySelector("td:nth-child(3)").textContent;
+    //                    var sdt = row.querySelector("td:nth-child(4)").textContent;
+    //                    var ngaymuonText = row.querySelector("td:nth-child(5)").textContent;
+    //                    var hantraText = row.querySelector("td:nth-child(6)").textContent;
 
 
-                        // Lấy ngày và tháng của ngày mượn và hạn trả
-                        var ngaymuonFormatted = ngaymuon.toISOString().substring(0, 10);
-                        var hantraFormatted = hantra.toISOString().substring(0, 10);
+    //                    // Chuyển đổi ngày và giờ từ văn bản thành đối tượng Date
+    //                    var ngaymuon = new Date(ngaymuonText);
+    //                    var hantra = new Date(hantraText);
 
-                        // Hiển thị thông tin ngày mượn và hạn trả vào các ô nhập dạng ngày trong form
-                        document.getElementById("selectedMaThe").value = maThe;
-                        document.getElementById("selectedName").value = hoTen;
-                        document.getElementById("selectedSDT").value = sdt;
-                        document.getElementById("return_datemuon").value = ngaymuonFormatted;
-                        document.getElementById("return_datehan").value = hantraFormatted;
+    //                    // Điều chỉnh ngày và hạn trả để tránh sự sai khác về múi giờ
+    //                    ngaymuon.setHours(ngaymuon.getHours() + 12); // Điều chỉnh lại thời gian (+1 giờ)
+    //                    hantra.setHours(hantra.getHours() + 12); // Điều chỉnh lại thời gian (+1 giờ)
 
 
-                        var mapm = parseInt(row.querySelector("td:nth-child(1)").textContent);
-                        loadSachMuons(mapm);
+    //                    // Lấy ngày và tháng của ngày mượn và hạn trả
+    //                    var ngaymuonFormatted = ngaymuon.toISOString().substring(0, 10);
+    //                    var hantraFormatted = hantra.toISOString().substring(0, 10);
 
-                    });
-                });
-            }
+    //                   // Hiển thị thông tin ngày mượn và hạn trả vào các ô nhập dạng ngày trong form
+    //                   document.getElementById("selectedMaThe").value = rowData.MaThe;
+    //                   document.getElementById("selectedName").value = rowData.HoTenDG;
+    //                   document.getElementById("selectedSDT").value = rowData.SDT;
+    //                   document.getElementById("return_datemuon").value = rowData.NgayMuon.substring(0, 10);
+    //                   document.getElementById("return_datehan").value = rowData.HanTra.substring(0, 10);
+
+
+
+    //                   var mapm = parseInt(row.querySelector("td:nth-child(1)").textContent);
+    //                   loadSachMuons(mapm);
+
+    //                });
+    //            });
+    //        }
+
+        function formatDate(dateString) {
+            // Extract the timestamp from the date string
+            var timestamp = parseInt(dateString.replace("/Date(", "").replace(")/", ""));
+
+            // Create a new Date object
+            var date = new Date(timestamp);
+
+            // Format the date as "yyyy-MM-dd"
+            var formattedDate = date.toISOString().split('T')[0];
+
+            return formattedDate;
+        }
+        function init() {
+            $('#tablephieuMuon').DataTable({
+                processing: true, //Hiển thị thông báo khi dữ liệu đang được xử lý.
+                serverSide: true,//Bật chế độ xử lý phía máy chủ.
+                paging: true,//paging, search, searching: Cho phép phân trang và tìm kiếm.
+                search: true,
+                searching: true,
+                searchDelay: 400, // sau khi thay đổi input search delay 1 tý, tránh thay đổi text liên tục thì gọi liên tục
+                scrollY: false,//Cho phép cuộn (scroll) theo chiều dọc.
+                iDisplayLength: 5, // chỉnh nếu muốn hiện số row mỗi trang
+                bLengthChange: false,//Không hiển thị lựa chọn thay đổi số lượng hàng hiển thị trên trang.
+                language: {
+                    info: "Hiện thị _START_ đến _END_ của _TOTAL_ mục",
+                    lengthMenu: "Hiện thị _MENU_ mục",
+                    search: "Search",
+                    processing: "Đang tải dữ liệu...",
+                    paginate: {
+                        previous: "Đầu",
+                        next: "Tiếp theo",
+                        last: "Cuối"
+                    }
+                },
+                ajax: {
+                    url: "/PhieuTra/GetListPhieuMuonPaging",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        // alone.startLoading();
+                    },
+                    data: function (data) { //Chuẩn bị dữ liệu trước khi gửi yêu cầu.
+                        var settings = $("#tablephieuMuon").dataTable().fnSettings();
+                        var currentPageIndex = Math.ceil(settings._iDisplayStart / settings._iDisplayLength) + 1;
+                        var request =
+                        {
+                            // CategoryId: parseInt($('#ddlCategory').val(), 10),
+                            PageSize: 5,
+                            Page: currentPageIndex,
+                            Keyword: $('.dataTables_filter input[type="search"]').val()
+                        };
+                        return JSON.stringify(request);
+                    },
+                    dataSrc: function (res) {//Trích xuất dữ liệu từ phản hồi.
+                        if (res.Result != null && res.Result.Results != null) {
+                            return res.Result.Results;
+                            //alone.stopLoading();
+                        }
+                        else {
+                            //alone.notify('Cannot load data of Product', 'danger');
+                            //alone.stopLoading();
+                            return [];
+                        }
+                    },
+                    dataFilter: function (data) {
+                        // Xử lý dữ liệu trước khi nó được sử dụng.
+                        var page = $.parseJSON(data);
+                        if (page.Result == null) {
+                            page.recordsTotal = 0;
+                            page.recordsFiltered = 0;
+                            //alone.stopLoading();
+                            return JSON.stringify(page);
+                        }
+                        page.recordsTotal = page.Result.RowCount;
+                        page.recordsFiltered = page.Result.RowCount;
+                        //alone.stopLoading();
+                        return JSON.stringify(page);
+                    },
+                    error: function (status) {//Xử lý lỗi khi yêu cầu không thành công.
+                        //alone.notify('Cannot load data of Product', 'danger');
+                        //alone.stopLoading();
+                    }
+                },
+                columns: [
+                    {
+                        name: 'first',
+                        "data": "MaPM", "width": "7%"
+                    },
+                    //{
+                    //    name: 'second',
+                    //    render: function (data, type, row) {
+                    //        return '<button class="btn btn-icon btn-hover btn-sm btn-see-all" id="' + row.MaPM + '_' + row.MaThe + '">See All</button>'
+                    //    }
+                    //},
+                    {
+
+                        "data": "MaThe", "width": "10%"
+                        //render: $.fn.dataTable.render.number(',')
+                    },
+                    {
+                        "data": "HoTenDG", "width": "15%",
+                       // render: DataTable.render.datetime('D-M-yyyy')
+                    },
+                    {
+                        "data": "SDT", "width": "15%"
+                    },
+                    {
+                        "data": "NgayMuon", "width": "15%",
+                        render: DataTable.render.datetime('D-M-yyyy')
+                    },
+                    {
+                        "data": "HanTra", "width": "15%",
+                        render: DataTable.render.datetime('D-M-yyyy')
+                    },
+
+                ],
+                //rowsGroup: [
+                //    'first:name', 'second:name',
+                //],
+                columnDefs: [{//Nếu giá trị của một ô là null hoặc undefined, sẽ hiển thị giá trị mặc định là "-".
+                    "defaultContent": "-",
+                    "targets": "_all"
+                }],
+                initComplete: function () {
+
+                },
+
+            });
+
+            // Thay thế sự kiện '.btn-see-all' bằng sự kiện click trên mỗi hàng (row)
+            $('body').on('click', '#tablephieuMuon tbody tr', function () {
+                // Lấy DataTable
+                var table = $('#tablephieuMuon').DataTable();
+
+                // Lấy dữ liệu của hàng được click
+                var rowData = table.row(this).data();
+
+                // Sử dụng hàm formatDate để chuyển đổi và định dạng ngày
+                var formattedNgayMuon = formatDate(rowData.NgayMuon);
+                var formattedHanTra = formatDate(rowData.HanTra);
+
+                // Hiển thị thông tin ngày mượn và hạn trả vào các ô nhập dạng ngày trong form
+                document.getElementById("selectedMaThe").value = rowData.MaThe;
+                document.getElementById("selectedName").value = rowData.HoTenDG;
+                document.getElementById("selectedSDT").value = rowData.SDT;
+                document.getElementById("return_datemuon").value = formattedNgayMuon;
+                document.getElementById("return_datehan").value = formattedHanTra;
+
+                // Lưu mã PM vào input hidden
+                document.getElementById("hdfMaPM").value = rowData.MaPM;
+
+                // Gọi hàm loadSachMuons với tham số là mã PM
+                loadSachMuons(rowData.MaPM);
+            });
+
+        }
 
 
             var ListSachTra = [];
@@ -536,7 +694,7 @@
 
                     document.getElementById("phuThu" + maSach).innerHTML = (soNgayChenhLech * 2000 * Soluongtra) + (giasach * 0.5 * Soluongloi + soNgayChenhLech * 2000 * Soluongloi) + (Soluongmat * giasach + soNgayChenhLech * 2000 * Soluongmat); //+ " VND";
 
-                } else {//khong trễ 
+                } else {//khong trễ
                     document.getElementById("phuThu" + maSach).innerHTML = giasach * 0.5 * Soluongloi   + Soluongmat * giasach ; //+ " VND";
 
                 }
@@ -546,7 +704,7 @@
             }
         }
 
-       
+
             function updateTongTien() {
                 var tongTienPhuThu = 0;
 
@@ -573,8 +731,7 @@
                 return number.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
             }
 
-        
-     
+
 
     </script>
 }

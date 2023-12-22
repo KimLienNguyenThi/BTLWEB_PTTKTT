@@ -56,7 +56,16 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
             }
 
         }
-
+        [HttpPost]
+        public ActionResult GetListPhieuMuonPaging(GetListPhieuMuonPaging req)
+        {
+            var phieuMuon = _phieuMuonService.GetAllPhieuMuonPaging(req);
+            if (phieuMuon!= null)
+            {
+                return Json(new ApiOkResponse(phieuMuon));
+            }
+            return Json(new ApiNotFoundResponse(""));
+        }
 
         [HttpGet]
         public JsonResult GetSachMuon(int maPM)

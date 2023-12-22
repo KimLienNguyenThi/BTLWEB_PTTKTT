@@ -64,7 +64,41 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
             return listPhieuMuon_DocGia;
         }
 
+        public PagingResult<PhieuMuon_DTO> GetAllPhieuMuonPaging(GetListPhieuMuonPaging req)
+        {
+            var query =
+                (from PhieuMuon in unitOfWork.Context.PhieuMuons
+                 join DocGia in unitOfWork.Context.DocGias
+                    on PhieuMuon.MaThe equals DocGia.MaDG
 
+                 join CHITIETPM in unitOfWork.Context.ChiTietPMs
+                 on PhieuMuon.MaPM equals CHITIETPM.MaPM
+                 where PhieuMuon.Tinhtrang == false
+                  && (string.IsNullOrEmpty(req.Keyword) || DocGia.HoTenDG.Contains(req.Keyword))
+                 select new PhieuMuon_DTO
+                 {
+                     MaPM = PhieuMuon.MaPM,
+                     MaThe = DocGia.MaDG,
+                     HoTenDG = DocGia.HoTenDG,
+                     SDT = DocGia.SDT,
+                     NgayMuon = PhieuMuon.NgayMuon,
+                     HanTra = PhieuMuon.HanTra
+
+                 }
+                ).Distinct().ToList();
+            
+            var totalRow = query.Count();
+
+            var listPhieumuons = query.OrderByDescending(x => x.MaPM).Skip((req.Page - 1) * req.PageSize).Take(req.PageSize).ToList();
+
+            return new PagingResult<PhieuMuon_DTO>()
+            {
+                Results = listPhieumuons,
+                CurrentPage = req.Page,
+                RowCount = totalRow,
+                PageSize = req.PageSize
+            };
+        }
 
         public IEnumerable<PhieuMuon_DTO> GetPhieuMuonsChuaTraSach()
         {

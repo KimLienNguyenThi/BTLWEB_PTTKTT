@@ -177,6 +177,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DangKyMuonSachController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhoSachController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhapSachController.cs" />
@@ -190,12 +191,16 @@
     <Compile Include="Areas\Admin\Controllers\ThongTinDocGiaController.cs" />
     <Compile Include="Areas\Admin\Data\ApiResponse.cs" />
     <Compile Include="Areas\Admin\Data\DTO.cs" />
+    <Compile Include="Areas\Admin\Data\GetListPhieuMuonPaging.cs" />
+    <Compile Include="Areas\Admin\Data\GetListPhieuTraPaging.cs" />
     <Compile Include="Areas\Admin\Data\KhoThanhLyDTO.cs" />
+    <Compile Include="Areas\Admin\Data\PagingResult.cs" />
     <Compile Include="Areas\Admin\Data\PhieuMuon_DTO.cs" />
     <Compile Include="Areas\Admin\Data\PhieuTra_DTO.cs" />
     <Compile Include="Areas\Admin\Data\SachDTOcs.cs" />
     <Compile Include="Areas\Admin\Data\SachMuonDTO.cs" />
     <Compile Include="Areas\Admin\Interfaces\IDocGiaRepository.cs" />
+    <Compile Include="Areas\Admin\Interfaces\Services\IDangKySachMuonService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IDocGiaService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IDonViTLService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IKhoThanhLyService.cs" />
@@ -207,6 +212,7 @@
     <Compile Include="Areas\Admin\Interfaces\Services\IPhieuTraCTPhieuTraService.cs" />
     <Compile Include="Areas\Admin\Interfaces\Services\IPhieuTraService.cs" />
     <Compile Include="Areas\Admin\Repository\DocGiaRepository.cs" />
+    <Compile Include="Areas\Admin\Services\DangKyMuonSachService.cs" />
     <Compile Include="Areas\Admin\Services\DocGiaService.cs" />
     <Compile Include="Areas\Admin\Services\DonViTLService.cs" />
     <Compile Include="Areas\Admin\Services\KhoThanhLyService.cs" />
@@ -2558,6 +2564,7 @@
     <Content Include="Areas\Admin\Views\TheDocGia\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ThongTinDocGia\Index.cshtml" />
     <Content Include="Areas\Admin\Views\PhanQuyen\LoiPhanQuyen.cshtml" />
+    <Content Include="Areas\Admin\Views\DangKyMuonSach\Index.cshtml" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>

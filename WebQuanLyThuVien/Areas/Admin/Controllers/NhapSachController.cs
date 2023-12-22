@@ -42,7 +42,26 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
             }
         }
 
-
+        [HttpPost]
+        public ActionResult GetListSachPaging(GetListPhieuTraPaging req)
+        {
+            var _sach = _sachService.GetAllSachPaging(req);
+            if (_sach != null)
+            {
+                return Json(new ApiOkResponse(_sach));
+            }
+            return Json(new ApiNotFoundResponse(""));
+        }
+        [HttpPost]
+        public ActionResult GetListNCCPaging(GetListPhieuTraPaging req)
+        {
+            var NCC = _nhaCungCapService.GetAllNCCPaging(req);
+            if (NCC != null)
+            {
+                return Json(new ApiOkResponse(NCC));
+            }
+            return Json(new ApiNotFoundResponse(""));
+        }
         [HttpGet]
         public ActionResult GetAllSach()
         {

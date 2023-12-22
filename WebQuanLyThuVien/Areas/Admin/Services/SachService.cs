@@ -61,6 +61,8 @@ namespace WebQuanLyThuVien.Services
         }
 
 
+
+
         public IEnumerable<SachDTOcs> GetSACH()
         {
             var listSACH =
@@ -92,6 +94,38 @@ namespace WebQuanLyThuVien.Services
 
         }
 
+        public PagingResult<SachDTOcs> GetAllSachPaging(GetListPhieuTraPaging req)
+        {
+            var query =
+                (from SACH in unitOfWork.Context.Saches
+                 where string.IsNullOrEmpty(req.Keyword) || SACH.TenSach.Contains(req.Keyword)
+                 select new SachDTOcs
+                 {
+                     MaSach = SACH.MaSach,
+                     TenSach = SACH.TenSach,
+                     TacGia = SACH.TacGia,
+                     /*  TheLoai = SACH.TheLoai,
+                       NgonNgu= SACH.NgonNgu,
+                       NXB  = SACH.NXB,
+                       NamXB = SACH.NamXB,
+                       GiaSach = SACH.GiaSach, */
+                     SoLuongHIENTAI = SACH.SoLuongHIENTAI
+                 }
+                 ).ToList();
+
         
+
+            var totalRow = query.Count();
+
+            var listSachs = query.OrderByDescending(x => x.MaSach).Skip((req.Page - 1) * req.PageSize).Take(req.PageSize).ToList();
+
+            return new PagingResult<SachDTOcs>()
+            {
+                Results = listSachs,
+                CurrentPage = req.Page,
+                RowCount = totalRow,
+                PageSize = req.PageSize
+            };
+        }
     }
 }

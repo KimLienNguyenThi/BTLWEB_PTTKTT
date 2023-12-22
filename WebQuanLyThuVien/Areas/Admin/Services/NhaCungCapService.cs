@@ -48,7 +48,40 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
             return nhaCungCap;
         }
+        public PagingResult<NhaCungCap> GetAllNCCPaging(GetListPhieuTraPaging req)
+        {
+            var query =
+                 (from NhaCungCap in unitOfWork.Context.NhaCungCaps
+                  where string.IsNullOrEmpty(req.Keyword) || NhaCungCap.TenNCC.Contains(req.Keyword)
+                  select new
+                  {
+                      NhaCungCap.MaNCC,
+                      NhaCungCap.TenNCC,
+                      NhaCungCap.DiaChiNCC,
+                      NhaCungCap.sdtNCC,
+                  })
+                .ToList() // Materialize the query before the subsequent projection
+                .Select(x => new NhaCungCap
+                {
+                    MaNCC = x.MaNCC,
+                    TenNCC = x.TenNCC,
+                    DiaChiNCC = x.DiaChiNCC,
+                    sdtNCC = x.sdtNCC,
+                })
+                .ToList();
 
+            var totalRow = query.Count();
+
+            var listNCCs = query.OrderByDescending(x => x.MaNCC).Skip((req.Page - 1) * req.PageSize).Take(req.PageSize).ToList();
+
+            return new PagingResult<NhaCungCap>()
+            {
+                Results = listNCCs,
+                CurrentPage = req.Page,
+                RowCount = totalRow,
+                PageSize = req.PageSize
+            };
+        }
 
         public NhaCungCap GetById(int id)
         {

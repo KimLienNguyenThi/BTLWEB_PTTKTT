@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebQuanLyThuVien.Areas.Admin.Data;
 using WebQuanLyThuVien.Areas.Admin.Interfaces.Services;
 using WebQuanLyThuVien.Areas.Admin.Services;
 
@@ -48,6 +49,17 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
             // Trả về dữ liệu JSON
             return Json(new { success = true, data = listCTPT });
+        }
+
+        [HttpPost]
+        public ActionResult GetListPhieuTraPaging(GetListPhieuTraPaging req)
+        {
+            var phieuTra = _phieuTraService.GetAllPhieuTraPaging(req);
+            if (phieuTra != null)
+            {
+                return Json(new ApiOkResponse(phieuTra));
+            }
+            return Json(new ApiNotFoundResponse(""));
         }
     }
 }
