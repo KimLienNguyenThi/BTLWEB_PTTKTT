@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "GioHang";
-    /*Layout = "~/Views/Shared/_Layout.cshtml";*/
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ThuVienBTL.Models.QuanLyThuVienEntities db = new ThuVienBTL.Models.QuanLyThuVienEntities();
 }
 
@@ -283,8 +283,6 @@ else
             // mảng chứa số lượng sách của mỗi loại sách
             var giaTri = [];
 
-            alert("Thực hiện đăng ký mượn?");
-
             // Kiểm tra danh sách checkbox được chọn
             console.log(selectedValues);
 
@@ -316,6 +314,11 @@ else
                 },
                 success: function (result) {
 
+                    // Lặp qua danh sách các ID và lấy giá trị của mỗi input để xoá khỏi view
+                    selectedValues.forEach(function (id) {
+                        // Xoá phần tử HTML tương ứng
+                        $("#sachMuon_" + id).remove();
+                    });
                 },
                 error: function () {
                     console.log("Đã xảy ra lỗi khi gửi ajax thuê sách.");
@@ -331,30 +334,34 @@ else
     var maSachToDelete; // Biến toàn cục để lưu trữ mã sách cần xoá
 
     function XoaSach(maSach) {
-        maSachToDelete = maSach; // Lưu mã sách vào biến toàn cục
+        var xacNhan = confirm("Bạn có chắc chắn muốn xoá khỏi danh sách không?");
 
-        console.log("1. Mã sách xoá:", maSachToDelete);    // Kiểm tra dữ liệu
+        if (xacNhan) {
+            maSachToDelete = maSach; // Lưu mã sách vào biến toàn cục
 
-        $.ajax({
-            url: "@Url.Action("XoaSachMuon", "ThueSach")",
-            type: "POST",
-            data: {
-                maSach: maSachToDelete,
-            },
-            success: function (result) {
-                console.log("1. Mã sách xoá:", maSachToDelete);    // Kiểm tra dữ liệu
-                if (result.success) {
-                    alert("Bạn đã xoá thành công!");
-                    // Xoá phần tử HTML tương ứng
-                    $("#sachMuon_" + maSachToDelete).remove();
-                } else {
-                    alert(result.message);
+            console.log("1. Mã sách xoá:", maSachToDelete);    // Kiểm tra dữ liệu
+
+            $.ajax({
+                url: "@Url.Action("XoaSachMuon", "ThueSach")",
+                type: "POST",
+                data: {
+                    maSach: maSachToDelete,
+                },
+                success: function (result) {
+                    console.log("1. Mã sách xoá:", maSachToDelete);    // Kiểm tra dữ liệu
+                    if (result.success) {
+                        // Xoá phần tử HTML tương ứng
+                        $("#sachMuon_" + maSachToDelete).remove();
+                    } else {
+                        alert(result.message);
+                    }
+                },
+                error: function () {
+                    alert("Đã xảy ra lỗi khi xoá sách.");
                 }
-            },
-            error: function () {
-                alert("Đã xảy ra lỗi khi xoá sách.");
-            }
-        });
+            });
+        }
+
     }
 
 </script>

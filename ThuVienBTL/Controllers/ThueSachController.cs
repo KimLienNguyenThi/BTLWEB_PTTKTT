@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using ThuVienBTL.App_Start;
 using ThuVienBTL.Models;
 using System.Text.RegularExpressions;
+using PagedList;
 
 namespace ThuVienBTL.Controllers
 {
@@ -19,7 +20,7 @@ namespace ThuVienBTL.Controllers
         // GET: ThueSach
         QuanLyThuVienEntities db = new QuanLyThuVienEntities();
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             // Kiem tra quyen su dung
             var user = SessionConfig.GetUser();
@@ -28,9 +29,23 @@ namespace ThuVienBTL.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            List<Sach> ListSach = db.Saches.ToList();
+            // Kích thước trang (số lượng mục trên mỗi trang)
+            int pageSize = 9;
 
-            return View(ListSach);
+            // Số trang hiện tại (mặc định là 1 nếu không có giá trị)
+            int pageNumber = (page ?? 1);
+
+            // Lấy danh sách sách từ cơ sở dữ liệu
+            List<Sach> listSach = db.Saches.ToList();
+
+            // Sử dụng PagedList để chia danh sách thành các trang
+            IPagedList<Sach> pagedListSach = listSach.ToPagedList(pageNumber, pageSize);
+
+            // Truyền thông tin phân trang vào ViewBag để sử dụng trong View
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.TotalPages = pagedListSach.PageCount;
+
+            return View(pagedListSach);
         }
 
         [HttpPost]

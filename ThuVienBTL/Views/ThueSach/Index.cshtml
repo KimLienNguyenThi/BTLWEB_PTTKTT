@@ -1,4 +1,6 @@
-﻿@model IEnumerable<ThuVienBTL.Models.Sach>
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<ThuVienBTL.Models.Sach>
 
 @{
     ViewBag.Title = "Index";
@@ -6,7 +8,13 @@
     ViewBag.active = 4;
     ThuVienBTL.Models.QuanLyThuVienEntities db = new ThuVienBTL.Models.QuanLyThuVienEntities();
 }
-    @*NÚT SEARCH*@
+
+@{
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+}
+
+@*NÚT SEARCH*@
 <div class="container-sm pt-5 w-50" style="justify-items:center">
     <div class="input-group">
         <input type="text" class="form-control" placeholder="Search" id="searchInput">
@@ -14,7 +22,7 @@
     </div>
 </div>
 
-    @*LỌC YÊU CẦU*@
+@*LỌC YÊU CẦU*@
 <form action="~/ThueSach/LocYeuCau" method="post">
     <div class="container mt-4" style=" padding: 20px; border-radius: 10px; ">
         <div class="row" style="margin-left:200px">
@@ -127,6 +135,31 @@
         @*end*@
     }
 </div>
+
+@*Đoạn code hiển thị bảng phân trang*@
+<ul class="pagination justify-content-center" style="margin-top: 50px;">
+
+    <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+        <a class="page-link" href="@Url.Action("Index", new { page = currentPage - 1 })">
+            &laquo; Trang trước
+        </a>
+    </li>
+
+    @for (int i = 1; i <= totalPages; i++)
+    {
+        <li class="page-item @(currentPage == i ? "active" : "")">
+            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+        </li>
+    }
+
+    <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+        <a class="page-link" href="@Url.Action("Index", new { page = currentPage + 1 })">
+            Trang tiếp theo &raquo;
+        </a>
+    </li>
+
+</ul>
+
 
 <!-- Thêm dropdown và modal để chọn số lượng sách đăng ký mượn -->
 <div id="dangKyDialog" class="modal fade" tabindex="-1" role="dialog">
