@@ -122,7 +122,7 @@ namespace ThuVienBTL.Controllers
             }
         }
 
-
+        
         public ActionResult History()
         {
             
@@ -143,5 +143,28 @@ namespace ThuVienBTL.Controllers
             
             
         }
+
+        [HttpPost]
+        public ActionResult GetDetails(int maDK)
+        {
+            
+            var details = db.ChiTietDks.Where(d => d.MaDK == maDK).ToList();
+            List<ChiTietDk> chiTietDkList = new List<ChiTietDk>();
+            foreach (var d in details)
+            {
+               var chiTietDk = new ChiTietDk()
+                {
+                    MaDK = d.MaDK,
+                    MaSach = d.MaSach,
+                    Soluongmuon = d.Soluongmuon
+                };
+                chiTietDkList.Add(chiTietDk);
+            }
+            
+            return Json(new { success = true, details = chiTietDkList });
+        }
+
+
+
     }
 }

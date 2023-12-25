@@ -5,48 +5,168 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>History</h2>
+<h2 style="text-align:center">History</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MaDK)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgayDKMuon)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgayHen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tinhtrang)
-        </th>
-        <th></th>
-    </tr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <h5>Mã đăng ký</h5>
+                </th>
+                <th>
+                    <h5>Ngày đăng ký mượn</h5>
+                </th>
+                <th>
+                    <h5>Ngày hẹn</h5>
+                </th>
+                <th>
+                    <h5>Tình trạng</h5>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaDK)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayDKMuon)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayHen)
+                    </td>
+                    <td>
+                        @if (item.Tinhtrang == 0)
+                        {
+                            <span class="badge badge-secondary" style="color:black">Chưa duyệt</span>
+                            <button class="btn btn-danger btn-sm" onclick="cancelRequest(@item.MaDK)">Hủy</button>
+                        }
+                        else if (item.Tinhtrang == 1)
+                        {
+                            <span class="badge badge-success" style="color:black">Đã duyệt</span>
+                            
+                        }
+                        else if (item.Tinhtrang == 2)
+                        {
+                            <span class="badge badge-info" style="color:black">Đã mượn</span>
+                        }
+                        else if (item.Tinhtrang == 3)
+                        {
+                            <span class="badge badge-danger" style="color:black">Đã hủy</span>
+                        }
+                    </td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaDK)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayDKMuon)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayHen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tinhtrang)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.MaDK }) |
-            @Html.ActionLink("Details", "Details", new { id = item.MaDK }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MaDK })
-        </td>
-    </tr>
-}
-    
-</table>
+                    <td>
+                        <button class="btn btn-danger btn-sm" onclick="showDetails(@item.MaDK)">Chi tiết</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@*/////////////////////////////////*@
+
+<!-- Add this modal at the end of your View -->
+<div class="modal fade" id="Details" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <th>Mã đăng ký</th>
+                        <td id="MaDK"></td>
+                    </tr>
+                    <tr>
+                        <th>Mã sách</th>
+                        <td id="MaSach"></td>
+                    </tr>
+                    <tr>
+                        <th>Số lượng</th>
+                        <td id="Soluong"></td>
+                    </tr>
+                    <!-- Add other fields as needed -->
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update the "Details" action link in your existing table -->
+
+
+
+
+<script>
+    function cancelRequest(requestId) {
+
+        var confirmed = confirm("Bạn chắc chắn muốn hủy đơn?");
+        if (confirmed) {
+
+            $.post("/UserController/CancelRequest", { requestId: requestId }, function (data) {
+
+                location.reload();
+            });
+        }
+    }
+    function showDetails(maDK) {
+        
+        
+        $.ajax({
+            url: "/User/GetDetails",
+            type: "POST",
+            data: {
+                maDK: maDK,
+            },
+            success: function (details) {
+                console.log("details: ", details);
+                // Show the modal
+                $("#Details").modal("show");
+
+
+
+                $.each(details.details, function (index, item) {
+                    console.log("item: ", item);
+
+                    // Append details to the modal
+                    $("#MaDK").append(item.MaDK + "<br>");
+                    $("#MaSach").append(item.MaSach + "<br>");
+                    $("#Soluong").append(item.Soluongmuon + "<br>");
+                    // Add other fields as needed
+                });
+
+                
+            },
+            error: function () {
+                // Handle the error if the request fails
+                alert("Error fetching details.");
+            }
+        });
+    }
+
+
+    function getTinhTrangLabel(tinhTrang) {
+        // Implement logic to get the label for the TinhTrang based on the value
+        // Example logic:
+        if (tinhTrang == 0) {
+            return "Chưa duyệt";
+        } else if (tinhTrang == 1) {
+            return "Đã duyệt";
+        } else if (tinhTrang == 2) {
+            return "Đã mượn";
+        } else if (tinhTrang == 3) {
+            return "Đã hủy";
+        }
+        return "";
+    }
+</script>
