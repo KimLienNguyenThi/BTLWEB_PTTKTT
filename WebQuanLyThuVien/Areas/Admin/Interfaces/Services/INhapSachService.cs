@@ -9,7 +9,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Interfaces.Services
 {
     public interface INhapSachService
     {
-        void Insert(DTO_Tao_Phieu_Nhap obj);
+        void Insert(DTO_Tao_Phieu_Nhap obj, string path);
         IEnumerable<CHITIETPN> GetAllChiTietPhieuNhap();
 
     }

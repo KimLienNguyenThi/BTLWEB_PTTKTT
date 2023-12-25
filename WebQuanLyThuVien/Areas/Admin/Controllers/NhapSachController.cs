@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.Mvc;
 using WebQuanLyThuVien.Areas.Admin.Data;
 using WebQuanLyThuVien.Areas.Admin.Interfaces.Services;
 using WebQuanLyThuVien.Areas.Admin.Services;
@@ -12,7 +12,7 @@ using WebQuanLyThuVien.Services;
 
 namespace WebQuanLyThuVien.Areas.Admin.Controllers
 {
-    public class NhapSachController : Controller
+    public class NhapSachController : System.Web.Mvc.Controller
     {
         SachService _sachService = new SachService();
         NhaCungCapService _nhaCungCapService = new NhaCungCapService();
@@ -20,7 +20,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
 
         // GET: Admin/NhapSach
-        public ActionResult Index()
+        public System.Web.Mvc. ActionResult Index()
         {
             if (Session["user"] == null)
             {
@@ -43,7 +43,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetListSachPaging(GetListPhieuTraPaging req)
+        public System.Web.Mvc.ActionResult GetListSachPaging(GetListPhieuTraPaging req)
         {
             var _sach = _sachService.GetAllSachPaging(req);
             if (_sach != null)
@@ -53,7 +53,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
             return Json(new ApiNotFoundResponse(""));
         }
         [HttpPost]
-        public ActionResult GetListNCCPaging(GetListPhieuTraPaging req)
+        public System.Web.Mvc.ActionResult GetListNCCPaging(GetListPhieuTraPaging req)
         {
             var NCC = _nhaCungCapService.GetAllNCCPaging(req);
             if (NCC != null)
@@ -63,13 +63,13 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
             return Json(new ApiNotFoundResponse(""));
         }
         [HttpGet]
-        public ActionResult GetAllSach()
+        public System.Web.Mvc.ActionResult GetAllSach()
         {
             try
             {
                 var sach = _sachService.GetSACH();
 
-                return Json(new { Result = sach }, JsonRequestBehavior.AllowGet);
+                return Json(new { Result = sach }, System.Web.Mvc.JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -80,13 +80,13 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public ActionResult GetAllNhaCungCap()
+        public System.Web.Mvc.ActionResult GetAllNhaCungCap()
         {
             try
             {
                 var nhaCungCap = _nhaCungCapService.GetAll();
 
-                return Json(new { Result = nhaCungCap }, JsonRequestBehavior.AllowGet);
+                return Json(new { Result = nhaCungCap }, System.Web.Mvc.JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -98,7 +98,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public ActionResult ThemNhaCungCap(string tenNcc, string sdtNcc, string diaChiNcc)
+        public System.Web.Mvc.ActionResult ThemNhaCungCap(string tenNcc, string sdtNcc, string diaChiNcc)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public ActionResult ChiTietSach(int id)
+        public System.Web.Mvc.ActionResult ChiTietSach(int id)
         {
             try
             {
@@ -157,7 +157,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public ActionResult ThemSach(int maSach, string tenSach, string theLoai, string ngonNgu, string tacGia, string nhaXB, int namXB, int soLuong, decimal giaSach)
+        public System.Web.Mvc.ActionResult ThemSach(int maSach, string tenSach, string theLoai, string ngonNgu, string tacGia, string nhaXB, int namXB, int soLuong, decimal giaSach)
         {
             // Lấy danh sách sách đã mượn từ Session hoặc tạo danh sách mới nếu chưa tồn tại
             List<DTO_Sach_Nhap> listSachNhap;
@@ -205,7 +205,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public ActionResult LamMoiDanhSachSachNhap()
+        public System.Web.Mvc.ActionResult LamMoiDanhSachSachNhap()
         {
             Session["ListSachNhap"] = null;
             return Json(new { success = true });
@@ -214,7 +214,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public ActionResult XoaSachNhap(int maSach)
+        public System.Web.Mvc.ActionResult XoaSachNhap(int maSach)
         {
             // Lấy danh sách sách đã mượn từ Session hoặc tạo danh sách mới nếu chưa tồn tại
             List<DTO_Sach_Nhap> listSachNhap = Session["ListSachNhap"] as List<DTO_Sach_Nhap> ?? new List<DTO_Sach_Nhap>();
@@ -234,21 +234,15 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public ActionResult TaoPhieuNhap(int maNhanVien, int maNCC, DateTime ngayNhap)
+        public System.Web.Mvc.ActionResult TaoPhieuNhap( DTO_Tao_Phieu_Nhap data)
         {
-            DTO_Tao_Phieu_Nhap tpn = new DTO_Tao_Phieu_Nhap();
 
-            tpn.MaNhanVien = maNhanVien;
-            tpn.MaNhaCungCap = maNCC;
-            tpn.NgayNhap = ngayNhap;
-            tpn.listSachNhap = Session["ListSachNhap"] as List<DTO_Sach_Nhap>;
-
-            if (Session["ListSachNhap"] as List<DTO_Sach_Nhap> == null)
+            if (data == null || data.listSachNhap == null || data.listSachNhap.Count < 1)
                 return Json(new { success = false });
             else
             {
-                _nhapSachService.Insert(tpn);
-                return Json(new { success = true, data = tpn });
+                _nhapSachService.Insert(data, Server.MapPath("~/img_web"));
+                return Json(new { success = true });
             }
         }
     }

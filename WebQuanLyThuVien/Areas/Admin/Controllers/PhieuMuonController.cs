@@ -19,7 +19,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
         SachService _sachService = new SachService();
         DocGiaService _docGiaService = new DocGiaService();
         PhieuMuonCTPhieuMuonService _phieuMuonCTPhieuMuonService = new PhieuMuonCTPhieuMuonService();
-
+        DangKyMuonSachService _dangKyMuonSachService = new DangKyMuonSachService();
 
         // GET: Admin/PhieuMuon
         public ActionResult Index()
@@ -36,55 +36,94 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
             {
                 var sach = _sachService.GetAll();
                 var docGia = _docGiaService.GetAllDocGia_TheDocGia();
-
+                var dangky = _dangKyMuonSachService.GetAllDangKyMuonSachtheoTT();
                 ViewData["Sach"] = sach;
                 ViewData["DocGia"] = docGia;
-
+                ViewData["DkiSachOnl"] = dangky;
+                Session["LoaiClick"] = "2";
                 return View();
             }
         }
 
+        /// <summary>
+        /// loai 1 dnag ky , 2 bin hthuong
+        /// </summary>
+        /// <param name="MaSach"></param>
+        /// <param name="TenSach"></param>
+        /// <param name="SoLuong"></param>
+        /// <param name="MaDK"></param>
+        /// <returns></returns>
 
         [HttpPost]
-        public ActionResult ThemSachMuon(int MaSach, string TenSach, int SoLuong)
+        public ActionResult ThemSachMuon(int MaSach, string TenSach, int SoLuong, int MaDK)
         {
-            // Lấy danh sách sách đã mượn từ Session hoặc tạo danh sách mới nếu chưa tồn tại
             List<DTO_Sach_Muon> listSachMuon;
+            if (MaDK > 0)
+            {
 
-            if (Session["ListSachMuon"] == null)
-            {
-                listSachMuon = new List<DTO_Sach_Muon>();
-            }
-            else
-            {
-                listSachMuon = (List<DTO_Sach_Muon>)Session["ListSachMuon"];
-            }
-
-            // Tìm xem sách có MaSach trong danh sách chưa
-            var existingSach = listSachMuon.FirstOrDefault(s => s.MaSach == MaSach);
-
-            if (existingSach != null)
-            {
-                // Nếu đã tồn tại, tăng số lượng
-                existingSach.SoLuong += SoLuong;
-            }
-            else
-            {
-                // Nếu chưa tồn tại, thêm sách mới vào danh sách
-                var sachMoi = new DTO_Sach_Muon
+                var data = _dangKyMuonSachService.Get_CTDK_ByMaDK(MaDK);
+                if (Session["LoaiClick"].ToString() == "2")
                 {
-                    MaSach = MaSach,
-                    TenSach = TenSach,
-                    SoLuong = SoLuong
-                };
+                    Session["ListSachMuon"] = new List<DTO_Sach_Muon>();
+                }
+                if (data == null)
+                {
+                    listSachMuon = new List<DTO_Sach_Muon>();
+                }
+                else
+                {
+                    listSachMuon = data;
+                }
 
-                listSachMuon.Add(sachMoi);
+                Session["ListSachMuon"] = listSachMuon;
+                Session["LoaiClick"] = "1";  
+                // Trả về một JsonResult chứa danh sách sách đã cập nhật
+                return Json(listSachMuon);
+
             }
-            // Lưu danh sách đã cập nhật vào Session
-            Session["ListSachMuon"] = listSachMuon;
+            else
+            {
+                if (Session["LoaiClick"].ToString() == "1")
+                {
+                    Session["ListSachMuon"] = new List<DTO_Sach_Muon>();
+                }
+                // Lấy danh sách sách đã mượn từ Session hoặc tạo danh sách mới nếu chưa tồn tại
+                if (Session["ListSachMuon"] == null)
+                {
+                    listSachMuon = new List<DTO_Sach_Muon>();
+                }
+                else
+                {
+                    listSachMuon = (List<DTO_Sach_Muon>)Session["ListSachMuon"];
+                }
 
-            // Trả về một JsonResult chứa danh sách sách đã cập nhật
-            return Json(listSachMuon);
+                // Tìm xem sách có MaSach trong danh sách chưa
+                var existingSach = listSachMuon.FirstOrDefault(s => s.MaSach == MaSach);
+
+                if (existingSach != null)
+                {
+                    // Nếu đã tồn tại, tăng số lượng
+                    existingSach.SoLuong += SoLuong;
+                }
+                else
+                {
+                    // Nếu chưa tồn tại, thêm sách mới vào danh sách
+                    var sachMoi = new DTO_Sach_Muon
+                    {
+                        MaSach = MaSach,
+                        TenSach = TenSach,
+                        SoLuong = SoLuong
+                    };
+
+                    listSachMuon.Add(sachMoi);
+                }
+                // Lưu danh sách đã cập nhật vào Session
+                Session["ListSachMuon"] = listSachMuon;
+                Session["LoaiClick"] = "2";
+                // Trả về một JsonResult chứa danh sách sách đã cập nhật
+                return Json(listSachMuon);
+            }
+
         }
 
 
@@ -113,17 +152,18 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
             return Json(new { success = false });
         }
-        
+
 
         [HttpPost]
-        public ActionResult TaoPhieuMuon(int MaNhanVien, int MaThe, DateTime NgayMuon, DateTime NgayTra)
+        public ActionResult TaoPhieuMuon(int MaNhanVien, int MaThe, DateTime NgayMuon, DateTime NgayTra, int MaDK)
         {
             DTO_Tao_Phieu_Muon tpm = new DTO_Tao_Phieu_Muon();
 
             tpm.MaNhanVien = MaNhanVien;
-            tpm.MaTheDocGia= MaThe;
-            tpm.NgayMuon= NgayMuon;
-            tpm.NgayTra= NgayTra;
+            tpm.MaTheDocGia = MaThe;
+            tpm.NgayMuon = NgayMuon;
+            tpm.NgayTra = NgayTra;
+            tpm.MaDK = MaDK;
             tpm.listSachMuon = Session["ListSachMuon"] as List<DTO_Sach_Muon>;
 
             if (Session["ListSachMuon"] as List<DTO_Sach_Muon> == null)
@@ -131,9 +171,41 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
             else
             {
                 _phieuMuonCTPhieuMuonService.Insert(tpm);
+
+                if(tpm.MaDK != 0)
+                {
+                    _dangKyMuonSachService.UpdateTinhTrang(tpm.MaDK, 2);
+                }
+
                 return Json(new { success = true });
             }
         }
+
+
+        //[HttpPost]
+        //public ActionResult HandleBtnLuu(int maDK, int tinhTrang)
+        //{
+        //    if (maDK > 0)
+        //    {
+        //        try
+        //        {
+        //            var data = _dangKyMuonSachService.UpdateTinhTrang(maDK, tinhTrang);
+
+        //            if (data)
+        //            {
+        //                return Json(new { success = true, message = "Update tình trạng thành công", data = data });
+        //            }
+        //            else
+        //            {
+        //                return Json(new { success = true, message = "Update tình trạng thất bại", data = data });
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return Json(new { success = false, message = "error HandleBtnHuyDon: ", ex });
+        //        }
+        //    }
+        //}
 
     }
 }

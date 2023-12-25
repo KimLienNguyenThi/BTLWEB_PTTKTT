@@ -136,7 +136,9 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 tpm.NgayTra = ngayTra;
                 tpm.MaNhanVien = maNV;
                 tpm.MaTheDocGia = maThe;
+                tpm.MaDK = maDK;
                 tpm.listSachMuon = danhSachDK;
+               
 
                 _phieuMuonCTPhieuMuonService.Insert(tpm);
                 return Json(new { success = true, data = tpm });

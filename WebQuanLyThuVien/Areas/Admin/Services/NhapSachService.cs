@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting.Server;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using WebQuanLyThuVien.Areas.Admin.Data;
@@ -20,8 +22,10 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
             return unitOfWork.Context.CHITIETPNs.ToList();
         }
 
-        public void Insert(DTO_Tao_Phieu_Nhap obj)
+        public void Insert(DTO_Tao_Phieu_Nhap obj, string path)
         {
+
+
             var newPhieuNhap = new PhieuNhapSach
             {
                 NgayNhap = obj.NgayNhap,
@@ -30,7 +34,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
             };
 
             unitOfWork.Context.PhieuNhapSaches.Add(newPhieuNhap);
-            unitOfWork.Save(); // Lưu thay đổi vào cơ sở dữ liệu
 
             foreach (var sachNhap in obj.listSachNhap)
             {
@@ -63,6 +66,18 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                     unitOfWork.Context.Saches.Add(newSach);
                     unitOfWork.Save(); // Lưu thay đổi vào cơ sở dữ liệu
 
+                    if(sachNhap.fileImage != null)
+                    {
+                        var url = UploadFile(sachNhap.fileImage, path);
+                        var thongTinSach = new TT_SACH
+                        {
+                            MASACH = newSach.MaSach,
+                            MOTA = sachNhap.moTa,
+                            URL_IMAGE = url,
+                        };
+                        unitOfWork.Context.TT_SACH.Add(thongTinSach);
+                    }             
+
                     var newChiTietPN = new CHITIETPN
                     {
                         MaPN = newPhieuNhap.MaPN,
@@ -76,6 +91,25 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
             }
 
             unitOfWork.Save(); // Lưu thay đổi vào cơ sở dữ liệu
+        }
+
+        public string UploadFile(HttpPostedFileBase file, string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+            string fileExtension = Path.GetExtension(file.FileName);
+            string uniqueFileName = fileName + "_" + Guid.NewGuid().ToString() + fileExtension;
+          
+            // Tạo đường dẫn đầy đủ cho tệp
+            string filePath = Path.Combine(path, uniqueFileName);
+
+            // Lưu tệp vào thư mục trên máy chủ
+            file.SaveAs(filePath);
+
+            return $"img_web/{uniqueFileName}";
         }
 
     }

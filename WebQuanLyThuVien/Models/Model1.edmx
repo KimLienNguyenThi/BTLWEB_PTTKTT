@@ -140,6 +140,7 @@
           <Property Name="MaThe" Type="int" />
           <Property Name="MaNV" Type="int" />
           <Property Name="Tinhtrang" Type="bit" />
+          <Property Name="MaDK" Type="int" />
         </EntityType>
         <EntityType Name="PhieuNhapSach">
           <Key>
@@ -772,6 +773,7 @@
           <Property Name="MaThe" Type="Int32" />
           <Property Name="MaNV" Type="Int32" />
           <Property Name="Tinhtrang" Type="Boolean" />
+          <Property Name="MaDK" Type="Int32" />
           <NavigationProperty Name="ChiTietPMs" Relationship="Self.FK__ChiTietPM__MaPM__5070F446" FromRole="PhieuMuon" ToRole="ChiTietPM" />
           <NavigationProperty Name="NhanVien" Relationship="Self.FK__PhieuMuon__MaNV__4CA06362" FromRole="PhieuMuon" ToRole="NhanVien" />
           <NavigationProperty Name="TheDocGia" Relationship="Self.FK__PhieuMuon__MaThe__4D94879B" FromRole="PhieuMuon" ToRole="TheDocGia" />
@@ -1412,6 +1414,7 @@
                 <ScalarProperty Name="MaThe" ColumnName="MaThe" />
                 <ScalarProperty Name="MaNV" ColumnName="MaNV" />
                 <ScalarProperty Name="Tinhtrang" ColumnName="Tinhtrang" />
+                <ScalarProperty Name="MaDK" ColumnName="MaDK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

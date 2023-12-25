@@ -86,7 +86,8 @@ CREATE TABLE PhieuMuon (
 	MaNV INT,
 	FOREIGN KEY (MaNV) REFERENCES NhanVien (MaNV),
 	FOREIGN KEY (MaThe) REFERENCES TheDocGia (MaThe),
-	Tinhtrang bit --default '0'--Nvarchar(10)
+	Tinhtrang bit ,--default '0'--Nvarchar(10),
+	MaDK int
 );
 
 CREATE TABLE ChiTietPM (
@@ -96,6 +97,7 @@ CREATE TABLE ChiTietPM (
 	FOREIGN KEY (MaPM) REFERENCES PhieuMuon (MaPM),
 	FOREIGN KEY (MaSach) REFERENCES Sach (MaSach),
 	constraint ChiTietPM_MaPM_MaSach PRIMARY KEY (MaPM, MaSach)
+
 );
 
 CREATE TABLE PhieuTra (
@@ -180,6 +182,7 @@ CREATE TABLE DkiMuonSach (
 	Tinhtrang int --DANG CHỜ XÁC THỰC  0
 	--đã duyệt  1
 	--đã mượn  2
+	--đã hủy 3
 );
 
 CREATE TABLE ChiTietDk (
@@ -296,17 +299,45 @@ END
 
 GO
 /* CẬP NHẬT SÁCH TRONG KHO SAU KHI MƯỢN  */
-CREATE or ALTER TRIGGER TRG_SACHMUON ON CHITIETPM AFTER INSERT AS 
+--CREATE or ALTER TRIGGER TRG_SACHMUON ON CHITIETPM AFTER INSERT AS 
+--BEGIN
+   
+--	UPDATE SACH
+--	SET SACH.SOLUONGHIENTAI = SACH.SOLUONGHIENTAI - (
+--		SELECT SOLUONGmuon
+--		FROM INSERTED
+--		WHERE MASACH = SACH.MASACH
+--	)
+--	FROM SACH
+--	JOIN INSERTED ON INSERTED.MASACH = SACH.MASACH
+--END
+
+CREATE OR ALTER  TRIGGER TRG_SACHMUON ON CHITIETPM AFTER INSERT AS 
 BEGIN
-	UPDATE SACH
-	SET SACH.SOLUONGHIENTAI = SACH.SOLUONGHIENTAI - (
-		SELECT SOLUONGmuon
-		FROM INSERTED
-		WHERE MASACH = SACH.MASACH
-	)
-	FROM SACH
-	JOIN INSERTED ON INSERTED.MASACH = SACH.MASACH
-END
+    DECLARE @Madk INT;
+
+    SELECT TOP 1 @Madk = MADK 
+    FROM INSERTED JOIN PHIEUMUON ON INSERTED.MAPM = PHIEUMUON.MAPM;
+     
+    IF isnull(@Madk,0) = 0
+    BEGIN
+        -- Nếu Madk = 0, cập nhật kho sách
+      
+        
+            PRINT 'Updating SACH';
+            -- Nếu Madk = 0, cập nhật kho sách
+            UPDATE SACH
+            SET SACH.SOLUONGHIENTAI = SACH.SOLUONGHIENTAI - (
+                SELECT SOLUONGmuon
+                FROM INSERTED
+                WHERE MASACH = SACH.MASACH
+            )
+            FROM SACH
+            JOIN INSERTED ON INSERTED.MASACH = SACH.MASACH;
+        
+    END
+END;
+
 
 --/* CẬP NHẬT SÁCH TRONG KHO SAU KHI TRẢ  */
 CREATE OR ALTER TRIGGER TRG_SACHTRAvaTL ON CHITIETPT AFTER INSERT AS 
@@ -377,6 +408,48 @@ BEGIN
 	JOIN INSERTED ON INSERTED.MASACHKHO = KhoSachThanhLy.MASACHKHO
 END
 
+/* CẬP NHẬT SÁCH TRONG KHO SAU KHI duyệt  */
+CREATE or ALTER TRIGGER TRG_SachMuonOnl ON DkiMuonSach after UPDATE AS 
+BEGIN
+-- DECLARE @tinhtrang INT;
+  DECLARE @tinhtrang_before INT;
+    DECLARE @tinhtrang_after INT;
+
+    SELECT TOP 1 @tinhtrang_before = d.tinhtrang, @tinhtrang_after = i.tinhtrang
+    FROM DELETED d
+    JOIN INSERTED i ON d.madk = i.madk;
+    
+	--SELECT TOP 1 @tinhtrang_after = tinhtrang 
+ --   FROM INSERTED;
+	if @tinhtrang_after=1
+	begin 
+		print @tinhtrang_after;
+		UPDATE SACH
+		SET SACH.SOLUONGHIENTAI = SACH.SOLUONGHIENTAI - (
+			SELECT SOLUONGmuon
+			FROM INSERTED JOIN ChiTietDk ON INSERTED.MADK = ChiTietDk.MaDK-- join DkiMuonSach on 
+			WHERE ChiTietDk.MASACH = SACH.MASACH AND Tinhtrang = 1
+		)
+		FROM SACH JOIN ChiTietDk  ON  ChiTietDk.MASACH = SACH.MASACH 
+		JOIN INSERTED ON INSERTED.MADK = ChiTietDk.MaDK 
+	end
+	if @tinhtrang_after =3
+	begin
+		print @tinhtrang_after;
+		UPDATE SACH
+		SET SACH.SOLUONGHIENTAI = SACH.SOLUONGHIENTAI + (
+			SELECT SOLUONGmuon
+			FROM INSERTED JOIN ChiTietDk ON INSERTED.MADK = ChiTietDk.MaDK
+			WHERE ChiTietDk.MASACH = SACH.MASACH AND @tinhtrang_after = 3
+		)
+		FROM SACH JOIN ChiTietDk  ON  ChiTietDk.MASACH = SACH.MASACH 
+		JOIN INSERTED ON INSERTED.MADK = ChiTietDk.MaDK 
+		join deleted on deleted.MaDK =INSERTED.MADK where   @tinhtrang_before = 1
+	end
+	
+END
+
+
 
 --******************CÁC TRIGGER VỀ TÌNH TRẠNG XÉT DUYỆT*********************
 /* CẬP NHẬT TÌNH TRẠNG PHIẾU MƯỢN */
@@ -389,6 +462,7 @@ BEGIN
 	FROM PHIEUMUON 
 	JOIN INSERTED ON INSERTED.MAPM = PHIEUMUON.MaPM
 END;
+
 
 CREATE OR ALTER TRIGGER UpdateTinhTrangPhieuMuon
 ON chitietpt

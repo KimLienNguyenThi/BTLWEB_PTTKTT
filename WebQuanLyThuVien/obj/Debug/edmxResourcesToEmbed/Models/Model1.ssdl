@@ -135,6 +135,7 @@
     <Property Name="MaThe" Type="int" />
     <Property Name="MaNV" Type="int" />
     <Property Name="Tinhtrang" Type="bit" />
+    <Property Name="MaDK" Type="int" />
   </EntityType>
   <EntityType Name="PhieuNhapSach">
     <Key>

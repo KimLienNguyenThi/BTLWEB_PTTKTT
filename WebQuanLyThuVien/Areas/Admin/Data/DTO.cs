@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
@@ -64,6 +65,9 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public int MaTheDocGia { get; set; }
         public DateTime NgayMuon { get; set; }
         public DateTime NgayTra { get; set; }
+        public int MaDK { get; set; }
+
+
         public List<DTO_Sach_Muon> listSachMuon { get; set; }
 
         public DTO_Tao_Phieu_Muon()
@@ -110,6 +114,8 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public int namXB { get; set; }
         public int soLuong { get; set; }
         public decimal giaSach { get; set; }
+        public string moTa { get; set; }
+        public HttpPostedFileBase fileImage { get; set; }
     }
 
     public class DTO_Tao_Phieu_Nhap
@@ -119,10 +125,10 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public DateTime NgayNhap { get; set; }
         public List<DTO_Sach_Nhap> listSachNhap { get; set; }
 
-        public DTO_Tao_Phieu_Nhap()
-        {
-            listSachNhap = new List<DTO_Sach_Nhap>();
-        }
+        //public DTO_Tao_Phieu_Nhap()
+        //{
+        //    listSachNhap = new List<DTO_Sach_Nhap>();
+        //}
     }
     public class DTO_DangKyMuonSach
     {
@@ -141,5 +147,17 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public string SDT { get; set; }
         public int CountRow { get; set; }
         public List<DTO_DangKyMuonSach> List_DTO_DangKyMuonSach { get; set; }
+    }
+    public class DTO_DangKyMuonSach_PM
+    {
+        public int MaThe { get; set; }
+        public string SDT { get; set; }
+        public string HoTen { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public int MaDK { get; set; }
+        public DateTime? NgayDK { get; set; }
+        public DateTime? NgayHen { get; set; }
+        public int? TinhTrang { get; set; }
     }
 }

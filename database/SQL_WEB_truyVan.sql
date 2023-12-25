@@ -2,7 +2,7 @@
 USE QuanLyThuVien;
 SELECT * FROM donvitl
 SELECT * FROM PHIEUMUON
-SELECT * FROM CHITIETPn
+SELECT * FROM CHITIETPM
 SELECT * FROM PHIEUTRA 
 SELECT * FROM CHITIETPT 
 SELECT * FROM SACH
@@ -13,9 +13,20 @@ SELECT * FROM ChiTietPTL
 SELECT * FROM login_DG
 SELECT * FROM nhanvien
 
-SELECT * FROM dkimuonsach
-
+SELECT * FROM dkimuonsach-- WHERE TINHTRANG = 2
+SELECT * FROM CHITIETDK
 DELETE FROM LOGIN_NV WHERE MaNV = 3;
+
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV, MADK) values ( 3,'2023-12-23', '2023-12-27', 2,7);--10
+
+-- Them chi tiet phieu muon
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 12, 3, 4);
+insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 7, 14, 2);
+insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 11, 3, 4);
+
+
+UPDATE dkimuonsach SET TINHTRANG = 3 WHERE  MADK = 11  and tinhtrang = 1
+
 
 
 

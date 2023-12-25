@@ -143,6 +143,7 @@
           <ScalarProperty Name="MaThe" ColumnName="MaThe" />
           <ScalarProperty Name="MaNV" ColumnName="MaNV" />
           <ScalarProperty Name="Tinhtrang" ColumnName="Tinhtrang" />
+          <ScalarProperty Name="MaDK" ColumnName="MaDK" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

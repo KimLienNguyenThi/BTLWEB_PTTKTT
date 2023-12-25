@@ -21,6 +21,10 @@ namespace WebQuanLyThuVien.Areas.Admin.Data
         public String HoTenDG { get; set; }
         public String SDT { get; set; }
         public bool Tinhtrang { get; set; }
+
+        public int MaDK { get; set; }
+
+
     }
 
 }

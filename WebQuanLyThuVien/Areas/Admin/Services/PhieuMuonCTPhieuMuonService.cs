@@ -23,7 +23,8 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                 NgayMuon = x.NgayMuon,
                 HanTra = x.NgayTra,
                 MaThe = x.MaTheDocGia,
-                MaNV = x.MaNhanVien
+                MaNV = x.MaNhanVien,
+                MaDK = x.MaDK,
             };
 
             unitOfWork.Context.PhieuMuons.Add(newPhieuMuon);

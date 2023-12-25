@@ -99,23 +99,23 @@
                                         </tr>
                                     </thead>
                                     <tbody id="danhSachSachNhap">
-                                        @foreach (var item in ViewData["ListSachNhap"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Nhap> ?? new List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Nhap>())
-                                        {
-                                            <tr class="sachNhap-row" data-ma-sach="@item.maSach">
-                                                <td>@item.maSach</td>
-                                                <td>@item.tenSach</td>
-                                                <td>@item.theLoai</td>
-                                                <td>@item.ngonNgu</td>
-                                                <td>@item.tacGia</td>
-                                                <td>@item.nhaXB</td>
-                                                <td>@item.namXB</td>
-                                                <td>@item.soLuong</td>
-                                                <td>@item.giaSach</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger xoaSachNhap" id="xoaSachNhap">Xóa</button>
-                                                </td>
-                                            </tr>
-                                        }
+                                        @*@foreach (var item in ViewData["ListSachNhap"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Nhap> ?? new List<WebQuanLyThuVien.Areas.Admin.Data.DTO_Sach_Nhap>())
+                                            {
+                                                <tr class="sachNhap-row" data-ma-sach="@item.maSach">
+                                                    <td>@item.maSach</td>
+                                                    <td>@item.tenSach</td>
+                                                    <td>@item.theLoai</td>
+                                                    <td>@item.ngonNgu</td>
+                                                    <td>@item.tacGia</td>
+                                                    <td>@item.nhaXB</td>
+                                                    <td>@item.namXB</td>
+                                                    <td>@item.soLuong</td>
+                                                    <td>@item.giaSach</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger xoaSachNhap" id="xoaSachNhap">Xóa</button>
+                                                    </td>
+                                                </tr>
+                                            }*@
                                     </tbody>
                                 </table>
                             </div>
@@ -174,14 +174,14 @@
                                 </thead>
                                 <tbody id="danhSachNCC">
                                     @*@foreach (var item in ViewData["Ncc"] as List<WebQuanLyThuVien.Models.NhaCungCap>)
-                                    {
-                                        <tr class="ncc-row" aria-expanded="false" data-widget="expandable-table" data-ma-sach="@item.MaNCC">
-                                            <td>@item.MaNCC</td>
-                                            <td>@item.TenNCC</td>
-                                            <td>@item.sdtNCC</td>
-                                            <td>@item.DiaChiNCC</td>
-                                        </tr>
-                                    }*@
+                                        {
+                                            <tr class="ncc-row" aria-expanded="false" data-widget="expandable-table" data-ma-sach="@item.MaNCC">
+                                                <td>@item.MaNCC</td>
+                                                <td>@item.TenNCC</td>
+                                                <td>@item.sdtNCC</td>
+                                                <td>@item.DiaChiNCC</td>
+                                            </tr>
+                                        }*@
                                 </tbody>
                             </table>
                         </div>
@@ -198,12 +198,12 @@
                                 </thead>
                                 <tbody id="danhSachSach">
                                     @*@foreach (var item in ViewData["Sach"] as List<WebQuanLyThuVien.Models.Sach>)
-                                    {
-                                        <tr class="sach-row" aria-expanded="false" data-widget="expandable-table">
-                                            <td>@item.MaSach</td>
-                                            <td>@item.TenSach</td>
-                                        </tr>
-                                    }*@
+                                        {
+                                            <tr class="sach-row" aria-expanded="false" data-widget="expandable-table">
+                                                <td>@item.MaSach</td>
+                                                <td>@item.TenSach</td>
+                                            </tr>
+                                        }*@
                                 </tbody>
                             </table>
                         </div>
@@ -512,6 +512,9 @@
 @section scripts
 {
     <script>
+        var listSachNhap = [];
+
+
 
         function searchNhaCungCap() {
             // Get the search keyword from the input field
@@ -858,13 +861,124 @@
                             $("#inputSachModal").modal("hide");
 
                             // Gọi hàm suKienXoaSach để cập nhật sự kiện xóa cho các hàng sách nhập
-                            suKienXoaSach();
+                           // suKienXoaSach();
                         }
                     }
                 });
             }
         }
 
+
+        function ThemSachV2(idMaSach, idTenSach, idTheLoai, idNgonNgu, idTacGia, idNhaXB, idNamXB, idSoLuong, idGiaSach)
+        {
+            var maSach
+            idMaSach == "maSachModal" ? maSach = document.getElementById(idMaSach).value : maSach = maSachMoi--;
+            var tenSach = document.getElementById(idTenSach).value;
+            var theLoai = document.getElementById(idTheLoai).value;
+            var ngonNgu = document.getElementById(idNgonNgu).value;
+            var tacGia = document.getElementById(idTacGia).value;
+            var nhaXB = document.getElementById(idNhaXB).value;
+            var namXB = document.getElementById(idNamXB).value;
+
+            var soLuong = document.getElementById(idSoLuong).value;
+            var giaSach = document.getElementById(idGiaSach).value;
+
+            tongTienNhap = tongTienNhap + giaSach * soLuong
+
+            document.getElementById("tongTienNhap").value = formatMoney(tongTienNhap);
+
+            if (!tenSach.trim() || !theLoai.trim() || !ngonNgu.trim() || !tacGia.trim() || !nhaXB.trim() || !namXB.trim()) {
+                document.getElementById("contentModalError").innerHTML = "Hãy nhập đủ thông tin sách!";
+                $("#ModalError").modal("show");
+            } else if (!Number.isInteger(Number(soLuong)) || soLuong <= 0) {
+                document.getElementById("contentModalError").innerHTML = "Hãy nhập đúng số lượng sách nhập!";
+                $("#ModalError").modal("show");
+            } else if (isNaN(giaSach) || giaSach <= 0) {
+                document.getElementById("contentModalError").innerHTML = "Hãy nhập đúng giá sách!";
+                $("#ModalError").modal("show");
+            } else {
+                if (maSach < 0) { //sach mới
+                    var input = document.getElementById('inputHinhAnhModal');
+                    var moTa = document.getElementById("inputMoTaModal").value;
+
+
+                    if (!input.files || !input.files[0]) {
+                        document.getElementById("contentModalError").innerHTML = "Hãy chọn ảnh sách!";
+                        $("#ModalError").modal("show");
+                    } else if (!moTa.trim()) {
+                        document.getElementById("contentModalError").innerHTML = "Hãy nhập mô tả sách!";
+                        $("#ModalError").modal("show");
+                    } else {
+                        var file = input.files[0];
+                        //var ext = '.' + file.name.split('.').pop();
+                        //var name = tenSach.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+                        //var nameImage = name + ext;
+
+                        //console.log("urlImage: ", urlImage);
+
+
+                        var index = listSachNhap.findIndex((element) => element.maSach == maSach);
+                        if (index == -1) { // không tìm thấy
+                            listSachNhap.push({
+                                maSach: maSach,
+                                tenSach: tenSach,
+                                theLoai: theLoai,
+                                tacGia: tacGia,
+                                nhaXB: nhaXB,
+                                namXB: namXB,
+                                soLuong: soLuong,
+                                giaSach: giaSach,
+                                ngonNgu: ngonNgu,
+                                fileImage: file,
+                                moTa: moTa
+                            });
+
+                            console.log(listSachNhap);
+                        } else {
+
+                            listSachNhap[index].giaSach = giaSach;
+                            listSachNhap[index].soLuong = soLuong;
+                            console.log(listSachNhap);
+                        }
+                    }
+                } else { // sach có sẵn
+                    var index = listSachNhap.findIndex((element) => element.maSach == maSach);
+                    if (index == -1) { // không tìm thấy
+                        listSachNhap.push({
+                            maSach: maSach,
+                            tenSach: tenSach,
+                            theLoai: theLoai,
+                            tacGia: tacGia,
+                            nhaXB: nhaXB,
+                            namXB: namXB,
+                            soLuong: soLuong,
+                            giaSach: giaSach,
+                            ngonNgu: ngonNgu
+                        });
+
+                        console.log(listSachNhap);
+                    } else {
+
+                        listSachNhap[index].giaSach = giaSach;
+                        listSachNhap[index].soLuong = soLuong;
+                        console.log(listSachNhap);
+                    }
+                }
+                
+
+                renderListSachNhap();
+
+                $("#ThemSachCoSanModal").modal("hide");
+
+                $("#showChiTietSachModal").modal("hide");
+
+                $("#inputSachModal").modal("hide");
+
+                // Gọi hàm suKienXoaSach để cập nhật sự kiện xóa cho các hàng sách nhập
+                //suKienXoaSach();
+            }
+
+        }
 
 
         //=====================  Thêm Sách có sẵn  =====================
@@ -875,7 +989,7 @@
         }
 
         function themSachCoSan() {
-            ThemSach(
+            ThemSachV2(
                 "maSachModal", "tenSachModal", "theLoaiModal",
                 "ngonNguModal", "tacGiaModal", "nhaXuatBanModal",
                 "namXuatBanModal", "SoLuongSachThemModal", "GiaSachThemModal"
@@ -898,7 +1012,7 @@
         }
         //=====================  btn Thêm Sách mới  =====================
         function themSachMoi() {
-            ThemSach(
+            ThemSachV2(
                 "", "inputTenSachModal", "inputTheLoaiModal",
                 "inputNgonNguModal", "inputTacGiaModal", "inputNhaXuatBanModal",
                 "inputNamXuatBanModal", "inputSoLuongModal", "inputGiaSachModal"
@@ -928,9 +1042,11 @@
         }
 
         function lamMoi() {
-            lamMoiPhieuNhap();
+            //lamMoiPhieuNhap();
+
+            listSachNhap = [];
             // Làm mới trang
-            location.reload();
+            //location.reload();
         }
 
 
@@ -941,27 +1057,27 @@
 
 
         //===================== Xử lý Xóa sách nhập =====================
-        function suKienXoaSach() {
-            // Lấy danh sách các hàng trong bảng
-            var danhSachSachNhapRows = document.querySelectorAll(".sachNhap-row");
+        //function suKienXoaSach() {
+        //    // Lấy danh sách các hàng trong bảng
+        //    var danhSachSachNhapRows = document.querySelectorAll(".sachNhap-row");
 
-            // Gán sự kiện click cho nút xóa trên từng hàng
-            danhSachSachNhapRows.forEach(function (row) {
-                row.querySelector(".xoaSachNhap").addEventListener("click", function () {
-                    var maSach = row.querySelector("td:nth-child(1)").textContent;
+        //    // Gán sự kiện click cho nút xóa trên từng hàng
+        //    danhSachSachNhapRows.forEach(function (row) {
+        //        row.querySelector(".xoaSachNhap").addEventListener("click", function () {
+        //            var maSach = row.querySelector("td:nth-child(1)").textContent;
 
-                    var isDeleting = confirm("Bạn có chắc chắn muốn xóa sách ra khỏi danh sách nhập!");
-                    if (isDeleting) {
-                        xoaSachNhap(maSach);
-                    }
-                });
-            });
-        }
+        //            var isDeleting = confirm("Bạn có chắc chắn muốn xóa sách ra khỏi danh sách nhập!");
+        //            if (isDeleting) {
+        //                xoaSachNhap(maSach);
+        //            }
+        //        });
+        //    });
+        //}
 
         // Hàm xóa 1 sách trong danh sách sách nhập
         function xoaSachNhap(maSach) {
             // Gửi yêu cầu AJAX đến controller để xóa sách
-            $.ajax({
+            @*$.ajax({
                 url: '@Url.Action("XoaSachNhap", "NhapSach")',
                 type: 'POST',
                 data: { maSach: maSach },
@@ -975,7 +1091,14 @@
                         console.log('Xóa sách không thành công');
                     }
                 }
-            });
+            });*@
+
+            var index = listSachNhap.findIndex((element) => element.maSach == maSach);
+            if (index != -1) {
+                listSachNhap.splice(index, 1);
+                renderListSachNhap();
+                console.log(listSachNhap);
+            }
         }
 
         //===================== Hàm tạo phiếu nhập =====================
@@ -990,14 +1113,36 @@
             } else {
                 var confirmed = confirm("Bạn có chắc muốn tạo phiếu nhập không?");
                 if (confirmed) {
+
+                    var formData = new FormData();
+                    formData.append('MaNhaCungCap', maNCC);
+                    formData.append('MaNhanVien', maNhanVien);
+                    formData.append('NgayNhap', ngayNhap);
+
+                    listSachNhap.forEach((item, index) => {
+
+                        formData.append('listSachNhap[' + index + '].maSach', item.maSach);
+                        formData.append('listSachNhap[' + index + '].tenSach', item.tenSach);
+                        formData.append('listSachNhap[' + index + '].theLoai', item.theLoai);
+                        formData.append('listSachNhap[' + index + '].ngonNgu', item.ngonNgu);
+                        formData.append('listSachNhap[' + index + '].tacGia', item.tacGia);
+                        formData.append('listSachNhap[' + index + '].nhaXB', item.nhaXB);
+                        formData.append('listSachNhap[' + index + '].soLuong', item.soLuong);
+                        formData.append('listSachNhap[' + index + '].namXB', item.namXB);
+                        formData.append('listSachNhap[' + index + '].giaSach', item.giaSach);
+                        formData.append('listSachNhap[' + index + '].fileImage', item.fileImage);
+                        formData.append('listSachNhap[' + index + '].moTa', item.moTa);
+                        console.log(index + JSON.stringify(item));
+                        
+                    });
+
                     $.ajax({
                         url: '@Url.Action("TaoPhieuNhap", "NhapSach")',
                         type: 'POST',
-                        data: {
-                            maNhanVien: maNhanVien,
-                            maNCC: maNCC,
-                            ngayNhap: ngayNhap,
-                        },
+                        processData: false,
+                        contentType: false,
+                        data: formData,
+                        //contentType: 'multipart/form-data',
                         success: function (data) {
                             if (data.success) {
 
@@ -1093,6 +1238,48 @@
             }
         }
 
+
+        function renderListSachNhap() {
+            var danhSachSachNhap = $("#danhSachSachNhap");
+            // Xóa nội dung bảng
+            danhSachSachNhap.empty();
+            $.each(listSachNhap, function (index, item) {
+                //var masachCell = item.maSach < 0 ? 'New' : item.maSach;
+                var newRow = $(`
+                                  <tr class="sachNhap-row" data-ma-sach="${item.maSach}">
+                                    <td>${item.maSach < 0 ? 'New' : item.maSach}</td>
+                                    <td>${item.tenSach}</td>
+                                    <td>${item.theLoai}</td>
+                                    <td>${item.tacGia}</td>
+                                    <td>${item.ngonNgu}</td>
+                                    <td>${item.nhaXB}</td>
+                                    <td>${item.namXB}</td>
+                                    <td>${item.soLuong}</td>
+                                    <td>${item.giaSach}</td>
+                                    <td>
+                                      <button type="button" class="btn btn-danger xoaSachNhap" id="xoaSachNhap" onclick="xoaSachNhapV2('${item.maSach}')">Xóa</button>
+                                    </td>
+                                  </tr>
+                                `);
+
+
+                danhSachSachNhap.append(newRow);
+            });
+        }
+
+        function xoaSachNhapV2(maSach) {
+            var index = listSachNhap.findIndex((element) => element.maSach == maSach);
+            if (index != -1) {
+
+                var isDeleting = confirm("Bạn có chắc chắn muốn xóa sách ra khỏi danh sách nhập!");
+                    if (isDeleting) {
+                        listSachNhap.splice(index, 1);
+                        renderListSachNhap();
+                        console.log(listSachNhap);
+                    }
+
+            }
+        }
 
     </script>
 

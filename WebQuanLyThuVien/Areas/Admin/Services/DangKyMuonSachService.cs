@@ -133,7 +133,8 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
                 NgayMuon = x.NgayMuon,
                 HanTra = x.NgayTra,
                 MaThe = x.MaTheDocGia,
-                MaNV = x.MaNhanVien
+                MaNV = x.MaNhanVien,
+                MaDK = x.MaDK
             };
 
             unitOfWork.Context.PhieuMuons.Add(newPhieuMuon);
@@ -169,6 +170,31 @@ namespace WebQuanLyThuVien.Areas.Admin.Services
 
             return data.maThe;
         }
+        public IEnumerable<DTO_DangKyMuonSach_PM> GetAllDangKyMuonSachtheoTT()
+        {
+            var listDangKyMuonSach =
+                (from DkiMuonSach in unitOfWork.Context.DkiMuonSaches
+                 join LOGIN_DG in unitOfWork.Context.LOGIN_DG
+                    on DkiMuonSach.SDT equals LOGIN_DG.SDT
+                 join DocGia in unitOfWork.Context.DocGias
+                 on DkiMuonSach.SDT equals DocGia.SDT
+                 where DkiMuonSach.Tinhtrang == 1
+                 select new DTO_DangKyMuonSach_PM
+                 {
+                     MaThe = DocGia.MaDG,
+                     MaDK = DkiMuonSach.MaDK,
+                     SDT = LOGIN_DG.SDT,
+                     HoTen = LOGIN_DG.HoTen,
+                     // Email = LOGIN_DG.Email,
+                     //Password = LOGIN_DG.PASSWORD_DG,
+                     NgayDK = DkiMuonSach.NgayDKMuon,
+                     NgayHen = DkiMuonSach.NgayHen,
+                     // TinhTrang = DkiMuonSach.Tinhtrang,
 
+                 }).ToList();
+
+
+            return listDangKyMuonSach;
+        }
     }
 }

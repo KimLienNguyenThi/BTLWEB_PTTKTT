@@ -161,16 +161,16 @@ insert into DonViTL ( TenDV, DiaChiDV, SDTDV) values (N'Sách Xưa',N'Quận 10,
 insert into DonViTL ( TenDV, DiaChiDV, SDTDV) values (N'Bá Tân Sách',N'Quận 3, Thành phố Hồ Chí Minh', '0962936310');
 
 -- Them Phieu muon
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 1,'2023-08-25', '2023-10-25', 2);--1
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 2,'2023-09-10', '2023-11-10', 2);--2
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 6,'2023-10-07', '2023-11-07', 2);--3
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 4,'2023-10-19', '2023-11-19', 2);--4
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 3,'2023-11-16', '2023-12-16', 2);--5
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 1,'2023-08-20', '2023-09-20', 2);--6
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 3,'2023-09-20', '2023-10-20', 2);--7
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 2,'2023-11-01', '2023-12-01', 2);--8
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 1,'2023-08-20', '2023-10-20', 2);--9
-insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV) values ( 3,'2023-10-27', '2023-11-27', 2);--10
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV, MaDK) values ( 1,'2023-08-25', '2023-10-25', 2, 0);--1
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV, MaDK) values ( 2,'2023-09-10', '2023-11-10', 2, 0);--2
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV, MaDK) values ( 6,'2023-10-07', '2023-11-07', 2, 0);--3
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV, MaDK) values ( 4,'2023-10-19', '2023-11-19', 2, 0);--4
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV, MaDK) values ( 3,'2023-11-16', '2023-12-16', 2, 0);--5
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV, MaDK) values ( 1,'2023-08-20', '2023-09-20', 2, 0);--6
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV, MaDK) values ( 3,'2023-09-20', '2023-10-20', 2, 0);--7
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV, MaDK) values ( 2,'2023-11-01', '2023-12-01', 2, 0);--8
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV, MaDK) values ( 1,'2023-08-20', '2023-10-20', 2, 0);--9
+insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV, MaDK) values ( 3,'2023-10-27', '2023-11-27', 2, 0);--10
 
 -- Them chi tiet phieu muon
 insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 1, 2, 4);
