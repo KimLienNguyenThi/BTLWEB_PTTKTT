@@ -87,7 +87,7 @@ namespace ThuVienBTL.Controllers
                 sachLocNamXB = sachLocTheLoai;
             }
 
-            return View(sachLocNamXB);
+            return Json(new { success = true, sachList = sachLocNamXB });
         }
 
         [HttpPost]
@@ -125,14 +125,41 @@ namespace ThuVienBTL.Controllers
             }
         }
 
+        // Tạo đối tượng để trả về view tìm kiếm
+        public class SachDetailsResponse
+        {
+            public Sach SachDetails { get; set; }
+            public string UrlImage { get; set; }
+        }
+
         [HttpPost]
         public ActionResult GetSachDetails(int maSach)
         {
-            // Xử lý logic để lấy thông tin chi tiết về sách từ cơ sở dữ liệu
-            var sachDetails = db.Saches.FirstOrDefault(s => s.MaSach == maSach);
+            var sachChon = db.Saches.FirstOrDefault(s => s.MaSach == maSach);
 
-            // Trả về thông tin chi tiết về sách dưới dạng JSON
-            return Json(sachDetails);
+            Sach sachDetails = new Sach()
+            {
+                MaSach = sachChon.MaSach,
+                NamXB = sachChon.NamXB,
+                NgonNgu = sachChon.NgonNgu,
+                NXB = sachChon.NXB,
+                SoLuongHIENTAI = sachChon.SoLuongHIENTAI,
+                TacGia = sachChon.TacGia,
+                TenSach = sachChon.TenSach,
+                TheLoai = sachChon.TheLoai,
+            };
+
+            var urlImage = db.TT_SACH.Find(maSach).URL_IMAGE;
+
+            // Tạo đối tượng chứa thông tin cần trả về
+            var response = new SachDetailsResponse
+            {
+                SachDetails = sachDetails,
+                UrlImage = urlImage
+            };
+
+            // Trả về đối tượng dưới dạng JSON
+            return Json(response);
         }
 
         public ActionResult GioHang()
@@ -228,8 +255,8 @@ namespace ThuVienBTL.Controllers
 
                 db.ChiTietDks.Add(ctdk);
 
-                var sach = db.Saches.Find(maSachItem);
-                sach.SoLuongHIENTAI = sach.SoLuongHIENTAI - soLuongSachItem;
+                //var sach = db.Saches.Find(maSachItem);
+                //sach.SoLuongHIENTAI = sach.SoLuongHIENTAI - soLuongSachItem;
             }
 
             // Luu vào database

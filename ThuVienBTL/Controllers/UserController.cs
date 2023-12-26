@@ -50,34 +50,64 @@ namespace ThuVienBTL.Controllers
         }
 
         [HttpPost]
-
-        public ActionResult DangKyTaiKhoan(string hoTen, string email, string sdt, string matKhau)
+        public ActionResult DangKyTaiKhoan(string email)
         {
-            mapTaiKhoan map = new mapTaiKhoan();
-            LOGIN_DG data = new LOGIN_DG()
-            {
-                Email = email,
-                HoTen = hoTen,
-                PASSWORD_DG = matKhau,
-                SDT = sdt,
-            };
 
-            if (map.ThemMoi(data))
+            // Tạo biến random ra mã xác thực
+            Random rd = new Random();
+            // Tạo số ngẫu nhiên có 6 chữ số
+            int randomNumber = rd.Next(100000, 1000000);
+
+            TempData["OTP"] = randomNumber.ToString();
+
+            // Gửi mail cho khách hàng
+            string mailDangKy = System.IO.File.ReadAllText(Server.MapPath("~/Content/mailDangKy.html"));
+            mailDangKy = mailDangKy.Replace("{{MaCode}}", randomNumber.ToString());
+            ThuVienBTL.Common.CommonController.SendEmail("Thư viện ABC", "Xác nhận tài khoản", mailDangKy.ToString(), email);
+
+            return Json(new { success = true});
+
+        }
+
+        [HttpPost]
+        public ActionResult XacNhanDangKyTaiKhoan(string hoTen, string email, string sdt, string matKhau, string OTPInput)
+        {
+            if (OTPInput == TempData["OTP"].ToString())
             {
-                // Chuyển hướng đến hành động "Index" của controller "User"
-                return View();
+                mapTaiKhoan map = new mapTaiKhoan();
+                LOGIN_DG data = new LOGIN_DG()
+                {
+                    Email = email,
+                    HoTen = hoTen,
+                    PASSWORD_DG = matKhau,
+                    SDT = sdt,
+                };
+
+                if (map.ThemMoi(data) == true)
+                {
+                    // Chuyển hướng đến hành động "Index" của controller "User"
+                    return Json(new { success = true, message = "Đăng ký thành công!" });
+                }
+                else
+                {
+                    // Trả về phản hồi JSON nếu cần
+                    return Json(new { success = false, message = "Đăng ký thất bại1" });
+                }
             }
             else
             {
-                // Trả về phản hồi JSON nếu cần
-                return Json(new { success = false, message = "Đăng ký thất bại", data = data });
+                return Json(new { success = false, message = "OTP không chính xác!" });
+
             }
+
+
         }
 
 
         public ActionResult Logout()
         {
             SessionConfig.SetUser(null);
+            Session["shared_SDT"] = null;
             return RedirectToAction("Index","Home");
         }
 

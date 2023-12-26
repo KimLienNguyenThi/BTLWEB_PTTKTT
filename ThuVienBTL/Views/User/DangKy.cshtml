@@ -49,20 +49,42 @@
     </form>
 </div>
 
+<!-- Modal -->
+<div class="modal" tabindex="-1" role="dialog" id="otpModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Enter OTP</h5>
+                    <span aria-hidden="true">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- Form để nhập OTP -->
+                <form id="otpForm">
+                    <div class="form-group">
+                        <label for="otpInput">OTP:</label>
+                        <input type="text" class="form-control" id="otpInput" required>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="submitOTP()">Submit OTP</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+       
 <script>
 
     function validateForm() {
-    var fullNameInput = document.getElementById('validationCustom01').value.trim();
-    var emailInput = document.getElementById('validationCustom02').value.trim();
-    var phoneNumberInput = document.getElementById('validation04').value.trim();
-    var passwordInput = document.getElementById('validationCustom03').value.trim();
-    var confirmPasswordInput = document.getElementById('validationCustom05').value.trim();
+        var fullNameInput = document.getElementById('validationCustom01').value.trim();
+        var emailInput = document.getElementById('validationCustom02').value.trim();
+        var phoneNumberInput = document.getElementById('validation04').value.trim();
+        var passwordInput = document.getElementById('validationCustom03').value.trim();
+        var confirmPasswordInput = document.getElementById('validationCustom05').value.trim();
 
-    var validFullName = validateFullName(fullNameInput);
-    var validEmail = validateEmail(emailInput);
-    var validPhoneNumber = validatePhoneNumber(phoneNumberInput);
-    var validPassword = validatePassword(passwordInput);
-    var validConfirmPassword = validateConfirmPassword(passwordInput, confirmPasswordInput);
+        var validFullName = validateFullName(fullNameInput);
+        var validEmail = validateEmail(emailInput);
+        var validPhoneNumber = validatePhoneNumber(phoneNumberInput);
+        var validPassword = validatePassword(passwordInput);
+        var validConfirmPassword = validateConfirmPassword(passwordInput, confirmPasswordInput);
 
         console.log("validFullName", fullNameInput);
         console.log("validEmail", emailInput);
@@ -71,34 +93,69 @@
         console.log("validConfirmPassword", confirmPasswordInput);
 
 
-    if (validFullName && validEmail && validPhoneNumber && validPassword && validConfirmPassword) {
-        $.ajax({
-            url: "/User/DangKyTaiKhoan",
-            type: "POST",
-            data: {
-                hoTen: fullNameInput,
-                email: emailInput,
-                sdt: phoneNumberInput,
-                matKhau: passwordInput,
-            },
-           success: function (data) {
-                console.log("Thông tin TheDocGia: ", data);
-                //if (data.success) {
-                //    var tdg = data.data;
-
-                //    console.log("Thông tin TheDocGia: ", tdg);
-
-                //    alert('Đăng ký thành công!');
-                //} else {
-                //    console.error("Đăng ký không thành công. Lỗi: " + data.message);
-                //}
-            },
-            error: function (xhr, status, error) {
-                alert("Đăng ký thất bại!");
-                console.error("AJAX error: " + status + ' ' + error);
-            }
-        });
+        if (validFullName && validEmail && validPhoneNumber && validPassword && validConfirmPassword)
+        {
+            $.ajax({
+                url: "/User/DangKyTaiKhoan",
+                type: "POST",
+                data:
+                {
+                    email: emailInput
+                },
+                success: function (data)
+                {
+                    if (data.success) {
+                        // Mở modal nhập OTP
+                        $('#otpModal').modal('show');
+                    }
+                },
+                error: function (xhr, status, error)
+                {
+                    alert("Đăng ký thất bại!");
+                    console.error("AJAX error: " + status + ' ' + error);
+                }
+            });
+        }
     }
+
+    function submitOTP() {
+        var fullNameInput = document.getElementById('validationCustom01').value.trim();
+        var emailInput = document.getElementById('validationCustom02').value.trim();
+        var phoneNumberInput = document.getElementById('validation04').value.trim();
+        var passwordInput = document.getElementById('validationCustom03').value.trim();
+        // Lấy OTP từ người dùng nhập vào
+        var enteredOTP = $('#otpInput').val();
+        console.log(enteredOTP);
+
+            $.ajax({
+                url: "/User/XacNhanDangKyTaiKhoan",
+                type: "POST",
+                data: {
+                    hoTen: fullNameInput,
+                    email: emailInput,
+                    sdt: phoneNumberInput,
+                    matKhau: passwordInput,
+                    OTPInput: enteredOTP
+                },
+                success: function (data) {
+                    if (data.success) {
+                        // Nếu mã OTP hợp lệ, đóng modal
+                        $('#otpModal').modal('hide');
+                        alert("Đăng ký thành công!");
+                        // chuyển hướng view sang index
+                        window.location.href = '/User/Index';
+
+                    } else {
+                        alert(data.message)
+                    }
+
+                },
+                error: function (xhr, status, error) {
+                    alert("Đăng ký thất bại!");
+                    console.error("AJAX error: " + status + ' ' + error);
+                }
+            });
+
     }
 
     function validateFullName(fullName) {

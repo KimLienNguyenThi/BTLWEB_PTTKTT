@@ -135,6 +135,7 @@
     <Property Name="MaThe" Type="int" />
     <Property Name="MaNV" Type="int" />
     <Property Name="Tinhtrang" Type="bit" />
+    <Property Name="MaDK" Type="int" />
   </EntityType>
   <EntityType Name="PhieuNhapSach">
     <Key>
@@ -176,16 +177,6 @@
     <Property Name="NXB" Type="nvarchar" MaxLength="100" />
     <Property Name="NamXB" Type="int" />
     <Property Name="SoLuongHIENTAI" Type="int" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="TheDocGia">
     <Key>
@@ -245,7 +236,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
     <Property Name="MaNV" Type="int" />
     <Property Name="Tổng tiền xử lý" Type="money" />
   </EntityType>
-  <Association Name="FK__ChiTietDk__MaDK__02FC7413">
+  <Association Name="FK__ChiTietDk__MaDK__70DDC3D8">
     <End Role="DkiMuonSach" Type="Self.DkiMuonSach" Multiplicity="1" />
     <End Role="ChiTietDk" Type="Self.ChiTietDk" Multiplicity="*" />
     <ReferentialConstraint>
@@ -257,7 +248,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ChiTietDk__MaSac__03F0984C">
+  <Association Name="FK__ChiTietDk__MaSac__71D1E811">
     <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
     <End Role="ChiTietDk" Type="Self.ChiTietDk" Multiplicity="*" />
     <ReferentialConstraint>
@@ -269,7 +260,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ChiTietPM__MaPM__628FA481">
+  <Association Name="FK__ChiTietPM__MaPM__5070F446">
     <End Role="PhieuMuon" Type="Self.PhieuMuon" Multiplicity="1" />
     <End Role="ChiTietPM" Type="Self.ChiTietPM" Multiplicity="*" />
     <ReferentialConstraint>
@@ -281,7 +272,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ChiTietPM__MaSac__6383C8BA">
+  <Association Name="FK__ChiTietPM__MaSac__5165187F">
     <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
     <End Role="ChiTietPM" Type="Self.ChiTietPM" Multiplicity="*" />
     <ReferentialConstraint>
@@ -293,7 +284,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__CHITIETPN__MaPN__59063A47">
+  <Association Name="FK__CHITIETPN__MaPN__46E78A0C">
     <End Role="PhieuNhapSach" Type="Self.PhieuNhapSach" Multiplicity="1" />
     <End Role="CHITIETPN" Type="Self.CHITIETPN" Multiplicity="*" />
     <ReferentialConstraint>
@@ -305,7 +296,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__CHITIETPN__MaSAC__59FA5E80">
+  <Association Name="FK__CHITIETPN__MaSAC__47DBAE45">
     <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
     <End Role="CHITIETPN" Type="Self.CHITIETPN" Multiplicity="*" />
     <ReferentialConstraint>
@@ -317,7 +308,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ChiTietPT__MaPT__6B24EA82">
+  <Association Name="FK__ChiTietPT__MaPT__59063A47">
     <End Role="PhieuTra" Type="Self.PhieuTra" Multiplicity="1" />
     <End Role="ChiTietPT" Type="Self.ChiTietPT" Multiplicity="*" />
     <ReferentialConstraint>
@@ -329,7 +320,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ChiTietPT__MaPTL__74AE54BC">
+  <Association Name="FK__ChiTietPT__MaPTL__628FA481">
     <End Role="PhieuThanhLy" Type="Self.PhieuThanhLy" Multiplicity="1" />
     <End Role="ChiTietPTL" Type="Self.ChiTietPTL" Multiplicity="*" />
     <ReferentialConstraint>
@@ -341,7 +332,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ChiTietPT__MaSac__6C190EBB">
+  <Association Name="FK__ChiTietPT__MaSac__59FA5E80">
     <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
     <End Role="ChiTietPT" Type="Self.ChiTietPT" Multiplicity="*" />
     <ReferentialConstraint>
@@ -353,7 +344,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ChiTietPT__MaSac__75A278F5">
+  <Association Name="FK__ChiTietPT__MaSac__6383C8BA">
     <End Role="KhoSachThanhLy" Type="Self.KhoSachThanhLy" Multiplicity="1" />
     <End Role="ChiTietPTL" Type="Self.ChiTietPTL" Multiplicity="*" />
     <ReferentialConstraint>
@@ -365,7 +356,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__DkiMuonSach__SDT__00200768">
+  <Association Name="FK__DkiMuonSach__SDT__6E01572D">
     <End Role="LOGIN_DG" Type="Self.LOGIN_DG" Multiplicity="0..1" />
     <End Role="DkiMuonSach" Type="Self.DkiMuonSach" Multiplicity="*" />
     <ReferentialConstraint>
@@ -377,7 +368,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__LOGIN_NV__MANV__7A672E12">
+  <Association Name="FK__LOGIN_NV__MANV__68487DD7">
     <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
     <End Role="LOGIN_NV" Type="Self.LOGIN_NV" Multiplicity="*" />
     <ReferentialConstraint>
@@ -389,7 +380,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PhieuMuon__MaNV__5EBF139D">
+  <Association Name="FK__PhieuMuon__MaNV__4CA06362">
     <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
     <End Role="PhieuMuon" Type="Self.PhieuMuon" Multiplicity="*" />
     <ReferentialConstraint>
@@ -401,7 +392,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PhieuMuon__MaThe__5FB337D6">
+  <Association Name="FK__PhieuMuon__MaThe__4D94879B">
     <End Role="TheDocGia" Type="Self.TheDocGia" Multiplicity="0..1" />
     <End Role="PhieuMuon" Type="Self.PhieuMuon" Multiplicity="*" />
     <ReferentialConstraint>
@@ -413,7 +404,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PhieuNhap__MaNCC__5441852A">
+  <Association Name="FK__PhieuNhap__MaNCC__4222D4EF">
     <End Role="NhaCungCap" Type="Self.NhaCungCap" Multiplicity="0..1" />
     <End Role="PhieuNhapSach" Type="Self.PhieuNhapSach" Multiplicity="*" />
     <ReferentialConstraint>
@@ -425,7 +416,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PhieuNhapS__MaNV__534D60F1">
+  <Association Name="FK__PhieuNhapS__MaNV__412EB0B6">
     <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
     <End Role="PhieuNhapSach" Type="Self.PhieuNhapSach" Multiplicity="*" />
     <ReferentialConstraint>
@@ -437,7 +428,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PhieuThanh__MaDV__71D1E811">
+  <Association Name="FK__PhieuThanh__MaDV__5FB337D6">
     <End Role="DonViTL" Type="Self.DonViTL" Multiplicity="0..1" />
     <End Role="PhieuThanhLy" Type="Self.PhieuThanhLy" Multiplicity="*" />
     <ReferentialConstraint>
@@ -449,7 +440,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PhieuThanh__MaNV__70DDC3D8">
+  <Association Name="FK__PhieuThanh__MaNV__5EBF139D">
     <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
     <End Role="PhieuThanhLy" Type="Self.PhieuThanhLy" Multiplicity="*" />
     <ReferentialConstraint>
@@ -461,7 +452,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PhieuTra__MaNV__6754599E">
+  <Association Name="FK__PhieuTra__MaNV__5535A963">
     <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
     <End Role="PhieuTra" Type="Self.PhieuTra" Multiplicity="*" />
     <ReferentialConstraint>
@@ -473,7 +464,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PhieuTra__MaPM__66603565">
+  <Association Name="FK__PhieuTra__MaPM__5441852A">
     <End Role="PhieuMuon" Type="Self.PhieuMuon" Multiplicity="0..1" />
     <End Role="PhieuTra" Type="Self.PhieuTra" Multiplicity="*" />
     <ReferentialConstraint>
@@ -485,7 +476,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PhieuTra__MaThe__68487DD7">
+  <Association Name="FK__PhieuTra__MaThe__5629CD9C">
     <End Role="TheDocGia" Type="Self.TheDocGia" Multiplicity="0..1" />
     <End Role="PhieuTra" Type="Self.PhieuTra" Multiplicity="*" />
     <ReferentialConstraint>
@@ -497,7 +488,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__TheDocGia__MaDG__4E88ABD4">
+  <Association Name="FK__TheDocGia__MaDG__3C69FB99">
     <End Role="DocGia" Type="Self.DocGia" Multiplicity="0..1" />
     <End Role="TheDocGia" Type="Self.TheDocGia" Multiplicity="*" />
     <ReferentialConstraint>
@@ -509,7 +500,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__TheDocGia__MaNV__4D94879B">
+  <Association Name="FK__TheDocGia__MaNV__3B75D760">
     <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
     <End Role="TheDocGia" Type="Self.TheDocGia" Multiplicity="*" />
     <ReferentialConstraint>
@@ -521,7 +512,7 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__TT_SACH__MASACH__7D439ABD">
+  <Association Name="FK__TT_SACH__MASACH__6B24EA82">
     <End Role="Sach" Type="Self.Sach" Multiplicity="0..1" />
     <End Role="TT_SACH" Type="Self.TT_SACH" Multiplicity="*" />
     <ReferentialConstraint>
@@ -533,37 +524,6 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-    <Parameter Name="version" Type="int" Mode="In" />
-    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-  </Function>
-  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-    <Parameter Name="version" Type="int" Mode="In" />
-    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-  </Function>
-  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-  </Function>
-  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="QuanLyThuVienModelStoreContainer">
     <EntitySet Name="ChiTietDk" EntityType="Self.ChiTietDk" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ChiTietPM" EntityType="Self.ChiTietPM" Schema="dbo" store:Type="Tables" />
@@ -583,7 +543,6 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
     <EntitySet Name="PhieuThanhLy" EntityType="Self.PhieuThanhLy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PhieuTra" EntityType="Self.PhieuTra" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TheDocGia" EntityType="Self.TheDocGia" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TT_SACH" EntityType="Self.TT_SACH" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PHIEUNHAP_VIEW" EntityType="Self.PHIEUNHAP_VIEW" store:Type="Views" store:Schema="dbo">
@@ -615,99 +574,99 @@ warning 6002: The table/view 'QuanLyThuVien.dbo.PHIEUTra_VIEW' does not have a p
     [PHIEUTra_VIEW].[Tổng tiền xử lý] AS [Tổng tiền xử lý]
     FROM [dbo].[PHIEUTra_VIEW] AS [PHIEUTra_VIEW]</DefiningQuery>
     </EntitySet>
-    <AssociationSet Name="FK__ChiTietDk__MaDK__02FC7413" Association="Self.FK__ChiTietDk__MaDK__02FC7413">
+    <AssociationSet Name="FK__ChiTietDk__MaDK__70DDC3D8" Association="Self.FK__ChiTietDk__MaDK__70DDC3D8">
       <End Role="DkiMuonSach" EntitySet="DkiMuonSach" />
       <End Role="ChiTietDk" EntitySet="ChiTietDk" />
     </AssociationSet>
-    <AssociationSet Name="FK__ChiTietDk__MaSac__03F0984C" Association="Self.FK__ChiTietDk__MaSac__03F0984C">
+    <AssociationSet Name="FK__ChiTietDk__MaSac__71D1E811" Association="Self.FK__ChiTietDk__MaSac__71D1E811">
       <End Role="Sach" EntitySet="Sach" />
       <End Role="ChiTietDk" EntitySet="ChiTietDk" />
     </AssociationSet>
-    <AssociationSet Name="FK__ChiTietPM__MaPM__628FA481" Association="Self.FK__ChiTietPM__MaPM__628FA481">
+    <AssociationSet Name="FK__ChiTietPM__MaPM__5070F446" Association="Self.FK__ChiTietPM__MaPM__5070F446">
       <End Role="PhieuMuon" EntitySet="PhieuMuon" />
       <End Role="ChiTietPM" EntitySet="ChiTietPM" />
     </AssociationSet>
-    <AssociationSet Name="FK__ChiTietPM__MaSac__6383C8BA" Association="Self.FK__ChiTietPM__MaSac__6383C8BA">
+    <AssociationSet Name="FK__ChiTietPM__MaSac__5165187F" Association="Self.FK__ChiTietPM__MaSac__5165187F">
       <End Role="Sach" EntitySet="Sach" />
       <End Role="ChiTietPM" EntitySet="ChiTietPM" />
     </AssociationSet>
-    <AssociationSet Name="FK__CHITIETPN__MaPN__59063A47" Association="Self.FK__CHITIETPN__MaPN__59063A47">
+    <AssociationSet Name="FK__CHITIETPN__MaPN__46E78A0C" Association="Self.FK__CHITIETPN__MaPN__46E78A0C">
       <End Role="PhieuNhapSach" EntitySet="PhieuNhapSach" />
       <End Role="CHITIETPN" EntitySet="CHITIETPN" />
     </AssociationSet>
-    <AssociationSet Name="FK__CHITIETPN__MaSAC__59FA5E80" Association="Self.FK__CHITIETPN__MaSAC__59FA5E80">
+    <AssociationSet Name="FK__CHITIETPN__MaSAC__47DBAE45" Association="Self.FK__CHITIETPN__MaSAC__47DBAE45">
       <End Role="Sach" EntitySet="Sach" />
       <End Role="CHITIETPN" EntitySet="CHITIETPN" />
     </AssociationSet>
-    <AssociationSet Name="FK__ChiTietPT__MaPT__6B24EA82" Association="Self.FK__ChiTietPT__MaPT__6B24EA82">
+    <AssociationSet Name="FK__ChiTietPT__MaPT__59063A47" Association="Self.FK__ChiTietPT__MaPT__59063A47">
       <End Role="PhieuTra" EntitySet="PhieuTra" />
       <End Role="ChiTietPT" EntitySet="ChiTietPT" />
     </AssociationSet>
-    <AssociationSet Name="FK__ChiTietPT__MaPTL__74AE54BC" Association="Self.FK__ChiTietPT__MaPTL__74AE54BC">
+    <AssociationSet Name="FK__ChiTietPT__MaPTL__628FA481" Association="Self.FK__ChiTietPT__MaPTL__628FA481">
       <End Role="PhieuThanhLy" EntitySet="PhieuThanhLy" />
       <End Role="ChiTietPTL" EntitySet="ChiTietPTL" />
     </AssociationSet>
-    <AssociationSet Name="FK__ChiTietPT__MaSac__6C190EBB" Association="Self.FK__ChiTietPT__MaSac__6C190EBB">
+    <AssociationSet Name="FK__ChiTietPT__MaSac__59FA5E80" Association="Self.FK__ChiTietPT__MaSac__59FA5E80">
       <End Role="Sach" EntitySet="Sach" />
       <End Role="ChiTietPT" EntitySet="ChiTietPT" />
     </AssociationSet>
-    <AssociationSet Name="FK__ChiTietPT__MaSac__75A278F5" Association="Self.FK__ChiTietPT__MaSac__75A278F5">
+    <AssociationSet Name="FK__ChiTietPT__MaSac__6383C8BA" Association="Self.FK__ChiTietPT__MaSac__6383C8BA">
       <End Role="KhoSachThanhLy" EntitySet="KhoSachThanhLy" />
       <End Role="ChiTietPTL" EntitySet="ChiTietPTL" />
     </AssociationSet>
-    <AssociationSet Name="FK__DkiMuonSach__SDT__00200768" Association="Self.FK__DkiMuonSach__SDT__00200768">
+    <AssociationSet Name="FK__DkiMuonSach__SDT__6E01572D" Association="Self.FK__DkiMuonSach__SDT__6E01572D">
       <End Role="LOGIN_DG" EntitySet="LOGIN_DG" />
       <End Role="DkiMuonSach" EntitySet="DkiMuonSach" />
     </AssociationSet>
-    <AssociationSet Name="FK__LOGIN_NV__MANV__7A672E12" Association="Self.FK__LOGIN_NV__MANV__7A672E12">
+    <AssociationSet Name="FK__LOGIN_NV__MANV__68487DD7" Association="Self.FK__LOGIN_NV__MANV__68487DD7">
       <End Role="NhanVien" EntitySet="NhanVien" />
       <End Role="LOGIN_NV" EntitySet="LOGIN_NV" />
     </AssociationSet>
-    <AssociationSet Name="FK__PhieuMuon__MaNV__5EBF139D" Association="Self.FK__PhieuMuon__MaNV__5EBF139D">
+    <AssociationSet Name="FK__PhieuMuon__MaNV__4CA06362" Association="Self.FK__PhieuMuon__MaNV__4CA06362">
       <End Role="NhanVien" EntitySet="NhanVien" />
       <End Role="PhieuMuon" EntitySet="PhieuMuon" />
     </AssociationSet>
-    <AssociationSet Name="FK__PhieuMuon__MaThe__5FB337D6" Association="Self.FK__PhieuMuon__MaThe__5FB337D6">
+    <AssociationSet Name="FK__PhieuMuon__MaThe__4D94879B" Association="Self.FK__PhieuMuon__MaThe__4D94879B">
       <End Role="TheDocGia" EntitySet="TheDocGia" />
       <End Role="PhieuMuon" EntitySet="PhieuMuon" />
     </AssociationSet>
-    <AssociationSet Name="FK__PhieuNhap__MaNCC__5441852A" Association="Self.FK__PhieuNhap__MaNCC__5441852A">
+    <AssociationSet Name="FK__PhieuNhap__MaNCC__4222D4EF" Association="Self.FK__PhieuNhap__MaNCC__4222D4EF">
       <End Role="NhaCungCap" EntitySet="NhaCungCap" />
       <End Role="PhieuNhapSach" EntitySet="PhieuNhapSach" />
     </AssociationSet>
-    <AssociationSet Name="FK__PhieuNhapS__MaNV__534D60F1" Association="Self.FK__PhieuNhapS__MaNV__534D60F1">
+    <AssociationSet Name="FK__PhieuNhapS__MaNV__412EB0B6" Association="Self.FK__PhieuNhapS__MaNV__412EB0B6">
       <End Role="NhanVien" EntitySet="NhanVien" />
       <End Role="PhieuNhapSach" EntitySet="PhieuNhapSach" />
     </AssociationSet>
-    <AssociationSet Name="FK__PhieuThanh__MaDV__71D1E811" Association="Self.FK__PhieuThanh__MaDV__71D1E811">
+    <AssociationSet Name="FK__PhieuThanh__MaDV__5FB337D6" Association="Self.FK__PhieuThanh__MaDV__5FB337D6">
       <End Role="DonViTL" EntitySet="DonViTL" />
       <End Role="PhieuThanhLy" EntitySet="PhieuThanhLy" />
     </AssociationSet>
-    <AssociationSet Name="FK__PhieuThanh__MaNV__70DDC3D8" Association="Self.FK__PhieuThanh__MaNV__70DDC3D8">
+    <AssociationSet Name="FK__PhieuThanh__MaNV__5EBF139D" Association="Self.FK__PhieuThanh__MaNV__5EBF139D">
       <End Role="NhanVien" EntitySet="NhanVien" />
       <End Role="PhieuThanhLy" EntitySet="PhieuThanhLy" />
     </AssociationSet>
-    <AssociationSet Name="FK__PhieuTra__MaNV__6754599E" Association="Self.FK__PhieuTra__MaNV__6754599E">
+    <AssociationSet Name="FK__PhieuTra__MaNV__5535A963" Association="Self.FK__PhieuTra__MaNV__5535A963">
       <End Role="NhanVien" EntitySet="NhanVien" />
       <End Role="PhieuTra" EntitySet="PhieuTra" />
     </AssociationSet>
-    <AssociationSet Name="FK__PhieuTra__MaPM__66603565" Association="Self.FK__PhieuTra__MaPM__66603565">
+    <AssociationSet Name="FK__PhieuTra__MaPM__5441852A" Association="Self.FK__PhieuTra__MaPM__5441852A">
       <End Role="PhieuMuon" EntitySet="PhieuMuon" />
       <End Role="PhieuTra" EntitySet="PhieuTra" />
     </AssociationSet>
-    <AssociationSet Name="FK__PhieuTra__MaThe__68487DD7" Association="Self.FK__PhieuTra__MaThe__68487DD7">
+    <AssociationSet Name="FK__PhieuTra__MaThe__5629CD9C" Association="Self.FK__PhieuTra__MaThe__5629CD9C">
       <End Role="TheDocGia" EntitySet="TheDocGia" />
       <End Role="PhieuTra" EntitySet="PhieuTra" />
     </AssociationSet>
-    <AssociationSet Name="FK__TheDocGia__MaDG__4E88ABD4" Association="Self.FK__TheDocGia__MaDG__4E88ABD4">
+    <AssociationSet Name="FK__TheDocGia__MaDG__3C69FB99" Association="Self.FK__TheDocGia__MaDG__3C69FB99">
       <End Role="DocGia" EntitySet="DocGia" />
       <End Role="TheDocGia" EntitySet="TheDocGia" />
     </AssociationSet>
-    <AssociationSet Name="FK__TheDocGia__MaNV__4D94879B" Association="Self.FK__TheDocGia__MaNV__4D94879B">
+    <AssociationSet Name="FK__TheDocGia__MaNV__3B75D760" Association="Self.FK__TheDocGia__MaNV__3B75D760">
       <End Role="NhanVien" EntitySet="NhanVien" />
       <End Role="TheDocGia" EntitySet="TheDocGia" />
     </AssociationSet>
-    <AssociationSet Name="FK__TT_SACH__MASACH__7D439ABD" Association="Self.FK__TT_SACH__MASACH__7D439ABD">
+    <AssociationSet Name="FK__TT_SACH__MASACH__6B24EA82" Association="Self.FK__TT_SACH__MASACH__6B24EA82">
       <End Role="Sach" EntitySet="Sach" />
       <End Role="TT_SACH" EntitySet="TT_SACH" />
     </AssociationSet>

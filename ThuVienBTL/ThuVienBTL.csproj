@@ -137,6 +137,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SessionConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Common\CommonController.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\ClassesController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
@@ -226,15 +227,6 @@
     <Compile Include="Models\Sach.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TheDocGia.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -288,6 +280,7 @@
     <Content Include="Assets\img\TongOnNguPhapTiengAnh%28TB2023%29.jpg" />
     <Content Include="Assets\img\TrangQuynh_402_OngTomBaTep.jpg" />
     <Content Include="Assets\img\TruyenTranhVN_SoDua.jpg" />
+    <Content Include="Content\mailDangKy.html" />
     <Content Include="img_web\199MayHoiAyLamGi.jpg" />
     <Content Include="img_web\450NouveauxExercicesVocabulaireNiveaudebutant.jpg" />
     <Content Include="img_web\90%25TreThongMinh.jpg" />
@@ -512,11 +505,8 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\DangKy.cshtml" />
-    <Content Include="Views\Classes\DanhSachSach.cshtml" />
     <Content Include="Views\ThueSach\Index.cshtml" />
-    <Content Include="Views\ThueSach\LocYeuCau.cshtml" />
     <Content Include="Views\User\UpdatePassWord.cshtml" />
-    <Content Include="Views\Classes\SearchSach.cshtml" />
     <Content Include="Views\ThueSach\GioHang.cshtml" />
     <Content Include="Views\User\History.cshtml" />
   </ItemGroup>
@@ -524,6 +514,7 @@
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
