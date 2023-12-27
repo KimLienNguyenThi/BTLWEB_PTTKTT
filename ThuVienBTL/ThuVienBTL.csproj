@@ -280,6 +280,7 @@
     <Content Include="Assets\img\TongOnNguPhapTiengAnh%28TB2023%29.jpg" />
     <Content Include="Assets\img\TrangQuynh_402_OngTomBaTep.jpg" />
     <Content Include="Assets\img\TruyenTranhVN_SoDua.jpg" />
+    <Content Include="Content\mailLayLaiMatKhau.html" />
     <Content Include="Content\mailDangKy.html" />
     <Content Include="img_web\1119-BKS-Hoby-superJumbo.jpg" />
     <Content Include="img_web\199MayHoiAyLamGi.jpg" />

@@ -147,7 +147,7 @@ namespace ThuVienBTL.Controllers
                 TempData["OTP"] = randomNumber.ToString();
 
                 // Gửi mail cho khách hàng
-                string mailDangKy = System.IO.File.ReadAllText(Server.MapPath("~/Content/mailDangKy.html"));
+                string mailDangKy = System.IO.File.ReadAllText(Server.MapPath("~/Content/mailLayLaiMatKhau.html"));
                 mailDangKy = mailDangKy.Replace("{{MaCode}}", randomNumber.ToString());
                 ThuVienBTL.Common.CommonController.SendEmail("Thư viện ABC", "Xác nhận tài khoản", mailDangKy.ToString(), lg.Email);
 
@@ -224,24 +224,42 @@ namespace ThuVienBTL.Controllers
             
         }
 
+        // Tạo đối tượng để trả về view tìm kiếm
+        public class ChitietDKDetailsResponse
+        {
+            public string tenSach { get; set; }
+            public ChiTietDk chiTietDk { get; set; }
+        }
+
         [HttpPost]
         public ActionResult GetDetails(int maDK)
         {
-
+            // lấy ra danh sách chi tiết đăng ký theo mã đăng ký nhập vào
             var details = db.ChiTietDks.Where(d => d.MaDK == maDK).ToList();
-            List<ChiTietDk> chiTietDkList = new List<ChiTietDk>();
+
+            // tạo một danh sách chứa chi tiết đăng ký không có các liên kết khoá ngoại
+
+            List<ChitietDKDetailsResponse> chiTietDkList2 = new List<ChitietDKDetailsResponse>();
+
+
             foreach (var d in details)
             {
+                ChitietDKDetailsResponse chiTietDkList = new ChitietDKDetailsResponse();
+
                 var chiTietDk = new ChiTietDk()
                 {
                     MaDK = d.MaDK,
                     MaSach = d.MaSach,
                     Soluongmuon = d.Soluongmuon
                 };
-                chiTietDkList.Add(chiTietDk);
+
+                chiTietDkList.tenSach = db.Saches.Find(d.MaSach).TenSach;
+                chiTietDkList.chiTietDk = chiTietDk;
+
+                chiTietDkList2.Add(chiTietDkList);
             }
 
-            return Json(new { success = true, details = chiTietDkList });
+            return Json(new { success = true, details = chiTietDkList2 });
         }
 
 

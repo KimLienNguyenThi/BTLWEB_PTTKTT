@@ -154,7 +154,7 @@
         // Xoá dữ liệu cũ trên modal
         $("#MaDK").empty();
         $("#MaSach").empty();
-        $("#MTenSach").empty();
+        $("#TenSach").empty();
         $("#Soluong").empty();
 
         $.ajax({
@@ -163,21 +163,19 @@
             data: {
                 maDK: maDK,
             },
-            success: function (details) {
-                console.log("details: ", details);
+            success: function (data) {
+                console.log("details: ", data);
                 // Show the modal
                 $("#Details").modal("show");
 
 
-                $.each(details.details, function (index, item) {
+                $.each(data.details, function (index, item) {
                     console.log("item: ", item);
 
-                    // Append details to the modal
-                    $("#MaDK").append(item.MaDK + "<br>");
-                    $("#MaSach").append(item.MaSach + "<br>");
-                    $("#MTenSach").append(item.TenSach + "<br>");
-                    $("#Soluong").append(item.Soluongmuon + "<br>");
-                    // Add other fields as needed
+                    $("#MaDK").append(item.chiTietDk.MaDK + "<br>");
+                    $("#MaSach").append(item.chiTietDk.MaSach + "<br>");
+                    $("#TenSach").append(item.tenSach + "<br>");
+                    $("#Soluong").append(item.chiTietDk.Soluongmuon + "<br>");
                 });
 
 
