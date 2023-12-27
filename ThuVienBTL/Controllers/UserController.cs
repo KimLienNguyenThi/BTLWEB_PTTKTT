@@ -128,6 +128,7 @@ namespace ThuVienBTL.Controllers
         }
 
         [HttpPost]
+        
         public ActionResult UpdatePassWord(string uname)
         {
             // lấy user để lấy ra thuộc thính email
@@ -136,10 +137,11 @@ namespace ThuVienBTL.Controllers
             // tìm kếm user dựa trên uname nhập vào
             var user = db.LOGIN_DG.FirstOrDefault(u => u.SDT == uname);
 
-            TempData["uname_UpdatePass"] = uname;
 
             if (user != null)
             {
+                TempData["uname_UpdatePass"] = uname;
+
                 // Tạo biến random ra mã xác thực
                 Random rd = new Random();
                 // Tạo số ngẫu nhiên có 6 chữ số
@@ -156,11 +158,10 @@ namespace ThuVienBTL.Controllers
             }
             else
             {
-                ViewBag.error = "*Sai tên đăng nhập!";
-                return View();
+                return Json(new { success = false });
+
             }
         }
-
         public ActionResult XacNhanUpdatePassword(string OTPInput)
         {
             if (OTPInput == TempData["OTP"].ToString())
@@ -184,9 +185,11 @@ namespace ThuVienBTL.Controllers
 
         public ActionResult NewPassword(string passwordInput)
         {
-            var user = db.LOGIN_DG.FirstOrDefault(u => u.SDT == TempData["uname_UpdatePass"].ToString());
+            var userName = TempData["uname_UpdatePass"].ToString();
 
-            if(user != null)
+            var user = db.LOGIN_DG.Find(userName);
+
+            if (user != null)
             {
                 user.PASSWORD_DG = passwordInput;
 
