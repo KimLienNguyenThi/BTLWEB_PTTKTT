@@ -60,7 +60,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
         public ActionResult GetListPhieuMuonPaging(GetListPhieuMuonPaging req)
         {
             var phieuMuon = _phieuMuonService.GetAllPhieuMuonPaging(req);
-            if (phieuMuon!= null)
+            if (phieuMuon != null)
             {
                 return Json(new ApiOkResponse(phieuMuon));
             }

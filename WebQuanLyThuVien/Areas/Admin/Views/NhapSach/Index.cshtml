@@ -964,7 +964,7 @@
                         console.log(listSachNhap);
                     }
                 }
-                
+
 
                 renderListSachNhap();
 
@@ -1133,7 +1133,7 @@
                         formData.append('listSachNhap[' + index + '].fileImage', item.fileImage);
                         formData.append('listSachNhap[' + index + '].moTa', item.moTa);
                         console.log(index + JSON.stringify(item));
-                        
+
                     });
 
                     $.ajax({
@@ -1146,7 +1146,9 @@
                         success: function (data) {
                             if (data.success) {
 
+                                lamMoi();
                                 lamMoiPhieuNhap();
+
 
                                 document.getElementById("contentModalSuccess").innerHTML = "Nhập sách thành công!";
                                 GetAllSach();

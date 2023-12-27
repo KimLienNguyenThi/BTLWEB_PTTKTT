@@ -22,10 +22,10 @@ insert into PhieuMuon ( MaThe, NgayMuon, HanTra, MaNV, MADK) values ( 3,'2023-12
 -- Them chi tiet phieu muon
 insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 12, 3, 4);
 insert into ChiTietPM ( MaPM, MaSach, Soluongmuon) values ( 7, 14, 2);
-insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 11, 3, 4);
+insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 8, 3, 4);
 
 
-UPDATE dkimuonsach SET TINHTRANG = 3 WHERE  MADK = 11  and tinhtrang = 1
+UPDATE dkimuonsach SET TINHTRANG = 0 WHERE  MADK in (1,2,3,4,5)  and tinhtrang = 1
 
 
 

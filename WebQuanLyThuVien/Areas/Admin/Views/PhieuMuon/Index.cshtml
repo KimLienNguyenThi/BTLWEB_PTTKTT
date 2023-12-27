@@ -174,8 +174,8 @@
                         <table class="table table-head-fixed table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Mã Thẻ</th>
                                     <th>Mã DK</th>
+                                    <th>Mã Thẻ</th>
                                     <th>SDT</th>
                                     <th>Họ Tên</th>
                                     <th>Ngày Mượn</th>
@@ -183,22 +183,22 @@
 
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach (var item in ViewData["DkiSachOnl"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_DangKyMuonSach_PM>)
-                                {
-                                    <tr class="dkOnl-row">
-                                        <td>@item.MaThe</td>
-                                        <td>@item.MaDK</td>
-                                        <td>@item.SDT</td>
-                                        <td>@item.HoTen</td>
-                                        <td>@item.NgayDK</td>
-                                        <td>@item.NgayHen</td>
-                                    </tr>
-                                }
+                            <tbody id="DanhSachThongTinDangKy">
+                                @*@foreach (var item in ViewData["DkiSachOnl"] as List<WebQuanLyThuVien.Areas.Admin.Data.DTO_DangKyMuonSach_PM>)
+                                    {
+                                        <tr class="dkOnl-row">
+                                            <td>@item.MaThe</td>
+                                            <td>@item.MaDK</td>
+                                            <td>@item.SDT</td>
+                                            <td>@item.HoTen</td>
+                                            <td>@item.NgayDK</td>
+                                            <td>@item.NgayHen</td>
+                                        </tr>
+                                    }*@
                             </tbody>
                         </table>
                     </div>
-                   
+
                     <!--Body table thông tin sách-->
                     <div class="card-body table-responsive p-0"
                          style="height: 71.2vh" id="thongTinSachTable">
@@ -426,18 +426,18 @@
             });
         });
 
-        //=====================  Lấy dữ liệu khi click vào hàng trong table tt đăng ký =====================
-        var dkSachrows = document.querySelectorAll(".dkOnl-row");
 
-        // Xử lý sự kiện nhấp cho từng hàng
-        dkSachrows.forEach(function (row) {
-            row.addEventListener("click", function () {
 
+        ////=====================  Xử lý sự kiện khi click vào 1 hàng  trong table  =====================
+        var thongTinDKONLTable = document.getElementById("thongTinDKONLTable");
+        thongTinDKONLTable.addEventListener("click", function (event) {
+            var targetRow = event.target.closest(".dkOnl-row");
+            if (targetRow) {
                 // Lấy thông tin tên từ cột Họ tên của hàng
-                var maThe = row.querySelector("td:nth-child(1)").textContent;
-                var maDk = row.querySelector("td:nth-child(2)").textContent;
-                var sdt = row.querySelector("td:nth-child(3)").textContent;
-                var hoTen = row.querySelector("td:nth-child(4)").textContent;
+                var maThe = targetRow.querySelector("td:nth-child(1)").textContent;
+                var maDk = targetRow.querySelector("td:nth-child(2)").textContent;
+                var sdt = targetRow.querySelector("td:nth-child(3)").textContent;
+                var hoTen = targetRow.querySelector("td:nth-child(4)").textContent;
 
                 // Hiển thị thông tin tên vào input tên độc giả trong form
                 document.getElementById("MaThe").value = maThe;
@@ -448,52 +448,64 @@
 
                 //var maSach = trPhiaTren.find("td:nth-child(1)").text();
                 //    var tenSach = trPhiaTren.find("td:nth-child(2)").text();
-                    var maDK = parseInt(document.getElementById("MaDK").value);
-                    // Lấy số lượng hiện tại của sách
+                var maDK = parseInt(document.getElementById("MaDK").value);
+                // Lấy số lượng hiện tại của sách
 
 
-                        // Gửi yêu cầu POST để thêm sách mượn
-                        $.ajax({
-                            url: '@Url.Action("ThemSachMuon", "PhieuMuon")',
-                            type: 'POST',
-                            data: {
-                                MaSach: 0,
-                                TenSach: '',
-                                SoLuong: 0,
-                                MaDK: maDK
-                            },
-                            success: function (data) {
-                                if (data) {
+                // Gửi yêu cầu POST để thêm sách mượn
+                $.ajax({
+                    url: '@Url.Action("ThemSachMuon", "PhieuMuon")',
+                    type: 'POST',
+                    data: {
+                        MaSach: 0,
+                        TenSach: '',
+                        SoLuong: 0,
+                        MaDK: maDK
+                    },
+                    success: function (data) {
+                        if (data) {
 
-                                    // Cập nhật danh sách sách mượn trong view
-                                    var danhSachSachMuon = $("#danhSachSachMuon");
+                            // Cập nhật danh sách sách mượn trong view
+                            var danhSachSachMuon = $("#danhSachSachMuon");
 
-                                    // Xóa nội dung bảng
-                                    danhSachSachMuon.empty();
+                            // Xóa nội dung bảng
+                            danhSachSachMuon.empty();
 
-                                    $.each(data, function (index, item) {
-                                        var newRow = $(` <tr class="sachmuon-row" data-ma-sach="${item.MaSach}">
-                                            <td>${item.MaSach}</td>
-                                            <td>${item.TenSach}</td>
-                                            <td>${item.SoLuong}</td>
+                            $.each(data, function (index, item) {
+                                var newRow = $(` <tr class="sachmuon-row" data-ma-sach="${item.MaSach}">
+                                    <td>${item.MaSach}</td>
+                                    <td>${item.TenSach}</td>
+                                    <td>${item.SoLuong}</td>
 
-                                        </tr> `);
+                                </tr> `);
 
-                                        danhSachSachMuon.append(newRow);
-                                    });
+                                danhSachSachMuon.append(newRow);
+                            });
 
-                                    // Gọi hàm suKienXoaSach để cập nhật sự kiện xóa cho các hàng sách mượn
-                                    suKienXoaSach();
+                            // Gọi hàm suKienXoaSach để cập nhật sự kiện xóa cho các hàng sách mượn
+                            suKienXoaSach();
 
-                                    // Cập nhật lại số lượng hiện tại của sách
-                                    var soLuongMoi = soLuongHienTai - soLuongMuon;
-                                    trPhiaTren.find("td:nth-child(3)").text(soLuongMoi);
-                                }
-                            }
-                        });
-
-            });
+                            // Cập nhật lại số lượng hiện tại của sách
+                            var soLuongMoi = soLuongHienTai - soLuongMuon;
+                            trPhiaTren.find("td:nth-child(3)").text(soLuongMoi);
+                        }
+                    }
+                });
+            }
         });
+
+        ////=====================  Lấy dữ liệu khi click vào hàng trong table tt đăng ký =====================
+        //var dkSachrows = document.querySelectorAll(".dkOnl-row");
+
+        //// Xử lý sự kiện nhấp cho từng hàng
+        //dkSachrows.forEach(function (row) {
+        //    row.addEventListener("click", function () {
+
+
+        //    });
+        //});
+
+
         //=====================  Button Thêm sách  =====================
         var themSachButton = document.querySelectorAll(".themSachButton");
 
@@ -736,9 +748,10 @@
                                 if (data.success) {
 
                                     lamMoiPhieuMuon();
+                                    GetAllThongTinDangKy();
 
                                     document.getElementById("contentModalSuccess").innerHTML = "Thêm phiếu mượn thành công!";
-      
+
                                     $("#ModalSuccess").modal("show");
 
                                     console.log('Tạo phiếu mượn: ', data);
@@ -754,6 +767,46 @@
                 }
             }
         }
+
+        function GetAllThongTinDangKy() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetAllThongTinDangKy", "PhieuMuon")',
+                dataType: 'json', // Đảm bảo dữ liệu trả về là JSON
+                success: function (res) {
+                    var render = "";
+
+                    $.each(res.Result, function (i, item) {
+                        var NgayDK = moment(item.NgayDK);
+                        var NgayDKFormatted = NgayDK.format('MM/DD/YYYY');
+
+                        var NgayHen = moment(item.NgayHen);
+                        var NgayHenFormatted = NgayHen.format('MM/DD/YYYY');
+
+                        render += '<tr class="dkOnl-row" data-ma-thedg=">' + item.MaDK + '">';
+                        render += '<td>' + item.MaDK + '</td>';
+                        render += '<td>' + item.MaThe + '</td>';
+                        render += '<td>' + item.SDT + '</td>';
+                        render += '<td>' + item.HoTen + '</td>';
+                        render += '<td>' + NgayDKFormatted + '</td>';
+                        render += '<td>' + NgayHenFormatted + '</td>';
+                        render += '</tr>';
+                    });
+
+                    let danhSachThongTinDangKy = document.getElementById("DanhSachThongTinDangKy");
+                    danhSachThongTinDangKy.innerHTML = render;
+                },
+                error: function (status) {
+                    // Hiển thị cảnh báo nếu có lỗi
+                    alert("Không tìm thấy dữ liệu");
+                }
+            });
+        }
+
+
+        $(document).ready(function () {
+            GetAllThongTinDangKy(); // Gọi hàm khi trang đã sẵn sàng
+        });
 
     </script>
 }

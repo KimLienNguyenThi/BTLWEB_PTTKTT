@@ -53,6 +53,14 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
         /// <param name="SoLuong"></param>
         /// <param name="MaDK"></param>
         /// <returns></returns>
+        /// 
+
+        [HttpGet]
+        public ActionResult GetAllThongTinDangKy()
+        {
+            var dangky = _dangKyMuonSachService.GetAllDangKyMuonSachtheoTT();
+            return Json(new ApiOkResponse(dangky.ToList()), JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public ActionResult ThemSachMuon(int MaSach, string TenSach, int SoLuong, int MaDK)
@@ -76,7 +84,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 }
 
                 Session["ListSachMuon"] = listSachMuon;
-                Session["LoaiClick"] = "1";  
+                Session["LoaiClick"] = "1";
                 // Trả về một JsonResult chứa danh sách sách đã cập nhật
                 return Json(listSachMuon);
 
@@ -172,7 +180,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
             {
                 _phieuMuonCTPhieuMuonService.Insert(tpm);
 
-                if(tpm.MaDK != 0)
+                if (tpm.MaDK != 0)
                 {
                     _dangKyMuonSachService.UpdateTinhTrang(tpm.MaDK, 2);
                 }
@@ -182,30 +190,6 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
         }
 
 
-        //[HttpPost]
-        //public ActionResult HandleBtnLuu(int maDK, int tinhTrang)
-        //{
-        //    if (maDK > 0)
-        //    {
-        //        try
-        //        {
-        //            var data = _dangKyMuonSachService.UpdateTinhTrang(maDK, tinhTrang);
-
-        //            if (data)
-        //            {
-        //                return Json(new { success = true, message = "Update tình trạng thành công", data = data });
-        //            }
-        //            else
-        //            {
-        //                return Json(new { success = true, message = "Update tình trạng thất bại", data = data });
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return Json(new { success = false, message = "error HandleBtnHuyDon: ", ex });
-        //        }
-        //    }
-        //}
 
     }
 }

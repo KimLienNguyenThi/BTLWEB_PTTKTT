@@ -535,6 +535,19 @@ AS
 	FROM PhieuThanhLy Ptl JOIN CHITIETPtl ctptl ON Ptl.MAPtl= ctptl.MAPtl JOIN SACH ON SACH.MaSach = ctptl.MaSACHkho
 	GROUP BY ptl.maptl, Madv, NgayTL, MaNV;
 
+	-----------------******************************-------------------
+CREATE PROCEDURE pro_UpdateTinhTrangHuyDkiMuon
+AS
+BEGIN
+    -- Thực hiện cập nhật tình trạng của bảng
+    UPDATE DkiMuonSach
+    SET Tinhtrang = '3'
+    WHERE NgayHen <= DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()), -1);
+END
+
+
+
+
 
 ----/* CẬP NHẬT SÁCH TRONG KHO khi insert  */
 --CREATE OR ALTER drop PROCEDURE KiemTraMaVaCapNhatSachthanhly

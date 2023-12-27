@@ -20,7 +20,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
 
         // GET: Admin/NhapSach
-        public System.Web.Mvc. ActionResult Index()
+        public System.Web.Mvc.ActionResult Index()
         {
             if (Session["user"] == null)
             {
@@ -234,7 +234,7 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public System.Web.Mvc.ActionResult TaoPhieuNhap( DTO_Tao_Phieu_Nhap data)
+        public System.Web.Mvc.ActionResult TaoPhieuNhap(DTO_Tao_Phieu_Nhap data)
         {
 
             if (data == null || data.listSachNhap == null || data.listSachNhap.Count < 1)

@@ -507,7 +507,7 @@ insert into DkiMuonSach (SDT, NgayDKMuon, NgayHen) values('0981724637','2023-7-2
 insert into DkiMuonSach (SDT, NgayDKMuon, NgayHen) values('0466155193','2023-12-20','2023-12-27');
 insert into DkiMuonSach (SDT, NgayDKMuon, NgayHen) values('0964965332','2023-12-20','2023-12-27');
 insert into DkiMuonSach (SDT, NgayDKMuon, NgayHen) values('0969728877','2023-12-20','2023-12-27');
-insert into DkiMuonSach (SDT, NgayDKMuon, NgayHen) values('0471184811','2023-12-20','2023-12-27');
+insert into DkiMuonSach (SDT, NgayDKMuon, NgayHen) values('0471184811','2023-12-21','2023-12-28');
 
 -- Them chi tiet dki
 insert into ChiTietDK ( MaDK, MaSach, Soluongmuon) values ( 1, 2, 2);
