@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c1926359f6e242a59d9b9e0bef5ee564" Name="Diagram1">
+      <Diagram DiagramId="cd01ecde32d048218b653c6a7440df0c" Name="Diagram1">
         <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietDk" Width="1.5" PointX="13.25" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyThuVienModel.ChiTietPM" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyThuVienModel.CHITIETPN" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
@@ -28,30 +28,30 @@
         <EntityTypeShape EntityType="QuanLyThuVienModel.PHIEUNHAP_VIEW" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyThuVienModel.PHIEUThanhLy_VIEW" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyThuVienModel.PHIEUTra_VIEW" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietDk__MaDK__70DDC3D8" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietDk__MaSac__71D1E811" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPM__MaPM__5070F446" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPM__MaSac__5165187F" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__CHITIETPN__MaPN__46E78A0C" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__CHITIETPN__MaSAC__47DBAE45" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaPT__59063A47" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaSac__59FA5E80" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaPTL__628FA481" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaSac__6383C8BA" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__DkiMuonSach__SDT__6E01572D" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__TheDocGia__MaDG__3C69FB99" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuThanh__MaDV__5FB337D6" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__LOGIN_NV__MANV__68487DD7" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuNhap__MaNCC__4222D4EF" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuMuon__MaNV__4CA06362" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuNhapS__MaNV__412EB0B6" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuThanh__MaNV__5EBF139D" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaNV__5535A963" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__TheDocGia__MaNV__3B75D760" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuMuon__MaThe__4D94879B" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaPM__5441852A" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaThe__5629CD9C" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyThuVienModel.FK__TT_SACH__MASACH__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietDk__MaDK__02FC7413" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietDk__MaSac__03F0984C" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPM__MaPM__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPM__MaSac__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__CHITIETPN__MaPN__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__CHITIETPN__MaSAC__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaPT__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaSac__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaPTL__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__ChiTietPT__MaSac__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__DkiMuonSach__SDT__00200768" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__TheDocGia__MaDG__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuThanh__MaDV__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__LOGIN_NV__MANV__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuNhap__MaNCC__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuMuon__MaNV__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuNhapS__MaNV__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuThanh__MaNV__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaNV__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__TheDocGia__MaNV__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuMuon__MaThe__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaPM__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__PhieuTra__MaThe__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThuVienModel.FK__TT_SACH__MASACH__7D439ABD" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

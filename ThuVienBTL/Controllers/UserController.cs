@@ -125,14 +125,14 @@ namespace ThuVienBTL.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdatePassWord(string uname, string pswd, string new_pswd, string new_pswd_check)
+        public ActionResult UpdatePassWord(string uname, string pswd, string new_pswd)
         {
             var user_name = TempData["user_name"];
             var user_password = TempData["user_password"];
-
+            
             if (uname.Equals(user_name) && user_password.Equals(user_password))
             {
-                if(new_pswd.Equals(new_pswd_check))
+                if(new_pswd.Equals(new_pswd))
                 { 
                     var lg = db.LOGIN_DG.Find(user_name);
                     lg.PASSWORD_DG = new_pswd;
@@ -177,12 +177,12 @@ namespace ThuVienBTL.Controllers
         [HttpPost]
         public ActionResult GetDetails(int maDK)
         {
-            
+
             var details = db.ChiTietDks.Where(d => d.MaDK == maDK).ToList();
             List<ChiTietDk> chiTietDkList = new List<ChiTietDk>();
             foreach (var d in details)
             {
-               var chiTietDk = new ChiTietDk()
+                var chiTietDk = new ChiTietDk()
                 {
                     MaDK = d.MaDK,
                     MaSach = d.MaSach,
@@ -190,11 +190,16 @@ namespace ThuVienBTL.Controllers
                 };
                 chiTietDkList.Add(chiTietDk);
             }
-            
+
             return Json(new { success = true, details = chiTietDkList });
         }
 
 
+
+        public ActionResult CancelRequest()
+        {
+            return View();
+        }
 
     }
 }

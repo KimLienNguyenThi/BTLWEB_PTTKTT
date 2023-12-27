@@ -281,6 +281,7 @@
     <Content Include="Assets\img\TrangQuynh_402_OngTomBaTep.jpg" />
     <Content Include="Assets\img\TruyenTranhVN_SoDua.jpg" />
     <Content Include="Content\mailDangKy.html" />
+    <Content Include="img_web\1119-BKS-Hoby-superJumbo.jpg" />
     <Content Include="img_web\199MayHoiAyLamGi.jpg" />
     <Content Include="img_web\450NouveauxExercicesVocabulaireNiveaudebutant.jpg" />
     <Content Include="img_web\90%25TreThongMinh.jpg" />
@@ -299,6 +300,9 @@
     <Content Include="img_web\DatRungPhuongNam.jpg" />
     <Content Include="img_web\Dear_Darling.jpg" />
     <Content Include="img_web\Destination_B1_GrammarAndVocabularywithAnswerKey.jpg" />
+    <Content Include="img_web\docsach1.jpg" />
+    <Content Include="img_web\docsach2.jpg" />
+    <Content Include="img_web\docsach3.jpg" />
     <Content Include="img_web\DuaTreHieuChuyenThuongKhongCoKeoAn.jpg" />
     <Content Include="img_web\GiaoTrinhChuanHSK1.jpg" />
     <Content Include="img_web\HaiHuocMotChutTheGioiSeKhacDi.jpg" />
@@ -308,6 +312,8 @@
     <Content Include="img_web\NhaGiaKim.jpg" />
     <Content Include="img_web\NobitaVaVungDatLyTuongTrenBauTroi.jpg" />
     <Content Include="img_web\OngGiaVaBienCa.jpg" />
+    <Content Include="img_web\Robertson.jpg" />
+    <Content Include="img_web\sach.jpg" />
     <Content Include="img_web\SinhHoc11%28CTST%29.jpg" />
     <Content Include="img_web\TA1_GlobalSuccess_SBT.jpg" />
     <Content Include="img_web\TAL3_FamilyAndFriends%28National Edition%29_Workbook%282023%29.jpg" />

@@ -5,32 +5,34 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="text-align:center">History</h2>
+<h1 style="text-align:center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:orangered">Lịch sử đăng ký</h1>
 
 <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped" style="text-align:center">
         <thead>
             <tr>
                 <th>
-                    <h5>Mã đăng ký</h5>
+                    <h6>Mã đăng ký</h6>
                 </th>
                 <th>
-                    <h5>Ngày đăng ký mượn</h5>
+                    <h6>Ngày đăng ký mượn</h6>
                 </th>
                 <th>
-                    <h5>Ngày hẹn</h5>
+                    <h6>Ngày hẹn</h6>
                 </th>
                 <th>
-                    <h5>Tình trạng</h5>
+                    <h6>Tình trạng</h6>
                 </th>
-                <th></th>
+                <th>
+                    <h6>Thao tác</h6>
+                </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
+                    <td style="margin-right:50px">
                         @Html.DisplayFor(modelItem => item.MaDK)
                     </td>
                     <td>
@@ -42,13 +44,13 @@
                     <td>
                         @if (item.Tinhtrang == 0)
                         {
-                            <span class="badge badge-secondary" style="color:black">Chưa duyệt</span>
-                            <button class="btn btn-danger btn-sm" onclick="cancelRequest(@item.MaDK)">Hủy</button>
+                            <span class="badge badge-secondary" style="color:black;">Chưa duyệt</span>
                         }
+
                         else if (item.Tinhtrang == 1)
                         {
                             <span class="badge badge-success" style="color:black">Đã duyệt</span>
-                            
+
                         }
                         else if (item.Tinhtrang == 2)
                         {
@@ -61,7 +63,12 @@
                     </td>
 
                     <td>
+                        @if (item.Tinhtrang == 0)
+                        {
+                            <button class="btn btn-danger btn-sm" onclick="cancelRequest(@item.MaDK)">Hủy</button>
+                        }
                         <button class="btn btn-danger btn-sm" onclick="showDetails(@item.MaDK)">Chi tiết</button>
+
                     </td>
                 </tr>
             }
@@ -113,7 +120,7 @@
         var confirmed = confirm("Bạn chắc chắn muốn hủy đơn?");
         if (confirmed) {
 
-            $.post("/UserController/CancelRequest", { requestId: requestId }, function (data) {
+            $.post("/User/CancelRequest", { requestId: requestId }, function (data) {
 
                 location.reload();
             });
