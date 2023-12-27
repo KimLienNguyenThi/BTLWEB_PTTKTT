@@ -515,6 +515,7 @@
     <Content Include="Views\User\UpdatePassWord.cshtml" />
     <Content Include="Views\ThueSach\GioHang.cshtml" />
     <Content Include="Views\User\History.cshtml" />
+    <Content Include="Views\User\NewPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />

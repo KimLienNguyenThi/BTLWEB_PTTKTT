@@ -275,58 +275,68 @@ else
 
     ///////////////////////// Button đăng ký mượn sách /////////////////////////
     function DangKyMuon() {
-        // Hien thi hop thoai xac nhan
-        var xacNhan = confirm("Bạn có chắc chắn muốn đăng ký mượn sách không?");
+        var isChecked = $('.checkbox_Sach').is(':checked');
+        console.log("Có sách nào được chọn hay không: "+isChecked);
 
-        // Nếu người dùng đồng ý
-        if (xacNhan) {
-            // mảng chứa số lượng sách của mỗi loại sách
-            var giaTri = [];
+        if (isChecked) {
+            // Hien thi hop thoai xac nhan
+            var xacNhan = confirm("Bạn có chắc chắn muốn đăng ký mượn sách không?");
 
-            // Kiểm tra danh sách checkbox được chọn
-            console.log(selectedValues);
+            // Nếu người dùng đồng ý
+            if (xacNhan) {
+                // mảng chứa số lượng sách của mỗi loại sách
+                var giaTri = [];
 
-            // Lặp qua danh sách các ID và lấy giá trị của mỗi input
-            selectedValues.forEach(function (id) {
-                // Lấy tham chiếu đến phần tử input theo ID
-                var inputElement = document.getElementById('soLuongSachMuon_' + id);
+                // Kiểm tra danh sách checkbox được chọn
+                console.log(selectedValues);
 
-                // Kiểm tra xem input có tồn tại không
-                if (inputElement) {
-                    // Lấy giá trị của thuộc tính value
-                    giaTri.push(parseInt(inputElement.value));
-                    console.log("Mã sách mượn: " + id);
-                    console.log("Số lượng sách mượn: " + inputElement.value);
+                // Lặp qua danh sách các ID và lấy giá trị của mỗi input
+                selectedValues.forEach(function (id) {
+                    // Lấy tham chiếu đến phần tử input theo ID
+                    var inputElement = document.getElementById('soLuongSachMuon_' + id);
 
-                }
+                    // Kiểm tra xem input có tồn tại không
+                    if (inputElement) {
+                        // Lấy giá trị của thuộc tính value
+                        giaTri.push(parseInt(inputElement.value));
+                        console.log("Mã sách mượn: " + id);
+                        console.log("Số lượng sách mượn: " + inputElement.value);
 
-            });
+                    }
 
-            console.log("Mảng số lượng sách mượn: " + giaTri);
+                });
 
-            // Gọi controller xử lý mượn sách
-            $.ajax({
-                url: "@Url.Action("XacNhanThueSach", "ThueSach")",
-                type: "POST",
-                data: {
-                    maSach: selectedValues,
-                    soLuongSach: giaTri,
-                },
-                success: function (result) {
+                console.log("Mảng số lượng sách mượn: " + giaTri);
 
-                    // Lặp qua danh sách các ID và lấy giá trị của mỗi input để xoá khỏi view
-                    selectedValues.forEach(function (id) {
-                        // Xoá phần tử HTML tương ứng
-                        $("#sachMuon_" + id).remove();
-                    });
-                },
-                error: function () {
-                    console.log("Đã xảy ra lỗi khi gửi ajax thuê sách.");
-                }
-            });
-            alert("Đăng ký mượn thành công");
+                // Gọi controller xử lý mượn sách
+                $.ajax({
+                    url: "@Url.Action("XacNhanThueSach", "ThueSach")",
+                    type: "POST",
+                    data: {
+                        maSach: selectedValues,
+                        soLuongSach: giaTri,
+                    },
+                    success: function (result) {
 
+                        // Lặp qua danh sách các ID và lấy giá trị của mỗi input để xoá khỏi view
+                        selectedValues.forEach(function (id) {
+                            // Xoá phần tử HTML tương ứng
+                            $("#sachMuon_" + id).remove();
+                        });
+                    },
+                    error: function () {
+                        console.log("Đã xảy ra lỗi khi gửi ajax thuê sách.");
+                    }
+                });
+                alert("Đăng ký mượn thành công");
+
+            }
         }
+        else
+        {
+            alert("Quý khách vui lòng chọn sách để mượn");
+        }
+
     }
 
 

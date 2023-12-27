@@ -1,9 +1,11 @@
 ﻿using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography.Xml;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.WebPages;
 using ThuVienBTL.App_Start;
@@ -91,7 +93,7 @@ namespace ThuVienBTL.Controllers
                 else
                 {
                     // Trả về phản hồi JSON nếu cần
-                    return Json(new { success = false, message = "Đăng ký thất bại1" });
+                    return Json(new { success = false, message = "Đăng ký thất bại!" });
                 }
             }
             else
@@ -125,25 +127,31 @@ namespace ThuVienBTL.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdatePassWord(string uname, string pswd, string new_pswd)
+        public ActionResult UpdatePassWord(string uname)
         {
-            var user_name = TempData["user_name"];
-            var user_password = TempData["user_password"];
-            
-            if (uname.Equals(user_name) && user_password.Equals(user_password))
+            // lấy user để lấy ra thuộc thính email
+            LOGIN_DG lg = db.LOGIN_DG.Find(uname);
+
+            // tìm kếm user dựa trên uname nhập vào
+            var user = db.LOGIN_DG.FirstOrDefault(u => u.SDT == uname);
+
+            TempData["uname_UpdatePass"] = uname;
+
+            if (user != null)
             {
-                if(new_pswd.Equals(new_pswd))
-                { 
-                    var lg = db.LOGIN_DG.Find(user_name);
-                    lg.PASSWORD_DG = new_pswd;
-                    db.SaveChanges();
-                    return RedirectToAction("Logout");
-                }
-                else
-                {
-                    ViewBag.error = "*Thông tin lỗi!";
-                    return View();
-                }
+                // Tạo biến random ra mã xác thực
+                Random rd = new Random();
+                // Tạo số ngẫu nhiên có 6 chữ số
+                int randomNumber = rd.Next(100000, 1000000);
+
+                TempData["OTP"] = randomNumber.ToString();
+
+                // Gửi mail cho khách hàng
+                string mailDangKy = System.IO.File.ReadAllText(Server.MapPath("~/Content/mailDangKy.html"));
+                mailDangKy = mailDangKy.Replace("{{MaCode}}", randomNumber.ToString());
+                ThuVienBTL.Common.CommonController.SendEmail("Thư viện ABC", "Xác nhận tài khoản", mailDangKy.ToString(), lg.Email);
+
+                return Json(new { success = true });
             }
             else
             {
@@ -152,7 +160,49 @@ namespace ThuVienBTL.Controllers
             }
         }
 
-        
+        public ActionResult XacNhanUpdatePassword(string OTPInput)
+        {
+            if (OTPInput == TempData["OTP"].ToString())
+            {
+                return Json(new { success = true });
+            }
+            else
+            {
+                return Json(new { success = false });
+
+            }
+
+        }
+
+        public ActionResult NewPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+
+        public ActionResult NewPassword(string passwordInput)
+        {
+            var user = db.LOGIN_DG.FirstOrDefault(u => u.SDT == TempData["uname_UpdatePass"].ToString());
+
+            if(user != null)
+            {
+                user.PASSWORD_DG = passwordInput;
+
+                db.SaveChanges();
+
+                return Json(new { success = true });
+            }
+            else
+            {
+                return Json(new { success = false });
+
+            }
+
+        }
+
+
+
         public ActionResult History()
         {
             

@@ -65,10 +65,9 @@
                     <td>
                         @if (item.Tinhtrang == 0)
                         {
-                            <button class="btn btn-danger btn-sm" onclick="cancelRequest(@item.MaDK)">Hủy</button>
+                            <button class="btn btn-danger btn-sm" onclick="HuyDon(@item.MaDK)">Hủy</button>
                         }
                         <button class="btn btn-danger btn-sm" onclick="showDetails(@item.MaDK)">Chi tiết</button>
-
                     </td>
                 </tr>
             }
@@ -78,57 +77,86 @@
 @*/////////////////////////////////*@
 
 <!-- Add this modal at the end of your View -->
-<div class="modal fade" id="Details" role="dialog">
-    <div class="modal-dialog">
+<div class="modal fade" id="Details" role="dialog" style="max-width: 700px; margin-left:420px;">
+    <div class="modal-dialog" style="justify-items: center; display: flex; align-items: center">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
+                <h5 class="modal-title" style="margin-left:150px; color:orangered">Chi tiết đăng ký</h5>
+                <br />
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <table class="table">
-                    <tr>
-                        <th>Mã đăng ký</th>
-                        <td id="MaDK"></td>
-                    </tr>
-                    <tr>
-                        <th>Mã sách</th>
-                        <td id="MaSach"></td>
-                    </tr>
-                    <tr>
-                        <th>Số lượng</th>
-                        <td id="Soluong"></td>
-                    </tr>
-                    <!-- Add other fields as needed -->
-                </table>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <strong>Mã đăng ký:</strong> <span id="MaDK"></span>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-3" style="text-align:center"><strong>Mã sách</strong></div>
+                    <div class="col-6" style="text-align:center"><strong>Tên sách</strong></div>
+                    <div class="col-3" style="text-align:center"><strong>Số lượng</strong></div>
+                </div>
+                <div id="ChiTietSachList">
+                    <table class="table ">
+                        <td id="MaSach" class="col-3" style="text-align:center"></td>
+                        <td id="TenSach" class="col-6" style="text-align:center"></td>
+                        <td id="Soluong" class="col-3" style="text-align:center"></td>
+                        <!-- Add other fields as needed -->
+                    </table>
+                </div>
+                <!-- Add other fields as needed -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
 </div>
 
+
 <!-- Update the "Details" action link in your existing table -->
 
-
-
-
 <script>
-    function cancelRequest(requestId) {
+    function HuyDon(maDK) {
 
         var confirmed = confirm("Bạn chắc chắn muốn hủy đơn?");
         if (confirmed) {
 
-            $.post("/User/CancelRequest", { requestId: requestId }, function (data) {
+            console.log("maDK", maDK)
 
-                location.reload();
+            $.ajax({
+                url: "/User/HuyDon",
+                type: "POST",
+                data: {
+                    maDK: maDK,
+                },
+                success: function (data) {
+                    if (data.success)
+                        console.log("Huy don thanh cong")
+                    else
+                        console.log("Huy don thanh cong")
+
+                },
+                error: function () {
+                    // Handle the error if the request fails
+                    alert("Error fetching data.");
+                }
             });
         }
     }
+
+
     function showDetails(maDK) {
-        
-        
+
+        // Xoá dữ liệu cũ trên modal
+        $("#MaDK").empty();
+        $("#MaSach").empty();
+        $("#MTenSach").empty();
+        $("#Soluong").empty();
+
         $.ajax({
             url: "/User/GetDetails",
             type: "POST",
@@ -141,18 +169,18 @@
                 $("#Details").modal("show");
 
 
-
                 $.each(details.details, function (index, item) {
                     console.log("item: ", item);
 
                     // Append details to the modal
                     $("#MaDK").append(item.MaDK + "<br>");
                     $("#MaSach").append(item.MaSach + "<br>");
+                    $("#MTenSach").append(item.TenSach + "<br>");
                     $("#Soluong").append(item.Soluongmuon + "<br>");
                     // Add other fields as needed
                 });
 
-                
+
             },
             error: function () {
                 // Handle the error if the request fails
