@@ -110,6 +110,7 @@ namespace ThuVienBTL.Controllers
         {
             SessionConfig.SetUser(null);
             Session["shared_SDT"] = null;
+            ListSachMuon.listSachMuon.Clear();
             return RedirectToAction("Index","Home");
         }
 
@@ -262,11 +263,22 @@ namespace ThuVienBTL.Controllers
             return Json(new { success = true, details = chiTietDkList2 });
         }
 
-
-
-        public ActionResult CancelRequest()
+        public ActionResult HuyDon(int maDK)
         {
-            return View();
+            var madkToUpdate = maDK; // Thay thế 123 bằng mã đăng ký cụ thể cần cập nhật
+
+            // Lấy bản ghi cần cập nhật từ cơ sở dữ liệu
+            var recordToUpdate = db.DkiMuonSaches.FirstOrDefault(d => d.MaDK == madkToUpdate);
+
+            if (recordToUpdate != null)
+            {
+                // Cập nhật trạng thái ở đây
+                recordToUpdate.Tinhtrang = 3; // Thay thế 1 bằng giá trị trạng thái mới
+
+                // Lưu thay đổi vào cơ sở dữ liệu
+                db.SaveChanges();
+            }
+            return Json(new { success = true, message = "Đã hủy đơn thành công." });
         }
 
     }

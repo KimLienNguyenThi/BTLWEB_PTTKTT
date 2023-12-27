@@ -31,7 +31,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr id="row_@item.MaDK" class="@if(item.Tinhtrang == 3) { <text>da-huy</text> }">
                     <td style="margin-right:50px">
                         @Html.DisplayFor(modelItem => item.MaDK)
                     </td>
@@ -41,7 +41,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.NgayHen)
                     </td>
-                    <td>
+                    <td class="trang-thai">
                         @if (item.Tinhtrang == 0)
                         {
                             <span class="badge badge-secondary" style="color:black;">Chưa duyệt</span>
@@ -65,8 +65,9 @@
                     <td>
                         @if (item.Tinhtrang == 0)
                         {
-                            <button class="btn btn-danger btn-sm" onclick="HuyDon(@item.MaDK)">Hủy</button>
+                            <button class="btn btn-danger btn-sm btn-huy" onclick="HuyDon(@item.MaDK)">Hủy</button>
                         }
+
                         <button class="btn btn-danger btn-sm" onclick="showDetails(@item.MaDK)">Chi tiết</button>
                     </td>
                 </tr>
@@ -134,14 +135,20 @@
                     maDK: maDK,
                 },
                 success: function (data) {
-                    if (data.success)
-                        console.log("Huy don thanh cong")
-                    else
-                        console.log("Huy don thanh cong")
+                    if (data.success) {
+                        alert(data.message);
 
+                        // Ẩn nút Hủy và cập nhật trạng thái đã hủy
+                        var row = $("#row_" + maDK);
+                        var trangThaiElement = row.find(".trang-thai");
+                        trangThaiElement.html("<span class='badge badge-danger' style='color:black;'>Đã hủy</span>");
+                        row.addClass("da-huy");
+                        row.find(".btn-huy").hide();
+                    } else {
+                        console.log("Huy don thanh cong");
+                    }
                 },
                 error: function () {
-                    // Handle the error if the request fails
                     alert("Error fetching data.");
                 }
             });
@@ -154,7 +161,7 @@
         // Xoá dữ liệu cũ trên modal
         $("#MaDK").empty();
         $("#MaSach").empty();
-        $("#TenSach").empty();
+        $("#MTenSach").empty();
         $("#Soluong").empty();
 
         $.ajax({
@@ -163,19 +170,21 @@
             data: {
                 maDK: maDK,
             },
-            success: function (data) {
-                console.log("details: ", data);
+            success: function (details) {
+                console.log("details: ", details);
                 // Show the modal
                 $("#Details").modal("show");
+                $("#MaDK").append(item.MaDK + "<br>");
 
-
-                $.each(data.details, function (index, item) {
+                $.each(details.details, function (index, item) {
                     console.log("item: ", item);
 
-                    $("#MaDK").append(item.chiTietDk.MaDK + "<br>");
-                    $("#MaSach").append(item.chiTietDk.MaSach + "<br>");
-                    $("#TenSach").append(item.tenSach + "<br>");
-                    $("#Soluong").append(item.chiTietDk.Soluongmuon + "<br>");
+                    // Append details to the modal
+
+                    $("#MaSach").append(item.MaSach + "<br>");
+                    $("#MTenSach").append(item.TenSach + "<br>");
+                    $("#Soluong").append(item.Soluongmuon + "<br>");
+                    // Add other fields as needed
                 });
 
 

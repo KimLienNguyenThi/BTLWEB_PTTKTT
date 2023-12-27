@@ -255,8 +255,9 @@ namespace ThuVienBTL.Controllers
 
                 db.ChiTietDks.Add(ctdk);
 
-                //var sach = db.Saches.Find(maSachItem);
-                //sach.SoLuongHIENTAI = sach.SoLuongHIENTAI - soLuongSachItem;
+                // Xoá dữ liệu ở model listSachMuon
+                ListSachMuon.listSachMuon.Remove(ctdk.MaSach);
+
             }
 
             // Luu vào database
