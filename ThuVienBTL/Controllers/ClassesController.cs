@@ -154,5 +154,19 @@ namespace ThuVienBTL.Controllers
             // Trả về đối tượng dưới dạng JSON
             return Json(response);
         }
+        [HttpPost]
+        public ActionResult ThongTinSach(int maSach)
+        {
+            var sachInfo = db.Saches.FirstOrDefault(a => a.MaSach == maSach);
+            if (sachInfo != null)
+            {
+                return View("ThongTinSach", sachInfo);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
     }
 }

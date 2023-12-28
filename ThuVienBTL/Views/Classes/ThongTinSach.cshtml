@@ -1,0 +1,83 @@
+﻿@model ThuVienBTL.Models.Sach
+
+@{
+    ViewBag.Title = "ThongTinSach";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ThuVienBTL.Models.QuanLyThuVienEntities db = new ThuVienBTL.Models.QuanLyThuVienEntities();
+    ThuVienBTL.Models.TT_SACH ttSach = db.TT_SACH.Find(Model.MaSach);
+
+    // Tạo URL đầy đủ từ đường dẫn tương đối
+    string imageUrl = Url.Content(ttSach.URL_IMAGE);
+
+    // Lấy ra mô tả sách
+
+    string MOTA = ttSach.MOTA.ToString();
+
+
+
+}
+
+<h2>Thông Tin Sách</h2>
+
+<div>
+    <h4>TT_SACH</h4>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dd>
+            @Html.DisplayFor(model => imageUrl)
+        </dd>
+
+        <dt>
+            Tên Sách:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TenSach)
+        </dd>
+
+        <dt>
+            Mô Tả:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => MOTA)
+        </dd>
+
+        <dt>
+            Nhà Xuất Bản:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NXB)
+        </dd>
+
+        <dt>
+            Năm Xuất Bản:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NamXB)
+        </dd>
+
+        <dt>
+            Ngôn Ngữ:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NgonNgu)
+        </dd>
+
+        <dt>
+            Tác Giả:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TacGia)
+        </dd>
+
+        <dt>
+            Thể Loại:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TheLoai)
+        </dd>
+
+        <!-- Thêm các trường khác tương tự -->
+
+    </dl>
+</div>

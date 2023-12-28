@@ -97,7 +97,8 @@
                     <img class="img-fluid rounded-circle" src="@imageUrl" alt="" style="width: 330px; height: 300px;">
                 </div>
                 <div class="bg-light rounded p-4 pt-5 mt-n5">
-                    <a class="d-block text-center h3 mt-3 mb-4" href="">@item.TenSach</a>
+                    <a class="d-block text-center h3 mt-3 mb-4" href="~/Classes/ThongTinSach" id="@item.MaSach">@item.TenSach</a>
+                    
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <div class="d-flex align-items-center">
 
@@ -159,7 +160,51 @@
 </ul>
 
 <script>
+    /*$(document).ready(function () {
+        $('.resultContainer').on('click', 'a', function (e) {
+            e.preventDefault(); // Ngăn chặn chuyển hướng mặc định
 
+            var maSach = $(this).attr('id'); // Lấy mã sách từ thuộc tính id của thẻ <a>
+            console.log("Mã sách: ", maSach);
+
+            // Gửi yêu cầu AJAX để lấy thông tin chi tiết sách
+            $.ajax({
+                url: "/Classes/ThongTinSach", // Đặt đúng đường dẫn của action ThongTinSach
+                type: "POST",
+                data: { maSach: parseInt(maSach) },
+                success: function (response) {
+                    // Chuyển hướng đến trang thông tin sách với thông tin chi tiết sách
+                    window.location.href = "/Classes/ThongTinSach/" + maSach;
+                },
+                error: function (error) {
+                    console.log("Lỗi khi gửi yêu cầu AJAX:", error);
+                }
+            });
+        });
+    });*/
+    $(document).ready(function () {
+        $('.resultContainer').on('click', 'a', function (e) {
+            e.preventDefault(); // Ngăn chặn chuyển hướng mặc định
+
+            var maSach = $(this).attr('id'); // Lấy mã sách từ thuộc tính id của thẻ a
+            console.log("Mã sách: ", maSach);
+
+            // Chuyển hướng đến trang thông tin sách
+            $.ajax({
+                url: "/Classes/ThongTinSach", // Đặt đúng đường dẫn của action ThongTinSach
+                type: "POST",
+                data: { maSach: parseInt(maSach) },
+                success: function (response) {
+                    // Chuyển hướng đến trang thông tin sách với thông tin chi tiết sách
+                    window.location.href = "/Classes/ThongTinSach/" + maSach;
+                },
+                error: function (error) {
+                    console.log("Lỗi khi gửi yêu cầu AJAX:", error);
+                }
+            });
+            
+        });
+    });
     ///////////////////////////// Tìm kiếm dựa trên search ////////////////////////////////////
     function TimKiem() {
         console.log("Function TimKiem called");
@@ -294,5 +339,6 @@
             });
         });
     }
+    
 
 </script>
