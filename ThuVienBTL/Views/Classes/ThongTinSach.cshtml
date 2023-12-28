@@ -3,81 +3,71 @@
 @{
     ViewBag.Title = "ThongTinSach";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
     ThuVienBTL.Models.QuanLyThuVienEntities db = new ThuVienBTL.Models.QuanLyThuVienEntities();
-    ThuVienBTL.Models.TT_SACH ttSach = db.TT_SACH.Find(Model.MaSach);
-
-    // Tạo URL đầy đủ từ đường dẫn tương đối
-    string imageUrl = Url.Content(ttSach.URL_IMAGE);
-
-    // Lấy ra mô tả sách
-
-    string MOTA = ttSach.MOTA.ToString();
 
 
+    ThuVienBTL.Models.TT_SACH tt_Sach = db.TT_SACH.Find(Model.MaSach);
 
+    string mota = tt_Sach.MOTA.ToString();
+    string imageUrl = Url.Content(tt_Sach.URL_IMAGE);
 }
 
-<h2>Thông Tin Sách</h2>
+<h1 style="text-align:center; color:orangered">Thông tin sách</h1>
 
 <div>
-    <h4>TT_SACH</h4>
-    <hr />
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="bg-light rounded">
+                <div class="row g-0">
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
+                        <div class="position-relative h-100" style="margin-left:30px">
+                            <img class="position-absolute w-60 h-100 rounded" src="@imageUrl ">
+                            
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <hr />
+                        <dl class="dl-horizontal ">
+                            <dd>
+                                <h3>
+                                    @Html.DisplayFor(model => model.TenSach)
+                                </h3>
 
-    <dl class="dl-horizontal">
-        <dd>
-            @Html.DisplayFor(model => imageUrl)
-        </dd>
+                            </dd>
+                            <dd>
+                                 <span style="font-weight:bold">Thể loại:</span>
+                                    @Html.DisplayFor(model => model.TheLoai)
+                                
+                            </dd>
+                            <dd>
+                                <span style="font-weight:bold">Tác giả:</span>
+                                @Html.DisplayFor(model => model.TacGia)
+                            </dd>
+                            <dd>
+                                <span style="font-weight:bold">Ngôn ngữ:</span>
+                                @Html.DisplayFor(model => model.NgonNgu)
+                            </dd>
+                            <dd>
+                                <span style="font-weight:bold">Nhà xuất bản:</span>
+                                @Html.DisplayFor(model => model.NXB)
+                            </dd>
+                            <dd>
+                                <span style="font-weight:bold">Năm xuất bản:</span>
+                                @Html.DisplayFor(model => model.NamXB)
+                            </dd>
+                            <dd>
+                                @Html.DisplayFor(model => mota)
+                            </dd>
 
-        <dt>
-            Tên Sách:
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TenSach)
-        </dd>
-
-        <dt>
-            Mô Tả:
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => MOTA)
-        </dd>
-
-        <dt>
-            Nhà Xuất Bản:
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NXB)
-        </dd>
-
-        <dt>
-            Năm Xuất Bản:
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NamXB)
-        </dd>
-
-        <dt>
-            Ngôn Ngữ:
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NgonNgu)
-        </dd>
-
-        <dt>
-            Tác Giả:
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TacGia)
-        </dd>
-
-        <dt>
-            Thể Loại:
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TheLoai)
-        </dd>
-
-        <!-- Thêm các trường khác tương tự -->
-
-    </dl>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<p>
+    <a href="~/Classes/Index" class="btn btn-primary rounded-pill px-3 d-none d-lg-block" style="max-width:300px; margin-left:500px">Quay về</a>
+    
+</p>

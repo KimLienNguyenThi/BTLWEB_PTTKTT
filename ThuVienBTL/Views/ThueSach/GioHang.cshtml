@@ -329,6 +329,10 @@ else
                     }
                 });
                 alert("Đăng ký mượn thành công");
+                // Xoá số sách mượn hiển thị
+                var tongSoSach = document.getElementById("TongSoSachMuon");
+                tongSoSach.innerHTML = "Tổng số sách mượn: ";
+                $('input[type="checkbox"]').prop('checked', false);
 
             }
         }

@@ -23,62 +23,64 @@
 </div>
 
 @*LỌC YÊU CẦU*@
-<form action="~/ThueSach/LocYeuCau" method="post">
-    <div class="container mt-4" style=" padding: 20px; border-radius: 10px; ">
-        <div class="row" style="margin-left:200px">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="TheLoai" style="font-weight: bold">Thể loại</label>
-                    <select name="TheLoai" class="form-control">
-                        <option value="All">Tất cả</option>
-                        <option value="Truyện thiếu nhi">Truyện thiếu nhi</option>
-                        <option value="Tiểu thuyết">Tiểu thuyết</option>
-                        <option value="Kỹ năng sống">Kỹ năng sống</option>
-                        <option value="Ngôn tình">Ngôn tình</option>
-                        <option value="Sách giáo khoa">Sách giáo khoa</option>
-                        <option value="Sách ngoại ngữ">Sách ngoại ngữ</option>
-                        <option value="Truyện ngắn">Truyện ngắn</option>
-                        <option value="Văn học">Sách ngoại ngữ</option>
-                        <option value="Sách tham khảo">Sách tham khảo</option>
-                    </select>
-                </div>
+@*<form action="~/ThueSach/LocYeuCau" method="post">*@
+<div class="container mt-4" style=" padding: 20px; border-radius: 10px; ">
+    <div class="row" style="margin-left:200px">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="TheLoai" style="font-weight: bold">Thể loại</label>
+                <select id="theLoaiSelect" class="form-control">
+                    <option value="All">Tất cả</option>
+                    <option value="Truyện thiếu nhi">Truyện thiếu nhi</option>
+                    <option value="Tiểu thuyết">Tiểu thuyết</option>
+                    <option value="Kỹ năng sống">Kỹ năng sống</option>
+                    <option value="Ngôn tình">Ngôn tình</option>
+                    <option value="Sách giáo khoa">Sách giáo khoa</option>
+                    <option value="Sách ngoại ngữ">Sách ngoại ngữ</option>
+                    <option value="Truyện ngắn">Truyện ngắn</option>
+                    <option value="Văn học">Sách ngoại ngữ</option>
+                    <option value="Sách tham khảo">Sách tham khảo</option>
+                </select>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="NgonNgu" style="font-weight: bold">Ngôn ngữ</label>
-                    <select name="NgonNgu" class="form-control">
-                        <option value="All">Tất cả</option>
-                        <option value="TiếngViệt">Tiếng Việt</option>
-                        <option value="TiếngAnh">Tiếng Anh</option>
-                        <option value="TiếngTrung">Tiếng Trung</option>
-                        <option value="TiếngPháp">Tiếng Pháp</option>
-                    </select>
-                </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="NgonNgu" style="font-weight: bold">Ngôn ngữ</label>
+                <select id="ngonNguSelect" class="form-control">
+                    <option value="All">Tất cả</option>
+                    <option value="Tiếng việt">Tiếng Việt</option>
+                    <option value="Tiếng anh">Tiếng Anh</option>
+                    <option value="Tiếng trung">Tiếng Trung</option>
+                    <option value="Tiếng pháp">Tiếng Pháp</option>
+                </select>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="NamXB" style="font-weight: bold">Năm xuất bản</label>
-                    <select name="NamXB" class="form-control">
-                        <option value="All">Tất cả</option>
-                        <!-- Script to generate years dynamically -->
-                        <script>
-                            var currentYear = new Date().getFullYear();
-                            for (var i = currentYear; i >= 1940; i--) {
-                                document.write('<option value="' + i + '">' + i + '</option>');
-                            }
-                        </script>
-                    </select>
-                </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="NamXB" style="font-weight: bold">Năm xuất bản</label>
+                <select id="namXBSelect" class="form-control">
+                    <option value="All">Tất cả</option>
+                    <!-- Script to generate years dynamically -->
+                    <script>
+                        var currentYear = new Date().getFullYear();
+                        for (var i = currentYear; i >= 1940; i--) {
+                            document.write('<option value="' + i + '">' + i + '</option>');
+                        }
+                    </script>
+                </select>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>&nbsp;</label> <!-- Empty label for spacing -->
-                    <button type="submit" class="btn btn-primary btn-block" value="Submit" style=" margin-top: 25px;">Lọc</button>
-                </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <!-- Empty label for spacing -->
+
+                <button type="submit" class="btn btn-primary btn-block" value="Submit" style=" margin-top: 25px;" onclick="LocSach()">Lọc</button>
             </div>
         </div>
     </div>
-</form>
+</div>
+@*</form>*@
 
 
 <div class="row g-4 pt-5" id="resultContainer">
@@ -97,8 +99,8 @@
                     <img class="img-fluid rounded-circle" src="@imageUrl" alt="" style="width: 330px; height: 300px;">
                 </div>
                 <div class="bg-light rounded p-4 pt-5 mt-n5">
-                    <a class="d-block text-center h3 mt-3 mb-4" href="~/Classes/ThongTinSach" id="@item.MaSach">@item.TenSach</a>
-                    
+                    <a class="d-block text-center h3 mt-3 mb-4 custom-link" href="#" id="@item.MaSach">@item.TenSach</a>
+
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <div class="d-flex align-items-center">
 
@@ -159,52 +161,22 @@
     </li>
 </ul>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script>
-    /*$(document).ready(function () {
-        $('.resultContainer').on('click', 'a', function (e) {
-            e.preventDefault(); // Ngăn chặn chuyển hướng mặc định
-
-            var maSach = $(this).attr('id'); // Lấy mã sách từ thuộc tính id của thẻ <a>
-            console.log("Mã sách: ", maSach);
-
-            // Gửi yêu cầu AJAX để lấy thông tin chi tiết sách
-            $.ajax({
-                url: "/Classes/ThongTinSach", // Đặt đúng đường dẫn của action ThongTinSach
-                type: "POST",
-                data: { maSach: parseInt(maSach) },
-                success: function (response) {
-                    // Chuyển hướng đến trang thông tin sách với thông tin chi tiết sách
-                    window.location.href = "/Classes/ThongTinSach/" + maSach;
-                },
-                error: function (error) {
-                    console.log("Lỗi khi gửi yêu cầu AJAX:", error);
-                }
-            });
-        });
-    });*/
     $(document).ready(function () {
-        $('.resultContainer').on('click', 'a', function (e) {
-            e.preventDefault(); // Ngăn chặn chuyển hướng mặc định
+        $(".custom-link").click(function (e) {
+            e.preventDefault();
 
-            var maSach = $(this).attr('id'); // Lấy mã sách từ thuộc tính id của thẻ a
+            var maSach = $(this).attr("id");
             console.log("Mã sách: ", maSach);
 
-            // Chuyển hướng đến trang thông tin sách
-            $.ajax({
-                url: "/Classes/ThongTinSach", // Đặt đúng đường dẫn của action ThongTinSach
-                type: "POST",
-                data: { maSach: parseInt(maSach) },
-                success: function (response) {
-                    // Chuyển hướng đến trang thông tin sách với thông tin chi tiết sách
-                    window.location.href = "/Classes/ThongTinSach/" + maSach;
-                },
-                error: function (error) {
-                    console.log("Lỗi khi gửi yêu cầu AJAX:", error);
-                }
-            });
-            
+            window.location.href = "/Classes/ThongTinSach/" + maSach;
+
+
         });
     });
+
     ///////////////////////////// Tìm kiếm dựa trên search ////////////////////////////////////
     function TimKiem() {
         console.log("Function TimKiem called");
@@ -213,13 +185,18 @@
 
         // Gửi yêu cầu AJAX đến action "SearchSach" trên controller "ThueSach"
         $.ajax({
-            url: "/Classes/SearchSach",
+            url: "/ThueSach/SearchSach",
             type: "POST",
             data: { search: search },
             success: function (result) {
                 // Xử lý dữ liệu JSON và cập nhật nội dung trang
                 console.log("Phản hồi từ server:", result);
-                UpdateView(result.sachList);
+
+                if (result.success) {
+                    UpdateView(result.sachList);
+                } else {
+                    alert(result.message);
+                }
             },
             error: function (result) {
                 console.log("Lỗi khi gửi yêu cầu AJAX:", result);
@@ -241,7 +218,7 @@
 
         // Gửi yêu cầu AJAX đến action "LocYeuCau" trên controller "ThueSach"
         $.ajax({
-            url: "/Classes/LocYeuCau",
+            url: "/ThueSach/LocYeuCau",
             type: "POST",
             data:
             {
@@ -252,8 +229,13 @@
             success: function (result) {
                 // Xử lý dữ liệu JSON và cập nhật nội dung trang
                 console.log("Phản hồi từ server:", result);
+                console.log("PhảsachList:", result.sachList);
 
-                UpdateView(result.sachList);
+                if (result.success) {
+                    UpdateView(result.sachList);
+                } else {
+                    alert(result.message);
+                }
             },
             error: function (result) {
                 console.log("Lỗi khi gửi yêu cầu AJAX:", result);
@@ -339,6 +321,6 @@
             });
         });
     }
-    
+
 
 </script>

@@ -23,62 +23,66 @@
 </div>
 
 @*LỌC YÊU CẦU*@
-<form action="~/ThueSach/LocYeuCau" method="post">
-    <div class="container mt-4" style=" padding: 20px; border-radius: 10px; ">
-        <div class="row" style="margin-left:200px">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="TheLoai" style="font-weight: bold">Thể loại</label>
-                    <select name="TheLoai" class="form-control">
-                        <option value="All">Tất cả</option>
-                        <option value="Truyện thiếu nhi">Truyện thiếu nhi</option>
-                        <option value="Tiểu thuyết">Tiểu thuyết</option>
-                        <option value="Kỹ năng sống">Kỹ năng sống</option>
-                        <option value="Ngôn tình">Ngôn tình</option>
-                        <option value="Sách giáo khoa">Sách giáo khoa</option>
-                        <option value="Sách ngoại ngữ">Sách ngoại ngữ</option>
-                        <option value="Truyện ngắn">Truyện ngắn</option>
-                        <option value="Văn học">Sách ngoại ngữ</option>
-                        <option value="Sách tham khảo">Sách tham khảo</option>
-                    </select>
-                </div>
+@*<form action="~/ThueSach/LocYeuCau" method="post">*@
+<div class="container mt-4" style=" padding: 20px; border-radius: 10px; ">
+    <div class="row" style="margin-left:200px">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="TheLoai" style="font-weight: bold">Thể loại</label>
+                <select id="theLoaiSelect" class="form-control">
+                    <option value="All">Tất cả</option>
+                    <option value="Truyện thiếu nhi">Truyện thiếu nhi</option>
+                    <option value="Tiểu thuyết">Tiểu thuyết</option>
+                    <option value="Kỹ năng sống">Kỹ năng sống</option>
+                    <option value="Ngôn tình">Ngôn tình</option>
+                    <option value="Sách giáo khoa">Sách giáo khoa</option>
+                    <option value="Sách ngoại ngữ">Sách ngoại ngữ</option>
+                    <option value="Truyện ngắn">Truyện ngắn</option>
+                    <option value="Văn học">Sách ngoại ngữ</option>
+                    <option value="Sách tham khảo">Sách tham khảo</option>
+                </select>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="NgonNgu" style="font-weight: bold">Ngôn ngữ</label>
-                    <select name="NgonNgu" class="form-control">
-                        <option value="All">Tất cả</option>
-                        <option value="TiếngViệt">Tiếng Việt</option>
-                        <option value="TiếngAnh">Tiếng Anh</option>
-                        <option value="TiếngTrung">Tiếng Trung</option>
-                        <option value="TiếngPháp">Tiếng Pháp</option>
-                    </select>
-                </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="NgonNgu" style="font-weight: bold">Ngôn ngữ</label>
+                <select id="ngonNguSelect" class="form-control">
+                    <option value="All">Tất cả</option>
+                    <option value="Tiếng việt">Tiếng Việt</option>
+                    <option value="Tiếng anh">Tiếng Anh</option>
+                    <option value="Tiếng trung">Tiếng Trung</option>
+                    <option value="Tiếng pháp">Tiếng Pháp</option>
+                </select>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="NamXB" style="font-weight: bold">Năm xuất bản</label>
-                    <select name="NamXB" class="form-control">
-                        <option value="All">Tất cả</option>
-                        <!-- Script to generate years dynamically -->
-                        <script>
-                            var currentYear = new Date().getFullYear();
-                            for (var i = currentYear; i >= 1940; i--) {
-                                document.write('<option value="' + i + '">' + i + '</option>');
-                            }
-                        </script>
-                    </select>
-                </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="NamXB" style="font-weight: bold">Năm xuất bản</label>
+                <select id="namXBSelect" class="form-control">
+                    <option value="All">Tất cả</option>
+                    <!-- Script to generate years dynamically -->
+                    <script>
+                        var currentYear = new Date().getFullYear();
+                        for (var i = currentYear; i >= 1940; i--) {
+                            document.write('<option value="' + i + '">' + i + '</option>');
+                        }
+                    </script>
+                </select>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>&nbsp;</label> <!-- Empty label for spacing -->
-                    <button type="submit" class="btn btn-primary btn-block" value="Submit" style=" margin-top: 25px;">Lọc</button>
-                </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <!-- Empty label for spacing -->
+
+                <button type="submit" class="btn btn-primary btn-block" value="Submit" style=" margin-top: 25px;" onclick="LocSach()">Lọc</button>
             </div>
         </div>
     </div>
-</form>
+</div>
+@*</form>*@
+
+
 
 
 <div class="row g-4 pt-5" id="resultContainer">
@@ -97,7 +101,7 @@
                     <img class="img-fluid rounded-circle" src="@imageUrl" alt="" style="width: 330px; height: 300px;">
                 </div>
                 <div class="bg-light rounded p-4 pt-5 mt-n5">
-                    <a class="d-block text-center h3 mt-3 mb-4" href="">@item.TenSach</a>
+                    <a class="d-block text-center h3 mt-3 mb-4 custom-link" href="#" id="@item.MaSach">@item.TenSach</a>
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <div class="d-flex align-items-center">
 
@@ -179,8 +183,21 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
+    $(document).ready(function () {
+        $(".custom-link").click(function (e) {
+            e.preventDefault();
+
+            var maSach = $(this).attr("id");
+            console.log("Mã sách: ", maSach);
+
+            window.location.href = "/ThueSach/ThongTinSach/" + maSach;
+
+
+        });
+    });
 
     /////////////////////// Đăng ký mượn sách /////////////////////////////
     function ShowDangKyDialog(maSach) {
@@ -269,7 +286,12 @@
             success: function (result) {
                 // Xử lý dữ liệu JSON và cập nhật nội dung trang
                 console.log("Phản hồi từ server:", result);
-                UpdateView(result.sachList);
+
+                if (result.success) {
+                    UpdateView(result.sachList);
+                } else {
+                    alert(result.message);
+                }
             },
             error: function (result) {
                 console.log("Lỗi khi gửi yêu cầu AJAX:", result);
@@ -302,8 +324,13 @@
             success: function (result) {
                 // Xử lý dữ liệu JSON và cập nhật nội dung trang
                 console.log("Phản hồi từ server:", result);
+                console.log("PhảsachList:", result.sachList);
 
-                UpdateView(result.sachList);
+                if (result.success) {
+                    UpdateView(result.sachList);
+                } else {
+                    alert(result.message);
+                }
             },
             error: function (result) {
                 console.log("Lỗi khi gửi yêu cầu AJAX:", result);
@@ -338,49 +365,49 @@
 
                     // Chuyển đổi chuỗi HTML thành mã Razor
                     var newHtml = $(`
-                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" id="sachMuon_${response.SachDetails.MaSach}">
-                            <div class="classes-item">
-                                <div class="bg-light rounded-circle w-75 mx-auto p-3">
+                                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" id="sachMuon_${response.SachDetails.MaSach}">
+                                            <div class="classes-item">
+                                                <div class="bg-light rounded-circle w-75 mx-auto p-3">
 
-                                    <img class="img-fluid rounded-circle" src="${response.UrlImage}" alt="" style="width: 330px; height: 300px;">
-                                </div>
-                                <div class="bg-light rounded p-4 pt-5 mt-n5">
-                                    <a class="d-block text-center h3 mt-3 mb-4" href="">${response.SachDetails.TenSach}</a>
-                                    <div class="d-flex align-items-center justify-content-between mb-4">
-                                        <div class="d-flex align-items-center">
+                                                    <img class="img-fluid rounded-circle" src="${response.UrlImage}" alt="" style="width: 330px; height: 300px;">
+                                                </div>
+                                                <div class="bg-light rounded p-4 pt-5 mt-n5">
+                                                    <a class="d-block text-center h3 mt-3 mb-4" href="">${response.SachDetails.TenSach}</a>
+                                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                                        <div class="d-flex align-items-center">
 
-                                            <img class="rounded-circle flex-shrink-0" src="" alt="" style="width: 45px; height: 45px;">
-                                            <div class="ms-3">
-                                                <h6 class="text-primary mb-1">${response.SachDetails.TacGia}</h6>
-                                                <small>${response.SachDetails.NgonNgu}</small>
+                                                            <img class="rounded-circle flex-shrink-0" src="" alt="" style="width: 45px; height: 45px;">
+                                                            <div class="ms-3">
+                                                                <h6 class="text-primary mb-1">${response.SachDetails.TacGia}</h6>
+                                                                <small>${response.SachDetails.NgonNgu}</small>
+                                                            </div>
+                                                        </div>
+                                                        <button class="btn btn-primary" onclick="ShowDangKyDialog(${response.SachDetails.MaSach})">Đăng ký</button>
+                                                    </div>
+                                                    <div class="row g-1">
+                                                        <div class="col-4">
+                                                            <div class="border-top border-3 border-primary pt-2">
+                                                                <h6 class="text-primary mb-1">Thể loại</h6>
+                                                                <small>${response.SachDetails.TheLoai}</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="border-top border-3 border-success pt-2">
+                                                                <h6 class="text-success mb-1">Năm xuất bản</h6>
+                                                                <small>${response.SachDetails.NXB}</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="border-top border-3 border-warning pt-2">
+                                                                <h6 class="text-warning mb-1">Số lượng</h6>
+                                                                <small id="soLuongSach_${response.SachDetails.MaSach}">${response.SachDetails.SoLuongHIENTAI}</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary" onclick="ShowDangKyDialog(${response.SachDetails.MaSach})">Đăng ký</button>
-                                    </div>
-                                    <div class="row g-1">
-                                        <div class="col-4">
-                                            <div class="border-top border-3 border-primary pt-2">
-                                                <h6 class="text-primary mb-1">Thể loại</h6>
-                                                <small>${response.SachDetails.TheLoai}</small>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="border-top border-3 border-success pt-2">
-                                                <h6 class="text-success mb-1">Năm xuất bản</h6>
-                                                <small>${response.SachDetails.NXB}</small>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="border-top border-3 border-warning pt-2">
-                                                <h6 class="text-warning mb-1">Số lượng</h6>
-                                                <small id="soLuongSach_${response.SachDetails.MaSach}">${response.SachDetails.SoLuongHIENTAI}</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `);
+                                    `);
 
                     $("#resultContainer").append(newHtml);
                 },

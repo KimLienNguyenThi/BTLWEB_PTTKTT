@@ -18,6 +18,12 @@ namespace ThuVienBTL
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "ThongTinSach",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "ThongTinSach", action = "ThongTinSach", id = UrlParameter.Optional }
+            );
         }
     }
 }

@@ -54,7 +54,6 @@ namespace ThuVienBTL.Controllers
         [HttpPost]
         public ActionResult DangKyTaiKhoan(string email)
         {
-
             // Tạo biến random ra mã xác thực
             Random rd = new Random();
             // Tạo số ngẫu nhiên có 6 chữ số
@@ -112,14 +111,6 @@ namespace ThuVienBTL.Controllers
             Session["shared_SDT"] = null;
             ListSachMuon.listSachMuon.Clear();
             return RedirectToAction("Index","Home");
-        }
-
-        public ActionResult Profile()
-        {
-           int maDG = (int)Session["shared_SDT"];
-           DocGia dg = db.DocGias.Find(maDG);
-
-           return View(dg);
         }
 
         public ActionResult UpdatePassWord()

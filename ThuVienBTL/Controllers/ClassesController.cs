@@ -80,7 +80,16 @@ namespace ThuVienBTL.Controllers
                 sachLocNamXB = sachLocTheLoai;
             }
 
-            return Json(new { success = true, sachList = sachLocNamXB });
+            var maSach = sachLocNamXB.Select(sach => sach.MaSach).ToList();
+
+            if (maSach.Count > 0)
+            {
+                return Json(new { success = true, sachList = maSach });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Không tìm thấy sách hoặc sách không tồn tại." });
+            }
         }
 
         [HttpPost]
@@ -154,19 +163,29 @@ namespace ThuVienBTL.Controllers
             // Trả về đối tượng dưới dạng JSON
             return Json(response);
         }
+
         [HttpPost]
-        public ActionResult ThongTinSach(int maSach)
+        public ActionResult DetailsInfo(int maSach)
         {
             var sachInfo = db.Saches.FirstOrDefault(a => a.MaSach == maSach);
             if (sachInfo != null)
             {
-                return View("ThongTinSach", sachInfo);
+                //return View("ThongTinSach", sachInfo);
+                return Json(new { success = true, message = "có sách.", data = sachInfo });
             }
             else
             {
                 return HttpNotFound();
             }
         }
+
+        public ActionResult ThongTinSach(int id)
+        {
+            var sachInfo = db.Saches.FirstOrDefault(a => a.MaSach == id);
+            return View(sachInfo);
+        }
+
+
 
     }
 }

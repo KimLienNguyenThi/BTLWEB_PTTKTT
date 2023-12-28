@@ -519,6 +519,7 @@
     <Content Include="Views\User\History.cshtml" />
     <Content Include="Views\User\NewPassword.cshtml" />
     <Content Include="Views\Classes\ThongTinSach.cshtml" />
+    <Content Include="Views\ThueSach\ThongTinSach.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />

@@ -77,45 +77,51 @@
 </div>
 @*/////////////////////////////////*@
 
-<!-- Add this modal at the end of your View -->
-<div class="modal fade" id="Details" role="dialog" style="max-width: 700px; margin-left:420px;">
-    <div class="modal-dialog" style="justify-items: center; display: flex; align-items: center">
-        <!-- Modal content-->
+<div class="modal fade bd-example-modal-lg" id="ModaldanhSachDkiMuon" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" style="margin-left:150px; color:orangered">Chi tiết đăng ký</h5>
-                <br />
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            <!-- Header -->
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 text-blue" style="font-weight: bold;" id="">Chi tiết</h4>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12 mb-3">
-                        <strong>Mã đăng ký:</strong> <span id="MaDK"></span>
 
+            <!-- Body -->
+            <form class="modal-body p-4">
+                <div class="form-row">
+                    <!--Mã đăng ký-->
+                    <div class="form-group col-2">
+                        <label>Mã ĐK:</label>
+                        <input class="form-control" id="maDangKyModal" readonly>
                     </div>
+                </div>
 
-                </div>
-                <div class="row">
-                    <div class="col-3" style="text-align:center"><strong>Mã sách</strong></div>
-                    <div class="col-6" style="text-align:center"><strong>Tên sách</strong></div>
-                    <div class="col-3" style="text-align:center"><strong>Số lượng</strong></div>
-                </div>
-                <div id="ChiTietSachList">
-                    <table class="table ">
-                        <td id="MaSach" class="col-3" style="text-align:center"></td>
-                        <td id="TenSach" class="col-6" style="text-align:center"></td>
-                        <td id="Soluong" class="col-3" style="text-align:center"></td>
-                        <!-- Add other fields as needed -->
+                <!--Danh sách sách đăng ký mượn-->
+                <div class="text-center">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mã sách</th>
+                                <th>Tên sách</th>
+                                <th>S/Lượng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="danhSachSachDk">
+                            <!--Render từ ajax-->
+                        </tbody>
                     </table>
                 </div>
-                <!-- Add other fields as needed -->
+            </form>
+
+            <!-- Footer -->
+            <div class="modal-footer" id="modal-footer">
+
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-            </div>
+
         </div>
     </div>
 </div>
+
 
 
 <!-- Update the "Details" action link in your existing table -->
@@ -158,11 +164,6 @@
 
     function showDetails(maDK) {
 
-        // Xoá dữ liệu cũ trên modal
-        $("#MaDK").empty();
-        $("#MaSach").empty();
-        $("#TenSach").empty();
-        $("#Soluong").empty();
 
         $.ajax({
             url: "/User/GetDetails",
@@ -175,19 +176,25 @@
                 // Show the modal
                 $("#Details").modal("show");
 
+                var danhSachSachDK = $("#danhSachSachDk");
+
+                danhSachSachDK.empty(); // Xóa nội dung bảng
 
                 $.each(data.details, function (index, item) {
                     console.log("item: ", item);
 
-                    $("#MaDK").html(item.chiTietDk.MaDK);
+                    document.getElementById("maDangKyModal").value = item.chiTietDk.MaDK;
 
-                    $("#MaSach").append(item.chiTietDk.MaSach + "<br>");
-                    $("#TenSach").append(item.tenSach + "<br>");
-                    $("#Soluong").append(item.chiTietDk.Soluongmuon + "<br>");
-                    // Add other fields as needed
+
+                    var newRow = $(` <tr class="sachdk-row" data-ma-sach="${item.MaSach}">
+                        <td>${item.chiTietDk.MaSach}</td>
+                        <td>${item.tenSach}</td>
+                        <td>${item.chiTietDk.Soluongmuon}</td>
+                        </tr> `);
+
+                    danhSachSachDK.append(newRow);
+                    $("#ModaldanhSachDkiMuon").modal("show");
                 });
-
-
             },
             error: function () {
                 // Handle the error if the request fails
