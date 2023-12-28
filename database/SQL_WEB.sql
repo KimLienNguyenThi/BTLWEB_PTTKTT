@@ -542,7 +542,7 @@ BEGIN
     -- Thực hiện cập nhật tình trạng của bảng
     UPDATE DkiMuonSach
     SET Tinhtrang = '3'
-    WHERE NgayHen <= DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()), -1);
+    WHERE NgayHen <= DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()), -1) and Tinhtrang in(0,1);
 END
 
 

@@ -131,17 +131,24 @@ namespace WebQuanLyThuVien.Areas.Admin.Controllers
                 var danhSachDK = _dangKyMuonSachService.Get_CTDK_ByMaDK(maDK);
                 var maThe = _dangKyMuonSachService.GetMaTheBySDT(sdt);
 
-                DTO_Tao_Phieu_Muon tpm = new DTO_Tao_Phieu_Muon();
-                tpm.NgayMuon = ngayMuon;
-                tpm.NgayTra = ngayTra;
-                tpm.MaNhanVien = maNV;
-                tpm.MaTheDocGia = maThe;
-                tpm.MaDK = maDK;
-                tpm.listSachMuon = danhSachDK;
+                var checkHanThe = _dangKyMuonSachService.CheckHanTheDocGia(maDK);
+                if (checkHanThe)
+                {
+                    DTO_Tao_Phieu_Muon tpm = new DTO_Tao_Phieu_Muon();
+                    tpm.NgayMuon = ngayMuon;
+                    tpm.NgayTra = ngayTra;
+                    tpm.MaNhanVien = maNV;
+                    tpm.MaTheDocGia = maThe;
+                    tpm.MaDK = maDK;
+                    tpm.listSachMuon = danhSachDK;
 
-
-                _phieuMuonCTPhieuMuonService.Insert(tpm);
-                return Json(new { success = true, data = tpm });
+                    _phieuMuonCTPhieuMuonService.Insert(tpm);
+                    return Json(new { success = true, data = tpm });
+                }
+                else
+                {
+                    return Json(new { success = true, message = "Thẻ độc giả đã hết hạn", data = "checkthedocgia" });
+                }
             }
             catch (Exception ex)
             {

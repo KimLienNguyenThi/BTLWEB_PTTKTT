@@ -370,13 +370,12 @@
                         },
                         success: function (data) {
                             if (data.success) {
-                                if (data) {
-                                    console.log('data BtnSubmitTaoPhieuMuon:', data);
-                                    HandleBtnHuyAndDuyet(maDK, 2)
+                                if (data.data === "checkthedocgia") {
+                                    document.getElementById("contentModalError").innerHTML = "Thẻ độc giả đã hết hạn. Vui lòng gia  hạn để được mượn sách!";
+                                    $("#ModalError").modal("show");
                                 } else {
-                                    HandleBtnHuyAndDuyet(maDK, 2)
+                                    HandleBtnHuyAndDuyet(maDK, 2);
                                 }
-
                                 $("#ModaldanhSachDkiMuon").modal("hide");
                             } else {
                                 console.error("Không thành công trong việc nhận dữ liệu từ server.");
@@ -544,14 +543,24 @@
                     var render = "";
 
                     $.each(res.Result, function (i, item) {
-
-                        var NgayDK = moment(item.NgayDK).format('MM/DD/YYYY');
-                        var NgayHen = moment(item.NgayHen).format('MM/DD/YYYY');
-
                         render += '<tr class="dkiMuonSach_row" data-ma-the=' + item.MaThe + '>';
                         var isFirst = true;
 
                         $.each(item.List_DTO_DangKyMuonSach, function (j, dataDkiMuonSach) {
+                            //var NgayDK = dataDkiMuonSach.NgayDK.format('MM/dd/yyyy');
+                            //var NgayHen = dataDkiMuonSach.NgayHen.format('MM/dd/yyyy');
+
+                            var formattedNgayDK = parseInt(dataDkiMuonSach.NgayDK.replace("/Date(", "").replace(")/", ""));
+                            var NgayDKDate = new Date(formattedNgayDK);
+                            // Chuyển đổi ngày thành định dạng "yyyy-mm-dd" để đặt giá trị cho input type="date"
+                            var formattedNgayDK = NgayDKDate.toLocaleDateString('en-CA');
+
+                            var formattedNgayHen = parseInt(dataDkiMuonSach.NgayHen.replace("/Date(", "").replace(")/", ""));
+                            var NgayHenDate = new Date(formattedNgayHen);
+                            // Chuyển đổi ngày thành định dạng "yyyy-mm-dd" để đặt giá trị cho input type="date"
+                            var formattedNgayHen = NgayHenDate.toLocaleDateString('en-CA');
+
+
                             render += '<tr class="dkiMuonSach_row" data-ma-the="' + dataDkiMuonSach.MaDK + '">';
                             if (isFirst) {
                                 isFirst = false;
@@ -559,8 +568,8 @@
                                 render += '<td rowspan="' + item.CountRow + '" class="align-middle text-center">' + dataDkiMuonSach.HoTen + '</td>';
                             }
                             render += '<td>' + dataDkiMuonSach.MaDK + '</td>';
-                            render += '<td>' + NgayDK + '</td>';
-                            render += '<td>' + NgayHen + '</td>';
+                            render += '<td>' + formattedNgayDK + '</td>';
+                            render += '<td>' + formattedNgayHen + '</td>';
 
                             if (dataDkiMuonSach.TinhTrang == 0) {
                                 render += '<td><button type="button" class="btn btn-warning" style="font-size: 13px;" onclick="handleTinhTrang(' + dataDkiMuonSach.MaDK + ', ' + dataDkiMuonSach.SDT + ', ' + dataDkiMuonSach.TinhTrang + ')">Chờ duyệt</button></td>';

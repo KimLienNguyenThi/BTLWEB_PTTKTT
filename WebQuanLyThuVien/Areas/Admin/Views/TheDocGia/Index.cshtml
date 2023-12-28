@@ -531,13 +531,21 @@
                     document.getElementById("contentModalError").innerHTML = "Ngày hết hạn không hợp lệ!";
                     $("#ModalError").modal("show");
                 } else {
-                    // Thêm thời gian vào ngày
-                    ngayHH.setMonth(ngayHH.getMonth() + parseInt(thoiGianGh));
 
-                    console.log("ngayHH", ngayHH)
+                    if (ngayHH.getTime() < currentDate) {
+                        console.log("ngayHH", ngayHH)
+                        console.log("currentDate", currentDate)
+                        ngayHH.setTime(currentDate.getTime() + (parseInt(thoiGianGh) * 30 * 24 * 60 * 60 * 1000));
+                    } else {
+                        // Thêm thời gian vào ngày
+                        ngayHH.setMonth(ngayHH.getMonth() + parseInt(thoiGianGh));
+                    }
+
 
                     // Chuyển đổi ngày thành chuỗi để truyền qua AJAX
                     var thoiGianGiaHan = ngayHH.toISOString();
+
+                    console.log("thoiGianGiaHan: ", thoiGianGiaHan)
 
                     var confirmed = confirm("Bạn có chắc muốn gia hạn không?");
                     if (confirmed) {
@@ -658,15 +666,24 @@
                     $.each(res.Result, function (i, item) {
                         var ngayHetHan = moment(item.NgayHetHan);
                         var ngayHetHanFormatted = ngayHetHan.format('MM/DD/YYYY');
-                        render += '<tr class="thedocgia-row" aria-expanded="false" data-widget="expandable-table" data-ma-thedg="' + item.MaThe + '">';
-                            render += '<td>' + item.MaThe + '</td>';
-                            render += '<td>' + item.HoTenDG + '</td>';
-                            render += '<td>' + item.SDT + '</td>';
-                            render += '<td>' + ngayHetHanFormatted + '</td>';
 
-                            render += '<td> <button type="button" class="btn btn-primary giaHanThe text-center" onclick="ShowGiaHan(' + item.MaThe + ')">Gia Hạn</button> </td>';
+                        // Check if the expiration date is earlier than the current date
+                        var isExpired = ngayHetHan.isBefore(moment());
+
+                        // Add a class for styling based on the expiration status
+                        var buttonClass = isExpired ? 'btn btn-danger giaHanThe text-center' : 'btn btn-primary giaHanThe text-center';
+
+                        render += '<tr class="thedocgia-row" aria-expanded="false" data-widget="expandable-table" data-ma-thedg="' + item.MaThe + '">';
+                        render += '<td>' + item.MaThe + '</td>';
+                        render += '<td>' + item.HoTenDG + '</td>';
+                        render += '<td>' + item.SDT + '</td>';
+                        render += '<td>' + ngayHetHanFormatted + '</td>';
+
+                        render += '<td> <button type="button" class="' + buttonClass + '" onclick="ShowGiaHan(' + item.MaThe + ')">Gia Hạn</button> </td>';
+
                         render += '</tr>';
                     });
+
 
                     let danhSachTheDocGia = document.getElementById("DanhSachTheDocGia");
                     danhSachTheDocGia.innerHTML = render;
